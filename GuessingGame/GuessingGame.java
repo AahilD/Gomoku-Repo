@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class GuessingGame {
 	
 	public static boolean getAndCheckGuess(int numberToGuess) {
+		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
 		System.out.print("Enter a guess: ");
 		int guess = reader.nextInt();
