@@ -25,12 +25,10 @@ public class GuessingGame {
 	
 	public static void main(String[] args){
 		int numToGuess = 0;
-		int counter = 0;
 		boolean isValid = false;
 		
-		while(counter<5 && !isValid) {
+		for(int counter = 0; counter<5 && !isValid; counter++) {
 			isValid = getAndCheckGuess(numToGuess);
-			counter = counter + 1;
 		}
 		
 		if(isValid==true) {
