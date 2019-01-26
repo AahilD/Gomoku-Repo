@@ -25,11 +25,6 @@ public class GuessingGame
 	 */
 	public static boolean getAndCheckGuess(int numberToGuess)
 	{
-		/*
-		 * TODO Add a while loop that will re-prompt the user to enter a new
-		 * guess if the current guess < 1 or guess > 20
-		 * 
-		 */
 		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
 		System.out.print("Enter a guess: ");
@@ -91,7 +86,6 @@ public class GuessingGame
 			isCorrect = getAndCheckGuess(numToGuess);
 		}
 		
-		// FYI: it is redundant to check if boolean == false
 		if (isCorrect)
 		{
 			System.out.println("Well done!");
