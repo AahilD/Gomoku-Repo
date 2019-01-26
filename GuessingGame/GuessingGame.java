@@ -1,18 +1,29 @@
-/*
- * Team Assignment 1
- * Guessing Game
- * GROUP 22
- * version: 1.0
- * 
- * Initial version submitted by Leslie
- * 
- */
-
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * CPSC 219
+ * GROUP 22
+ * Team Assignment 1: Guessing Game
+ * 
+ * @author Aahil
+ * @author Emily
+ * @author Emmanuel
+ * @author Leslie
+ * @author Steven
+ * 
+ * @version 2.0
+ */
 public class GuessingGame {
 	
+	/**
+	 * This Method will continue to prompt user to guess
+	 * the number until they run out of tries or guess it right.
+	 * If the user enters an invalid guess the user will be prompted
+	 * to enter a number within the valid range
+	 * @param numberToGuess
+	 * @return
+	 */
 	public static boolean getAndCheckGuess(int numberToGuess) {
 		@SuppressWarnings("resource")
 		Scanner reader = new Scanner(System.in);
@@ -33,6 +44,11 @@ public class GuessingGame {
 		return false;
 	}
 	
+	/**
+	 * This is the main method.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args){
 		int numToGuess = 0;
 		int counter = 0;
