@@ -20,8 +20,8 @@ public class GuessingGame
 	 * run out of tries or guess it right. If the user enters an invalid guess
 	 * the user will be prompted to enter a number within the valid range
 	 * 
-	 * @param numberToGuess
-	 * @return
+	 * @param numberToGuess as int
+	 * @return true if user correctly guesses the number, otherwise returns false
 	 */
 	public static boolean getAndCheckGuess(int numberToGuess)
 	{
@@ -94,10 +94,10 @@ public class GuessingGame
 		// FYI: it is redundant to check if boolean == false
 		if (isCorrect)
 		{
-			System.out.print("Well done!");
+			System.out.println("Well done!");
 		} else
 		{
-			System.out.print("The number to guess was " + numToGuess);
+			System.out.println("The number to guess was " + numToGuess);
 		}
 		
 		System.out.println(isCorrect);
