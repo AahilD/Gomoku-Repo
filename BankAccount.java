@@ -14,6 +14,7 @@ public class BankAccount {
 private double balance;
 private String accountNumber;
 	
+
 // Constructors //
 	
 /**
@@ -56,6 +57,7 @@ public BankAccount (double startBalance, String accNum) {
 
 }	
 
+	
 // Mutators (Setters) //
 
 /**
@@ -94,6 +96,7 @@ public void deposit(double deposit) {
 	}
 }
 
+	
 // Accessor (Getters) //	
 
 /**
@@ -128,6 +131,7 @@ public String toString() {
 	return String.format(accountNumber + ": " + balance);
 }
 
+	
 // Main function //
 
 /**
