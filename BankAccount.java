@@ -92,7 +92,7 @@ public class BankAccount {
 		if (deposit >= 0) {
 			this.balance += deposit;
 		} else {
-			System.out.println("Can not withdraw a negative number.");
+			System.out.println("Can not deposit a negative number.");
 		}
 	}
 
