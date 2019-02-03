@@ -15,7 +15,7 @@ public class BankAccount {
 	}
 	
 // Takes start balance 
-	public BankAccount (Double startBalance) {
+	public BankAccount (double startBalance) {
 		
 		if (startBalance >= 0) {
 			balance = startBalance;
@@ -29,7 +29,7 @@ public class BankAccount {
 	
 		
 // Takes start balance and account number	
-	public BankAccount (Double startBalance, String accNum) {
+	public BankAccount (double startBalance, String accNum) {
 		
 		balance = startBalance;
 		accountNumber = accNum;
@@ -40,7 +40,7 @@ public class BankAccount {
 // Mutators (Setters) //
 
 // Subtracts withdraw amount from balance		
-	public void withdraw(Double withdraw) {
+	public void withdraw(double withdraw) {
 		
 		if (withdraw >= 0) {
 			if (balance >= withdraw) {
@@ -54,7 +54,7 @@ public class BankAccount {
 	}
 
 // Adds deposit amount to balance	
-	public void deposit(Double deposit) {
+	public void deposit(double deposit) {
 		
 		if (deposit >= 0) {
 			this.balance += deposit;
