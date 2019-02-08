@@ -65,6 +65,8 @@ public class GuessingGame
 		boolean isCorrect = false;
 		int numToGuess;
 		
+		System.out.println("you should see this change on git hub after i commit and push.");
+		
 		//Check args
 		if (args.length < 1)
 		{
