@@ -27,7 +27,7 @@ public class Square
 	}
 
 	//Methods
-	public Board isEmpty() {
-		return false; 
+	public boolean isEmpty(int row, int column){
+		return grid[row][column] == null;
 	}
 }
