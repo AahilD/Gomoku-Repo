@@ -1,5 +1,7 @@
 package broker;
 
+import java.util.ArrayList;
+
 /**
  * @author GROUP 22
  *
@@ -13,4 +15,11 @@ public class Board
 {
 	// TODO implement variables, constructor(s), getters, setters, and other methods
 	// TODO to set up the board we need a 19x19 ArrayList of type <Square>
+	
+	private ArrayList<Square> board = new ArrayList<Square>();
+	
+
+	
+	}
+	
 }

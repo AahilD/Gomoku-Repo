@@ -14,5 +14,20 @@ public class Square
 	// TODO the constructor(s) should initialize the value of piece to null
 	// 		- the piece should not be set until a player has place one on the square
 	
+	private char pieceColour;
 	
+	//Constructor
+	public Square (char colour) {
+		pieceColour = colour;
+	}
+	
+	//Getter
+	public char getPieceColour{
+		return char; 
+	}
+
+	//Methods
+	public Board isEmpty() {
+		return false; 
+	}
 }
