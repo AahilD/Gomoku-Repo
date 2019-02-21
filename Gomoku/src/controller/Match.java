@@ -10,12 +10,15 @@ package controller;
  */
 public class Match
 {
-	// TODO public ArrayList<Square> newGame();
-	// TODO public boolean setPlayerMove();
-	// - return a boolean to indicate if the move was valid
-	// TODO public boolean verifyVicotry();
-		/* this method will be called after every move
-		 * to determine if the player won
-		 */
-	// TODO identify more functionality a match is required to monitor
+	//TODO: private <Game> object
+	
+	//TODO: private turnplayer <Player> (the player who's turn it is.
+	//TODO: playmove(): boolean (return the 
+	//TODO: private isWinningMove(): boolean
+		// check if the last move
+	//TODO: private startNewGame(): Game
+		// - USE THE SAME PLAYERS
+	//TODO: endGame()
+		// - terminate the application.
+	//
 }
