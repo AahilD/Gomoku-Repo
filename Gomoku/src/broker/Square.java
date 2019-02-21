@@ -28,6 +28,16 @@ public class Square
 
 	//Methods
 	public boolean isEmpty(int row, int column){
-		return grid[row][column] == null;
+		if (board[row][column]==null) {
+			return true;
+		}
+		else
+			return false
+	}
+	public Player playedby() {
+		
+	}
+	public void addPiece(Player) {
+		
 	}
 }
