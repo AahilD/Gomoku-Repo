@@ -12,6 +12,14 @@ public class Piece
 {
 	private char blackOrWhite;
 	
+	//Consulctors
+	public Piece() {
+		
+	}
+	public Piece(Piece originalPiece) {
+		blackOrWhite=originalPiece.getBlackOrWhite();
+	}
+	
 	//Getter
 	public char getBlackOrWhite() {
 		return blackOrWhite;
