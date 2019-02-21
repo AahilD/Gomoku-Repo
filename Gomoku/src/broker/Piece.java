@@ -10,5 +10,15 @@ package broker;
  */
 public class Piece
 {
-	// TODO implement Piece Class
+	private char blackOrWhite;
+	
+	//Getter
+	public char getBlackOrWhite() {
+		return blackOrWhite;
+	}
+	
+	//Setter
+	public void setBlackOrWhite(char blackOrWhite) {
+		this.blackOrWhite = blackOrWhite;
+	}
 }
