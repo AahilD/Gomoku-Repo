@@ -13,6 +13,7 @@ public class Player
 {
 	// TODO implement variables, constructor(s), getters, setters, and other methods
 	private String userName;
+	private Piece piece;
 	private int winCount;
 	private int loseCount;
 	private int drawCount;
@@ -30,6 +31,10 @@ public class Player
 	public int getDrawCount() {
 		return drawCount;
 	}
+	public Piece getPiece() {
+		Piece copyPiece = new Piece(piece);
+		return copyPiece;
+	}
 	
 	
 	//Setter
@@ -44,6 +49,9 @@ public class Player
 	}
 	public void setDrawCount(int drawCount) {
 		this.drawCount = drawCount;
+	}
+	public void setPiece(Piece inwardPiece) {
+		this.piece = new Piece(inwardPiece);
 	}
 	
 }
