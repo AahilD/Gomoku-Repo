@@ -12,12 +12,15 @@ public class Piece
 {
 	private char blackOrWhite;
 	
-	//Consulctors
+	//Constructors
 	public Piece() {
 		
 	}
 	public Piece(Piece originalPiece) {
 		blackOrWhite=originalPiece.getBlackOrWhite();
+	}
+	public Piece(char letter) {
+		this.blackOrWhite=letter;
 	}
 	
 	//Getter
