@@ -82,7 +82,7 @@ public class Game
 	// returns true if this move was the winning move
 	public boolean makeMove(Player currentPlayer)
 	{
-		boolean winning = currentBoard.hasWon(currentPlayer.getPiece());
+		boolean winning = false;
 		return winning;
 	}
 
