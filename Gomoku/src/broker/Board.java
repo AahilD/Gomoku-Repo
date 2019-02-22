@@ -13,7 +13,7 @@ public class Board
 {
 	// TODO Add javadoc
 
-	protected Square[][] board;
+	private Square[][] board;
 
 	public Board()
 	{

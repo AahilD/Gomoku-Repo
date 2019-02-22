@@ -25,26 +25,57 @@ public class Square
 	 * This is the default constructor and only constructor
 	 * @param toX
 	 * @param toY
-	 */
+	*/
+	
+	//Constructor
 	public Square(int toX, int toY)
 	{
+		player = null;
+		x = toX;
+		y= toY;
 		//TODO implement this method
 	}
-	
-	// Methods
-	public boolean isEmpty(int row, int column)
+	//Setter
+	private void setPlayer (Player m)
 	{
+		if (player != null)
+		{
+			this.player = player;
+		} 
+		else
+		{
+			this.player= null;
+		}
+	}
+	private void setX (int x)
+	{
+		this.x = x;
+	}
+	private void setY (int y)
+	{
+		this.y = y; 
+	}
+	
+	//Getter
+	private int getX ()
+	{
+		return x;
+	}
+	private int getY()
+	{
+		return y;
+	}
+	private Player getPlayer()
+	{
+		return player;
+	}
+	// Methods
+	public boolean isEmpty()
+	{
+		return (player ==null); 
+		}
 		// TODO remove paramaters and just check to see if player == null
 		// TODO return true if player is null
-		
-		//remove this code and replace with new requirements
-		/*if (board[row][column] == null)
-		{
-			return true;
-		} else
-			return false;*/
-		return false;
-	}
 	
 	// TODO you should be able to implement this method once the other changes
 	// have been done
