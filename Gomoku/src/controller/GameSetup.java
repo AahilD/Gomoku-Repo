@@ -35,7 +35,8 @@ public class GameSetup
 	 * @param player2name is the value of plyaer two's username
 	 */
 	
-	public void initializeGame(player1name, player2name) {
+	public static void initializeGame(player1name, player2name) 
+	{
 			Game game = new Game(player1name, player2name);
 		}
 	
@@ -82,27 +83,54 @@ public class GameSetup
 		 * 
 		 */
 	}
-		// Created an ArrayList stats with player names and win/lose/draw counts
-		// Blank lines included to make viewing easier
-		private guiStats(player1name, player2name) {
-			ArrayList<String> stats = new ArrayList(
-				"Player 1: " + player1name.getUsername(),
-				"wins: " + player1name.getWinCount(),
-				"loses: " + player1name.getLoseCount(),
-				" ",
-				"Player 2: " + player2name.getUsername(),
-				"wins: " + player2name.getWinCount(),
-				"loses: " + player2name.getLoseCount(),
-				" ",
-				"draws: " + player1name.getDrawCount());
+	
+	
+	
+	
+	// Created an ArrayList stats with player names and win/lose/draw counts
+	// Blank lines included to make viewing easier
+	public static void playerStats(player1name, player2name) 
+	{
+		ArrayList<String> stats = new ArrayList(
+			"Player 1: " + player1name.getUsername(),
+			"wins: " + player1name.getWinCount(),
+			"loses: " + player1name.getLoseCount(),
+			" ",
+			"Player 2: " + player2name.getUsername(),
+			"wins: " + player2name.getWinCount(),
+			"loses: " + player2name.getLoseCount(),
+			" ",
+			"draws: " + player1name.getDrawCount());
+
+
+
+	}
+	
+	//Add win/lose/draw to players
+	public static void updateStats()
+	{
+		
+	}	
+	
+	
+	
+
+	public static void playMove(int x, int y)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	
+	
+	//Reset board
+	//Reset turn count to 0
+	public static void playAnotherRound() 
+	{
 		
 		
 		
 	}
-
-		public static void playMove(int x, int y)
-		{
-			// TODO Auto-generated method stub
-			
-		}
+	
+	
+	
 }
