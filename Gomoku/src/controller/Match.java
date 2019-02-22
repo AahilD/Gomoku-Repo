@@ -7,10 +7,12 @@ package controller;
  * necessary methods to referee the match
  * being played, between Players, on the current Board.
  * 
+ * DO NOT WORK ON THIS CLASS, LEAVE IT AS IS FOR NOW
+ * 
  */
 public class Match
 {
-	//TODO: private <Game> object
+/*	//TODO: private <Game> object
 	private Game game;
 	
 	//TODO: private turnPlayer <Player> (the player who's turn it is)
@@ -41,5 +43,5 @@ public class Match
 	
 	
 	
-	//
+	//*/
 }
