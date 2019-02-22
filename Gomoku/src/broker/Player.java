@@ -10,7 +10,7 @@ package broker;
 public class Player
 {
 	// TODO implement variables, constructor(s), getters, setters, and other
-	// methods
+	// methods to increment counts of won, lose, draw
 	private String userName;
 	private Piece pieceColour;
 	private int winCount;
