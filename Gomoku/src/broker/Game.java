@@ -2,37 +2,44 @@ package broker;
 
 /**
  * @author GROUP22
- *TESTESTESTESTESTESTES
+ * created by Steven
  * This class represents the current state of the game being played
  */
 public class Game
 {
-	//Constuctors
+	//playerOne: object<Player>
+	private Player playerOne;
+	//playerTwo: object<Player>
+	private Player playerTwo;
+	//round: int
+	private int currentRound;
+	//board: object<board>
+	private Board currentBoard;
 	
+	//Constructor
 	public Game(String gotPlayerOne, String gotPlayerTwo){
 		//playerOne: object<Player>
-		Player playerOne = new Player(gotPlayerOne, 'w');
+		playerOne = new Player(gotPlayerOne, 'w');
 		//playerTwo: object<Player>
-		Player playerTwo = new Player(gotPlayerTwo, 'b');
+		playerTwo = new Player(gotPlayerTwo, 'b');
+		newGame();
 	}
 
-	//board: object<board>
-	public Board currentBoard = new Board();
+	//Copy Constructor
+	public Game(Game newGame){
+		playerOne = new Player(playerOne);
+		playerTwo = new Player(playerTwo);
+		newGame();
+	}
 	
-	//round: int
-	public int currentRound = 0;
-
 	// newgame(): new Board(): void
-		// -- increment round
 	public void newGame(){
 		currentBoard = new Board();
+		currentRound = 0;
 	}
+		// -- increment round
 	public void incrementRound(){
-		currentRound += 0;
-	}
-	
-	public void getRound(){
-		
+		currentRound += 1;
 	}
 	
 	// makemove(Player): boolean
