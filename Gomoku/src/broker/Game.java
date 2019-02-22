@@ -29,7 +29,7 @@ public class Game
 		playerOne = new Player(gotPlayerOne, 'w');
 		// playerTwo: object<Player>
 		playerTwo = new Player(gotPlayerTwo, 'b');
-		resetBoard();
+		resetRound();
 	}
 
 	/*
@@ -56,14 +56,15 @@ public class Game
 	{
 		playerOne = new Player(playerOne);
 		playerTwo = new Player(playerTwo);
-		resetBoard();
+		resetRound();
 	}
 
-	private void resetBoard()
+	private void resetRound()
 	{
 		currentBoard = new Board();
 		turnCount = 0;
 	}
+
 	// TODO so make move needs to save the player to the square
 	// I'm sorry this is confusing, at the last minute we decided to remove
 	// the Piece object. so pass in the arguments: int xCoordinate, int
@@ -97,9 +98,13 @@ public class Game
 	 */
 	public Player getTurnPlayer()
 	{
-		// TODO implement this method
-		// should return a copy of the Player
-		return null;
+		Player playerTurn = null;
+		if (turnCount == 0 || turnCount%2 == 0){
+			playerTurn = new Player(playerOne);
+		} else if (turnCount%2 != 0){
+			playerTurn = new Player(playerTwo);
+		}
+		return playerTurn;
 	}
 
 	/**
