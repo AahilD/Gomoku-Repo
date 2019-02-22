@@ -14,7 +14,7 @@ public class Game
 	private Player playerTwo;
 
 	// round: integer
-	private int roundCount;
+	private int roundCount; // <-- remove
 	// TODO also add in turnCount to keep track of how many turns (total) in the
 	// current round
 	// this should get reset to 0 on a new round
@@ -56,27 +56,12 @@ public class Game
 	 * @param newGame
 	 */
 
-	public void newMatch()
+	public void Game()
 	{
-		incrementRoundCount();
 		playerOne = new Player(playerOne);
 		playerTwo = new Player(playerTwo);
-		newGame();
-	}
-
-	/**
-	 * TODO make this private
-	 */
-	private void newGame()
-	{
 		currentBoard = new Board();
 		turnCount = 0;
-	}
-
-	// TODO make this private
-	private void incrementRoundCount()
-	{
-		roundCount += 1;
 	}
 
 	// TODO so make move needs to save the player to the square
@@ -123,7 +108,7 @@ public class Game
 	 * 
 	 * 
 	 */
-	private void switchPlayerTurn()
+	private void incrementTurnCount()
 	{
 		// TODO implement this method
 	}
