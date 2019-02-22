@@ -13,11 +13,7 @@ public class Game
 	// playerTwo: object<Player>
 	private Player playerTwo;
 
-	// round: integer
-	private int roundCount; // <-- remove
-	// TODO also add in turnCount to keep track of how many turns (total) in the
-	// current round
-	// this should get reset to 0 on a new round
+	// turnCount: integer
 	private int turnCount;
 
 	// board: object<board>
@@ -33,7 +29,7 @@ public class Game
 		playerOne = new Player(gotPlayerOne, 'w');
 		// playerTwo: object<Player>
 		playerTwo = new Player(gotPlayerTwo, 'b');
-		newGame();
+		resetBoard();
 	}
 
 	/*
@@ -56,14 +52,18 @@ public class Game
 	 * @param newGame
 	 */
 
-	public void Game()
+	public Game()
 	{
 		playerOne = new Player(playerOne);
 		playerTwo = new Player(playerTwo);
+		resetBoard();
+	}
+
+	private void resetBoard()
+	{
 		currentBoard = new Board();
 		turnCount = 0;
 	}
-
 	// TODO so make move needs to save the player to the square
 	// I'm sorry this is confusing, at the last minute we decided to remove
 	// the Piece object. so pass in the arguments: int xCoordinate, int
@@ -108,7 +108,7 @@ public class Game
 	 * 
 	 * 
 	 */
-	private void incrementTurnCount()
+	private void incrementPlayerTurn()
 	{
 		// TODO implement this method
 	}
