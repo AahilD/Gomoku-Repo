@@ -16,7 +16,7 @@ public class Board
 	// TODO implement variables, constructor(s), getters, setters, and other methods
 	// TODO to set up the board we need a 19x19 ArrayList of type <Square>
 	
-	private Square[][] board;
+	protected Square[][] board;
 	
 	public Board() {
 		board = new Square [19][19];
