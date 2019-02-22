@@ -6,5 +6,4 @@ public class IllegalMove extends Exception
 	{
 		super("This square is not playable");
 	}
-
 }
