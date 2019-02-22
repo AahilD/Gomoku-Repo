@@ -7,7 +7,7 @@ import javafx.scene.text.Font;
 
 public interface GUICommons
 {
-	 static Label windowHeader(String header)
+	static Label windowHeader(String header)
 	{
 		Label gametitle = new Label(header);
 		gametitle.setFont(new Font(20));
@@ -16,7 +16,7 @@ public interface GUICommons
 		gametitle.setPadding(defaultPadding());
 		return gametitle;
 	}
-	
+
 	/**
 	 * Call this method to get an instance of Insets with default padding
 	 * values.

@@ -20,7 +20,6 @@ public class Board
 		board = new Square[19][19];
 	}
 
-	
 	/**
 	 * @return
 	 */
@@ -28,27 +27,20 @@ public class Board
 	{
 		return board;
 	}
-	
-	
+
 	/*
-	 * TODO this method is big and complicated
-	 * break it down by calling smaller private methods
-	 * that will do one explicit thing
-	 * for instance you should break it down into the following 
-	 * private methods
-	 * private boolean verifyHorizontal()
-	 * private boolean verifyVerticle()
-	 * private boolean verifyLeftDiagonal()
-	 * private boolean verifyRightDiagonal()
-	 * you may even have to break down these methods to smaller methods
+	 * TODO this method is big and complicated break it down by calling smaller
+	 * private methods that will do one explicit thing for instance you should
+	 * break it down into the following private methods private boolean
+	 * verifyHorizontal() private boolean verifyVerticle() private boolean
+	 * verifyLeftDiagonal() private boolean verifyRightDiagonal() you may even
+	 * have to break down these methods to smaller methods
 	 * 
 	 * remember we do not want code duplication if you can make a re-usable
-	 * method then feel free to do so. 
+	 * method then feel free to do so.
 	 * 
-	 * think of every package as an anthology, 
-	 * every class as a chapter
-	 * every method as a paragraph
-	 * and every line as a sentence
+	 * think of every package as an anthology, every class as a chapter every
+	 * method as a paragraph and every line as a sentence
 	 * 
 	 * other than that this looks great
 	 */
@@ -56,9 +48,10 @@ public class Board
 	 * @param piece
 	 * @return
 	 */
-	private boolean verifyHorizontal(char piece) {
+	private boolean verifyHorizontal(char piece)
+	{
 		boolean fiveInARow = false;
-		int i = 0; 
+		int i = 0;
 		for (int row = 0; row < board.length && !fiveInARow; row++)
 		{
 			for (int col = 0; col < board[row].length; col++)
@@ -76,11 +69,13 @@ public class Board
 				}
 			}
 		}
-		return fiveInARow; 
+		return fiveInARow;
 	}
-	private boolean verifyVertical(char piece) {
-		boolean fiveInARow = false; 
-		int i = 0; 
+
+	private boolean verifyVertical(char piece)
+	{
+		boolean fiveInARow = false;
+		int i = 0;
 		for (int r = 0; r < board.length && !fiveInARow; r++)
 		{
 			for (int c = 0; c < board[r].length; c++)
@@ -101,13 +96,17 @@ public class Board
 		{
 			fiveInARow = false;
 		}
-		return fiveInARow; 
+		return fiveInARow;
 	}
-	private boolean verifyDiagonalLeft(char piece) {
+
+	private boolean verifyDiagonalLeft(char piece)
+	{
 		boolean fiveInARow = false;
 		return fiveInARow;
 	}
-	private boolean verifyDiagonalRight(char piece) {
+
+	private boolean verifyDiagonalRight(char piece)
+	{
 		boolean fiveInARow = false;
 		return fiveInARow;
 	}
@@ -130,10 +129,10 @@ public class Board
 
 	public boolean gameOver()
 	{
-		return verifyVertical('w')||verifyVertical('b')||
-				verifyHorizontal('w') || verifyHorizontal('b') ||
-				verifyDiagonalLeft('w')||verifyDiagonalLeft('b')||
-				verifyDiagonalRight('w')||verifyDiagonalRight('b')||
-				boardFull();
+		return verifyVertical('w') || verifyVertical('b')
+				|| verifyHorizontal('w') || verifyHorizontal('b')
+				|| verifyDiagonalLeft('w') || verifyDiagonalLeft('b')
+				|| verifyDiagonalRight('w') || verifyDiagonalRight('b')
+				|| boardFull();
 	}
 }
