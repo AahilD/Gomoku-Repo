@@ -7,14 +7,28 @@ package broker;
  */
 public class Game
 {
-	//Test pushing/pulling :)
 	//playerOne: object<Player>
-	//playerTwo: object<Player>
-	//board: object<board>
-	//round: int
+	public Player playerOne = new Player();
 	
+	//playerTwo: object<Player>
+	public Player playerTwo = new Player();
+	
+	//board: object<board>
+	public Board currentBoard = new Board();
+	
+	//round: int
+	public int currentRound = 0;
+
 	// newgame(): new Board(): void
 		// -- increment round
+	public void newGame(){
+		currentBoard = new Board();
+	}
+	public void incrementRound(){
+		currentRound += 0;
+	}
+	
+	
 	// makemove(Player): boolean
-		// returns true if this move was the winning move 
+		// returns true if this move was the winning move
 }
