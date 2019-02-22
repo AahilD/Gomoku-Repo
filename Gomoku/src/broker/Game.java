@@ -7,11 +7,14 @@ package broker;
  */
 public class Game
 {
-	//playerOne: object<Player>
-	public Player playerOne = new Player();
+	//Constuctors
 	
-	//playerTwo: object<Player>
-	public Player playerTwo = new Player();
+	public class Game(String gotPlayerOne, String gotPlayerTwo){
+		//playerOne: object<Player>
+		player playerOne = new Player(gotPlayerOne, 'w');
+		//playerTwo: object<Player>
+		Player playerTwo = new Player(gotPlayerTwo, 'b');
+	}
 	
 	//board: object<board>
 	public Board currentBoard = new Board();
@@ -28,6 +31,9 @@ public class Game
 		currentRound += 0;
 	}
 	
+	public void getRound(){
+		
+	}
 	
 	// makemove(Player): boolean
 		// returns true if this move was the winning move
