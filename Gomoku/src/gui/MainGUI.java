@@ -2,6 +2,10 @@ package gui;
 
 import java.util.ArrayList;
 
+import controller.GameSetup;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -85,6 +89,23 @@ public class MainGUI implements GUICommons
 				Button sqrButton = board.get(x).get(y);
 				sqrButton.setPrefWidth(60);
 				sqrButton.setPrefHeight(60);
+				sqrButton.setId(x +"," + y); // use the id to store x and y value
+				
+				sqrButton.setOnAction(new EventHandler<ActionEvent>()
+				{
+					
+					@Override
+					public void handle(ActionEvent event)
+					{
+						// parse through the id to grab the x and y values "x,y"
+						String[] xy = sqrButton.getId().split(",");
+						int x = Integer.parseInt(xy[0]);
+						int y = Integer.parseInt(xy[1]); 
+						GameSetup.playMove(x, y); 
+						
+					}
+				});
+				
 				GridPane.setConstraints(
 						sqrButton, // Node
 						y, x); // Insets (padding)

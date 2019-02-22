@@ -96,4 +96,9 @@ public class GameSetup
 		
 		
 	}
-}
+
+		public static void playMove(int x, int y)
+		{
+			// TODO Auto-generated method stub
+			
+		}}
