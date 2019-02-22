@@ -107,14 +107,9 @@ public class Game
 		return playerTurn;
 	}
 
-	/**
-	 * call this method to switch who's turn it is. and increment turnCount here
-	 * instead.
-	 * 
-	 * 
-	 */
+	//***
 	private void incrementPlayerTurn()
 	{
-		// TODO implement this method
+		turnCount += 0;
 	}
 }
