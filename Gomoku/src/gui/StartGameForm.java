@@ -1,5 +1,7 @@
 package gui;
 
+import javax.sql.CommonDataSource;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,14 +21,13 @@ import javafx.stage.Stage;
 /**
  * @author GROUP 22
  *
- *         This class will be a gui instance that will load when the game
- *         initially starts it will prompt for two usernames to be entered (for
- *         now it will assign their pieces to be Player1 = white player2 =
- *         black) upon clicking the "start game" button the main gui will appear
- *         with a fresh new game for player one to start.
+ * This class will be a gui instance that will load when the game
+ * initially starts it will prompt for two usernames to be entered 
+ * upon clicking the "start game" will send the usernames to the
+ * controller to set up the game and board.
  * 
  */
-public class StartGameForm extends Application
+public class StartGameForm extends Application implements GUICommons
 {
 	final TextField PLAYER_ONE_USERNAME = new TextField("Player 1");
 	final TextField PLAYER_TWO_USERNAME = new TextField("Player 2");
@@ -84,6 +85,7 @@ public class StartGameForm extends Application
 				
 				System.out.println("Player 1 username: " + PLAYER_ONE_USERNAME.getText());
 				System.out.println("Player 2 username: " + PLAYER_TWO_USERNAME.getText());
+				
 			}
 		});
 		HBox box = new HBox(startGame);
@@ -123,26 +125,7 @@ public class StartGameForm extends Application
 		form.setPadding(defaultPadding());
 		return form;
 	}
-
-	private Label getGameTitle()
-	{
-		Label gametitle = new Label("Player Registration");
-		gametitle.setFont(new Font(20));
-		gametitle.setMaxWidth(Double.MAX_VALUE);
-		gametitle.setAlignment(Pos.CENTER);
-		gametitle.setPadding(defaultPadding());
-		return gametitle;
-	}
-
-	/**
-	 * Call this method to get an instance of Insets with default padding
-	 * values.
-	 * 
-	 * @return Insets with a default padding of (10,10,10,10)
-	 */
-	private Insets defaultPadding()
-	{
-		return new Insets(10, 10, 10, 10);
-	}
+	
+	
 
 }
