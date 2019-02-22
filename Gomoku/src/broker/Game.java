@@ -58,7 +58,7 @@ public class Game
 
 	public void newMatch()
 	{
-		roundCount += 1;
+		incrementRoundCount();
 		playerOne = new Player(playerOne);
 		playerTwo = new Player(playerTwo);
 		newGame();
@@ -67,14 +67,14 @@ public class Game
 	/**
 	 * TODO make this private
 	 */
-	public void newGame()
+	private void newGame()
 	{
 		currentBoard = new Board();
 		turnCount = 0;
 	}
 
 	// TODO make this private
-	public void incrementRound()
+	private void incrementRoundCount()
 	{
 		roundCount += 1;
 	}
