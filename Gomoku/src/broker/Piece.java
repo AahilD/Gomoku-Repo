@@ -7,6 +7,9 @@ package broker;
  * which will contain the necessary data for each piece
  * that will be played by either player.
  * 
+ * NOTE THAT WE WILL LEAVING THIS METHOD HERE, BUT WE WILL NOT BE
+ * USING IT UNTILL WE ACTUALLY SE A NEED FOR IT.
+ * 
  */
 public class Piece
 {
