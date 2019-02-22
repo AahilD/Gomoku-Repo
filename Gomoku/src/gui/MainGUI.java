@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import controller.GameSetup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
