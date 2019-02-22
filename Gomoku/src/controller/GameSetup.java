@@ -8,9 +8,24 @@ package controller;
  * enter their user name and click on "start game"
  * it will then relay the game setup to the gui.
  *
+ *
+ *	TODO rename by refractoring the class to GameController or GameManager
+ *	which ever you prefer (right click on "GameSetup" > refractor > rename ... 
+ *	don't just highlight and backspace)
  */
 public class GameSetup
 {
+	//TODO have a global variable of type Game
+	// to store the current state of the game
+	// TODO you will probably also need a variable to store the number of rounds
+	// 		as this is not the responsibility of Game.java (I know it sounds counter intuitive
+	//      we can fix the naming conventions later).
+	// don't use conventional getters and setters GameSetup (Aka GameManager/Controller) is not an Object
+	// it will be processing and aggregating all the information until somone tells it to endGame()
+	// the endGame() method will terminate the entire program for now.
+	// the controller
+	// 
+	// we will have to discus the rest you and 
 	/**
 	 * Call this method for the initial game setup.
 	 * should be called by the GUI once both players
@@ -27,7 +42,12 @@ public class GameSetup
 		//System.out.println(player1name);
 		//System.out.println(player2name);
 		
-		// TODO initialize the board game
+		// TODO it is not enought to just start a new game
+		// you will need to call a method that will send all the info
+		// to the main GUI 
+		// YOU ARE CURRENTLY INSIDE A METHOD ALREADY, YOU CAN'T HAVE A METHOD
+		// INSIDE A METHOD
+		//
 		public initializeGame(player1name, player2name) {
 			Game game = new Game(player1name, player2name);
 		}
