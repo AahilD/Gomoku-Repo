@@ -89,7 +89,7 @@ public class Board
 				count = 0; 
 			}
 		}
-		//Diagonal Downwards
+		//Diagonal Downwards//
 		for (int co = 0; co <board.length && !fiveInARow; co++){
 			if (board[co+1][co].getPieceColour() == piece) {
 				count++;
