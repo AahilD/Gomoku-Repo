@@ -11,7 +11,7 @@ public class Game
 	private Player playerOne;
 	//playerTwo: object<Player>
 	private Player playerTwo;
-	//round: int
+	//round: integer
 	private int currentRound;
 	//board: object<board>
 	private Board currentBoard;
@@ -31,7 +31,7 @@ public class Game
 		playerTwo = new Player(playerTwo);
 		newGame();
 	}
-	
+
 	// newgame(): new Board(): void
 	public void newGame(){
 		currentBoard = new Board();
@@ -41,7 +41,12 @@ public class Game
 	public void incrementRound(){
 		currentRound += 1;
 	}
-	
+
 	// makemove(Player): boolean
 		// returns true if this move was the winning move
+	public boolean makeMove(Player currentPlayer){
+		boolean winning = currentBoard.hasWon(currentPlayer.getPiece());
+		return winning;
+	}
 }
+
