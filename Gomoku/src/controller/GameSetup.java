@@ -34,6 +34,13 @@ public class GameSetup
 	 * @param player1name is the value of player one's username
 	 * @param player2name is the value of plyaer two's username
 	 */
+	
+	public void initializeGame(player1name, player2name) {
+			Game game = new Game(player1name, player2name);
+		}
+	
+	
+	
 	public static void setupGame(String player1name, String player2name)
 	{
 		// uncomment code below for you to see how the information is 
@@ -47,11 +54,7 @@ public class GameSetup
 		// to the main GUI 
 		// YOU ARE CURRENTLY INSIDE A METHOD ALREADY, YOU CAN'T HAVE A METHOD
 		// INSIDE A METHOD
-		//
-		public initializeGame(player1name, player2name) {
-			Game game = new Game(player1name, player2name);
-		}
-		
+		//		
 		// TODO display information on respective GUI
 		// you may break this up into several private methods
 		// remember: 
@@ -78,7 +81,7 @@ public class GameSetup
 		 * on the array is a new line on the GUI.
 		 * 
 		 */
-		
+	}
 		// Created an ArrayList stats with player names and win/lose/draw counts
 		// Blank lines included to make viewing easier
 		private guiStats(player1name, player2name) {
@@ -101,4 +104,5 @@ public class GameSetup
 		{
 			// TODO Auto-generated method stub
 			
-		}}
+		}
+}
