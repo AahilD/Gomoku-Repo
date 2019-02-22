@@ -2,6 +2,7 @@ package gui;
 
 import javax.sql.CommonDataSource;
 
+import controller.GameSetup;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -59,7 +60,7 @@ public class StartGameForm extends Application implements GUICommons
 		BorderPane borderpane = new BorderPane();
 
 		// TOP: account information
-		borderpane.setTop(getGameTitle());
+		borderpane.setTop(GUICommons.windowHeader("Player Registration"));
 		// CENTER: Transaction form
 		borderpane.setCenter(setupPlayerInfoForm());
 
@@ -81,17 +82,13 @@ public class StartGameForm extends Application implements GUICommons
 			@Override
 			public void handle(ActionEvent event)
 			{
-				// TODO call the constructor that will create the new game
-				
-				System.out.println("Player 1 username: " + PLAYER_ONE_USERNAME.getText());
-				System.out.println("Player 2 username: " + PLAYER_TWO_USERNAME.getText());
-				
+				GameSetup.setupGame(PLAYER_ONE_USERNAME.getText(), PLAYER_TWO_USERNAME.getText());
 			}
 		});
 		HBox box = new HBox(startGame);
 		box.setMaxWidth(Double.MAX_VALUE);
 		box.setAlignment(Pos.CENTER_RIGHT);
-		box.setPadding(defaultPadding());
+		box.setPadding(GUICommons.defaultPadding());
 		return box;
 	}
 
@@ -101,10 +98,10 @@ public class StartGameForm extends Application implements GUICommons
 		Label enterUsernameLabel2 = new Label("Enter username: ");
 		
 
-		enterUsernameLabel1.setPadding(defaultPadding());
-		enterUsernameLabel2.setPadding(defaultPadding());
-		PLAYER_ONE_USERNAME.setPadding(defaultPadding());
-		PLAYER_TWO_USERNAME.setPadding(defaultPadding());
+		enterUsernameLabel1.setPadding(GUICommons.defaultPadding());
+		enterUsernameLabel2.setPadding(GUICommons.defaultPadding());
+		PLAYER_ONE_USERNAME.setPadding(GUICommons.defaultPadding());
+		PLAYER_TWO_USERNAME.setPadding(GUICommons.defaultPadding());
 		
 		GridPane form = new GridPane();
 		
@@ -119,10 +116,10 @@ public class StartGameForm extends Application implements GUICommons
 		form.setHgap(10);
 		form.setVgap(10);
 		
-		form.setPadding(defaultPadding());
+		form.setPadding(GUICommons.defaultPadding());
 		form.setMaxWidth(Double.MAX_VALUE);
 		form.setAlignment(Pos.CENTER);
-		form.setPadding(defaultPadding());
+		form.setPadding(GUICommons.defaultPadding());
 		return form;
 	}
 	

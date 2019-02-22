@@ -7,9 +7,9 @@ import javafx.scene.text.Font;
 
 public interface GUICommons
 {
-	 default Label getGameTitle()
+	 static Label windowHeader(String header)
 	{
-		Label gametitle = new Label("Player Registration");
+		Label gametitle = new Label(header);
 		gametitle.setFont(new Font(20));
 		gametitle.setMaxWidth(Double.MAX_VALUE);
 		gametitle.setAlignment(Pos.CENTER);
@@ -23,7 +23,7 @@ public interface GUICommons
 	 * 
 	 * @return Insets with a default padding of (10,10,10,10)
 	 */
-	default Insets defaultPadding()
+	static Insets defaultPadding()
 	{
 		return new Insets(10, 10, 10, 10);
 	}
