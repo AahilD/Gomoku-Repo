@@ -36,11 +36,16 @@ public class Square
 		//TODO implement this method
 	}
 	//Setter
-	private void setPlayer (Player m)
+	/**
+	 * Call this method to set player,
+	 * player must be null, throws "illegal move" error if player is not null
+	 * @param m
+	 */
+	private void setPlayer (Player m) throws IllegalMove
 	{
 		if (player != null)
 		{
-			this.player = player;
+			throw new IllegalMove;
 		} 
 		else
 		{
@@ -86,13 +91,5 @@ public class Square
 	}
 	
 	
-	/**
-	 * Call this method to set player,
-	 * player must be null, throws "illegal move" error if player is not null
-	 * @param m
-	 */
-	public void setPlayer(Player m)
-	{
 
-	}
 }
