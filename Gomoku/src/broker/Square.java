@@ -6,55 +6,61 @@ package broker;
  *         This class represents an Object of type square which will contain and
  *         maintain all the necessary information for each square on the board.
  */
-public class Square extends Board
+public class Square
 {
 	// TODO implement variables, constructors, getters, setters, and other
 	// methods.
-	// TODO A square will hold a Piece object;
-	// TODO the constructor(s) should initialize the value of piece to null
-	// - the piece should not be set until a player has place one on the square
+	// TODO the constructor(s) should initialize the value of Player to null
+	// TODO the setter should throw an exception if the square.getPlayer() != null
+	// TODO each square should have the x and y coordinates that it belongs to
+	// TODO the x and y coordinates getters and setters should both be private (no one should be able to change them)
+	// TODO	the default constructor must require x and y coordinates and set Player to null by default
 
 	// instance variable
-	private char pieceColour;
+	private Player player;
+	private int x;
+	private int y;
 
-	// Constructor
-	public Square()
+	/**
+	 * This is the default constructor and only constructor
+	 * @param toX
+	 * @param toY
+	 */
+	public Square(int toX, int toY)
 	{
+		//TODO implement this method
 	}
-
-	public Square(char colour)
-	{
-		this.pieceColour = colour;
-	}
-
-	// Getter
-	public char getPieceColour()
-	{
-		return pieceColour;
-	}
-
-	// Setter
-	public void setPieceColour(char pieceColour)
-	{
-		this.pieceColour = pieceColour;
-	}
-
+	
 	// Methods
 	public boolean isEmpty(int row, int column)
 	{
-		if (board[row][column] == null)
+		// TODO remove paramaters and just check to see if player == null
+		// TODO return true if player is null
+		
+		//remove this code and replace with new requirements
+		/*if (board[row][column] == null)
 		{
 			return true;
 		} else
-			return false;
+			return false;*/
+		return false;
 	}
-
+	
+	// TODO you should be able to implement this method once the other changes
+	// have been done
+	
 	public Player playedby()
 	{
 		return null;
 	}
-
-	public void addPiece(Player m)
+	
+	
+	/**
+	 * Call this method to set player,
+	 * player must be null, throws "illegal move" error if player is not null
+	 * @param m
+	 */
+	public void setPlayer(Player m)
 	{
 
 	}
