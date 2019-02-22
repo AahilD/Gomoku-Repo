@@ -19,8 +19,14 @@ public class GameSetup
 	 * @param player1name is the value of player one's username
 	 * @param player2name is the value of plyaer two's username
 	 */
-	public void setupGame(String player1name, String player2name)
+	public static void setupGame(String player1name, String player2name)
 	{
+		// uncomment code below for you to see how the information is 
+		//being sent from gui to controller
+		
+		//System.out.println(player1name);
+		//System.out.println(player2name);
+		
 		// TODO initialize the board game
 		// TODO display information on respective GUI
 		// you may break this up into several private methods
@@ -29,9 +35,23 @@ public class GameSetup
 		 * - player1 default colour will be white for now
 		 * - player2 default colour will be black
 		 * - use the broker objects to set up the game
-		 * - send all info the mainGui() method for now
-		 * - you may add/remove as many arguments into the mianGUI() method
-		 * as you need, I'll take care of the rest
+		 * - send all info the mainWindow() method in MainGUI class
+		 * - use the javadocs to understand how to setup the info
+		 * - remember that controllers format the information and the gui
+		 * - is simply supose to display it. for now you will have to 
+		 * convert the ArrayList<ArrayList<square>> to ArrayList<ArrayList<Button>>
+		 * for the player stats you will have to send an ArrayList of Strings for the
+		 * player game stats: you can send what ever you want as I will no be doing any
+		 * information checking, but each string will show up in the order you have them in the array
+		 * so a good example would be to follow this order
+		 * ArrayList<String> stats = new ArrayList(
+		 * 		"Player 1: " + player1.getUsername(),
+		 * 		"wins: " + player1.getWinCount(),
+		 * 		"loses: " + player1.getLoseCount(),
+		 * 		"draws: " + player1.getDrawCount(),
+		 * 		"Player 2: " + ... etc);
+		 * you have the freedom to set this up however you want just know each position
+		 * on the array is a new line on the GUI.
 		 * 
 		 */
 		
