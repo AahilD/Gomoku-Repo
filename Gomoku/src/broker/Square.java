@@ -43,13 +43,13 @@ public class Square
 	 */
 	private void setPlayer (Player m) throws IllegalMove
 	{
-		if (player != null)
+		if (player == null)
 		{
-			throw new IllegalMove;
+			this.player = m;
 		} 
 		else
 		{
-			this.player= null;
+			throw new IllegalMove();
 		}
 	}
 	private void setX (int x)
