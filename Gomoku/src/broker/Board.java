@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Board
 {
 	// TODO Add javadoc
-
+	//Initializes a 2D array for the board //
 	private Square[][] board;
 
 	public Board()
@@ -56,7 +56,7 @@ public class Board
 		{
 			for (int col = 0; col < board[row].length; col++)
 			{
-				if (board[row][col].getPieceColour() == piece)
+				if (Square.getPlayer().getPiece().getBlackOrWhite()==piece)
 				{
 					i++;
 				} else if (i >= 5)
@@ -80,7 +80,7 @@ public class Board
 		{
 			for (int c = 0; c < board[r].length; c++)
 			{
-				if (board[r][c].getPieceColour() == piece)
+				if (Square.getPlayer().getPiece().getBlackOrWhite() == piece)
 				{
 					i++;
 				} else

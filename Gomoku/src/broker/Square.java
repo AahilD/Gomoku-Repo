@@ -17,7 +17,7 @@ public class Square
 	// TODO	the default constructor must require x and y coordinates and set Player to null by default
 
 	// instance variable
-	private Player player;
+	private static Player player;
 	private int x;
 	private int y;
 
@@ -27,13 +27,13 @@ public class Square
 	 * @param toY
 	*/
 	
-	//Constructor
+	//Constructor //
 	public Square(int toX, int toY)
 	{
 		player = null;
 		x = toX;
 		y= toY;
-		//TODO implement this method
+
 	}
 	//Setter
 	/**
@@ -52,6 +52,7 @@ public class Square
 			throw new IllegalMove();
 		}
 	}
+
 	private void setX (int x)
 	{
 		this.x = x;
@@ -70,7 +71,7 @@ public class Square
 	{
 		return y;
 	}
-	private Player getPlayer()
+	protected static Player getPlayer()
 	{
 		return player;
 	}
