@@ -14,10 +14,11 @@ public class Game
 	private Player playerTwo;
 
 	// round: integer
-	private int currentRound;
+	private int roundCount;
 	// TODO also add in turnCount to keep track of how many turns (total) in the
 	// current round
 	// this should get reset to 0 on a new round
+	private int turnCount;
 
 	// board: object<board>
 	private Board currentBoard;
@@ -44,7 +45,7 @@ public class Game
 	 */
 
 	/**
-	 * TODO Dont have this as a constructor instead, call it public void
+	 * TODO Don't have this as a constructor instead, call it public void
 	 * newMatch() it should: 1) copy over current players (this is good, but
 	 * Player Class needs a copy constructor now) 2) take in the current round
 	 * count as a parameter and increment the roundCount 3) reset the board
@@ -54,8 +55,10 @@ public class Game
 	 * 
 	 * @param newGame
 	 */
-	public Game(Game newGame)
+
+	public void newMatch()
 	{
+		roundCount += 1;
 		playerOne = new Player(playerOne);
 		playerTwo = new Player(playerTwo);
 		newGame();
@@ -67,13 +70,13 @@ public class Game
 	public void newGame()
 	{
 		currentBoard = new Board();
-		currentRound = 0;
+		turnCount = 0;
 	}
 
 	// TODO make this private
 	public void incrementRound()
 	{
-		currentRound += 1;
+		roundCount += 1;
 	}
 
 	// TODO so make move needs to save the player to the square
