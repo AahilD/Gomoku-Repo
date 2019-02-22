@@ -9,13 +9,13 @@ public class Game
 {
 	//Constuctors
 	
-	public class Game(String gotPlayerOne, String gotPlayerTwo){
+	public Game(String gotPlayerOne, String gotPlayerTwo){
 		//playerOne: object<Player>
-		player playerOne = new Player(gotPlayerOne, 'w');
+		Player playerOne = new Player(gotPlayerOne, 'w');
 		//playerTwo: object<Player>
 		Player playerTwo = new Player(gotPlayerTwo, 'b');
 	}
-	
+
 	//board: object<board>
 	public Board currentBoard = new Board();
 	
