@@ -88,7 +88,7 @@ public class Square
 	
 	public Player playedby()
 	{
-		return null;
+		return player;
 	}
 	
 	
