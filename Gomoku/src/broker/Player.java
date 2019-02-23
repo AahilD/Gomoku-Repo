@@ -95,7 +95,7 @@ public class Player
 	/**
 	 * This returns a copy of the piece stored in pieceColour.
 	 * 
-	 * @return this player's piece colour
+	 * @return this player's piece color
 	 */
 	public Piece getPieceColour()
 	{
