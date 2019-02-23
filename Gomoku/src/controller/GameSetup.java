@@ -1,5 +1,12 @@
 package controller;
 
+import java.util.ArrayList;
+
+import broker.Game;
+import broker.Square;
+import gui.MainGUI;
+import javafx.scene.control.Button;
+
 /**
  * @author manu
  * 
@@ -17,6 +24,8 @@ public class GameSetup
 {
 	//TODO have a global variable of type Game
 	// to store the current state of the game
+	static Game game;
+	static int roundCount;
 	// TODO you will probably also need a variable to store the number of rounds
 	// 		as this is not the responsibility of Game.java (I know it sounds counter intuitive
 	//      we can fix the naming conventions later).
@@ -35,62 +44,64 @@ public class GameSetup
 	 * @param player2name is the value of plyaer two's username
 	 */
 	
-	public static void initializeGame(player1name, player2name) 
+	public static void initializeGame(String player1name, String player2name) 
 	{
-			Game game = new Game(player1name, player2name);
-		}
-	
-	
-	
-	public static void setupGame(String player1name, String player2name)
-	{
-		// uncomment code below for you to see how the information is 
-		//being sent from gui to controller
-		
-		//System.out.println(player1name);
-		//System.out.println(player2name);
-		
-		// TODO it is not enought to just start a new game
-		// you will need to call a method that will send all the info
-		// to the main GUI 
-		// YOU ARE CURRENTLY INSIDE A METHOD ALREADY, YOU CAN'T HAVE A METHOD
-		// INSIDE A METHOD
-		//		
-		// TODO display information on respective GUI
-		// you may break this up into several private methods
-		// remember: 
-		/*
-		 * - player1 default colour will be white for now
-		 * - player2 default colour will be black
-		 * - use the broker objects to set up the game
-		 * - send all info the mainWindow() method in MainGUI class
-		 * - use the javadocs to understand how to setup the info
-		 * - remember that controllers format the information and the gui
-		 * - is simply supose to display it. for now you will have to 
-		 * convert the ArrayList<ArrayList<square>> to ArrayList<ArrayList<Button>>
-		 * for the player stats you will have to send an ArrayList of Strings for the
-		 * player game stats: you can send what ever you want as I will no be doing any
-		 * information checking, but each string will show up in the order you have them in the array
-		 * so a good example would be to follow this order
-		 * ArrayList<String> stats = new ArrayList(
-		 * 		"Player 1: " + player1.getUsername(),
-		 * 		"wins: " + player1.getWinCount(),
-		 * 		"loses: " + player1.getLoseCount(),
-		 * 		"draws: " + player1.getDrawCount(),
-		 * 		"Player 2: " + ... etc);
-		 * you have the freedom to set this up however you want just know each position
-		 * on the array is a new line on the GUI.
-		 * 
-		 */
+			roundCount = 0;
+			MainGUI.mainwindow(
+				setupBoard(),
+				setupPlayerStats(),
+				roundCount,
+				game.getTurnCount()
+				);
 	}
 	
-	
+	private static ArrayList<String> setupPlayerStats()
+	{
+		ArrayList<String> playerboardcontent = new ArrayList<String>();
+		
+		for (String line : game.getPlayerOne().getPlayerStats())
+			playerboardcontent.add(line);
+		for(String line : game.getPlayerTwo().getPlayerStats())
+			playerboardcontent.add(line);
+		
+		return playerboardcontent;
+	}
+
+	private static ArrayList<ArrayList<Button>> setupBoard()
+	{
+		ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
+		// TODO fix the following for loops to use the size of the table
+		// rather than hardcoded number 19. I prefere ArrayLists, but oh well.
+		for (int x = 0; x < 19; x++)
+		{
+			ArrayList<Button> column = new ArrayList<Button>();
+			for (int y = 0; y < 19; y++)
+			{
+				Button button = new Button();
+				Square sqr = game.getCurrentBoard().getBoard()[x][y];
+				if (!sqr.isEmpty())
+				{
+					//TODO change the button background to the colour of the player
+				}
+				column.add(button);
+			}
+			board.add(column);
+		}
+		return board;
+	}
+
+	public static void setupGame(String player1name, String player2name)
+	{
+		
+	}
 	
 	
 	// Created an ArrayList stats with player names and win/lose/draw counts
 	// Blank lines included to make viewing easier
-	public static void playerStats(player1name, player2name) 
+	private ArrayList<String> playerStats() 
 	{
+		/*
+		
 		ArrayList<String> stats = new ArrayList(
 			"Player 1: " + player1name.getUsername(),
 			"wins: " + player1name.getWinCount(),
@@ -101,8 +112,9 @@ public class GameSetup
 			"loses: " + player2name.getLoseCount(),
 			" ",
 			"draws: " + player1name.getDrawCount());
-
-
+		*/
+		
+		return null;
 
 	}
 	

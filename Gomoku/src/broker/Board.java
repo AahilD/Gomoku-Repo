@@ -27,6 +27,7 @@ public class Board
 	{
 		return board;
 	}
+	
 
 	/*
 	 * TODO this method is big and complicated break it down by calling smaller

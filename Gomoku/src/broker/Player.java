@@ -1,5 +1,7 @@
 package broker;
 
+import java.util.ArrayList;
+
 /**
  * @author GROUP 22 Code implementation by Leslie Nguyen This class represents
  *         an object of type Player which will contain and maintain all the
@@ -32,7 +34,13 @@ public class Player
 	 */
 	public Player(Player toPlayer)
 	{
-		// TODO implement copy constructor
+		setUserName(toPlayer.getUserName());
+		// TODO piece colour needs a getter
+		// fix this line of code once it's implemented
+		setPieceColour(toPlayer.pieceColour);
+		setWinCount(toPlayer.getWinCount());
+		setLoseCount(toPlayer.getWinCount());
+		setDrawCount(toPlayer.getDrawCount());
 	}
 
 	/**
@@ -115,5 +123,17 @@ public class Player
 	public void setPieceColour(Piece inwardPiece)
 	{
 		this.pieceColour = new Piece(inwardPiece);
+	}
+	
+	public ArrayList<String> getPlayerStats()
+	{
+		ArrayList<String> pStats = new ArrayList<String>();
+		pStats.add("Username: " + getUserName());
+		pStats.add("Wins: " + getWinCount());
+		pStats.add("Loses: " + getLoseCount());
+		pStats.add("Draws: " + getDrawCount());
+		//TODO fix the following line once you can
+		pStats.add("Colour: " + pieceColour);
+		return pStats;
 	}
 }

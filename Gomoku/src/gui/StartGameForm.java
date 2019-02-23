@@ -82,6 +82,9 @@ public class StartGameForm extends Application implements GUICommons
 			@Override
 			public void handle(ActionEvent event)
 			{
+				Stage stage = (Stage) startGame.getScene().getWindow();
+			    // do what you have to do
+			    stage.close();
 				GameSetup.setupGame(PLAYER_ONE_USERNAME.getText(),
 						PLAYER_TWO_USERNAME.getText());
 			}

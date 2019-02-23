@@ -1,5 +1,7 @@
 package broker;
 
+import java.util.ArrayList;
+
 /**
  * @author GROUP22 created by Steven This class represents the current state of
  *         the game being played
@@ -49,7 +51,6 @@ public class Game
 	 * roundCount) instead it should reset the turnCount once you've implemented
 	 * this attribute
 	 * 
-	 * @param newGame
 	 */
 
 	public Game()
@@ -59,9 +60,67 @@ public class Game
 		resetRound();
 	}
 
+	/**
+	 * @return the playerOne
+	 */
+	public Player getPlayerOne()
+	{
+		return new Player(playerTwo);
+	}
+
+	/**
+	 * @return the playerTwo
+	 */
+	public Player getPlayerTwo()
+	{
+		return new Player(playerOne);
+	}
+
+	/**
+	 * @return the turnCount
+	 */
+	public int getTurnCount()
+	{
+		return turnCount;
+	}
+	
+	public Board getCurrentBoard()
+	{
+		return currentBoard;
+	}
+	
+	/**
+	 * @param playerOne the playerOne to set
+	 */
+	private void setPlayerOne(Player playerOne)
+	{
+		this.playerOne = playerOne;
+	}
+
+	/**
+	 * @param playerTwo the playerTwo to set
+	 */
+	private void setPlayerTwo(Player playerTwo)
+	{
+		this.playerTwo = playerTwo;
+	}
+
+	/**
+	 * @param turnCount the turnCount to set
+	 */
+	private void setTurnCount(int turnCount)
+	{
+		this.turnCount = turnCount;
+	}
+	
+	public void setCurrentBoard(Board currentBoard)
+	{
+		this.currentBoard = currentBoard;
+	}
+	
 	private void resetRound()
 	{
-		currentBoard = new Board();
+		setCurrentBoard(new Board());
 		turnCount = 0;
 	}
 
