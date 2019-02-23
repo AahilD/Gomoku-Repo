@@ -1,7 +1,5 @@
 package broker;
 
-import java.util.ArrayList;
-
 /**
  * @author GROUP22 created by Steven This class represents the current state of
  *         the game being played
@@ -83,7 +81,7 @@ public class Game
 	{
 		return turnCount;
 	}
-	
+
 	public Board getCurrentBoard()
 	{
 		return currentBoard;
@@ -112,12 +110,12 @@ public class Game
 	{
 		this.turnCount = turnCount;
 	}
-	
+
 	public void setCurrentBoard(Board currentBoard)
 	{
 		this.currentBoard = currentBoard;
 	}
-	
+
 	private void resetRound()
 	{
 		setCurrentBoard(new Board());
@@ -142,7 +140,8 @@ public class Game
 	public boolean makeMove(int xCoordinate, int yCoordinate)
 	{
 		Square[][] currentArrayBoard = currentBoard.getBoard();
-		currentArrayBoard[xCoordinate][yCoordinate] = new Square(xCoordinate, yCoordinate);
+		currentArrayBoard[xCoordinate][yCoordinate] = new Square(xCoordinate,
+				yCoordinate);
 		boolean winning = currentBoard.gameOver();
 		incrementPlayerTurn();
 		return winning;
@@ -161,17 +160,19 @@ public class Game
 	public Player getTurnPlayer()
 	{
 		Player playerTurn = null;
-		if (turnCount == 0 || turnCount%2 == 0){
+		if (turnCount == 0 || turnCount % 2 == 0)
+		{
 			playerTurn = new Player(playerOne);
-		} else if (turnCount%2 != 0){
+		} else if (turnCount % 2 != 0)
+		{
 			playerTurn = new Player(playerTwo);
 		}
 		return playerTurn;
 	}
 
-	//***
+	// ***
 	private void incrementPlayerTurn()
 	{
-		turnCount += 1 ;
+		turnCount += 1;
 	}
 }

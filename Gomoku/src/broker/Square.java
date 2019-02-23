@@ -11,10 +11,13 @@ public class Square
 	// TODO implement variables, constructors, getters, setters, and other
 	// methods.
 	// TODO the constructor(s) should initialize the value of Player to null
-	// TODO the setter should throw an exception if the square.getPlayer() != null
+	// TODO the setter should throw an exception if the square.getPlayer() !=
+	// null
 	// TODO each square should have the x and y coordinates that it belongs to
-	// TODO the x and y coordinates getters and setters should both be private (no one should be able to change them)
-	// TODO	the default constructor must require x and y coordinates and set Player to null by default
+	// TODO the x and y coordinates getters and setters should both be private
+	// (no one should be able to change them)
+	// TODO the default constructor must require x and y coordinates and set
+	// Player to null by default
 
 	// instance variable
 	private static Player player;
@@ -23,74 +26,78 @@ public class Square
 
 	/**
 	 * This is the default constructor and only constructor
+	 * 
 	 * @param toX
 	 * @param toY
-	*/
-	
-	//Constructor //
+	 */
+
+	// Constructor //
 	public Square(int toX, int toY)
 	{
 		player = null;
 		x = toX;
-		y= toY;
+		y = toY;
 
 	}
-	//Setter
+
+	// Setter
 	/**
-	 * Call this method to set player,
-	 * player must be null, throws "illegal move" error if player is not null
+	 * Call this method to set player, player must be null, throws "illegal
+	 * move" error if player is not null
+	 * 
 	 * @param m
 	 */
-	private void setPlayer (Player m) throws IllegalMove
+	public void setPlayer(Player m) throws IllegalMove
 	{
 		if (player == null)
 		{
-			this.player = m;
-		} 
-		else
+			Square.player = m;
+		} else
 		{
 			throw new IllegalMove();
 		}
 	}
 
-	private void setX (int x)
+	private void setX(int x)
 	{
 		this.x = x;
 	}
-	private void setY (int y)
+
+	private void setY(int y)
 	{
-		this.y = y; 
+		this.y = y;
 	}
-	
-	//Getter
-	public int getX ()
+
+	// Getter
+	public int getX()
 	{
 		return x;
 	}
+
 	public int getY()
 	{
 		return y;
 	}
+
 	protected static Player getPlayer()
 	{
 		return player;
 	}
+
 	// Methods
 	public boolean isEmpty()
 	{
 		return player == null;
 	}
-		// TODO remove paramaters and just check to see if player == null
-		// TODO return true if player is null
-	
+	// TODO remove paramaters and just check to see if player == null
+	// TODO return true if player is null
+
 	// TODO you should be able to implement this method once the other changes
 	// have been done
-	
+
 	public Player playedby()
 	{
 		return player;
 	}
-	
-	
 
 }

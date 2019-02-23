@@ -17,6 +17,7 @@ public class Gomoku extends Application
 		launch(args);
 	}
 
+	@Override
 	public void start(Stage primaryStage)
 	{
 		ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();

@@ -1,6 +1,6 @@
 package gui;
 
-import controller.*;
+import controller.GameManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,6 +34,7 @@ public class StartGameForm extends Application implements GUICommons
 		launch(args);
 	}
 
+	@Override
 	public void start(Stage primaryStage)
 	{
 		//
@@ -79,8 +80,8 @@ public class StartGameForm extends Application implements GUICommons
 			public void handle(ActionEvent event)
 			{
 				Stage stage = (Stage) startGame.getScene().getWindow();
-			    // do what you have to do
-			    stage.close();
+				// do what you have to do
+				stage.close();
 				GameManager.initializeGame(PLAYER_ONE_USERNAME.getText(),
 						PLAYER_TWO_USERNAME.getText());
 			}

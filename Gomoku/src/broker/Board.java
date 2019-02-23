@@ -1,7 +1,5 @@
 package broker;
 
-import java.util.ArrayList;
-
 /**
  * @author GROUP 22 Code implemented by Emily Pang This class represents and
  *         Object of Type Board. An instance of this class will contain and
@@ -12,10 +10,11 @@ import java.util.ArrayList;
 public class Board
 {
 	// TODO Add javadoc
-	//Initializes a 2D array for the board //
+	// Initializes a 2D array for the board //
 	private Square[][] board;
 	final int WIDTHLENGTH = 19;
 	final int HEIGHTLENGTH = 19;
+
 	public Board()
 	{
 		board = new Square[WIDTHLENGTH][HEIGHTLENGTH];
@@ -35,7 +34,6 @@ public class Board
 	{
 		return board;
 	}
-	
 
 	/*
 	 * TODO this method is big and complicated break it down by calling smaller
@@ -65,7 +63,8 @@ public class Board
 		{
 			for (int col = 0; col < board[row].length; col++)
 			{
-				if (Square.getPlayer().getPieceColour().getBlackOrWhite()==piece)
+				if (Square.getPlayer().getPieceColour()
+						.getBlackOrWhite() == piece)
 				{
 					i++;
 				} else if (i >= 5)
@@ -89,7 +88,8 @@ public class Board
 		{
 			for (int c = 0; c < board[r].length; c++)
 			{
-				if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
+				if (Square.getPlayer().getPieceColour()
+						.getBlackOrWhite() == piece)
 				{
 					i++;
 				} else
@@ -109,44 +109,56 @@ public class Board
 	}
 
 	private boolean verifyDiagonalLeft(int xPosition, int yPosition, char piece)
-	{	boolean fiveInARow = false;
-		int counter=0;
-		//Having troubles getting the x and y positions from the square class I will keep trying tomorrow :-) -LN
-		for(int col=xPosition, row=yPosition; col<board.length && row<board.length; col--, row--) {
-			if(Square.getPlayer().getPieceColour().getBlackOrWhite()==piece) {
+	{
+		boolean fiveInARow = false;
+		int counter = 0;
+		// Having troubles getting the x and y positions from the square class I
+		// will keep trying tomorrow :-) -LN
+		for (int col = xPosition, row = yPosition; col < board.length
+				&& row < board.length; col--, row--)
+		{
+			if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
+			{
 				counter++;
-			}
-			else {
-				counter=0;
+			} else
+			{
+				counter = 0;
 			}
 		}
-		if(counter>=5) {
-			fiveInARow=true;
-		}
-		else {
-			fiveInARow=false;
+		if (counter >= 5)
+		{
+			fiveInARow = true;
+		} else
+		{
+			fiveInARow = false;
 		}
 		return fiveInARow;
 	}
 
-	private boolean verifyDiagonalRight(int xPosition, int yPosition, char piece)
+	private boolean verifyDiagonalRight(int xPosition, int yPosition,
+			char piece)
 	{
 		boolean fiveInARow = false;
-		int counter=0;
-		//Having troubles getting the x and y positions from the square class I will keep trying tomorrow :-) -LN
-		for(int col=xPosition, row=yPosition; col<board.length && row<board.length; col++, row++) {
-			if(Square.getPlayer().getPieceColour().getBlackOrWhite()==piece) {
+		int counter = 0;
+		// Having troubles getting the x and y positions from the square class I
+		// will keep trying tomorrow :-) -LN
+		for (int col = xPosition, row = yPosition; col < board.length
+				&& row < board.length; col++, row++)
+		{
+			if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
+			{
 				counter++;
-			}
-			else {
-				counter=0;
+			} else
+			{
+				counter = 0;
 			}
 		}
-		if(counter>=5) {
-			fiveInARow=true;
-		}
-		else {
-			fiveInARow=false;
+		if (counter >= 5)
+		{
+			fiveInARow = true;
+		} else
+		{
+			fiveInARow = false;
 		}
 		return fiveInARow;
 	}
@@ -171,9 +183,12 @@ public class Board
 	{
 		return verifyVertical('w') || verifyVertical('b')
 				|| verifyHorizontal('w') || verifyHorizontal('b')
-				//the position in the verifiers are temporary and will be gone once I am able to get the x and y positions from the square class :-) - LN
-				|| verifyDiagonalLeft(0,0,'w') || verifyDiagonalLeft(0,0, 'b')
-				|| verifyDiagonalRight(0,0,'w') || verifyDiagonalRight(0,0,'b')
-				|| boardFull();
+				// the position in the verifiers are temporary and will be gone
+				// once I am able to get the x and y positions from the square
+				// class :-) - LN
+				|| verifyDiagonalLeft(0, 0, 'w')
+				|| verifyDiagonalLeft(0, 0, 'b')
+				|| verifyDiagonalRight(0, 0, 'w')
+				|| verifyDiagonalRight(0, 0, 'b') || boardFull();
 	}
 }
