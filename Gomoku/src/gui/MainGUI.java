@@ -86,8 +86,8 @@ public class MainGUI implements GUICommons
 			for (int y = 0; y < board.get(x).size(); y++)
 			{
 				Button sqrButton = board.get(x).get(y);
-				sqrButton.setPrefWidth(60);
-				sqrButton.setPrefHeight(60);
+				sqrButton.setPrefWidth(35);
+				sqrButton.setPrefHeight(35);
 				sqrButton.setId(x + "," + y); // use the id to store x and y
 												// value
 
