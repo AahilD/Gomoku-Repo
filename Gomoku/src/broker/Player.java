@@ -153,6 +153,10 @@ public class Player
 		this.pieceColour = new Piece(inwardPiece);
 	}
 
+	/**
+	 * This method creates an array storing player statistics and information
+	 * @return this payer's statistics and information
+	 */
 	public ArrayList<String> getPlayerStats()
 	{
 		ArrayList<String> pStats = new ArrayList<String>();
@@ -160,8 +164,7 @@ public class Player
 		pStats.add("Wins: " + getWinCount());
 		pStats.add("Loses: " + getLoseCount());
 		pStats.add("Draws: " + getDrawCount());
-		// TODO fix the following line once you can
-		pStats.add("Colour: " + pieceColour);
+		pStats.add("Colour: " + new Piece(pieceColour));
 		return pStats;
 	}
 
