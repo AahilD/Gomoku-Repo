@@ -27,7 +27,7 @@ public class Piece
 	 */
 	public Piece(Piece originalPiece)
 	{
-		blackOrWhite = originalPiece.getBlackOrWhite();
+		this.blackOrWhite = originalPiece.getBlackOrWhite();
 	}
 
 	/**
@@ -37,16 +37,24 @@ public class Piece
 	 */
 	public Piece(char letter)
 	{
-		this.blackOrWhite = letter;
+		setBlackOrWhite(letter);
 	}
 
 	// Getter
+	/**
+	 * This returns the char stored in the instance variable of backOrWhite.
+	 * @return the piece's colour
+	 */
 	public char getBlackOrWhite()
 	{
 		return blackOrWhite;
 	}
 
 	// Setter
+	/**
+	 * This sets the value of the char in the instance variable blackOrWhite.
+	 * @param blackOrWhite the char given is assigned to blackOrWhite
+	 */
 	public void setBlackOrWhite(char blackOrWhite)
 	{
 		this.blackOrWhite = blackOrWhite;
