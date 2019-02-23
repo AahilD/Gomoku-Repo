@@ -95,7 +95,7 @@ public class Player
 	/**
 	 * This returns a copy of the piece stored in pieceColour.
 	 * 
-	 * @return this player's piece color
+	 * @return this player's piece colour
 	 */
 	public Piece getPieceColour()
 	{
@@ -105,7 +105,8 @@ public class Player
 
 	// Setter
 	/**
-	 * @param userName
+	 * This sets the userName instance variable with a string 
+	 * @param userName the string is given to the instance variable of userName
 	 */
 	public void setUserName(String userName)
 	{
