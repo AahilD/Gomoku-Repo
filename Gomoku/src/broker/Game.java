@@ -55,8 +55,8 @@ public class Game
 
 	public Game(Player p1, Player p2)
 	{
-		playerOne = new Player(playerOne);
-		playerTwo = new Player(playerTwo);
+		playerOne = new Player(p1);
+		playerTwo = new Player(p2);
 		resetRound();
 	}
 

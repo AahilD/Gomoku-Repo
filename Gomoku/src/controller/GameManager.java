@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import broker.Game;
+import broker.Player;
 import broker.Square;
 import gui.MainGUI;
 import javafx.scene.control.Button;
@@ -47,6 +48,10 @@ public class GameManager
 	public static void initializeGame(String player1name, String player2name) 
 	{
 			roundCount = 0;
+			game = new Game(
+					new Player(player1name, 'b'),
+					new Player(player2name, 'w'));
+			
 			MainGUI.mainwindow(
 				setupBoard(),
 				setupPlayerStats(),

@@ -2,7 +2,7 @@ package gui;
 
 import java.util.ArrayList;
 
-import controller.GameSetup;
+import controller.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -100,7 +100,7 @@ public class MainGUI implements GUICommons
 						String[] xy = sqrButton.getId().split(",");
 						int x = Integer.parseInt(xy[0]);
 						int y = Integer.parseInt(xy[1]); 
-						GameSetup.playMove(x, y); 
+						GameManager.playMove(x, y); 
 						
 					}
 				});

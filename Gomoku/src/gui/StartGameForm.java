@@ -1,6 +1,6 @@
 package gui;
 
-import controller.GameSetup;
+import controller.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -81,7 +81,7 @@ public class StartGameForm extends Application implements GUICommons
 				Stage stage = (Stage) startGame.getScene().getWindow();
 			    // do what you have to do
 			    stage.close();
-				GameSetup.initializeGame(PLAYER_ONE_USERNAME.getText(),
+				GameManager.initializeGame(PLAYER_ONE_USERNAME.getText(),
 						PLAYER_TWO_USERNAME.getText());
 			}
 		});
