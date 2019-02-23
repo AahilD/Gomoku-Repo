@@ -57,7 +57,7 @@ public class Board
 		{
 			for (int col = 0; col < board[row].length; col++)
 			{
-				if (Square.getPlayer().getPiece().getBlackOrWhite()==piece)
+				if (Square.getPlayer().getPieceColour().getBlackOrWhite()==piece)
 				{
 					i++;
 				} else if (i >= 5)
@@ -81,7 +81,7 @@ public class Board
 		{
 			for (int c = 0; c < board[r].length; c++)
 			{
-				if (Square.getPlayer().getPiece().getBlackOrWhite() == piece)
+				if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
 				{
 					i++;
 				} else
