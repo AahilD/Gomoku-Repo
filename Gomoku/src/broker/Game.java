@@ -88,11 +88,11 @@ public class Game
 	{
 		return currentBoard;
 	}
-	
+
 	/**
 	 * @param playerOne the playerOne to set
 	 */
-	private void setPlayerOne(Player playerOne)
+	public void setPlayerOne(Player playerOne)
 	{
 		this.playerOne = playerOne;
 	}
@@ -100,7 +100,7 @@ public class Game
 	/**
 	 * @param playerTwo the playerTwo to set
 	 */
-	private void setPlayerTwo(Player playerTwo)
+	public void setPlayerTwo(Player playerTwo)
 	{
 		this.playerTwo = playerTwo;
 	}
@@ -108,7 +108,7 @@ public class Game
 	/**
 	 * @param turnCount the turnCount to set
 	 */
-	private void setTurnCount(int turnCount)
+	public void setTurnCount(int turnCount)
 	{
 		this.turnCount = turnCount;
 	}
@@ -139,9 +139,12 @@ public class Game
 	// Also you should increment turnCount.
 	// makemove(Player): boolean
 	// returns true if this move was the winning move
-	public boolean makeMove(Player currentPlayer)
+	public boolean makeMove(int xCoordinate, int yCoordinate)
 	{
-		boolean winning = false;
+		Square[][] currentArrayBoard = currentBoard.getBoard();
+		currentArrayBoard[xCoordinate][yCoordinate] = new Square(xCoordinate, yCoordinate);
+		boolean winning = currentBoard.gameOver();
+		incrementPlayerTurn();
 		return winning;
 	}
 
@@ -169,6 +172,6 @@ public class Game
 	//***
 	private void incrementPlayerTurn()
 	{
-		turnCount += 0;
+		turnCount += 1 ;
 	}
 }
