@@ -135,4 +135,11 @@ public class Player
 		pStats.add("Colour: " + pieceColour);
 		return pStats;
 	}
+	
+	/*
+	 * Methods to increment the counts of win, lose, and draw amounts
+	 */
+	
+	
+	
 }
