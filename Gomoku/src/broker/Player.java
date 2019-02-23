@@ -78,7 +78,7 @@ public class Player
 	/**
 	 * @return
 	 */
-	public Piece getPiece()
+	public Piece getPieceColour()
 	{
 		Piece copyPiece = new Piece(pieceColour);
 		return copyPiece;
