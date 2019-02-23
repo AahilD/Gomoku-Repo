@@ -126,7 +126,7 @@ public class Board
 		boolean fiveInARow = false;
 		int counter=0;
 		//Having troubles getting the x and y positions from the square class I will keep trying tomorrow :-) -LN
-		for(int col=this.board.getX(), row=this.board.getY(); col<board.length && row<board.length; col++, row++) {
+		for(int col=board.getX(), row=board.getY(); col<board.length && row<board.length; col++, row++) {
 			if(Square.getPlayer().getPieceColour().getBlackOrWhite()==piece) {
 				counter++;
 			}
