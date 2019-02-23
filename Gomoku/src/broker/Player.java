@@ -19,6 +19,11 @@ public class Player
 	private int drawCount;
 
 	// constructors
+	/**
+	 * This constructs a player with a user name and piece colour.
+	 * @param name the String name is given to the instance variable of userName
+	 * @param colour the value of the char is assigned to a new Piece through the class Piece
+	 */
 	public Player(String name, char colour)
 	{
 		setUserName(name);
@@ -29,7 +34,8 @@ public class Player
 	}
 
 	/**
-	 * @param toPlayer
+	 * This constructs a copy of a player with the original player
+	 * @param toPlayer the to player is the original that is used to create a copy
 	 */
 	public Player(Player toPlayer)
 	{
@@ -42,7 +48,8 @@ public class Player
 	}
 
 	/**
-	 * @return
+	 * This returns the player string stored in the userName.
+	 * @return this player's user name
 	 */
 	public String getUserName()
 	{
@@ -50,7 +57,8 @@ public class Player
 	}
 
 	/**
-	 * @return
+	 * This returns the number stored in the winCount.
+	 * @return this player's counts of won games
 	 */
 	public int getWinCount()
 	{
@@ -58,7 +66,8 @@ public class Player
 	}
 
 	/**
-	 * @return
+	 * This returns the number stored in the lostCount.
+	 * @return this player's counts of loses in games
 	 */
 	public int getLoseCount()
 	{
