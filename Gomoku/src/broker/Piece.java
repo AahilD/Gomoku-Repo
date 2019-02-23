@@ -43,7 +43,7 @@ public class Piece
 	// Getter
 	/**
 	 * This returns the char stored in the instance variable of backOrWhite.
-	 * @return the piece's colour
+	 * @return the piece's colour 
 	 */
 	public char getBlackOrWhite()
 	{
