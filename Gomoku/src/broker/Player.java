@@ -114,7 +114,8 @@ public class Player
 	}
 
 	/**
-	 * @param winCount
+	 * This sets the winCount instance variable with an integer
+	 * @param winCount the integer amount of wins is given to the instance variable of winCount
 	 */
 	public void setWinCount(int winCount)
 	{
