@@ -154,7 +154,7 @@ public class Player
 	}
 
 	/**
-	 * This method creates an array storing player statistics and information
+	 * This method creates an array storing player statistics and information.
 	 * @return this payer's statistics and information
 	 */
 	public ArrayList<String> getPlayerStats()
