@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class Player
 {
 	// TODO implement variables, constructor(s), getters, setters, and other
-	// methods to increment counts of won, lose, draw
 	private String userName;
 	private Piece pieceColour;
 	private int winCount;
