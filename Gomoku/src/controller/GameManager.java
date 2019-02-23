@@ -3,11 +3,9 @@ package controller;
 import java.util.ArrayList;
 
 import broker.Game;
-import broker.Player;
 import broker.Square;
 import gui.MainGUI;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
 
 /**
  * @author manu
@@ -52,8 +50,7 @@ public class GameManager
 	public static void initializeGame(String player1name, String player2name)
 	{
 		roundCount = 0;
-		game = new Game(
-				new Player(player1name, 'b'), new Player(player2name, 'w'));
+		game = new Game(player1name, player2name);
 
 		MainGUI.mainwindow(
 				setupBoard(), setupPlayerStats(), roundCount,
@@ -99,24 +96,6 @@ public class GameManager
 
 	public static void setupGame(String player1name, String player2name)
 	{
-
-	}
-
-	// Created an ArrayList stats with player names and win/lose/draw counts
-	// Blank lines included to make viewing easier
-	private ArrayList<String> playerStats()
-	{
-		/*
-		 * 
-		 * ArrayList<String> stats = new ArrayList( "Player 1: " +
-		 * player1name.getUsername(), "wins: " + player1name.getWinCount(),
-		 * "loses: " + player1name.getLoseCount(), " ", "Player 2: " +
-		 * player2name.getUsername(), "wins: " + player2name.getWinCount(),
-		 * "loses: " + player2name.getLoseCount(), " ", "draws: " +
-		 * player1name.getDrawCount());
-		 */
-
-		return null;
 
 	}
 
