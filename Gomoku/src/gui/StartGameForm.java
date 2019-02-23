@@ -26,14 +26,27 @@ import javafx.stage.Stage;
  */
 public class StartGameForm extends Application implements GUICommons
 {
+	// The TextField for player 1 username
 	final TextField PLAYER_ONE_USERNAME = new TextField("Player 1");
+	// the TextField for player 2 username
 	final TextField PLAYER_TWO_USERNAME = new TextField("Player 2");
 
+	/**
+	 * This is the official main method that will be called to launch 
+	 * the application.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
 		launch(args);
 	}
 
+	/** 
+	 * (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 * Called by the main method of this class.
+	 */
 	@Override
 	public void start(Stage primaryStage)
 	{
@@ -47,9 +60,10 @@ public class StartGameForm extends Application implements GUICommons
 	}
 
 	/**
-	 * This method will set up the overall layout of the form pop up gui.
+	 * Use this method to manage the setup for the main window of the user registration gui.
+	 * Currently uses BorderPane for the final window layout.
 	 * 
-	 * @return BorderPane type layout
+	 * @return Node of type BorderPane composed of various sub-nodes
 	 */
 	private BorderPane stageGUI()
 	{
@@ -70,6 +84,13 @@ public class StartGameForm extends Application implements GUICommons
 		return borderpane;
 	}
 
+	/**
+	 * This method creates a button that will notify the controller
+	 * to start the game, sending the textfields values as the usernames
+	 * for each player.
+	 * 
+	 * @return Node of HBox containing the button to start the game.
+	 */
 	private Node startGameButton()
 	{
 		Button startGame = new Button("Start Game");
@@ -93,33 +114,46 @@ public class StartGameForm extends Application implements GUICommons
 		return box;
 	}
 
+	/**
+	 * This method is in charge of setting up the player registration form.
+	 * where players will be able to enter their username. Each item is placed
+	 * inside a GridPane to manage the alignment.
+	 * 
+	 * @return Node of type GridPane containing user registration form
+	 */
 	private Node setupPlayerInfoForm()
 	{
+		// Labels for the place holders
 		Label enterUsernameLabel1 = new Label("Enter username: ");
 		Label enterUsernameLabel2 = new Label("Enter username: ");
-
+		
+		// stylize the nodes
 		enterUsernameLabel1.setPadding(GUICommons.defaultPadding());
 		enterUsernameLabel2.setPadding(GUICommons.defaultPadding());
 		PLAYER_ONE_USERNAME.setPadding(GUICommons.defaultPadding());
 		PLAYER_TWO_USERNAME.setPadding(GUICommons.defaultPadding());
-
+		
+		// create GridPane
 		GridPane form = new GridPane();
-
+		
+		// add all nodes to grid pane
 		GridPane.setConstraints(enterUsernameLabel1, 0, 0); // col=0 row=0
 		GridPane.setConstraints(PLAYER_ONE_USERNAME, 1, 0); // col=1 row=0
 		GridPane.setConstraints(enterUsernameLabel2, 0, 2); // col=0 row=1
 		GridPane.setConstraints(PLAYER_TWO_USERNAME, 1, 2); // col=1 row=1
-
+		
+		// add children nodes
 		form.getChildren().addAll(enterUsernameLabel1, PLAYER_ONE_USERNAME,
 				enterUsernameLabel2, PLAYER_TWO_USERNAME);
-
+		
+		//stylize gridpane
 		form.setHgap(10);
 		form.setVgap(10);
-
 		form.setPadding(GUICommons.defaultPadding());
 		form.setMaxWidth(Double.MAX_VALUE);
 		form.setAlignment(Pos.CENTER);
 		form.setPadding(GUICommons.defaultPadding());
+		
 		return form;
 	}
 

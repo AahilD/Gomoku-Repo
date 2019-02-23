@@ -2,10 +2,11 @@ package gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import controller.GameManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -163,17 +164,21 @@ public class MainGUI implements GUICommons
 	}
 
 	/**
-	 * Call this method to display the buttons on the board. Each button represents
-	 * a square of the Gomoku board. Each button on the insitiall start up, each button
-	 * is set to default values. Only on a mouse event will the button change state. 
-	 * On a click event the controller will determine the new state of the button.
-	 * Each button will be placed in a GridPane.
-	 * <p><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html">
-	 * Click here for more information on GridPane...
-	 * </a></p>
+	 * Call this method to display the buttons on the board. Each button
+	 * represents a square of the Gomoku board. Each button on the insitiall
+	 * start up, each button is set to default values. Only on a mouse event
+	 * will the button change state. On a click event the controller will
+	 * determine the new state of the button. Each button will be placed in a
+	 * GridPane.
+	 * <p>
+	 * <a href=
+	 * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html">
+	 * Click here for more information on GridPane... </a>
+	 * </p>
 	 * 
-	 * @param board is a 2 dimentional matrix ArrayList of type Button that represents the board composition
-	 * @return 
+	 * @param board is a 2 dimentional matrix ArrayList of type Button that
+	 *              represents the board composition
+	 * @return
 	 */
 	private static Node displayBoard(ArrayList<ArrayList<Button>> board)
 	{
@@ -183,12 +188,12 @@ public class MainGUI implements GUICommons
 		{
 			for (int y = 0; y < board.get(x).size(); y++)
 			{
-				Button sqrButton =  board.get(x).get(y);
+				Button sqrButton = board.get(x).get(y);
 				sqrButton.setPrefWidth(35);
 				sqrButton.setPrefHeight(35);
 				sqrButton.setId(x + "," + y); // use the id to store x and y
 												// value
-				
+
 				sqrButton.setOnAction(getBoardButtonEventHandler(sqrButton));
 
 				GridPane.setConstraints(
@@ -205,15 +210,18 @@ public class MainGUI implements GUICommons
 	}
 
 	/**
-	 * Use this method to setup an event handler for each button on the board game itself.
-	 * This is not for other buttons. This will call the appropriate method in the controller class
-	 * that will treat the action as a player having made a move by having provoked this event handler.
-	 * The button will also reflect any changes as per the controller.
+	 * Use this method to setup an event handler for each button on the board
+	 * game itself. This is not for other buttons. This will call the
+	 * appropriate method in the controller class that will treat the action as
+	 * a player having made a move by having provoked this event handler. The
+	 * button will also reflect any changes as per the controller.
 	 * 
-	 * @param sqrButton a Button that represents a square on the grid of the board game.
+	 * @param sqrButton a Button that represents a square on the grid of the
+	 *                  board game.
 	 * @return the EventHandler for this button
 	 */
-	private static EventHandler<ActionEvent> getBoardButtonEventHandler(Button sqrButton)
+	private static EventHandler<ActionEvent> getBoardButtonEventHandler(
+			Button sqrButton)
 	{
 		return new EventHandler<ActionEvent>()
 		{
@@ -232,18 +240,22 @@ public class MainGUI implements GUICommons
 	}
 
 	/**
-	 * Use this method to set up the player stats/information panel.
-	 * It will display each string from the ArrayList on an individual line
-	 * in the same order as they are stored in the ArrayList.
-	 * each string is currently allocated to their own respective Label
-	 * and each Label will be added to a sing VBox container.
+	 * Use this method to set up the player stats/information panel. It will
+	 * display each string from the ArrayList on an individual line in the same
+	 * order as they are stored in the ArrayList. each string is currently
+	 * allocated to their own respective Label and each Label will be added to a
+	 * sing VBox container.
 	 * 
-	 * <p><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/VBox.html">
-	 * Click here for more information on VBox
-	 * </a></p>
+	 * <p>
+	 * <a href=
+	 * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/VBox.html">
+	 * Click here for more information on VBox </a>
+	 * </p>
 	 * 
-	 * @param playerStats is an array list of strings that represent each line to display
-	 * @return Node of type VBox composed of individual labels from each string in the ArrayList
+	 * @param playerStats is an array list of strings that represent each line
+	 *                    to display
+	 * @return Node of type VBox composed of individual labels from each string
+	 *         in the ArrayList
 	 */
 	private static Node setupGameStatsPanel(ArrayList<String> playerStats)
 	{
@@ -261,23 +273,41 @@ public class MainGUI implements GUICommons
 	}
 
 	/**
-	 * Call this method to setup the content of the bottom pane.
-	 * Currently, the bottom pane will be composed of the number of rounds,
-	 * the number of turns, and an additional button to quit the game.
-	 * Each item is placed in an HBox that will display each item from left to right
-	 * in the respective order.
-	 * <p><a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/HBox.html">
-	 * Click here for more information on HBox
-	 * </a></p>
-	 * @param roundCount is an integer that represents the number of rounds played
-	 * @param turnCount is an integer that represents the total number of turns played
-	 * @return Node of type HBox containing the respective labels and the quit button
+	 * Call this method to setup the content of the bottom pane. Currently, the
+	 * bottom pane will be composed of the number of rounds, the number of
+	 * turns, and an additional button to quit the game. Each item is placed in
+	 * an HBox that will display each item from left to right in the respective
+	 * order.
+	 * <p>
+	 * <a href=
+	 * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/HBox.html">
+	 * Click here for more information on HBox </a>
+	 * </p>
+	 * 
+	 * @param roundCount is an integer that represents the number of rounds
+	 *                   played
+	 * @param turnCount  is an integer that represents the total number of turns
+	 *                   played
+	 * @return Node of type HBox containing the respective labels and the quit
+	 *         button
 	 */
 	private static Node setupBottomPane(int roundCount, int turnCount)
 	{
 		Label roundLabel = new Label("Round: " + roundCount);
 		Label turnLabel = new Label("turns: " + turnCount);
 		Button endGame = new Button("End Game");
+
+		endGame.setOnAction(new EventHandler<ActionEvent>()
+		{
+
+			@Override
+			public void handle(ActionEvent event)
+			{
+				Platform.exit();
+				System.exit(0);
+			}
+
+		});
 
 		GridPane grid = new GridPane();
 
