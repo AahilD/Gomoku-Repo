@@ -140,6 +140,14 @@ public class Player
 	 * Methods to increment the counts of win, lose, and draw amounts
 	 */
 	
-	
+	public void incretmentWinCount() {
+		winCount++;
+	}
+	public void incretmentLoseCount() {
+		loseCount++;
+	}
+	public void incretmentDrawCount() {
+		drawCount++;
+	}
 	
 }
