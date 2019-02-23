@@ -83,6 +83,7 @@ public class Player
 	}
 
 	/**
+	 * This returns the number stored in the DrawCount.
 	 * @return
 	 */
 	public int getDrawCount()
