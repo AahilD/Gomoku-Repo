@@ -115,7 +115,8 @@ public class Player
 
 	/**
 	 * This sets the winCount instance variable with an integer.
-	 * @param winCount the integer amount of wins is given to the instance variable of winCount
+	 * @param winCount the integer amount of wins is given to the 
+	 * 					instance variable of winCount
 	 */
 	public void setWinCount(int winCount)
 	{
@@ -124,7 +125,8 @@ public class Player
 
 	/**
 	 * This sets the loseCount instance variable with an integer.
-	 * @param loseCount the integer amount of loses is given to the instance variable of loseCount
+	 * @param loseCount the integer amount of loses is given to the 
+	 * 					instance variable of loseCount
 	 */
 	public void setLoseCount(int loseCount)
 	{
@@ -132,8 +134,9 @@ public class Player
 	}
 
 	/**
-	 * This sets the srawCount instance variable with an integer.
-	 * @param drawCount the integer amount if draws is given to the instance variable of drawCount
+	 * This sets the drawCount instance variable with an integer.
+	 * @param drawCount the integer amount if draws is given to the 
+	 * 					instance variable of drawCount
 	 */
 	public void setDrawCount(int drawCount)
 	{
@@ -141,7 +144,9 @@ public class Player
 	}
 
 	/**
-	 * @param inwardPiece
+	 * This sets the piece instance variable with a copy of the original piece.
+	 * @param inwardPiece the piece is given and a copy is made and placed into the instance 
+	 * 					   variable of pieceColour
 	 */
 	public void setPieceColour(Piece inwardPiece)
 	{
