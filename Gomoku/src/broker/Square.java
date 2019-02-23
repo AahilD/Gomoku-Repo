@@ -78,8 +78,8 @@ public class Square
 	// Methods
 	public boolean isEmpty()
 	{
-		return (player ==null); 
-		}
+		return player == null;
+	}
 		// TODO remove paramaters and just check to see if player == null
 		// TODO return true if player is null
 	

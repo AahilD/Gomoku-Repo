@@ -14,10 +14,18 @@ public class Board
 	// TODO Add javadoc
 	//Initializes a 2D array for the board //
 	private Square[][] board;
-
+	final int WIDTHLENGTH = 19;
+	final int HEIGHTLENGTH = 19;
 	public Board()
 	{
-		board = new Square[19][19];
+		board = new Square[WIDTHLENGTH][HEIGHTLENGTH];
+		for (int x = 0; x < board.length; x++)
+		{
+			for (int y = 0; y < board[x].length; y++)
+			{
+				board[x][y] = new Square(x, y);
+			}
+		}
 	}
 
 	/**
