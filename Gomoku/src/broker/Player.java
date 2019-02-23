@@ -168,20 +168,27 @@ public class Player
 		return pStats;
 	}
 
-	/*
-	 * Methods to increment the counts of win, lose, and draw amounts
+	
+	//Methods to increment the counts of win, lose, and draw amounts
+	/**
+	 * This method increments the amount in winCount by one. 
 	 */
-
 	public void incrementWinCount()
 	{
 		winCount++;
 	}
-
+	
+	/**
+	 * This method increments the amount in loseCount by one.
+	 */
 	public void incrementLoseCount()
 	{
 		loseCount++;
 	}
 
+	/**
+	 * This method increments the amount in drawCount by one.
+	 */
 	public void incrementDrawCount()
 	{
 		drawCount++;
