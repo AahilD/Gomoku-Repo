@@ -101,14 +101,45 @@ public class Board
 	}
 
 	private boolean verifyDiagonalLeft(char piece)
-	{
-		boolean fiveInARow = false;
+	{	boolean fiveInARow = false;
+		int counter=0;
+		//Having troubles getting the x and y positions from the square class I will keep trying tomorrow :-) -LN
+		for(int col=board.getX(), row=board.getY(); col<board.length && row<board.length; col--, row--) {
+			if(Square.getPlayer().getPieceColour().getBlackOrWhite()==piece) {
+				counter++;
+			}
+			else {
+				counter=0;
+			}
+		}
+		if(counter>=5) {
+			fiveInARow=true;
+		}
+		else {
+			fiveInARow=false;
+		}
 		return fiveInARow;
 	}
 
 	private boolean verifyDiagonalRight(char piece)
 	{
 		boolean fiveInARow = false;
+		int counter=0;
+		//Having troubles getting the x and y positions from the square class I will keep trying tomorrow :-) -LN
+		for(int col=this.board.getX(), row=this.board.getY(); col<board.length && row<board.length; col++, row++) {
+			if(Square.getPlayer().getPieceColour().getBlackOrWhite()==piece) {
+				counter++;
+			}
+			else {
+				counter=0;
+			}
+		}
+		if(counter>=5) {
+			fiveInARow=true;
+		}
+		else {
+			fiveInARow=false;
+		}
 		return fiveInARow;
 	}
 
