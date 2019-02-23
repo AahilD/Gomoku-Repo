@@ -105,7 +105,7 @@ public class Player
 
 	// Setter
 	/**
-	 * This sets the userName instance variable with a string 
+	 * This sets the userName instance variable with a string.
 	 * @param userName the string is given to the instance variable of userName
 	 */
 	public void setUserName(String userName)
@@ -114,7 +114,7 @@ public class Player
 	}
 
 	/**
-	 * This sets the winCount instance variable with an integer
+	 * This sets the winCount instance variable with an integer.
 	 * @param winCount the integer amount of wins is given to the instance variable of winCount
 	 */
 	public void setWinCount(int winCount)
@@ -123,7 +123,8 @@ public class Player
 	}
 
 	/**
-	 * @param loseCount
+	 * This sets the loseCount instance variable with an integer.
+	 * @param loseCount the integer amount of loses is given to the instance variable of loseCount
 	 */
 	public void setLoseCount(int loseCount)
 	{
