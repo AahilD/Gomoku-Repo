@@ -35,7 +35,6 @@ public class Player
 	public Player(Player toPlayer)
 	{
 		setUserName(toPlayer.getUserName());
-		// TODO piece colour needs a getter
 		// fix this line of code once it's implemented
 		setPieceColour(toPlayer.pieceColour);
 		setWinCount(toPlayer.getWinCount());
