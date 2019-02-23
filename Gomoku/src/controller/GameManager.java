@@ -7,6 +7,7 @@ import broker.Player;
 import broker.Square;
 import gui.MainGUI;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
 
 /**
  * @author manu
@@ -125,10 +126,28 @@ public class GameManager
 
 	}
 
-	public static void playMove(int x, int y)
+	public static String playMove(int x, int y)
 	{
-		// TODO Auto-generated method stub
-
+		// the following three lines of code is just to show you how the information
+		// is being processed when you do front end testing
+		System.out.println("x: " + x);
+		System.out.println("y: " + y);
+		//TODO game should have a method to play the move
+		// pass x and y through them game will work out who's turn it is
+		// controller needs to find out who's turn it is before playing the move
+		// as the turn will change as soon as the move has been made
+		// you should return new Button with a bg colour/ image (what ever) that reflects
+		// that players designated colour. don't worry about x and y on the return 
+		// do not return a new button, I can't change the button itself
+		// but you can return any property of button that can be set to change its physical appearance
+		// you will have to look up how to do this and return the object with the desire value
+		// If you decided on returning something other than string you may go ahead and make those changes in GUI
+		// or flag me down so I can do it. either way. if you want to do it yourself go to
+		// line 104-106 in MainGUI.java and change those lines to reflect your changes here.
+		// for the gui is repsonsive as it is so you may play around with it. call me if you are stuck.
+		// upon completeing this method you should have a better understanding about how
+		// the information is being tossed around... I know at first everything is so confusing.
+		return "P" + game.getTurnPlayer().getUserName().charAt(0);
 	}
 
 	// Reset board

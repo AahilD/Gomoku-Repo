@@ -101,10 +101,11 @@ public class MainGUI implements GUICommons
 						String[] xy = sqrButton.getId().split(",");
 						int x = Integer.parseInt(xy[0]);
 						int y = Integer.parseInt(xy[1]);
-						GameManager.playMove(x, y);
-
+						sqrButton.setText(GameManager.playMove(x, y));
+						sqrButton.setDisable(true);
 					}
 				});
+				
 
 				GridPane.setConstraints(
 						sqrButton, // Node
