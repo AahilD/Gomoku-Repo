@@ -132,7 +132,8 @@ public class Player
 	}
 
 	/**
-	 * @param drawCount
+	 * This sets the srawCount instance variable with an integer.
+	 * @param drawCount the integer amount if draws is given to the instance variable of drawCount
 	 */
 	public void setDrawCount(int drawCount)
 	{
