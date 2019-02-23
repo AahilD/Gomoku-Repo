@@ -35,8 +35,8 @@ public class Square
 	public Square(int toX, int toY)
 	{
 		player = null;
-		x = toX;
-		y = toY;
+		setX(toX);
+		setY(toY);
 
 	}
 
@@ -47,17 +47,17 @@ public class Square
 	 * 
 	 * @param m
 	 */
-	public void setPlayer(Player m) throws IllegalMove
+	public void setPlayer(Player toPlayer) throws IllegalMove
 	{
 		if (player == null)
 		{
-			Square.player = m;
+			Square.player = toPlayer;
 		} else
 		{
 			throw new IllegalMove();
 		}
 	}
-
+	
 	private void setX(int x)
 	{
 		this.x = x;
