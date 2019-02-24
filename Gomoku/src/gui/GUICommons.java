@@ -10,10 +10,11 @@ public interface GUICommons
 	static Label windowHeader(String header)
 	{
 		Label gametitle = new Label(header);
-		gametitle.setFont(new Font(20));
+		gametitle.getStyleClass().add("title-head");
 		gametitle.setMaxWidth(Double.MAX_VALUE);
 		gametitle.setAlignment(Pos.CENTER);
 		gametitle.setPadding(defaultPadding());
+		
 		return gametitle;
 	}
 
