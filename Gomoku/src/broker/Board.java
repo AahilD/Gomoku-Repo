@@ -123,6 +123,7 @@ public class Board
 
 	private boolean verifyDiagonalLeft(char pieceColour)
 	{
+		//start fromm {[0][14], [1][15], [2][16], [3][17], [4][18] } end at {[14][0], [15][1]. [16][2].[17][3], [18][4]}
 		boolean fiveInARow = false;
 		int counter = 0;
 		for (int col = Square.getX(), row = Square.getY(); col < board.length
