@@ -1,17 +1,18 @@
 package broker;
 
 /**
- * @author GROUP22 created by Steven This class represents the current state of
- *         the game being played
+ * @author Steven 
+ * 			
+ * 			This class represents the current state of
+ *          the game being played
  */
 public class Game
 {
-	// player colour values
+	// PLAYER_ONE_COLOUR_VALUE: character 
 	private final char PLAYER_ONE_COLOUR_VALUE = 'w';
+	// PLAYER_TWO_COLOUR_VALUE: character
 	private final char PLAYER_TWO_COLOUR_VALUE = 'b';
 	
-	// TODO properly javadoc
-
 	// playerOne: object<Player>
 	private Player playerOne;
 	// playerTwo: object<Player>
@@ -24,8 +25,8 @@ public class Game
 	private Board currentBoard;
 
 	/**
-	 * @param gotPlayerOne
-	 * @param gotPlayerTwo
+	 * @param gotPlayerOne Name of player one
+	 * @param gotPlayerTwo Name of player two
 	 */
 	public Game(String gotPlayerOne, String gotPlayerTwo)
 	{
@@ -36,25 +37,12 @@ public class Game
 		resetRound();
 	}
 
-	/*
-	 * TODO sorry I did not conceive the concept of this object all that well
-	 * 
-	 * 1) looks like the default constructor is in good shape 2) I don't think
-	 * we need a copy constructor, I'm just commenting it out for now, don't
-	 * remove it yet.
-	 */
-
 	/**
-	 * TODO Don't have this as a constructor instead, call it public void
-	 * newMatch() it should: 1) copy over current players (this is good, but
-	 * Player Class needs a copy constructor now) 2) take in the current round
-	 * count as a parameter and increment the roundCount 3) reset the board
-	 * (this is good, but you are calling a method that is also reseting the
-	 * roundCount) instead it should reset the turnCount once you've implemented
-	 * this attribute
+	 * Constructor to copy player data, and create a new board
 	 * 
+	 * @param p1 Object<Player> for player one
+	 * @param p2 Object<Player> for player two
 	 */
-
 	public Game(Player p1, Player p2)
 	{
 		playerOne = new Player(p1);
@@ -63,44 +51,59 @@ public class Game
 	}
 
 	/**
-	 * @return the playerOne
+	 * Get object<Player> of player one
+	 * 
+	 * @return a copy of object<Player> playerOne
 	 */
 	public Player getPlayerOne()
-	{
-		return new Player(playerTwo);
-	}
-
-	/**
-	 * @return the playerTwo
-	 */
-	public Player getPlayerTwo()
 	{
 		return new Player(playerOne);
 	}
 
 	/**
-	 * @return the turnCount
+	 * Get object<Player> of player two
+	 * 
+	 * @return a copy of Object<Player> playerTwo
+	 */
+	public Player getPlayerTwo()
+	{
+		return new Player(playerTwo);
+	}
+
+	/**
+	 * Get the current turn Count
+	 * 
+	 * @return turnCount The number of the current turn
 	 */
 	public int getTurnCount()
 	{
 		return turnCount;
 	}
 
+	/**
+	 * Get the current board in play
+	 * 
+	 * @return Object<Board> The current Board
+	 */
 	public Board getCurrentBoard()
 	{
 		return currentBoard;
 	}
 
 	/**
-	 * @param playerOne the playerOne to set
+	 * Set player one
+	 * 
+	 * @param playerOne the object<Player> playerOne to set
 	 */
 	public void setPlayerOne(Player playerOne)
 	{
-		this.playerOne = playerOne;
+		this.playerOne = new Player(playerOne);
 	}
 
 	/**
-	 * @param playerTwo the playerTwo to set
+	 * Set player two
+	 * 
+	 * @param playerTwo the object<Player> playerTwo to set
 	 */
 	public void setPlayerTwo(Player playerTwo)
 	{
@@ -108,39 +111,43 @@ public class Game
 	}
 
 	/**
-	 * @param turnCount the turnCount to set
+	 * Set the current turn count
+	 * 
+	 * @param turnCount the integer turnCount to set
 	 */
 	public void setTurnCount(int turnCount)
 	{
 		this.turnCount = turnCount;
 	}
 
+	/**
+	 * Set the current Board
+	 * 
+	 * @param currentBoard the object<Board> to set
+	 */
 	public void setCurrentBoard(Board currentBoard)
 	{
 		this.currentBoard = currentBoard;
 	}
 
+	/**
+	 * Creates a new empty board, and resets the turn count to 0
+	 */
 	private void resetRound()
 	{
 		setCurrentBoard(new Board());
 		turnCount = 0;
 	}
 
-	// TODO so make move needs to save the player to the square
-	// I'm sorry this is confusing, at the last minute we decided to remove
-	// the Piece object. so pass in the arguments: int xCoordinate, int
-	// yCoordinate
-	// so that board[x][y].setPlayer(getTurnPlayer):. (Note Square object will
-	// have to reflect this chagne)
-	// Check the attribute that will determine who's turn it is to save that
-	// player to the square,
-	// once the move has been made and it is not the winning move, change the
-	// attribute to indicate it is
-	// the other players turn.
-	// on the board
-	// Also you should increment turnCount.
-	// makemove(Player): boolean
-	// returns true if this move was the winning move
+	/**
+	 * 
+	 * Places a chip on the board, and checks if it is a winning move
+	 * 
+	 * @param xCoordinate horizontal placement
+	 * @param yCoordinate vertical placement
+	 * @return			  false if move does not result in a win,
+	 * 					  True if move does result in a win
+	 */
 	public boolean makeMove(int xCoordinate, int yCoordinate)
 	{
 		Square[][] currentArrayBoard = currentBoard.getBoard();
@@ -152,14 +159,9 @@ public class Game
 	}
 
 	/**
-	 * * Note: an other way to go about it instead of using a boolean flag you
-	 * could determine that: if turnCount == 0 it is p1's turn else if turnCount
-	 * == 1 it is p2's turn else if turnCount is an even number it is p1's turn,
-	 * else if turnCount is an odd number it is p2's turn
+	 * Determine whose turn it is
 	 * 
-	 * Call this method to get the player who's turn it is
-	 * 
-	 * @return
+	 * @return copy of object<Player> of the player whose turn it is
 	 */
 	public Player getTurnPlayer()
 	{
@@ -174,7 +176,9 @@ public class Game
 		return playerTurn;
 	}
 
-	// ***
+	/**
+	 * increases the integer turnCount
+	 */
 	private void incrementPlayerTurn()
 	{
 		turnCount += 1;
