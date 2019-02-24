@@ -202,7 +202,7 @@ public class MainGUI implements GUICommons
 						sqrButton, // Node
 						y, x); // Insets (padding)
 				boardgrid.getChildren().add(sqrButton);
-				boardgrid.getChildren().get(i).setId("bt" + i);
+				boardgrid.getChildren().get(i).setId(x + "," + y);
 			}
 			i++;
 		}
