@@ -1,13 +1,10 @@
 package gui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import controller.GameManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -19,7 +16,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -30,7 +26,7 @@ import javafx.stage.Stage;
  */
 public class MainGUI implements GUICommons
 {
-	private final static String CUSTOM_CSS_FILENAME = "gomoku.css";
+	private final static String CUSTOM_CSS_FILENAME = "css/gomoku.css";
 	private final static double WIDTH = 1286.333333333;
 	private final static double HEIGHT = 864.666666667;
 	
@@ -56,8 +52,6 @@ public class MainGUI implements GUICommons
 		Scene scene = new Scene(
 				stageGUI(board, playerStats, roundCount, turnCount));
 
-		Parent root = null; // set root to null for now.
-
 		primaryStage.setWidth(WIDTH);
 		primaryStage.setHeight(HEIGHT);
 		// get the FXML file
@@ -69,7 +63,7 @@ public class MainGUI implements GUICommons
 		primaryStage.show();
 		//load css
 		scene.getStylesheets().add(MainGUI.class.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
-
+		
 	}
 
 	/**

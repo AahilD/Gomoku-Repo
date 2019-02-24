@@ -3,7 +3,6 @@ package gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.text.Font;
 
 public interface GUICommons
 {
