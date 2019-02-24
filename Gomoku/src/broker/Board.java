@@ -10,12 +10,10 @@ package broker;
 public class Board
 {
 	// TODO Add javadoc
-	// Initializes a 2D array for the board. Also initializes the value instance variables "WIDTHLENGTH" and "HEIGHTLENGTH".  //
+	// Initializes a 2D array for the board //
 	private Square[][] board;
 	final int WIDTHLENGTH = 19;
 	final int HEIGHTLENGTH = 19;
-	
-	
 
 	public Board()
 	{
@@ -28,12 +26,9 @@ public class Board
 			}
 		}
 	}
-	//Accessor (Getters)//
 
 	/**
-	 * This getter method pulls the board and returns it.
-	 * 
-	 * @return board
+	 * @return
 	 */
 	public Square[][] getBoard()
 	{
@@ -57,10 +52,8 @@ public class Board
 	 * other than that this looks great
 	 */
 	/**
-	 * This checks if there is a Horizontal win based on the last piece played.
-	 * 
 	 * @param char pieceColour
-	 * @return fiveInARow
+	 * @return
 	 */
 	private boolean verifyHorizontal(char pieceColour)
 	{
@@ -71,8 +64,7 @@ public class Board
 		// row by row
 		for (int row = 0; row < board.length && !fiveInARow; row++)
 		{
-			// column by column
-			
+			// column by column 
 			// TODO add condition to stop when you have spoted 5 in a row in the 
 			// nested for loop as well
 			for (int col = 0; col < board[row].length; col++)
@@ -101,13 +93,6 @@ public class Board
 		}
 		return fiveInARow;
 	}
-	
-	/**
-	 * This checks if there is a vertical win based on the last piece placed. 
-	 * 
-	 * @param pieceColour
-	 * @return fiveInARow
-	 */
 
 	private boolean verifyVertical(char pieceColour)
 	{
@@ -135,12 +120,6 @@ public class Board
 		}
 		return fiveInARow;
 	}
-	
-	/**
-	 * This checks if there is a diagonal going to the left direction based on the last piece placed.
-	 * @param pieceColour
-	 * @return fiveInARow
-	 */
 
 	private boolean verifyDiagonalLeft(char pieceColour)
 	{
@@ -166,11 +145,6 @@ public class Board
 		}
 		return fiveInARow;
 	}
-	/**
-	 * This checks if there is a diagonal in the right direction based on the last move played. 
-	 * @param pieceColour
-	 * @return fiveInARow
-	 */
 
 	private boolean verifyDiagonalRight(char pieceColour)
 	{
@@ -197,11 +171,6 @@ public class Board
 		return fiveInARow;
 	}
 
-	/**
-	 * This checks if the board is full or not 
-	 * 
-	 * @return full 
-	 */
 	private boolean boardFull()
 	{
 		boolean full = true;
