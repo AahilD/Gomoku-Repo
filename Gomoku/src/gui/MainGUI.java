@@ -41,11 +41,10 @@ public class MainGUI implements GUICommons
 	private static final String PLAYER_STATS_VBOX = "player-stats-vbox";
 	private static final String PLAYER_STATS_LABELS = "player-stats-label";
 	private static final String ACTIVE_BOARD_SQUARE = "active-board-square";
+	private static final String PLAYER_STATS_HEADER_LABEL = "player-stats-header";
 	
 	// LABEL VALUES
 	private static final String GAME_NAME = "Gomoku";
-	private static final String WINDOW_TITLE = "GROUP22";
-	private static final String PLAYER_STATS_HEADER_LABEL = "player-stats-header";
 	private static final String PLAYER_STATS_HEADER_VALUE = "Player Panel Board";
 	private static final String ROUND_COUNT_LABEL = "Round: ";
 	private static final String TURN_COUNT_LABEL = "Turns: ";
@@ -78,8 +77,9 @@ public class MainGUI implements GUICommons
 		// if file exists add it to the scene
 		
 		
-		primaryStage.setTitle(WINDOW_TITLE);
+		primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 		primaryStage.setScene(scene);
+		
 		// TODO make custom task/titblebar
 		//primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.show();
@@ -199,7 +199,7 @@ public class MainGUI implements GUICommons
 		//STYLIZE
 		boardgrid.minHeight(Double.MAX_VALUE);
 		boardgrid.minHeight(Double.MAX_VALUE);
-		boardgrid.setPadding(GUICommons.defaultPadding());
+		boardgrid.setPadding(GUICommons.DEFAULT_PADDING);
 		boardgrid.setAlignment(Pos.CENTER);
 		
 		return boardgrid;
@@ -269,7 +269,7 @@ public class MainGUI implements GUICommons
 		for (int i = 0; i < playerStats.size(); i++)
 		{
 			Label label = new Label(playerStats.get(i));
-			label.setPadding(GUICommons.defaultPadding());
+			label.setPadding(GUICommons.DEFAULT_PADDING);
 			label.maxWidth(Double.MAX_VALUE);
 			label.setAlignment(Pos.CENTER_LEFT);
 			label.getStyleClass().add(PLAYER_STATS_LABELS);
@@ -284,7 +284,7 @@ public class MainGUI implements GUICommons
 
 		mainVbox.setAlignment(Pos.CENTER_LEFT);
 		mainVbox.minHeight(Double.MAX_VALUE);
-		mainVbox.setPadding(GUICommons.defaultPadding());
+		mainVbox.setPadding(GUICommons.DEFAULT_PADDING);
 		
 		return mainVbox;
 	}
@@ -342,7 +342,7 @@ public class MainGUI implements GUICommons
 		GridPane.setConstraints(endGame, 2, 0);
 		
 		//style
-		grid.setPadding(GUICommons.defaultPadding());
+		grid.setPadding(GUICommons.DEFAULT_PADDING);
 		grid.setMaxWidth(Double.MAX_VALUE);
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(WIDTH / 2.75);

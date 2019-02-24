@@ -30,6 +30,11 @@ public class StartGameForm extends Application implements GUICommons
 	final TextField PLAYER_ONE_USERNAME = new TextField("Player 1");
 	// the TextField for player 2 username
 	final TextField PLAYER_TWO_USERNAME = new TextField("Player 2");
+	
+	// labels
+	private static final String USERNAME_LABEL = "Enter username: ";
+	private static final String START_GAME_BUTTON_VALUE = "Start Game";
+	private static final String PLAYER_REGISTRATION = "Player Registration";
 
 	/**
 	 * This is the official main method that will be called to launch 
@@ -54,7 +59,7 @@ public class StartGameForm extends Application implements GUICommons
 		Scene scene = new Scene(stageGUI());
 		primaryStage.minWidthProperty().bind(scene.widthProperty());
 		primaryStage.minHeightProperty().bind(scene.heightProperty());
-		primaryStage.setTitle("GROUP22");
+		primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -71,7 +76,7 @@ public class StartGameForm extends Application implements GUICommons
 		BorderPane borderpane = new BorderPane();
 
 		// TOP: account information
-		borderpane.setTop(GUICommons.windowHeader("Player Registration"));
+		borderpane.setTop(GUICommons.windowHeader(PLAYER_REGISTRATION));
 		// CENTER: Transaction form
 		borderpane.setCenter(setupPlayerInfoForm());
 
@@ -93,7 +98,7 @@ public class StartGameForm extends Application implements GUICommons
 	 */
 	private Node startGameButton()
 	{
-		Button startGame = new Button("Start Game");
+		Button startGame = new Button(START_GAME_BUTTON_VALUE);
 		startGame.setOnAction(new EventHandler<ActionEvent>()
 		{
 
@@ -110,7 +115,7 @@ public class StartGameForm extends Application implements GUICommons
 		HBox box = new HBox(startGame);
 		box.setMaxWidth(Double.MAX_VALUE);
 		box.setAlignment(Pos.CENTER_RIGHT);
-		box.setPadding(GUICommons.defaultPadding());
+		box.setPadding(GUICommons.DEFAULT_PADDING);
 		return box;
 	}
 
@@ -124,14 +129,14 @@ public class StartGameForm extends Application implements GUICommons
 	private Node setupPlayerInfoForm()
 	{
 		// Labels for the place holders
-		Label enterUsernameLabel1 = new Label("Enter username: ");
-		Label enterUsernameLabel2 = new Label("Enter username: ");
+		Label enterUsernameLabel1 = new Label(USERNAME_LABEL);
+		Label enterUsernameLabel2 = new Label(USERNAME_LABEL);
 		
 		// stylize the nodes
-		enterUsernameLabel1.setPadding(GUICommons.defaultPadding());
-		enterUsernameLabel2.setPadding(GUICommons.defaultPadding());
-		PLAYER_ONE_USERNAME.setPadding(GUICommons.defaultPadding());
-		PLAYER_TWO_USERNAME.setPadding(GUICommons.defaultPadding());
+		enterUsernameLabel1.setPadding(GUICommons.DEFAULT_PADDING);
+		enterUsernameLabel2.setPadding(GUICommons.DEFAULT_PADDING);
+		PLAYER_ONE_USERNAME.setPadding(GUICommons.DEFAULT_PADDING);
+		PLAYER_TWO_USERNAME.setPadding(GUICommons.DEFAULT_PADDING);
 		
 		// create GridPane
 		GridPane form = new GridPane();
@@ -149,10 +154,10 @@ public class StartGameForm extends Application implements GUICommons
 		//stylize gridpane
 		form.setHgap(10);
 		form.setVgap(10);
-		form.setPadding(GUICommons.defaultPadding());
+		form.setPadding(GUICommons.DEFAULT_PADDING);
 		form.setMaxWidth(Double.MAX_VALUE);
 		form.setAlignment(Pos.CENTER);
-		form.setPadding(GUICommons.defaultPadding());
+		form.setPadding(GUICommons.DEFAULT_PADDING);
 		
 		return form;
 	}
