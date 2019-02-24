@@ -52,10 +52,10 @@ public class Board
 	 * other than that this looks great
 	 */
 	/**
-	 * @param piece
+	 * @param char pieceColour
 	 * @return
 	 */
-	private boolean verifyHorizontal(char piece)
+	private boolean verifyHorizontal(char pieceColour)
 	{
 		boolean fiveInARow = false;
 		int i = 0;
@@ -63,8 +63,7 @@ public class Board
 		{
 			for (int col = 0; col < board[row].length; col++)
 			{
-				if (Square.getPlayer().getPieceColour()
-						.getBlackOrWhite() == piece)
+				if (Square.getPlayer().getPieceColour() == pieceColour)
 				{
 					i++;
 				} else if (i >= 5)
@@ -80,7 +79,7 @@ public class Board
 		return fiveInARow;
 	}
 
-	private boolean verifyVertical(char piece)
+	private boolean verifyVertical(char pieceColour)
 	{
 		boolean fiveInARow = false;
 		int i = 0;
@@ -88,8 +87,7 @@ public class Board
 		{
 			for (int c = 0; c < board[r].length; c++)
 			{
-				if (Square.getPlayer().getPieceColour()
-						.getBlackOrWhite() == piece)
+				if (Square.getPlayer().getPieceColour() == pieceColour)
 				{
 					i++;
 				} else
@@ -108,14 +106,14 @@ public class Board
 		return fiveInARow;
 	}
 
-	private boolean verifyDiagonalLeft(char piece )
+	private boolean verifyDiagonalLeft(char pieceColour)
 	{
 		boolean fiveInARow = false;
 		int counter = 0;
 		for (int col = Square.getX(), row = Square.getY(); col < board.length
 				&& row < board.length; col--, row--)
 		{
-			if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
+			if (Square.getPlayer().getPieceColour() == pieceColour)
 			{
 				counter++;
 			} else
@@ -133,14 +131,14 @@ public class Board
 		return fiveInARow;
 	}
 
-	private boolean verifyDiagonalRight(char piece)
+	private boolean verifyDiagonalRight(char pieceColour)
 	{
 		boolean fiveInARow = false;
 		int counter = 0;
 		for (int col = Square.getX(), row = Square.getY(); col < board.length
 				&& row < board.length; col++, row++)
 		{
-			if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
+			if (Square.getPlayer().getPieceColour() == pieceColour)
 			{
 				counter++;
 			} else

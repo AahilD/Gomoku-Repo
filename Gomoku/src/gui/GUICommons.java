@@ -17,7 +17,7 @@ public interface GUICommons
 	
 	static Label windowHeader(String header)
 	{
-		Label gametitle = new Label(TITLE_BAR_NAME);
+		Label gametitle = new Label(header);
 		
 		gametitle.getStyleClass().add(HEADER_CLASS);
 		gametitle.setMaxWidth(Double.MAX_VALUE);

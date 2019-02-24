@@ -105,7 +105,7 @@ public class GameManager
 
 	}
 
-	public static String playMove(int x, int y)
+	public static char playMove(int x, int y)
 	{
 		// the following three lines of code is just to show you how the
 		// information
@@ -137,7 +137,7 @@ public class GameManager
 		// about how
 		// the information is being tossed around... I know at first everything
 		// is so confusing.
-		return "P" + game.getTurnPlayer().getUserName().charAt(0);
+		return game.getTurnPlayer().getPieceColour();
 	}
 
 	// Reset board

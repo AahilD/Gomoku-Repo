@@ -6,6 +6,10 @@ package broker;
  */
 public class Game
 {
+	// player colour values
+	private final char PLAYER_ONE_COLOUR_VALUE = 'w';
+	private final char PLAYER_TWO_COLOUR_VALUE = 'b';
+	
 	// TODO properly javadoc
 
 	// playerOne: object<Player>
@@ -26,9 +30,9 @@ public class Game
 	public Game(String gotPlayerOne, String gotPlayerTwo)
 	{
 		// playerOne: object<Player>
-		playerOne = new Player(gotPlayerOne, 'w');
+		playerOne = new Player(gotPlayerOne, PLAYER_ONE_COLOUR_VALUE);
 		// playerTwo: object<Player>
-		playerTwo = new Player(gotPlayerTwo, 'b');
+		playerTwo = new Player(gotPlayerTwo, PLAYER_TWO_COLOUR_VALUE);
 		resetRound();
 	}
 

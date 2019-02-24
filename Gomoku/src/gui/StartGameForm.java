@@ -28,6 +28,7 @@ public class StartGameForm extends Application implements GUICommons
 {
 	// The TextField for player 1 username
 	final TextField PLAYER_ONE_USERNAME = new TextField("Player 1");
+	 
 	// the TextField for player 2 username
 	final TextField PLAYER_TWO_USERNAME = new TextField("Player 2");
 	

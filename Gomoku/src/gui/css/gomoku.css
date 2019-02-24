@@ -1,3 +1,16 @@
+/*
+* CSS style sheet for the GOMOKU game
+* Group 22
+* by Emmanuel Julio Gallebuillos-Cote
+*/
+
+// get local font faces
+@font-face{
+	font-family: Knife Fight Ballet;
+	src: url(../fonts/KnifeFightBallet-Regular.otf);
+}
+
+// main window and global settings
 .root {
 	-fx-background-image: url("../images/background.jpg");
 	-fx-background-repeat: no-repeat;
@@ -6,47 +19,69 @@
 	-fx-font-size: 14px;
 }
 
-@font-face{
-	font-family: Knife Fight Ballet;
-	src: url(../fonts/KnifeFightBallet-Regular.otf);
-}
-
+// bottom panel of the main window
 .bottom-pane {
 	-fx-background-color: rgba(255, 255, 255, 0.7);
 }
 
+// For each label inside the bottom panel of the main window
 .bottom-pane-labels{
 	-fx-font-size: 16px;
 	-fx-font-weight: bold;
 }
 
+// The header at the top of the window displaying the name of the game
 .title-head {
-	-fx-font-size: 60px;
+	-fx-font-size: 82px;
 	-fx-font-weight: bold;
 	-fx-font-family: "Knife Fight Ballet";
 }
 
+// default style for each square on the board
 .active-board-square {
 	-fx-background-color: rgba(255, 255, 255, 0.8);
 	-fx-border-color: rgba(0,0,0,0.8);
 }
 
+// the style of the square that has a white piece placed on it
+.ocupied-board-square-w{
+	-fx-background-image: url("../images/white-piece.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: 90% auto;
+	-fx-opacity: 1.0;
+}
+
+// the style of the square that has a black piece placed on it
+.ocupied-board-square-b{
+	-fx-background-image: url("../images/black-piece.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: 90% auto;
+	-fx-opacity: 1.0;
+}
+
+// the style for the header of the player stats panel (left pane)
 .player-stats-header {
 	-fx-font-size: 28px;
 	-fx-font-weight: bold;
 	-fx-font-family: "Knife Fight Ballet";
 }
+
+// the style for each label containing the players stats
 .player-stats-label {
 	-fx-font-size: 14px;
 	-fx-font-weight: bold;
 	-fx-height: 16px;
 }
 
+// the style for vbox containing the labels of player stats
 .player-stats-vbox {
 	-fx-background-color: rgba(255, 255, 255, 0.75);
 	-fx-height: auto;
 }
 
+// the styel for the "end game" button
 .end-game-button {
 	-fx-background-color: rgba(52, 152, 219, 0.75);
 	-fx-font-size: 24px;
@@ -56,6 +91,7 @@
 	-fx-padding: 10px 20px;
 }
 
+// the style for the "end game" button upon hover
 .end-game-button:hover {
 	-fx-background-color: rgba(52,152,219, 1);
 	-fx-text-fill: white;

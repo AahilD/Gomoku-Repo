@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.ArrayList;
+
 import controller.GameManager;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,7 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * @author manu
@@ -31,6 +31,9 @@ public class MainGUI implements GUICommons
 	private final static double WIDTH = 1286.333333333;
 	private final static double HEIGHT = 864.666666667;
 	
+	// BOARD SQUARE WIDTH AND HEIGHT DIMMENSIONS
+	private final static int SQUARE_WIDTH_AND_HEIGHT = 35;
+	
 	//CSS FILEPATH
 	private final static String CUSTOM_CSS_FILENAME = "css/gomoku.css";
 	
@@ -41,6 +44,7 @@ public class MainGUI implements GUICommons
 	private static final String PLAYER_STATS_VBOX = "player-stats-vbox";
 	private static final String PLAYER_STATS_LABELS = "player-stats-label";
 	private static final String ACTIVE_BOARD_SQUARE = "active-board-square";
+	private static final String OCUPIED_BOARD_SQUARE = "ocupied-board-square-";
 	private static final String PLAYER_STATS_HEADER_LABEL = "player-stats-header";
 	
 	// LABEL VALUES
@@ -80,9 +84,11 @@ public class MainGUI implements GUICommons
 		primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 		primaryStage.setScene(scene);
 		
-		// TODO make custom task/titblebar
+		// TODO make custom task/title-bar
 		//primaryStage.initStyle(StageStyle.UNDECORATED);
+		
 		primaryStage.show();
+		
 		//load css
 		scene.getStylesheets().add(MainGUI.class.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
 		
@@ -179,14 +185,19 @@ public class MainGUI implements GUICommons
 			for (int y = 0; y < board.get(x).size(); y++)
 			{
 				Button sqrButton = board.get(x).get(y);
-				sqrButton.setPrefWidth(36);
-				sqrButton.setPrefHeight(36);
+				//width and height
+				sqrButton.setPrefWidth(SQUARE_WIDTH_AND_HEIGHT);
+				sqrButton.setPrefHeight(SQUARE_WIDTH_AND_HEIGHT);
+				//style
 				sqrButton.getStyleClass().add(ACTIVE_BOARD_SQUARE);
-				sqrButton.setId(x + "," + y); // use the id to store x and y
-												// value
-
+				
+				//id to store x and y value for later
+				sqrButton.setId(x + "," + y);
+				
+				// apply action event handler
 				sqrButton.setOnAction(getBoardButtonEventHandler(sqrButton));
-
+				
+				// add button to gridpane
 				GridPane.setConstraints(
 						sqrButton, // Node
 						y, x); // Insets (padding)
@@ -229,8 +240,10 @@ public class MainGUI implements GUICommons
 				String[] xy = sqrButton.getId().split(",");
 				int x = Integer.parseInt(xy[0]);
 				int y = Integer.parseInt(xy[1]);
-				sqrButton.setText(GameManager.playMove(x, y));
 				sqrButton.setDisable(true);
+				String output = OCUPIED_BOARD_SQUARE + GameManager.playMove(x, y);
+				sqrButton.getStyleClass().add(output);
+				sqrButton.applyCss();
 			}
 		};
 	}

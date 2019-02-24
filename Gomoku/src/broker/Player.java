@@ -13,7 +13,7 @@ public class Player
 {
 	// TODO implement variables, constructor(s), getters, setters, and other
 	private String userName;
-	private Piece pieceColour;
+	private char pieceColour;
 	private int winCount;
 	private int loseCount;
 	private int drawCount;
@@ -27,10 +27,14 @@ public class Player
 	 * @param colour the value of the char is assigned to a new Piece through
 	 *               the class Piece
 	 */
-	public Player(String name, char colour)
+	public Player(String toName, char toColour)
 	{
-		setUserName(name);
-		setPieceColour(new Piece(colour));
+		setUserName(toName);
+		setPieceColour(toColour);
+		//TODO use the setter methods to reduce code duplication
+		// I would make all the setter methods private since we don't want to be able to make
+		// any chages to Player after the instance has been initialized. be it through this constructor
+		// or the copy constructor.
 		this.winCount = 0;
 		this.loseCount = 0;
 		this.drawCount = 0;
@@ -97,10 +101,24 @@ public class Player
 	 * 
 	 * @return this player's piece colour
 	 */
-	public Piece getPieceColour()
+	public char getPieceColour()
 	{
-		Piece copyPiece = new Piece(pieceColour);
-		return copyPiece;
+		return pieceColour;
+	}
+	
+	/**
+	 * This returns the pieceColour's full name as a string 
+	 */
+	public String pieceColourToString()
+	{
+		String toString = "White";
+		
+		if (getPieceColour() == 'b')
+		{
+			toString = "Black";
+		}
+		
+		return toString;
 	}
 
 	// Setter
@@ -148,9 +166,9 @@ public class Player
 	 * @param inwardPiece the piece is given and a copy is made and placed into the instance 
 	 * 					   variable of pieceColour
 	 */
-	public void setPieceColour(Piece inwardPiece)
+	private void setPieceColour(char toColour)
 	{
-		this.pieceColour = new Piece(inwardPiece);
+		pieceColour = toColour;
 	}
 
 	/**
@@ -164,7 +182,7 @@ public class Player
 		pStats.add("Wins: " + getWinCount());
 		pStats.add("Loses: " + getLoseCount());
 		pStats.add("Draws: " + getDrawCount());
-		pStats.add("Colour: " + new Piece(pieceColour));
+		pStats.add("Piece Colour: " + pieceColourToString());
 		return pStats;
 	}
 
