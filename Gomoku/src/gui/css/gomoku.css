@@ -1,9 +1,14 @@
 .root {
-	-fx-background-image: url("background.jpg");
+	-fx-background-image: url("../images/background.jpg");
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
 	-fx-background-size: 100% auto;
 	-fx-font-size: 14px;
+}
+
+@font-face{
+	font-family: Knife Fight Ballet;
+	src: url(../fonts/KnifeFightBallet-Regular.otf);
 }
 
 .bottom-pane {
