@@ -148,15 +148,13 @@ public class Game
 	 * @return			  false if move does not result in a win,
 	 * 					  True if move does result in a win
 	 */
-	public boolean makeMove(int xCoordinate, int yCoordinate)
+	public boolean makeMove(int xCoordinate, int yCoordinate) throws IllegalMove
 	{
 		Square[][] currentArrayBoard = currentBoard.getBoard();
 		// TODO instead of replaceing current square with new square
 		// set the player value of the current square with the current turn player
-		currentArrayBoard[xCoordinate][yCoordinate] = new Square(xCoordinate,
-				yCoordinate);
+		currentArrayBoard[xCoordinate][yCoordinate].setPlayer(getTurnPlayer());
 		boolean winning = currentBoard.gameOver();
-		incrementPlayerTurn();
 		return winning;
 	}
 
@@ -181,7 +179,7 @@ public class Game
 	/**
 	 * increases the integer turnCount
 	 */
-	private void incrementPlayerTurn()
+	public void incrementPlayerTurn()
 	{
 		turnCount += 1;
 	}
