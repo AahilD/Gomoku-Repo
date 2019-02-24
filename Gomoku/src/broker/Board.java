@@ -108,7 +108,7 @@ public class Board
 		return fiveInARow;
 	}
 
-	private boolean verifyDiagonalLeft(char piece)
+	private boolean verifyDiagonalLeft(char piece )
 	{
 		boolean fiveInARow = false;
 		int counter = 0;
