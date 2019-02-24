@@ -10,10 +10,12 @@ package broker;
 public class Board
 {
 	// TODO Add javadoc
-	// Initializes a 2D array for the board //
+	// Initializes a 2D array for the board. Also initializes the value instance variables "WIDTHLENGTH" and "HEIGHTLENGTH".  //
 	private Square[][] board;
 	final int WIDTHLENGTH = 19;
 	final int HEIGHTLENGTH = 19;
+	
+	
 
 	public Board()
 	{
@@ -26,9 +28,12 @@ public class Board
 			}
 		}
 	}
+	//Accessor (Getters)//
 
 	/**
-	 * @return
+	 * This getter method pulls the board and returns it.
+	 * 
+	 * @return board
 	 */
 	public Square[][] getBoard()
 	{
@@ -52,32 +57,57 @@ public class Board
 	 * other than that this looks great
 	 */
 	/**
+	 * This checks if there is a Horizontal win based on the last piece played.
+	 * 
 	 * @param char pieceColour
-	 * @return
+	 * @return fiveInARow
 	 */
 	private boolean verifyHorizontal(char pieceColour)
 	{
+		// five in a row flag
 		boolean fiveInARow = false;
+		// counter for consecutive same-colour-pieces found
 		int i = 0;
+		// row by row
 		for (int row = 0; row < board.length && !fiveInARow; row++)
 		{
+			// column by column
+			
+			// TODO add condition to stop when you have spoted 5 in a row in the 
+			// nested for loop as well
 			for (int col = 0; col < board[row].length; col++)
 			{
+				// TODO Squre might need a copy constructor
+				// Square thisSquare = new Square(board[x][y])
+				// if square[x][y].getPlayer != null && thisSquare.getplayer.getcolour == pieceColour
 				if (Square.getPlayer().getPieceColour() == pieceColour)
 				{
+					// if this square is the piece we are looking for
+					// increment i
 					i++;
-				} else if (i >= 5)
-				{
-					fiveInARow = true;
 				} else
 				{
-					fiveInARow = false;
+					// If this square does not equal the the piece we are looking for
+					// reset i to 0
 					i = 0;
+				}
+				// check if i == 5 
+				if (i == 5)
+				{
+					// if 5 in a row are found then set the flag to true
+					fiveInARow = true;
 				}
 			}
 		}
 		return fiveInARow;
 	}
+	
+	/**
+	 * This checks if there is a vertical win based on the last piece placed. 
+	 * 
+	 * @param pieceColour
+	 * @return fiveInARow
+	 */
 
 	private boolean verifyVertical(char pieceColour)
 	{
@@ -105,6 +135,12 @@ public class Board
 		}
 		return fiveInARow;
 	}
+	
+	/**
+	 * This checks if there is a diagonal going to the left direction based on the last piece placed.
+	 * @param pieceColour
+	 * @return fiveInARow
+	 */
 
 	private boolean verifyDiagonalLeft(char pieceColour)
 	{
@@ -130,6 +166,11 @@ public class Board
 		}
 		return fiveInARow;
 	}
+	/**
+	 * This checks if there is a diagonal in the right direction based on the last move played. 
+	 * @param pieceColour
+	 * @return fiveInARow
+	 */
 
 	private boolean verifyDiagonalRight(char pieceColour)
 	{
@@ -156,6 +197,11 @@ public class Board
 		return fiveInARow;
 	}
 
+	/**
+	 * This checks if the board is full or not 
+	 * 
+	 * @return full 
+	 */
 	private boolean boardFull()
 	{
 		boolean full = true;
