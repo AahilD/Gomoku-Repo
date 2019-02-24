@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * @author manu
@@ -79,6 +80,8 @@ public class MainGUI implements GUICommons
 		
 		primaryStage.setTitle(WINDOW_TITLE);
 		primaryStage.setScene(scene);
+		// TODO make custom task/titblebar
+		//primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.show();
 		//load css
 		scene.getStylesheets().add(MainGUI.class.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
@@ -341,7 +344,7 @@ public class MainGUI implements GUICommons
 		//style
 		grid.setPadding(GUICommons.defaultPadding());
 		grid.setMaxWidth(Double.MAX_VALUE);
-		grid.setAlignment(Pos.CENTER_RIGHT);
+		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(WIDTH / 2.75);
 		grid.getChildren().addAll(roundLabel, turnLabel, endGame);
 		grid.getStyleClass().add(BOTTOM_PANE);
