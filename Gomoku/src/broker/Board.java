@@ -108,13 +108,11 @@ public class Board
 		return fiveInARow;
 	}
 
-	private boolean verifyDiagonalLeft(int xPosition, int yPosition, char piece)
+	private boolean verifyDiagonalLeft(char piece)
 	{
 		boolean fiveInARow = false;
 		int counter = 0;
-		// Having troubles getting the x and y positions from the square class I
-		// will keep trying tomorrow :-) -LN
-		for (int col = xPosition, row = yPosition; col < board.length
+		for (int col = Square.getX(), row = Square.getY(); col < board.length
 				&& row < board.length; col--, row--)
 		{
 			if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
@@ -135,14 +133,11 @@ public class Board
 		return fiveInARow;
 	}
 
-	private boolean verifyDiagonalRight(int xPosition, int yPosition,
-			char piece)
+	private boolean verifyDiagonalRight(char piece)
 	{
 		boolean fiveInARow = false;
 		int counter = 0;
-		// Having troubles getting the x and y positions from the square class I
-		// will keep trying tomorrow :-) -LN
-		for (int col = xPosition, row = yPosition; col < board.length
+		for (int col = Square.getX(), row = Square.getY(); col < board.length
 				&& row < board.length; col++, row++)
 		{
 			if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
@@ -183,12 +178,9 @@ public class Board
 	{
 		return verifyVertical('w') || verifyVertical('b')
 				|| verifyHorizontal('w') || verifyHorizontal('b')
-				// the position in the verifiers are temporary and will be gone
-				// once I am able to get the x and y positions from the square
-				// class :-) - LN
-				|| verifyDiagonalLeft(0, 0, 'w')
-				|| verifyDiagonalLeft(0, 0, 'b')
-				|| verifyDiagonalRight(0, 0, 'w')
-				|| verifyDiagonalRight(0, 0, 'b') || boardFull();
+				|| verifyDiagonalLeft('w')
+				|| verifyDiagonalLeft('b')
+				|| verifyDiagonalRight('w')
+				|| verifyDiagonalRight('b') || boardFull();
 	}
 }
