@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,7 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -27,8 +30,10 @@ import javafx.stage.Stage;
  */
 public class MainGUI implements GUICommons
 {
-	private final static String CUSTOM_CSS_FILENAME = "";
-
+	private final static String CUSTOM_CSS_FILENAME = "gomoku.css";
+	private final static double WIDTH = 1286.333333333;
+	private final static double HEIGHT = 864.666666667;
+	
 	/**
 	 * Once the controller has initialized the game it should call this method
 	 * with all the necessary parameters to display the game information
@@ -53,49 +58,18 @@ public class MainGUI implements GUICommons
 
 		Parent root = null; // set root to null for now.
 
-		// try to load custom css
-		try
-		{
-			// get the FXML file
-			root = getFXML();
-			// if file exists add it to the scene
-			scene.setRoot(root);
-		} catch (CSSNotFoundException e)
-		{
-			/**
-			 * print warning, but continue with program JAVAFX will just use
-			 * default CSS instead since root is not going to be used it will
-			 * automatically be sent to java garbage collection
-			 */
-
-			System.out.print(e.toString());
-		}
-
-		primaryStage.minWidthProperty().bind(scene.widthProperty());
-		primaryStage.minHeightProperty().bind(scene.heightProperty());
+		primaryStage.setWidth(WIDTH);
+		primaryStage.setHeight(HEIGHT);
+		// get the FXML file
+		// if file exists add it to the scene
+		
+		
 		primaryStage.setTitle("GROUP22");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
+		//load css
+		scene.getStylesheets().add(MainGUI.class.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
 
-	/**
-	 * Call this method to get an object of type Parent of the custom FXML CSS
-	 * file. The file name is store in global variable CUSTOM_CSS_FILENAME.
-	 * 
-	 * @return Parent object of the custom FXML CSS file.
-	 * @throws CSSNotFoundException is thrown if the custom CSS file is not
-	 *                              found.
-	 */
-	private static Parent getFXML() throws CSSNotFoundException
-	{
-		try
-		{
-			return FXMLLoader
-					.load(MainGUI.class.getResource(CUSTOM_CSS_FILENAME));
-		} catch (IOException e)
-		{
-			throw new CSSNotFoundException(CUSTOM_CSS_FILENAME);
-		}
 	}
 
 	/**
@@ -189,8 +163,9 @@ public class MainGUI implements GUICommons
 			for (int y = 0; y < board.get(x).size(); y++)
 			{
 				Button sqrButton = board.get(x).get(y);
-				sqrButton.setPrefWidth(35);
-				sqrButton.setPrefHeight(35);
+				sqrButton.setPrefWidth(36);
+				sqrButton.setPrefHeight(36);
+				sqrButton.getStyleClass().add("active-board-square");
 				sqrButton.setId(x + "," + y); // use the id to store x and y
 												// value
 
@@ -204,8 +179,13 @@ public class MainGUI implements GUICommons
 			}
 			i++;
 		}
-		boardgrid.minHeight(1000);
-		boardgrid.minHeight(1000);
+		
+		//STYLIZE
+		boardgrid.minHeight(Double.MAX_VALUE);
+		boardgrid.minHeight(Double.MAX_VALUE);
+		boardgrid.setPadding(GUICommons.defaultPadding());
+		boardgrid.setAlignment(Pos.CENTER);
+		
 		return boardgrid;
 	}
 
@@ -259,17 +239,38 @@ public class MainGUI implements GUICommons
 	 */
 	private static Node setupGameStatsPanel(ArrayList<String> playerStats)
 	{
-		VBox box = new VBox();
+		Group group = new Group();
+		VBox mainVbox = new VBox();
+		VBox vb = new VBox();
+		HBox hb = new HBox();
+		
+		Label header = new Label("Player Panel Board");
+		header.getStyleClass().add("player-stats-header");
+		hb.minWidth(Double.MAX_VALUE);
+		hb.setAlignment(Pos.CENTER);
+		hb.getChildren().add(header);
+		vb.getChildren().add(hb);
 		for (int i = 0; i < playerStats.size(); i++)
 		{
 			Label label = new Label(playerStats.get(i));
 			label.setPadding(GUICommons.defaultPadding());
 			label.maxWidth(Double.MAX_VALUE);
 			label.setAlignment(Pos.CENTER_LEFT);
-			box.getChildren().add(label);
+			label.getStyleClass().add("player-stats-label");
+			label.setPrefHeight(50);
+			vb.getChildren().add(label);
 		}
+		
+		vb.getStyleClass().add("player-stats-vbox");
+		
+		group.getChildren().add(vb);
+		mainVbox.getChildren().add(group);
 
-		return box;
+		mainVbox.setAlignment(Pos.CENTER_LEFT);
+		mainVbox.minHeight(Double.MAX_VALUE);
+		mainVbox.setPadding(GUICommons.defaultPadding());
+		
+		return mainVbox;
 	}
 
 	/**
@@ -294,9 +295,14 @@ public class MainGUI implements GUICommons
 	private static Node setupBottomPane(int roundCount, int turnCount)
 	{
 		Label roundLabel = new Label("Round: " + roundCount);
-		Label turnLabel = new Label("turns: " + turnCount);
+		Label turnLabel = new Label("Turns: " + turnCount);
 		Button endGame = new Button("End Game");
-
+		
+		//styles
+		roundLabel.getStyleClass().add("bottom-pane-labels");
+		turnLabel.getStyleClass().add("bottom-pane-labels");
+		endGame.getStyleClass().add("end-game-button");
+		
 		endGame.setOnAction(new EventHandler<ActionEvent>()
 		{
 
@@ -310,16 +316,18 @@ public class MainGUI implements GUICommons
 		});
 
 		GridPane grid = new GridPane();
-
+		
 		GridPane.setConstraints(roundLabel, 0, 0);
 		GridPane.setConstraints(turnLabel, 1, 0);
 		GridPane.setConstraints(endGame, 2, 0);
+		
+		//style
 		grid.setPadding(GUICommons.defaultPadding());
 		grid.setMaxWidth(Double.MAX_VALUE);
 		grid.setAlignment(Pos.CENTER);
-		grid.setHgap(300);
+		grid.setHgap(WIDTH / 3);
 		grid.getChildren().addAll(roundLabel, turnLabel, endGame);
-
+		grid.getStyleClass().add("bottom-pane");
 		return grid;
 	}
 

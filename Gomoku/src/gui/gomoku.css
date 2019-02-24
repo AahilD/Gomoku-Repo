@@ -1,0 +1,57 @@
+.root {
+	-fx-background-image: url("background.jpg");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: 100% auto;
+	-fx-font-size: 14px;
+}
+
+.bottom-pane {
+	-fx-background-color: rgba(255, 255, 255, 0.7);
+}
+
+.bottom-pane-labels{
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+}
+
+.title-head {
+	-fx-font-size: 60px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+}
+
+.active-board-square {
+	-fx-background-color: rgba(255, 255, 255, 0.8);
+	-fx-border-color: rgba(0,0,0,0.8);
+}
+
+.player-stats-header {
+	-fx-font-size: 28px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+}
+.player-stats-label {
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+	-fx-height: 16px;
+}
+
+.player-stats-vbox {
+	-fx-background-color: rgba(255, 255, 255, 0.75);
+	-fx-height: auto;
+}
+
+.end-game-button {
+	-fx-background-color: rgba(52, 152, 219, 0.75);
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-text-fill: rgba(255, 255, 255, 0.75);
+	-fx-padding: 10px 20px;
+}
+
+.end-game-button:hover {
+	-fx-background-color: rgba(52,152,219, 1);
+	-fx-text-fill: white;
+}
