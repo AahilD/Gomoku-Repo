@@ -20,12 +20,18 @@ The player registration form window will appear and prompt the user's to enter a
 
 The code is devided into 3 tiers:
 1. broker
-- This package contains all the Java Objects
+- This package contains all the Java Objects.
 2. controller
-- This package contains all the functionality (or, game mechanics) which manages all the information between the gui and the broker, and delegates specific tasks according to user input and limitations implemented in the broker
+- This package contains all the functionality (or, game mechanics) which manages all the information between the gui and the broker, and delegates specific tasks according to user input and limitations implemented in the broker.
 3. gui
 - this package contains all the front end code, using JavaFX library to diplay the graphical user interface (GUI) and the various gui-components that allow the user to interact with the application in a user friendly way.
 
+3.1 gui.css
+- This folder contains the CSS files that JavaFX will use to style the GUI.
+3.2 gui.fonts
+- This folder contains the fonts (.otf, .ttf, etc...) files that the CSS file uses
+3.3 gui.images.
+- this folder contains the image files (.jpg, .png, etc...) the CSS file will use to decorate certain aspects of the GUI.
 Note: the controller does not communicate with the Broker, neither does the broker communicate with the GUI. The controller has the responsibility in mediating the information that goes back and forth.
 
 # External (3rd party) Resources
