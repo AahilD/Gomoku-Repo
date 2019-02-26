@@ -3,28 +3,27 @@ package gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.text.Font;
 
 public interface GUICommons
 {
+	final static String TITLE_BAR_NAME = "GROUP22";
+	
+	// DEFAULT PADDING
+	final static Insets DEFAULT_PADDING = new Insets(10, 10, 10, 10);
+	
+	// CSS CLASS
+	final static String HEADER_CLASS = "title-head";
+	
+	
 	static Label windowHeader(String header)
 	{
 		Label gametitle = new Label(header);
-		gametitle.setFont(new Font(20));
+		
+		gametitle.getStyleClass().add(HEADER_CLASS);
 		gametitle.setMaxWidth(Double.MAX_VALUE);
 		gametitle.setAlignment(Pos.CENTER);
-		gametitle.setPadding(defaultPadding());
+		gametitle.setPadding(DEFAULT_PADDING);
+		
 		return gametitle;
-	}
-
-	/**
-	 * Call this method to get an instance of Insets with default padding
-	 * values.
-	 * 
-	 * @return Insets with a default padding of (10,10,10,10)
-	 */
-	static Insets defaultPadding()
-	{
-		return new Insets(10, 10, 10, 10);
 	}
 }

@@ -52,35 +52,49 @@ public class Board
 	 * other than that this looks great
 	 */
 	/**
-	 * @param piece
+	 * @param char pieceColour
 	 * @return
 	 */
-	private boolean verifyHorizontal(char piece)
+	private boolean verifyHorizontal(char pieceColour)
 	{
+		// five in a row flag
 		boolean fiveInARow = false;
+		// counter for consecutive same-colour-pieces found
 		int i = 0;
+		// row by row
 		for (int row = 0; row < board.length && !fiveInARow; row++)
 		{
+			// column by column 
+			// TODO add condition to stop when you have spoted 5 in a row in the 
+			// nested for loop as well
 			for (int col = 0; col < board[row].length; col++)
 			{
-				if (Square.getPlayer().getPieceColour()
-						.getBlackOrWhite() == piece)
+				// TODO Squre might need a copy constructor
+				// Square thisSquare = new Square(board[x][y])
+				// if square[x][y].getPlayer != null && thisSquare.getplayer.getcolour == pieceColour
+				if (Square.getPlayer().getPieceColour() == pieceColour)
 				{
+					// if this square is the piece we are looking for
+					// increment i
 					i++;
-				} else if (i >= 5)
-				{
-					fiveInARow = true;
 				} else
 				{
-					fiveInARow = false;
+					// If this square does not equal the the piece we are looking for
+					// reset i to 0
 					i = 0;
+				}
+				// check if i == 5 
+				if (i == 5)
+				{
+					// if 5 in a row are found then set the flag to true
+					fiveInARow = true;
 				}
 			}
 		}
 		return fiveInARow;
 	}
 
-	private boolean verifyVertical(char piece)
+	private boolean verifyVertical(char pieceColour)
 	{
 		boolean fiveInARow = false;
 		int i = 0;
@@ -88,8 +102,7 @@ public class Board
 		{
 			for (int c = 0; c < board[r].length; c++)
 			{
-				if (Square.getPlayer().getPieceColour()
-						.getBlackOrWhite() == piece)
+				if (Square.getPlayer().getPieceColour() == pieceColour)
 				{
 					i++;
 				} else
@@ -108,16 +121,18 @@ public class Board
 		return fiveInARow;
 	}
 
-	private boolean verifyDiagonalLeft(int xPosition, int yPosition, char piece)
+	private boolean verifyDiagonalLeft(char pieceColour)
 	{
+		//start fromm {[0][14], [1][15], [2][16], [3][17], [4][18] } end at {[14][0], [15][1]. [16][2].[17][3], [18][4]}
+		
+		
+		
 		boolean fiveInARow = false;
 		int counter = 0;
-		// Having troubles getting the x and y positions from the square class I
-		// will keep trying tomorrow :-) -LN
-		for (int col = xPosition, row = yPosition; col < board.length
+		for (int col = Square.getX(), row = Square.getY(); col < board.length
 				&& row < board.length; col--, row--)
 		{
-			if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
+			if (Square.getPlayer().getPieceColour() == pieceColour)
 			{
 				counter++;
 			} else
@@ -135,17 +150,14 @@ public class Board
 		return fiveInARow;
 	}
 
-	private boolean verifyDiagonalRight(int xPosition, int yPosition,
-			char piece)
+	private boolean verifyDiagonalRight(char pieceColour)
 	{
 		boolean fiveInARow = false;
 		int counter = 0;
-		// Having troubles getting the x and y positions from the square class I
-		// will keep trying tomorrow :-) -LN
-		for (int col = xPosition, row = yPosition; col < board.length
+		for (int col = Square.getX(), row = Square.getY(); col < board.length
 				&& row < board.length; col++, row++)
 		{
-			if (Square.getPlayer().getPieceColour().getBlackOrWhite() == piece)
+			if (Square.getPlayer().getPieceColour() == pieceColour)
 			{
 				counter++;
 			} else
@@ -183,12 +195,9 @@ public class Board
 	{
 		return verifyVertical('w') || verifyVertical('b')
 				|| verifyHorizontal('w') || verifyHorizontal('b')
-				// the position in the verifiers are temporary and will be gone
-				// once I am able to get the x and y positions from the square
-				// class :-) - LN
-				|| verifyDiagonalLeft(0, 0, 'w')
-				|| verifyDiagonalLeft(0, 0, 'b')
-				|| verifyDiagonalRight(0, 0, 'w')
-				|| verifyDiagonalRight(0, 0, 'b') || boardFull();
+				|| verifyDiagonalLeft('w')
+				|| verifyDiagonalLeft('b')
+				|| verifyDiagonalRight('w')
+				|| verifyDiagonalRight('b') || boardFull();
 	}
 }

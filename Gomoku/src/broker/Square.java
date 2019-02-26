@@ -21,8 +21,8 @@ public class Square
 
 	// instance variable
 	private static Player player;
-	private int x;
-	private int y;
+	private static int x;
+	private static int y;
 
 	/**
 	 * This is the default constructor and only constructor
@@ -69,12 +69,12 @@ public class Square
 	}
 
 	// Getter
-	public int getX()
+	public static int getX()
 	{
 		return x;
 	}
 
-	public int getY()
+	public static int getY()
 	{
 		return y;
 	}
