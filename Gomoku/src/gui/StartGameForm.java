@@ -232,7 +232,7 @@ public class StartGameForm extends Application implements GUICommons
 						{
 							enterUsernameLabel2.setVisible(false);
 							PLAYER_TWO_USERNAME.setVisible(false);
-						} else if (rb.getId().contentEquals(PVP_LABEL))
+						} else if (rb.getText().contentEquals(PVP_LABEL))
 						{
 							enterUsernameLabel2.setVisible(true);
 							PLAYER_TWO_USERNAME.setVisible(true);
