@@ -123,30 +123,30 @@ public class Board
 
 	private boolean verifyDiagonalLeft(char pieceColour)
 	{
-		//start fromm {[0][14], [1][15], [2][16], [3][17], [4][18] } end at {[14][0], [15][1]. [16][2].[17][3], [18][4]}
-		
-		
 		
 		boolean fiveInARow = false;
-		int counter = 0;
-		for (int col = Square.getX(), row = Square.getY(); col < board.length
-				&& row < board.length; col--, row--)
-		{
-			if (Square.getPlayer().getPieceColour() == pieceColour)
-			{
-				counter++;
-			} else
-			{
-				counter = 0;
-			}
-		}
-		if (counter >= 5)
-		{
-			fiveInARow = true;
-		} else
-		{
-			fiveInARow = false;
-		}
+		int counter=0;
+		
+		for (int line = 1; line <= (WIDTHLENGTH + HEIGHTLENGTH - 1); line++) { 
+	    	int start_col = java.lang.Math.max(0, line - WIDTHLENGTH); 
+	  
+
+	    	int count = java.lang.Math.min(line, java.lang.Math.min((HEIGHTLENGTH - start_col), WIDTHLENGTH));  
+	    	for (int j = 0; j < count; j++) {
+	    		if(board[java.lang.Math.min(WIDTHLENGTH, line) - j - 1][start_col + j].getPlayer().getPieceColour()==pieceColour) {
+	    			counter=counter+1;
+	    			
+	    		}
+	    		else {
+	    			counter=0;
+	    		}
+	    		if(counter>=5) {
+	    			fiveInARow=true;
+	    			return fiveInARow;
+	    		}
+	    	} 
+	    }
+		
 		return fiveInARow;
 	}
 
