@@ -179,8 +179,9 @@ public class Game
 	/**
 	 * increases the integer turnCount
 	 */
-	public void incrementPlayerTurn()
+	public int incrementPlayerTurn()
 	{
 		turnCount += 1;
+		return turnCount;
 	}
 }
