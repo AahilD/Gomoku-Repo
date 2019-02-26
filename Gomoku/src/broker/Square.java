@@ -51,7 +51,7 @@ public class Square
 	{
 		if (isEmpty())
 		{
-			setPlayer(toPlayer);
+			player = toPlayer;
 		} else
 		{
 			throw new IllegalMove();

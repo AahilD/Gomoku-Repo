@@ -157,10 +157,6 @@ public class Game
 		{
 			isWinningMove = true;
 		}
-		else
-		{
-			incrementPlayerTurn();
-		}
 		
 		return isWinningMove;
 	}
