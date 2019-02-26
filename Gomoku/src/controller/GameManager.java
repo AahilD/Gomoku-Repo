@@ -115,9 +115,19 @@ public class GameManager
 		// is being processed when you do front end testing
 		System.out.println("x: " + x);
 		System.out.println("y: " + y);
-		System.out.println(game.getTurnPlayer().getUserName());
-
-		turnCount = game.incrementPlayerTurn();	
+		
+		try {
+			if (game.makeMove(x, y) == true) {
+				
+				game.incrementPlayerTurn();
+				
+			}
+				
+			
+		} catch (IllegalMove e) {
+			System.out.println("e");
+		}	
+		
 		// TODO game should have a method to play the move
 		// pass x and y through them game will work out who's turn it is
 		// controller needs to find out who's turn it is before playing the move
