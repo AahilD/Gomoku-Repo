@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import broker.Game;
 import broker.Square;
+import broker.Player;
+import broker.Board;
 import gui.MainGUI;
 import javafx.scene.control.Button;
 
@@ -25,6 +27,7 @@ public class GameManager
 	// to store the current state of the game
 	static Game game;
 	static int roundCount;
+	static int turnCount;
 
 	// TODO you will probably also need a variable to store the number of rounds
 	// as this is not the responsibility of Game.java (I know it sounds counter
@@ -112,6 +115,9 @@ public class GameManager
 		// is being processed when you do front end testing
 		System.out.println("x: " + x);
 		System.out.println("y: " + y);
+		System.out.println(game.getTurnPlayer().getUserName());
+
+		turnCount = game.incrementPlayerTurn();	
 		// TODO game should have a method to play the move
 		// pass x and y through them game will work out who's turn it is
 		// controller needs to find out who's turn it is before playing the move
