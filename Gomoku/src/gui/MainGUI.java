@@ -38,14 +38,14 @@ public class MainGUI implements GUICommons
 	private final static String CUSTOM_CSS_FILENAME = "css/gomoku.css";
 	
 	//CSS CLASS NAMES
-	private static final String BOTTOM_PANE = "bottom-pane";
-	private static final String BOTTOM_PANE_LABEL = "bottom-pane-labels";
-	private static final String END_GAME_BUTTON = "end-game-button";
-	private static final String PLAYER_STATS_VBOX = "player-stats-vbox";
-	private static final String PLAYER_STATS_LABELS = "player-stats-label";
-	private static final String ACTIVE_BOARD_SQUARE = "active-board-square";
-	private static final String OCUPIED_BOARD_SQUARE = "ocupied-board-square-";
-	private static final String PLAYER_STATS_HEADER_LABEL = "player-stats-header";
+	private static final String BOTTOM_PANE_CLASSNAME = "bottom-pane";
+	private static final String BOTTOM_PANE_LABEL_CLASSNAME = "bottom-pane-labels";
+	private static final String END_GAME_BUTTON_CLASSNAME = "end-game-button";
+	private static final String PLAYER_STATS_VBOX_CLASSNAME = "player-stats-vbox";
+	private static final String PLAYER_STATS_LABELS_CLASSNAME = "player-stats-label";
+	private static final String ACTIVE_BOARD_SQUARE_CLASSNAME = "active-board-square";
+	private static final String OCUPIED_BOARD_SQUARE_CLASSNAME = "ocupied-board-square-";
+	private static final String PLAYER_STATS_HEADER_LABEL_CLASSNAME = "player-stats-header";
 	
 	// LABEL VALUES
 	private static final String GAME_NAME = "Gomoku";
@@ -81,7 +81,7 @@ public class MainGUI implements GUICommons
 		// if file exists add it to the scene
 		
 		
-		primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
+		primaryStage.setTitle(TITLE_BAR_NAME);
 		primaryStage.setScene(scene);
 		
 		// TODO make custom task/title-bar
@@ -189,7 +189,7 @@ public class MainGUI implements GUICommons
 				sqrButton.setPrefWidth(SQUARE_WIDTH_AND_HEIGHT);
 				sqrButton.setPrefHeight(SQUARE_WIDTH_AND_HEIGHT);
 				//style
-				sqrButton.getStyleClass().add(ACTIVE_BOARD_SQUARE);
+				sqrButton.getStyleClass().add(ACTIVE_BOARD_SQUARE_CLASSNAME);
 				
 				//id to store x and y value for later
 				sqrButton.setId(x + "," + y);
@@ -241,7 +241,7 @@ public class MainGUI implements GUICommons
 				int x = Integer.parseInt(xy[0]);
 				int y = Integer.parseInt(xy[1]);
 				sqrButton.setDisable(true);
-				String output = OCUPIED_BOARD_SQUARE + GameManager.playMove(x, y);
+				String output = OCUPIED_BOARD_SQUARE_CLASSNAME + GameManager.playMove(x, y);
 				sqrButton.getStyleClass().add(output);
 				sqrButton.applyCss();
 			}
@@ -274,7 +274,7 @@ public class MainGUI implements GUICommons
 		HBox hb = new HBox();
 		
 		Label header = new Label(PLAYER_STATS_HEADER_VALUE);
-		header.getStyleClass().add(PLAYER_STATS_HEADER_LABEL);
+		header.getStyleClass().add(PLAYER_STATS_HEADER_LABEL_CLASSNAME);
 		hb.minWidth(Double.MAX_VALUE);
 		hb.setAlignment(Pos.CENTER);
 		hb.getChildren().add(header);
@@ -285,12 +285,12 @@ public class MainGUI implements GUICommons
 			label.setPadding(GUICommons.DEFAULT_PADDING);
 			label.maxWidth(Double.MAX_VALUE);
 			label.setAlignment(Pos.CENTER_LEFT);
-			label.getStyleClass().add(PLAYER_STATS_LABELS);
+			label.getStyleClass().add(PLAYER_STATS_LABELS_CLASSNAME);
 			label.setPrefHeight(50);
 			vb.getChildren().add(label);
 		}
 		
-		vb.getStyleClass().add(PLAYER_STATS_VBOX);
+		vb.getStyleClass().add(PLAYER_STATS_VBOX_CLASSNAME);
 		
 		group.getChildren().add(vb);
 		mainVbox.getChildren().add(group);
@@ -331,10 +331,10 @@ public class MainGUI implements GUICommons
 		Button endGame = new Button("End Game");
 		
 		//styles
-		roundLabel.getStyleClass().add(BOTTOM_PANE_LABEL);
-		turnLabel.getStyleClass().add(BOTTOM_PANE_LABEL);
+		roundLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
+		turnLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
 		
-		endGame.getStyleClass().add(END_GAME_BUTTON);
+		endGame.getStyleClass().add(END_GAME_BUTTON_CLASSNAME);
 		
 		endGame.setOnAction(new EventHandler<ActionEvent>()
 		{
@@ -360,7 +360,7 @@ public class MainGUI implements GUICommons
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(WIDTH / 2.75);
 		grid.getChildren().addAll(roundLabel, turnLabel, endGame);
-		grid.getStyleClass().add(BOTTOM_PANE);
+		grid.getStyleClass().add(BOTTOM_PANE_CLASSNAME);
 		return grid;
 	}
 
