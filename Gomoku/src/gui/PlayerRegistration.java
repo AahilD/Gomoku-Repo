@@ -22,14 +22,15 @@ import javafx.stage.Stage;
 
 /**
  * @author GROUP 22
- *
- *         This class will be a gui instance that will load when the game
- *         initially starts it will prompt for two usernames to be entered upon
- *         clicking the "start game" will send the usernames to the controller
- *         to set up the game and board.
+ * @author Emmanuel
+ * 
+ * This class is the main application launcher.
+ * This GUI will prompt user to select either player versus player mode (PVP), or, player versus envrionment mode (PVE).
+ * The user(s) will be prompted to enter a user name.
+ * Start Game button will open the MainGUI to start playing.
  * 
  */
-public class StartGameForm extends Application implements GUICommons
+public class PlayerRegistration extends Application implements GUICommons
 {
 	// labels
 	private static final String USERNAME_LABEL = "Enter username: ";
@@ -51,6 +52,9 @@ public class StartGameForm extends Application implements GUICommons
 	private static RadioButton playerVEnvironmentRB = new RadioButton(
 			PVE_LABEL);
 
+	private static final String CUSTOM_CSS_FILENAME = "css/player-registration.css";
+	private static final String PR_FORMGRID_CLASSNAME = "registration-form";
+	
 	/**
 	 * This is the official main method that will be called to launch the
 	 * application.
@@ -78,6 +82,8 @@ public class StartGameForm extends Application implements GUICommons
 		primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		
+		scene.getStylesheets().add(MainGUI.class.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
 	}
 
 	/**
@@ -95,7 +101,7 @@ public class StartGameForm extends Application implements GUICommons
 		borderpane.setTop(GUICommons.windowHeader(PLAYER_REGISTRATION));
 		// CENTER: Transaction form
 		borderpane.setCenter(setupPlayerInfoForm());
-
+		borderpane.getCenter().getStyleClass().add(PR_FORMGRID_CLASSNAME);
 		// BOTTOM: start game button
 		borderpane.setBottom(startGameButton());
 
@@ -240,7 +246,7 @@ public class StartGameForm extends Application implements GUICommons
 					}
 
 				});
-
+		
 		return form;
 	}
 
