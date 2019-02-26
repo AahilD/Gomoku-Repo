@@ -190,14 +190,22 @@ public class Board
 		}
 		return full;
 	}
-
-	public boolean gameOver()
+	
+	/**
+	 * check to see if any winning conditions have been met. This will check
+	 * all the columns, rows, and verticals if the given piece colour has won.
+	 * returns true if the 5 pieces of this colour exist in a row in any of these
+	 * directions.
+	 * 
+	 * @param pieceColour takes in the piece colour to check if it has won
+	 * @return true if game is over (win || draw); false if no winner yet
+	 */
+	public boolean gameOver(char pieceColour)
 	{
-		return verifyVertical('w') || verifyVertical('b')
-				|| verifyHorizontal('w') || verifyHorizontal('b')
-				|| verifyDiagonalLeft('w')
-				|| verifyDiagonalLeft('b')
-				|| verifyDiagonalRight('w')
-				|| verifyDiagonalRight('b') || boardFull();
+		return	verifyVertical(pieceColour)|| 
+				verifyHorizontal(pieceColour) ||
+				verifyDiagonalLeft(pieceColour) ||
+				verifyDiagonalRight(pieceColour) ||
+				boardFull();
 	}
 }

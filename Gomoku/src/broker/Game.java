@@ -148,14 +148,21 @@ public class Game
 	 * @return			  false if move does not result in a win,
 	 * 					  True if move does result in a win
 	 */
-	public boolean makeMove(int xCoordinate, int yCoordinate) throws IllegalMove
+	public boolean makeMove(int x, int y) throws IllegalMove
 	{
-		Square[][] currentArrayBoard = currentBoard.getBoard();
-		// TODO instead of replaceing current square with new square
-		// set the player value of the current square with the current turn player
-		currentArrayBoard[xCoordinate][yCoordinate].setPlayer(getTurnPlayer());
-		boolean winning = currentBoard.gameOver();
-		return winning;
+		boolean isWinningMove = false;
+		
+		currentBoard.getBoard()[x][y].setPlayer(getTurnPlayer());
+		if (currentBoard.gameOver(getTurnPlayer().getPieceColour()))
+		{
+			isWinningMove = true;
+		}
+		else
+		{
+			incrementPlayerTurn();
+		}
+		
+		return isWinningMove;
 	}
 
 	/**

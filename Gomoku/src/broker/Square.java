@@ -49,23 +49,23 @@ public class Square
 	 */
 	public void setPlayer(Player toPlayer) throws IllegalMove
 	{
-		if (player == null)
+		if (isEmpty())
 		{
-			Square.player = toPlayer;
+			setPlayer(toPlayer);
 		} else
 		{
 			throw new IllegalMove();
 		}
 	}
 	
-	private void setX(int x)
+	private void setX(int xCoordinate)
 	{
-		this.x = x;
+		x = xCoordinate;
 	}
 
-	private void setY(int y)
+	private void setY(int yCoordinate)
 	{
-		this.y = y;
+		y = yCoordinate;
 	}
 
 	// Getter
