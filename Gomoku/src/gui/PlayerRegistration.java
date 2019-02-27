@@ -54,6 +54,9 @@ public class PlayerRegistration extends Application implements GUICommons
 
 	private static final String CUSTOM_CSS_FILENAME = "css/player-registration.css";
 	private static final String PR_FORMGRID_CLASSNAME = "registration-form";
+	private static final String FORM_LABEL_CSS_CLASSNAME = "form-label";
+	private static final String BUTTON_CSS_CLASSNAME = "start-game-button";
+	private static final String RADIO_BUTTON_CSS_CLASSNAME = "radio-button";
 	
 	/**
 	 * This is the official main method that will be called to launch the
@@ -77,8 +80,10 @@ public class PlayerRegistration extends Application implements GUICommons
 	{
 		//
 		Scene scene = new Scene(stageGUI());
-		primaryStage.minWidthProperty().bind(scene.widthProperty());
-		primaryStage.minHeightProperty().bind(scene.heightProperty());
+	//	primaryStage.minWidthProperty().bind(scene.widthProperty());
+//		primaryStage.minHeightProperty().bind(scene.heightProperty());
+		primaryStage.setMinHeight(300);
+		primaryStage.setMinWidth(300);
 		primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -96,7 +101,7 @@ public class PlayerRegistration extends Application implements GUICommons
 	{
 		// use borderpanes for the main layout
 		BorderPane borderpane = new BorderPane();
-
+		
 		// TOP: account information
 		borderpane.setTop(GUICommons.windowHeader(PLAYER_REGISTRATION));
 		// CENTER: Transaction form
@@ -120,6 +125,7 @@ public class PlayerRegistration extends Application implements GUICommons
 	private Node startGameButton()
 	{
 		Button startGame = new Button(START_GAME_BUTTON_VALUE);
+		startGame.getStyleClass().add(BUTTON_CSS_CLASSNAME);
 		startGame.setOnAction(new EventHandler<ActionEvent>()
 		{
 
@@ -164,18 +170,16 @@ public class PlayerRegistration extends Application implements GUICommons
 		// Labels for the place holders
 		Label enterUsernameLabel1 = new Label(USERNAME_LABEL);
 		Label enterUsernameLabel2 = new Label(USERNAME_LABEL);
-
+		
 		// Radio buttons
 		// RB group
 		ToggleGroup opponentMode = new ToggleGroup();
 
 		// RB 1: PvP
-
 		playerVplayerRB.setToggleGroup(opponentMode);
 		playerVplayerRB.setSelected(true);
 
 		// RB 2: PvE
-
 		playerVEnvironmentRB.setToggleGroup(opponentMode);
 
 		// add radioButtons to hbox
@@ -189,11 +193,12 @@ public class PlayerRegistration extends Application implements GUICommons
 		rbhb.setPadding(DEFAULT_PADDING);
 		rbhb.setMaxWidth(Double.MAX_VALUE);
 		rbhb.setAlignment(Pos.CENTER);
-
+		playerVplayerRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
 		// Labels
 		enterUsernameLabel1.setPadding(DEFAULT_PADDING);
 		enterUsernameLabel2.setPadding(DEFAULT_PADDING);
-
+		enterUsernameLabel1.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
+		enterUsernameLabel2.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
 		// Text fields
 		PLAYER_ONE_USERNAME.setPadding(DEFAULT_PADDING);
 		PLAYER_TWO_USERNAME.setPadding(DEFAULT_PADDING);

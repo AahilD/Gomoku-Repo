@@ -23,7 +23,6 @@ public interface GUICommons
 		gametitle.setMaxWidth(Double.MAX_VALUE);
 		gametitle.setAlignment(Pos.CENTER);
 		gametitle.setPadding(DEFAULT_PADDING);
-		
 		return gametitle;
 	}
 }
