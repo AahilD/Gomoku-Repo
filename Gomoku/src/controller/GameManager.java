@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import broker.Game;
+import broker.IllegalMove;
 import broker.Square;
 import broker.Player;
 import broker.Board;
@@ -122,7 +123,7 @@ public class GameManager
 				game.incrementPlayerTurn();	
 			}
 		} catch (IllegalMove e) {
-			System.out.println(e.tostring);
+			System.out.println(e);
 		}	
 		
 		return game.getTurnPlayer().getPieceColour();
