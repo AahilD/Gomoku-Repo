@@ -15,6 +15,9 @@
 
 This Java based application is a reproduction of the game called Gomoku (also known as, Go, or five-in-a-row)
 
+# Repository URL
+https://github.com/manucote/UC-G22.git
+
 # Run Instructions
 
 Once you have imported this application into Eclipse, (for now) run the application from StartGameForm.Java.
