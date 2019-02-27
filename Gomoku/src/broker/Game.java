@@ -1,18 +1,17 @@
 package broker;
 
 /**
- * @author Steven 
- * 			
- * 			This class represents the current state of
- *          the game being played
+ * @author Steven
+ * 
+ *         This class represents the current state of the game being played
  */
 public class Game
 {
-	// PLAYER_ONE_COLOUR_VALUE: character 
+	// PLAYER_ONE_COLOUR_VALUE: character
 	private final char PLAYER_ONE_COLOUR_VALUE = 'w';
 	// PLAYER_TWO_COLOUR_VALUE: character
 	private final char PLAYER_TWO_COLOUR_VALUE = 'b';
-	
+
 	// playerOne: object<Player>
 	private Player playerOne;
 	// playerTwo: object<Player>
@@ -145,17 +144,29 @@ public class Game
 	 * 
 	 * @param xCoordinate horizontal placement
 	 * @param yCoordinate vertical placement
-	 * @return			  false if move does not result in a win,
-	 * 					  True if move does result in a win
+	 * @return false if move does not result in a win, True if move does result
+	 *         in a win
+	 * @throws IllegalMove
 	 */
-	public boolean makeMove(int xCoordinate, int yCoordinate) throws IllegalMove
+	@SuppressWarnings("deprecation")
+	public boolean makeMove(int x, int y) throws IllegalMove
 	{
-		Square[][] currentArrayBoard = currentBoard.getBoard();
-		// TODO instead of replaceing current square with new square
-		// set the player value of the current square with the current turn player
-		currentArrayBoard[xCoordinate][yCoordinate].setPlayer(getTurnPlayer());
-		boolean winning = currentBoard.gameOver();
-		return winning;
+		boolean isWinningMove = false;
+
+		try
+		{
+			currentBoard.getBoard()[x][y].setPlayer(getTurnPlayer());
+			if (currentBoard.gameOver(getTurnPlayer().getPieceColour()))
+			{
+				isWinningMove = true;
+			}
+
+		} catch (IllegalMove e)
+		{
+			throw e;
+		}
+
+		return isWinningMove;
 	}
 
 	/**
@@ -179,8 +190,9 @@ public class Game
 	/**
 	 * increases the integer turnCount
 	 */
-	public void incrementPlayerTurn()
+	public int incrementPlayerTurn()
 	{
 		turnCount += 1;
+		return turnCount;
 	}
 }

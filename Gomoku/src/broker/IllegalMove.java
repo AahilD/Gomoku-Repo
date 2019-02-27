@@ -7,8 +7,13 @@ public class IllegalMove extends Exception
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public IllegalMove()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Throwable#toString()
+	 */
+	public String toString()
 	{
-		super("This square is not playable");
+		return "This square is not playable (already occupied by a player)!!!";
 	}
 }

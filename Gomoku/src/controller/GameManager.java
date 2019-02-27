@@ -3,7 +3,10 @@ package controller;
 import java.util.ArrayList;
 
 import broker.Game;
+import broker.IllegalMove;
 import broker.Square;
+import broker.Player;
+import broker.Board;
 import gui.MainGUI;
 import javafx.scene.control.Button;
 
@@ -25,6 +28,7 @@ public class GameManager
 	// to store the current state of the game
 	static Game game;
 	static int roundCount;
+	static int turnCount;
 
 	// TODO you will probably also need a variable to store the number of rounds
 	// as this is not the responsibility of Game.java (I know it sounds counter
@@ -51,7 +55,6 @@ public class GameManager
 	{
 		roundCount = 0;
 		game = new Game(player1name, player2name);
-
 		MainGUI.mainwindow(
 				setupBoard(), setupPlayerStats(), roundCount,
 				game.getTurnCount()
@@ -70,6 +73,7 @@ public class GameManager
 		return playerboardcontent;
 	}
 
+	//TODO i think there is a better way (emmanuel look into this)
 	private static ArrayList<ArrayList<Button>> setupBoard()
 	{
 		ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
@@ -80,14 +84,7 @@ public class GameManager
 			ArrayList<Button> column = new ArrayList<Button>();
 			for (int y = 0; y < 19; y++)
 			{
-				Button button = new Button();
-				Square sqr = game.getCurrentBoard().getBoard()[x][y];
-				if (!sqr.isEmpty())
-				{
-					// TODO change the button background to the colour of the
-					// player
-				}
-				column.add(button);
+				column.add(new Button());
 			}
 			board.add(column);
 		}
@@ -96,7 +93,7 @@ public class GameManager
 
 	public static void setupGame(String player1name, String player2name)
 	{
-
+		// Delete this method
 	}
 
 	// Add win/lose/draw to players
@@ -107,37 +104,25 @@ public class GameManager
 
 	public static char playMove(int x, int y)
 	{
-		// the following three lines of code is just to show you how the
-		// information
-		// is being processed when you do front end testing
-		System.out.println("x: " + x);
-		System.out.println("y: " + y);
-		// TODO game should have a method to play the move
-		// pass x and y through them game will work out who's turn it is
-		// controller needs to find out who's turn it is before playing the move
-		// as the turn will change as soon as the move has been made
-		// you should return new Button with a bg colour/ image (what ever) that
-		// reflects
-		// that players designated colour. don't worry about x and y on the
-		// return
-		// do not return a new button, I can't change the button itself
-		// but you can return any property of button that can be set to change
-		// its physical appearance
-		// you will have to look up how to do this and return the object with
-		// the desire value
-		// If you decided on returning something other than string you may go
-		// ahead and make those changes in GUI
-		// or flag me down so I can do it. either way. if you want to do it
-		// yourself go to
-		// line 104-106 in MainGUI.java and change those lines to reflect your
-		// changes here.
-		// for the gui is repsonsive as it is so you may play around with it.
-		// call me if you are stuck.
-		// upon completeing this method you should have a better understanding
-		// about how
-		// the information is being tossed around... I know at first everything
-		// is so confusing.
-		return game.getTurnPlayer().getPieceColour();
+		char currentcolour = game.getTurnPlayer().getPieceColour();
+		try
+		{
+			if (!game.makeMove(x, y))
+			{
+				game.incrementPlayerTurn();
+			} else
+			{
+				// TODO Emmanuel needs to set up a pop that will ask the user
+				// if they wish to play an other round.
+			}
+		} catch (IllegalMove e)
+		{
+			// TODO we will implement a pop up that will tell the user
+			// that they performed an invalid move// game goes on business as usuall turn not incremented
+			System.out.println(e.toString());
+		}
+
+		return currentcolour;
 	}
 
 	// Reset board

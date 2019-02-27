@@ -22,6 +22,7 @@
 // bottom panel of the main window
 .bottom-pane {
 	-fx-background-color: rgba(255, 255, 255, 0.7);
+	-fx-alignment: center;
 }
 
 // For each label inside the bottom panel of the main window
@@ -37,10 +38,16 @@
 	-fx-font-family: "Knife Fight Ballet";
 }
 
+.gridpane-game-board {
+	-fx-alignment: center;
+}
+
 // default style for each square on the board
 .active-board-square {
 	-fx-background-color: rgba(255, 255, 255, 0.8);
 	-fx-border-color: rgba(0,0,0,0.8);
+	-fx-min-width: 30px;
+	-fx-min-height: 30px;
 }
 
 // the style of the square that has a white piece placed on it
@@ -73,6 +80,8 @@
 	-fx-font-size: 14px;
 	-fx-font-weight: bold;
 	-fx-height: 16px;
+	-fx-padding: 10px;
+	-fx-min-width: 30%;
 }
 
 // the style for vbox containing the labels of player stats

@@ -20,9 +20,9 @@ public class Square
 	// Player to null by default
 
 	// instance variable
-	private static Player player;
-	private static int x;
-	private static int y;
+	private Player player;
+	private int x;
+	private int y;
 
 	/**
 	 * This is the default constructor and only constructor
@@ -40,46 +40,64 @@ public class Square
 
 	}
 
+	public Square(Square toSquare)
+	{
+		try
+		{
+			setPlayer(new Player(toSquare.getPlayer()));
+		} catch (NullPointerException npe)
+		{
+			System.out.println("going through line 50 of square.java");
+		} catch (IllegalMove e)
+		{
+			System.out.println("going through line 53 of square.java");
+		}
+		setX(toSquare.getX());
+		setY(toSquare.getY());
+	}
+
 	// Setter
 	/**
 	 * Call this method to set player, player must be null, throws "illegal
 	 * move" error if player is not null
 	 * 
 	 * @param m
+	 * @throws IllegalMove
 	 */
 	public void setPlayer(Player toPlayer) throws IllegalMove
 	{
-		if (player == null)
+		if (isEmpty())
 		{
-			Square.player = toPlayer;
+			player = toPlayer;
+
 		} else
 		{
 			throw new IllegalMove();
 		}
 	}
-	
-	private void setX(int x)
+
+	private void setX(int xCoordinate)
 	{
-		this.x = x;
+		x = xCoordinate;
 	}
 
-	private void setY(int y)
+	private void setY(int yCoordinate)
 	{
-		this.y = y;
+		y = yCoordinate;
 	}
 
 	// Getter
-	public static int getX()
+	public int getX()
 	{
 		return x;
 	}
 
-	public static int getY()
+	public int getY()
 	{
 		return y;
 	}
 
-	protected static Player getPlayer()
+	protected Player getPlayer()
 	{
 		return player;
 	}
@@ -87,7 +105,12 @@ public class Square
 	// Methods
 	public boolean isEmpty()
 	{
-		return player == null;
+
+		if (player == null)
+		{
+			return true;
+		}
+		return false;
 	}
 	// TODO remove paramaters and just check to see if player == null
 	// TODO return true if player is null
