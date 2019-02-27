@@ -39,6 +39,13 @@ public class Square
 		setY(toY);
 
 	}
+	
+	public Square(Square b)
+	{
+		player = b.player;
+		x=b.x;
+		y=b.y;
+	}
 
 	// Setter
 	/**

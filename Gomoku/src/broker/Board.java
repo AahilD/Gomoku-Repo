@@ -65,9 +65,7 @@ public class Board
 		for (int row = 0; row < board.length && !fiveInARow; row++)
 		{
 			// column by column 
-			// TODO add condition to stop when you have spoted 5 in a row in the 
-			// nested for loop as well
-			for (int col = 0; col < board[row].length; col++)
+			for (int col = 0; col < board[row].length && !fiveInARow; col++)
 			{
 				// TODO Squre might need a copy constructor
 				// Square thisSquare = new Square(board[x][y])
@@ -96,23 +94,34 @@ public class Board
 
 	private boolean verifyVertical(char pieceColour)
 	{
+		//five in a row flag
 		boolean fiveInARow = false;
+		
+		//counter for consecutive same color pieces found
 		int i = 0;
+		
+		//row by row
 		for (int r = 0; r < board.length && !fiveInARow; r++)
 		{
-			for (int c = 0; c < board[r].length; c++)
+			
+			//column by column
+			for (int c = 0; c < board[r].length && !fiveInARow; c++)
 			{
 				if (Square.getPlayer().getPieceColour() == pieceColour)
 				{
 					i++;
 				} else
 				{
+					// If this square does not equal the the piece we are looking for
+					// reset i to 0
 					i = 0;
 				}
 			}
 		}
-		if (i >= 5)
+		// check if i == 5 
+		if (i == 5)
 		{
+			// if 5 in a row are found then set the flag to true
 			fiveInARow = true;
 		} else
 		{
