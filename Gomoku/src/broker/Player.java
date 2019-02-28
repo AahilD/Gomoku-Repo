@@ -69,7 +69,7 @@ public class Player
 	}
 
 	/**
-	 * This returns the player string stored in the userName.
+	 * This getter returns the player string stored in the userName.
 	 * 
 	 * @return this player's user name
 	 */
@@ -79,7 +79,7 @@ public class Player
 	}
 
 	/**
-	 * This returns the number stored in the winCount.
+	 * This getter returns the number stored in the winCount.
 	 * 
 	 * @return this player's count of winning games
 	 */
@@ -89,7 +89,7 @@ public class Player
 	}
 
 	/**
-	 * This returns the number stored in the lostCount.
+	 * This getter returns the number stored in the lostCount.
 	 * 
 	 * @return this player's counts of loses in games
 	 */
@@ -99,7 +99,7 @@ public class Player
 	}
 
 	/**
-	 * This returns the number stored in the DrawCount.
+	 * This getter returns the number stored in the DrawCount.
 	 * 
 	 * @return this player's count of draws in games
 	 */
@@ -109,7 +109,7 @@ public class Player
 	}
 
 	/**
-	 * This returns a copy of the piece stored in pieceColour.
+	 * This getter returns a copy of the piece stored in pieceColour.
 	 * 
 	 * @return this player's piece colour
 	 */
@@ -119,9 +119,9 @@ public class Player
 	}
 
 	/**
-	 * This returns the pieceColour's full name as a string
+	 * This method returns the pieceColour's full name as a string
 	 * 
-	 * @return full name of piece colour from character
+	 * @return full name of piece colour from character as String
 	 */
 	public String pieceColourToString()
 	{
@@ -135,9 +135,8 @@ public class Player
 		return toString;
 	}
 
-	// Setter
 	/**
-	 * This sets the userName instance variable with a string.
+	 * This Setter sets the userName instance variable with a string.
 	 * 
 	 * @param userName The string is given to the instance variable of userName
 	 */
@@ -147,7 +146,7 @@ public class Player
 	}
 
 	/**
-	 * This sets the winCount instance variable with an integer.
+	 * This Setter sets the winCount instance variable with an integer.
 	 * 
 	 * @param winCount The integer amount of wins is given to the instance
 	 *                 variable of winCount
@@ -158,7 +157,7 @@ public class Player
 	}
 
 	/**
-	 * This sets the loseCount instance variable with an integer.
+	 * This setter sets the loseCount instance variable with an integer.
 	 * 
 	 * @param loseCount The integer amount of loses is given to the instance
 	 *                  variable of loseCount
@@ -169,7 +168,7 @@ public class Player
 	}
 
 	/**
-	 * This sets the drawCount instance variable with an integer.
+	 * This setter sets the drawCount instance variable with an integer.
 	 * 
 	 * @param drawCount The integer amount of draws is given to the instance
 	 *                  variable of drawCount
@@ -180,7 +179,7 @@ public class Player
 	}
 
 	/**
-	 * This sets the piece colour from a character representing that colour
+	 * This setter sets the piece colour from a character representing that colour
 	 * 
 	 * @param toColour	The character representing the colour of a piece is given
 	 * 					to the instance variable pieceColour
@@ -209,6 +208,7 @@ public class Player
 	}
 
 	// Methods to increment the counts of win, lose, and draw amounts
+	
 	/**
 	 * This method increments the amount in winCount by one
 	 */

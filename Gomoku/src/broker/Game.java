@@ -36,7 +36,7 @@ public class Game
 	}
 
 	/**
-	 * Constructor to copy player data, reset the turn count to 0, and create a new board
+	 * This Constructor copies player data, reset the turn count to 0, and create a new board
 	 * 
 	 * @param p1	Player one to copy
 	 * @param p2	Player two to copy
@@ -49,7 +49,7 @@ public class Game
 	}
 
 	/**
-	 * Get reference to a copy of player one
+	 * This getter returns a copy reference to player one
 	 * 
 	 * @return	A copy reference of playerOne
 	 */
@@ -59,7 +59,7 @@ public class Game
 	}
 
 	/**
-	 * Get reference to a copy of player two
+	 * This getter returns a copy reference to player two
 	 * 
 	 * @return 	A copy reference of playerTwo
 	 */
@@ -69,7 +69,7 @@ public class Game
 	}
 
 	/**
-	 * Gets the turn count for the current round
+	 * This getter returns the turn count for the current round
 	 * 
 	 * @return	The current turn count
 	 */
@@ -79,7 +79,7 @@ public class Game
 	}
 
 	/**
-	 * Gets the current board in play
+	 * This getter reutnrs the current board in play
 	 * 
 	 * @return 	reference to the current Board object in play
 	 */
@@ -89,7 +89,7 @@ public class Game
 	}
 
 	/**
-	 * Sets player one
+	 * This setter sets the Player object of player one
 	 * 
 	 * @param playerOne	The desired player object to set as player one
 	 */
@@ -99,7 +99,7 @@ public class Game
 	}
 
 	/**
-	 * Sets player two
+	 * This setter sets the Player object of player two
 	 * 
 	 * @param playerTwo	The desired player object to set as player two
 	 */
@@ -109,7 +109,7 @@ public class Game
 	}
 
 	/**
-	 * Sets the current turn count
+	 * This setter sets the current turn count
 	 * 
 	 * @param TurnCount the desired integer turn count to set
 	 */
@@ -119,7 +119,7 @@ public class Game
 	}
 
 	/**
-	 * Set the current Board
+	 * This setter set the current Board
 	 * 
 	 * @param CurrentBoard the desired board object to set
 	 */
@@ -129,7 +129,7 @@ public class Game
 	}
 
 	/**
-	 * Creates a new empty board, and resets the turn count to 0
+	 * This method creates a new empty board, and resets the turn count to 0
 	 */
 	private void resetRound()
 	{
@@ -139,9 +139,9 @@ public class Game
 
 	/**
 	 * 
-	 * Makes the players move by assigning the desired square on the board to a player if 
-	 * there is not already another player assigned to it, and determines if the move 
-	 * resulted in a win.
+	 * This method makes the players desired move by assigning the desired square on 
+	 * the board to a player if there is not already another player assigned to it,
+	 * and determines if the move resulted in a win.
 	 * 
 	 * @param xCoordinate 	Horizontal placement
 	 * @param yCoordinate 	Vertical placement
@@ -175,8 +175,8 @@ public class Game
 	}
 
 	/**
-	 * Determine whose turn it is. 0 or an odd number is player ones turn, and an even number is
-	 * player twos turn.
+	 * This method determines whose turn it is. 0 or an odd number is player one's turn,
+	 * and an even number is player two's turn.
 	 * 
 	 * @return Copy of the player object of the player whose turn it is
 	 */
@@ -194,7 +194,7 @@ public class Game
 	}
 
 	/**
-	 * Increments the turn count by one
+	 * This method increments the turn count by one
 	 */
 	public int incrementPlayerTurn()
 	{
