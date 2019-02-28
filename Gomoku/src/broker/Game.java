@@ -1,9 +1,10 @@
 package broker;
 
 /**
- * @author Steven
+ * @author Group 22 Code implemented by Steven Hamilton.
  * 
- *         This class represents the current state of the game being played
+ *         This class is an object of type Game, which represents 
+ *         the current state of the game being played
  */
 public class Game
 {
@@ -193,7 +194,7 @@ public class Game
 	}
 
 	/**
-	 * Increments the turn count
+	 * Increments the turn count by one
 	 */
 	public int incrementPlayerTurn()
 	{
