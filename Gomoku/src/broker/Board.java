@@ -56,7 +56,7 @@ public class Board
 	 * @return
 	 */
 	@SuppressWarnings("unused")
-	private boolean verifyHorizontal(char pieceColour)
+	public boolean verifyHorizontal(char pieceColour)
 	{
 		// five in a row flag
 		boolean fiveInARow = false;
