@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.ArrayList;
-
 import controller.GameManager;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;

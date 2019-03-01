@@ -1,46 +1,47 @@
 package broker;
 
 /**
- * @author Steven
+ * @author Group 22 Code implemented by Steven Hamilton.
  * 
- *         This class represents the current state of the game being played
+ *         This class is an object of type Game, which represents the current
+ *         state of the game being played
  */
 public class Game
 {
-	// PLAYER_ONE_COLOUR_VALUE: character
+	// Player colour values
 	private final char PLAYER_ONE_COLOUR_VALUE = 'w';
-	// PLAYER_TWO_COLOUR_VALUE: character
 	private final char PLAYER_TWO_COLOUR_VALUE = 'b';
 
-	// playerOne: object<Player>
+	// Players
 	private Player playerOne;
-	// playerTwo: object<Player>
 	private Player playerTwo;
 
-	// turnCount: integer
+	// The current turn number
 	private int turnCount;
 
-	// board: object<board>
+	// The current board in play
 	private Board currentBoard;
 
 	/**
+	 * This constructor sets each player, sets turn count to 0, and creates a
+	 * new board
+	 * 
 	 * @param gotPlayerOne Name of player one
 	 * @param gotPlayerTwo Name of player two
 	 */
 	public Game(String gotPlayerOne, String gotPlayerTwo)
 	{
-		// playerOne: object<Player>
 		playerOne = new Player(gotPlayerOne, PLAYER_ONE_COLOUR_VALUE);
-		// playerTwo: object<Player>
 		playerTwo = new Player(gotPlayerTwo, PLAYER_TWO_COLOUR_VALUE);
 		resetRound();
 	}
 
 	/**
-	 * Constructor to copy player data, and create a new board
+	 * This Constructor copies player data, reset the turn count to 0, and
+	 * create a new board
 	 * 
-	 * @param p1 Object<Player> for player one
-	 * @param p2 Object<Player> for player two
+	 * @param p1 Player one to copy
+	 * @param p2 Player two to copy
 	 */
 	public Game(Player p1, Player p2)
 	{
@@ -50,9 +51,9 @@ public class Game
 	}
 
 	/**
-	 * Get object<Player> of player one
+	 * This getter returns a copy reference to player one
 	 * 
-	 * @return a copy of object<Player> playerOne
+	 * @return A copy reference of playerOne
 	 */
 	public Player getPlayerOne()
 	{
@@ -60,9 +61,9 @@ public class Game
 	}
 
 	/**
-	 * Get object<Player> of player two
+	 * This getter returns a copy reference to player two
 	 * 
-	 * @return a copy of Object<Player> playerTwo
+	 * @return A copy reference of playerTwo
 	 */
 	public Player getPlayerTwo()
 	{
@@ -70,9 +71,9 @@ public class Game
 	}
 
 	/**
-	 * Get the current turn Count
+	 * This getter returns the turn count for the current round
 	 * 
-	 * @return turnCount The number of the current turn
+	 * @return The current turn count
 	 */
 	public int getTurnCount()
 	{
@@ -80,9 +81,9 @@ public class Game
 	}
 
 	/**
-	 * Get the current board in play
+	 * This getter reutnrs the current board in play
 	 * 
-	 * @return Object<Board> The current Board
+	 * @return reference to the current Board object in play
 	 */
 	public Board getCurrentBoard()
 	{
@@ -90,9 +91,9 @@ public class Game
 	}
 
 	/**
-	 * Set player one
+	 * This setter sets the Player object of player one
 	 * 
-	 * @param playerOne the object<Player> playerOne to set
+	 * @param playerOne The desired player object to set as player one
 	 */
 	public void setPlayerOne(Player playerOne)
 	{
@@ -100,9 +101,9 @@ public class Game
 	}
 
 	/**
-	 * Set player two
+	 * This setter sets the Player object of player two
 	 * 
-	 * @param playerTwo the object<Player> playerTwo to set
+	 * @param playerTwo The desired player object to set as player two
 	 */
 	public void setPlayerTwo(Player playerTwo)
 	{
@@ -110,9 +111,9 @@ public class Game
 	}
 
 	/**
-	 * Set the current turn count
+	 * This setter sets the current turn count
 	 * 
-	 * @param turnCount the integer turnCount to set
+	 * @param TurnCount the desired integer turn count to set
 	 */
 	public void setTurnCount(int turnCount)
 	{
@@ -120,9 +121,9 @@ public class Game
 	}
 
 	/**
-	 * Set the current Board
+	 * This setter set the current Board
 	 * 
-	 * @param currentBoard the object<Board> to set
+	 * @param CurrentBoard the desired board object to set
 	 */
 	public void setCurrentBoard(Board currentBoard)
 	{
@@ -130,7 +131,7 @@ public class Game
 	}
 
 	/**
-	 * Creates a new empty board, and resets the turn count to 0
+	 * This method creates a new empty board, and resets the turn count to 0
 	 */
 	private void resetRound()
 	{
@@ -140,11 +141,13 @@ public class Game
 
 	/**
 	 * 
-	 * Places a chip on the board, and checks if it is a winning move
+	 * This method makes the players desired move by assigning the desired
+	 * square on the board to a player if there is not already another player
+	 * assigned to it, and determines if the move resulted in a win.
 	 * 
-	 * @param xCoordinate horizontal placement
-	 * @param yCoordinate vertical placement
-	 * @return false if move does not result in a win, True if move does result
+	 * @param xCoordinate Horizontal placement
+	 * @param yCoordinate Vertical placement
+	 * @return False if move does not result in a win, True if move does result
 	 *         in a win
 	 * @throws IllegalMove
 	 */
@@ -153,6 +156,10 @@ public class Game
 	{
 		boolean isWinningMove = false;
 
+		/*
+		 * Tries to assign player to desired square, but if another player
+		 * already occupies that square, throws IllegalMove
+		 */
 		try
 		{
 			currentBoard.getBoard()[x][y].setPlayer(getTurnPlayer());
@@ -170,9 +177,10 @@ public class Game
 	}
 
 	/**
-	 * Determine whose turn it is
+	 * This method determines whose turn it is. 0 or an odd number is player
+	 * one's turn, and an even number is player two's turn.
 	 * 
-	 * @return copy of object<Player> of the player whose turn it is
+	 * @return Copy of the player object of the player whose turn it is
 	 */
 	public Player getTurnPlayer()
 	{
@@ -188,7 +196,7 @@ public class Game
 	}
 
 	/**
-	 * increases the integer turnCount
+	 * This method increments the turn count by one
 	 */
 	public int incrementPlayerTurn()
 	{
