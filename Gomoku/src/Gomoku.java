@@ -1,46 +1,86 @@
-import java.util.ArrayList;
+import java.util.Scanner;
 
-import gui.MainGUI;
-import javafx.application.Application;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import broker.Game;
+import broker.IllegalMove;
 
 /**
  * @author manu
  *
  *         Use this class and method to test your code
  */
-public class Gomoku extends Application
+public class Gomoku
 {
+	/**
+	 * This main method is only to provide you with a text based application for
+	 * testing purposes.
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args)
 	{
-		launch(args);
-	}
+		Scanner in = new Scanner(System.in);
+		int x = 0;
+		int y = 0;
+		boolean gameover = false;
 
-	@Override
-	public void start(Stage primaryStage)
-	{
-		ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
-		for (int x = 0; x < 19; x++)
+		System.out.print("Player 1, please enter your username: ");
+		String p1Uname = in.next();
+
+		System.out.print("Player2, please enter your username: ");
+		String p2Uname = in.next();
+
+		Game game = new Game(p1Uname, p2Uname);
+
+		do
 		{
-			ArrayList<Button> row = new ArrayList<Button>();
-			for (int y = 0; y < 19; y++)
+			System.out.println("Turn: " + game.getTurnCount());
+			System.out.println("___________________");
+			for (int row = 0; row < game.getCurrentBoard()
+					.getBoard().length; row++)
 			{
-				row.add(new Button((x + 1) + ", " + (y + 1)));
+				for (int col = 0; col < game.getCurrentBoard()
+						.getBoard().length; col++)
+				{
+					if (game.getCurrentBoard().getBoard()[row][col].isEmpty())
+						System.out.print("|_|");
+					else
+						System.out.print("|"
+								+ game.getCurrentBoard().getBoard()[row][col]
+										.playedby().getPieceColour()
+								+ "|");
+				}
+				System.out.println("");
 			}
-			board.add(row);
-		}
 
-		ArrayList<String> playerStats = new ArrayList<String>();
-		playerStats.add("P1: manu");
-		playerStats.add("wins: 9000");
-		playerStats.add("loses: 0");
-		playerStats.add("draw: 0");
-		playerStats.add("P2: loser");
-		playerStats.add("wins: 0");
-		playerStats.add("loses: 9000");
-		playerStats.add("draw: 0");
+			System.out.println(
+					"Your turn, " + game.getTurnPlayer().getUserName());
 
-		MainGUI.mainwindow(board, playerStats, 9000, 50);
+			do
+			{
+
+				System.out.print("Please enter the x coordinate (1 - 19): ");
+				x = in.nextInt();
+
+				System.out.print("Please enter the y coordinate (1 - 19): ");
+				y = in.nextInt();
+
+			} while (x > 0 && x < 20 && y > 0 && y < 20);
+
+			try
+			{
+				gameover = game.makeMove(x + 1, y + 1);
+
+				if (!gameover)
+					game.incrementPlayerTurn();
+
+			} catch (IllegalMove e)
+			{
+				System.out
+						.println("That was an Illegal Move, please try again.");
+			}
+
+		} while (!gameover);
+
+		System.out.println(game.getTurnPlayer().getUserName() + ", you win!");
 	}
 }

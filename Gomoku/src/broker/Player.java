@@ -3,10 +3,10 @@ package broker;
 import java.util.ArrayList;
 
 /**
- * @author GROUP 22 Code implementation by Leslie Nguyen 
+ * @author GROUP 22 Code implementation by Leslie Nguyen
  * 
- * 			This class represents an object of type Player which will contain 
- * 			and maintain all the relevant player profile.
+ *         This class represents an object of type Player which will contain and
+ *         maintain all the relevant player profile.
  * 
  */
 
@@ -14,28 +14,27 @@ public class Player
 {
 	// Players Name
 	private String userName;
-	
+
 	// Colour of the players piece
 	private char pieceColour;
-	
+
 	// The number of times the player wins
 	private int winCount;
-	
+
 	// The number of times the player loses
 	private int loseCount;
-	
+
 	// The number of times the player was in a draw
 	private int drawCount;
 
-	
 	// constructors
 	/**
 	 * This constructs a player with a user name and piece colour.
 	 * 
-	 * @param toName    The String name is given to the instance variable of
-	 *             		userName
-	 * @param toColour  The value of the char is assigned to a new Piece through
-	 *					the class Piece
+	 * @param toName   The String name is given to the instance variable of
+	 *                 userName
+	 * @param toColour The value of the char is assigned to a new Piece through
+	 *                 the class Piece
 	 */
 	public Player(String toName, char toColour)
 	{
@@ -55,8 +54,8 @@ public class Player
 	/**
 	 * This constructs a copy of a player with the original player
 	 * 
-	 * @param toPlayer The toPlayer is the original Player object that is used to create a
-	 *                 copy
+	 * @param toPlayer The toPlayer is the original Player object that is used
+	 *                 to create a copy
 	 */
 	public Player(Player toPlayer)
 	{
@@ -179,11 +178,12 @@ public class Player
 	}
 
 	/**
-	 * This setter sets the piece colour from a character representing that colour
+	 * This setter sets the piece colour from a character representing that
+	 * colour
 	 * 
-	 * @param toColour	The character representing the colour of a piece is given
-	 * 					to the instance variable pieceColour
-	 *                  
+	 * @param toColour The character representing the colour of a piece is given
+	 *                 to the instance variable pieceColour
+	 * 
 	 */
 	private void setPieceColour(char toColour)
 	{
@@ -191,10 +191,11 @@ public class Player
 	}
 
 	/**
-	 * This method creates an ArrayList storing player statistics and information.
+	 * This method creates an ArrayList storing player statistics and
+	 * information.
 	 * 
-	 * @return	This payer's Username, number of wins, number of loses, number of
-	 * 			games resulting in a draw and piece colour in an ArrayList
+	 * @return This payer's Username, number of wins, number of loses, number of
+	 *         games resulting in a draw and piece colour in an ArrayList
 	 */
 	public ArrayList<String> getPlayerStats()
 	{
@@ -208,7 +209,7 @@ public class Player
 	}
 
 	// Methods to increment the counts of win, lose, and draw amounts
-	
+
 	/**
 	 * This method increments the amount in winCount by one
 	 */

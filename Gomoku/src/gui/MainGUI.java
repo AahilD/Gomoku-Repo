@@ -77,8 +77,8 @@ public class MainGUI implements GUICommons
 		Scene scene = new Scene(
 				stageGUI(board, playerStats, roundCount, turnCount));
 
-		//primaryStage.setWidth(WIDTH);
-		//primaryStage.setHeight(HEIGHT);
+		// primaryStage.setWidth(WIDTH);
+		// primaryStage.setHeight(HEIGHT);
 		// get the FXML file
 		// if file exists add it to the scene
 		primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -204,10 +204,10 @@ public class MainGUI implements GUICommons
 			}
 			i++;
 		}
-		
+
 		// STYLIZE
 		boardgrid.getStyleClass().add(GAMEBOARD_GRID_CSS_CLASSNAME);
-		
+
 		return boardgrid;
 	}
 
@@ -273,40 +273,37 @@ public class MainGUI implements GUICommons
 		Label header = new Label(PLAYER_STATS_HEADER_VALUE);
 		// add css style
 		header.getStyleClass().add(PLAYER_STATS_HEADER_LABEL_CLASSNAME);
-		//hb.minWidth(Double.MAX_VALUE);
-		//hb.setAlignment(Pos.CENTER);
+		// hb.minWidth(Double.MAX_VALUE);
+		// hb.setAlignment(Pos.CENTER);
 		hb.getChildren().add(header);
-		
+
 		// add the hb containing the header label into the vb
 		vb.getChildren().add(hb);
-		
-		
+
 		GridPane gp = new GridPane();
-		
+
 		// cycle through each string in the ArrayList<String> playerStats
 		for (int i = 0; i < playerStats.size(); i++)
 		{
 			String[] splitStr = playerStats.get(i).split(":");
-			
+
 			Label placeholder = new Label(splitStr[0]);
 			placeholder.getStyleClass().add(PLAYER_STATS_LABELS_CLASSNAME);
-			
+
 			Label valueholder = new Label(splitStr[1]);
-			
+
 			GridPane.setConstraints(placeholder, 0, i);
 			GridPane.setConstraints(valueholder, 1, i);
 			gp.getChildren().addAll(placeholder, valueholder);
 		}
 		vb.getStyleClass().add(PLAYER_STATS_VBOX_CLASSNAME);
 		vb.getChildren().add(gp);
-		
 
 		group.getChildren().add(vb);
 		mainVbox.getChildren().add(group);
 		// center it
 		mainVbox.setAlignment(Pos.CENTER);
-		
-		
+
 		return mainVbox;
 	}
 
@@ -363,9 +360,9 @@ public class MainGUI implements GUICommons
 		GridPane.setConstraints(endGame, 2, 0);
 
 		// style
-		//grid.setPadding(GUICommons.DEFAULT_PADDING);
+		// grid.setPadding(GUICommons.DEFAULT_PADDING);
 		grid.setMaxWidth(Double.MAX_VALUE);
-		//grid.setAlignment(Pos.CENTER);
+		// grid.setAlignment(Pos.CENTER);
 		grid.setHgap(WIDTH / 2.75);
 		grid.getChildren().addAll(roundLabel, turnLabel, endGame);
 		grid.getStyleClass().add(BOTTOM_PANE_CLASSNAME);

@@ -225,18 +225,20 @@ public class Board
 	 * @return true if game is over (win || draw); false if no winner yet
 	 */
 	/**
-	 * @deprecated This method is now deprecated, there is a bug that I need to find
-	 * I will add a todo once I have identified the specific bug.
-	 * I might even actually make JUnit tests to test them.
+	 * @deprecated This method is now deprecated, there is a bug that I need to
+	 *             find I will add a todo once I have identified the specific
+	 *             bug. I might even actually make JUnit tests to test them.
 	 * @param pieceColour
 	 * @return
 	 */
 	public boolean gameOver(char pieceColour)
 	{
 		// winining condition methods are depricated
-		/*return verifyVertical(pieceColour) || verifyHorizontal(pieceColour)
-				|| verifyDiagonalLeft(pieceColour)
-				|| verifyDiagonalRight(pieceColour) || boardFull();*/
+		/*
+		 * return verifyVertical(pieceColour) || verifyHorizontal(pieceColour)
+		 * || verifyDiagonalLeft(pieceColour) ||
+		 * verifyDiagonalRight(pieceColour) || boardFull();
+		 */
 		return false;
 	}
 }

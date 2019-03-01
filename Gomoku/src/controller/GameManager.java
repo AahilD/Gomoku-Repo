@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 import broker.Game;
 import broker.IllegalMove;
-import broker.Square;
-import broker.Player;
-import broker.Board;
 import gui.MainGUI;
 import javafx.scene.control.Button;
 
@@ -73,7 +70,7 @@ public class GameManager
 		return playerboardcontent;
 	}
 
-	//TODO i think there is a better way (emmanuel look into this)
+	// TODO i think there is a better way (emmanuel look into this)
 	private static ArrayList<ArrayList<Button>> setupBoard()
 	{
 		ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
@@ -118,7 +115,8 @@ public class GameManager
 		} catch (IllegalMove e)
 		{
 			// TODO we will implement a pop up that will tell the user
-			// that they performed an invalid move// game goes on business as usuall turn not incremented
+			// that they performed an invalid move// game goes on business as
+			// usuall turn not incremented
 			System.out.println(e.toString());
 		}
 

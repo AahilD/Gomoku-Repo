@@ -1,7 +1,7 @@
 package broker;
 
 /**
- * @author GROUP22 Code implemented by 
+ * @author GROUP22 Code implemented by
  *
  *         This class represents an Object of type square which will contain and
  *         maintain all the necessary information for each square on the board.
@@ -19,20 +19,20 @@ public class Square
 	// TODO the default constructor must require x and y coordinates and set
 	// Player to null by default
 
-	//* The player Stored in this square
+	// * The player Stored in this square
 	private Player player;
-	
-	//* The x and y coordinates of this Square
+
+	// * The x and y coordinates of this Square
 	private int x;
 	private int y;
 
 	/**
-	* This is the default constructor which sets the x and y coordinates
-	* of this square
-	* 
-	* @param toX	The x coordinate
-	* @param toY	The y coordinate
-	*/
+	 * This is the default constructor which sets the x and y coordinates of
+	 * this square
+	 * 
+	 * @param toX The x coordinate
+	 * @param toY The y coordinate
+	 */
 	public Square(int toX, int toY)
 	{
 		player = null;
@@ -42,16 +42,17 @@ public class Square
 	}
 
 	/**
-	 * This is a copy constructor that copies the Player and the x and y coordinate
-	 * in toSquare
+	 * This is a copy constructor that copies the Player and the x and y
+	 * coordinate in toSquare
 	 * 
 	 * @param toSquare The Square object to copy
 	 */
 	public Square(Square toSquare)
 	{
 		/**
-		 *  Tries to setPlayer to desired Player object, and if the player variable in toSquare is
-		 *  null or there is already a player set to this square, player is not copied.
+		 * Tries to setPlayer to desired Player object, and if the player
+		 * variable in toSquare is null or there is already a player set to this
+		 * square, player is not copied.
 		 */
 		try
 		{
@@ -68,11 +69,11 @@ public class Square
 	}
 
 	/**
-	 * This method sets the player and checks if there is already a player 
-	 * stored in this square by checking if the instance variable player is null, 
-	 * and throws "illegal move" error if player is not null
+	 * This method sets the player and checks if there is already a player
+	 * stored in this square by checking if the instance variable player is
+	 * null, and throws "illegal move" error if player is not null
 	 * 
-	 * @param toPlayer		Player object to set to this square
+	 * @param toPlayer Player object to set to this square
 	 * @throws IllegalMove
 	 */
 	public void setPlayer(Player toPlayer) throws IllegalMove
@@ -90,16 +91,17 @@ public class Square
 	/**
 	 * This setter sets the x coordinate of this square
 	 * 
-	 * @param xCoordinate	The x coordinate to set
+	 * @param xCoordinate The x coordinate to set
 	 */
 	private void setX(int xCoordinate)
 	{
 		x = xCoordinate;
 	}
+
 	/**
 	 * This setter sets the y coordinate of this square
 	 * 
-	 * @param yCoordinate	The y coordinate to set
+	 * @param yCoordinate The y coordinate to set
 	 */
 	private void setY(int yCoordinate)
 	{
@@ -109,17 +111,17 @@ public class Square
 	/**
 	 * Returns the x coordinate of this square
 	 * 
-	 * @return	This square's x coordinate
+	 * @return This square's x coordinate
 	 */
 	public int getX()
 	{
 		return x;
 	}
-	
+
 	/**
 	 * Returns the y coordinate of this square
 	 * 
-	 * @return	This square's y coordinate
+	 * @return This square's y coordinate
 	 */
 	public int getY()
 	{
@@ -129,7 +131,7 @@ public class Square
 	/**
 	 * Returns reference to the Player object stored in this square
 	 * 
-	 * @return	The Player object stored in the instance variable player
+	 * @return The Player object stored in the instance variable player
 	 */
 	protected Player getPlayer()
 	{
@@ -137,10 +139,11 @@ public class Square
 	}
 
 	/**
-	 * This methods checks to see if this square does not have a player set in it
+	 * This methods checks to see if this square does not have a player set in
+	 * it
 	 * 
-	 * @return	True is there is no player stored in this square, returns false
-	 * 			if there is a player stored in this square
+	 * @return True is there is no player stored in this square, returns false
+	 *         if there is a player stored in this square
 	 */
 	public boolean isEmpty()
 	{
@@ -157,11 +160,12 @@ public class Square
 	// TODO you should be able to implement this method once the other changes
 	// have been done
 
-	//Isn't this method a copy of getPlayer? I don't know if its required?(<-- Steve)
+	// Isn't this method a copy of getPlayer? I don't know if its required?(<--
+	// Steve)
 	/**
 	 * returns a reference of the Player object stored in this square
 	 * 
-	 * @return	Reference to player object stored in this square
+	 * @return Reference to player object stored in this square
 	 */
 	public Player playedby()
 	{
