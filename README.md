@@ -10,6 +10,7 @@
 - Emily
 - Emmanuel
 - Leslie
+- Steven
 
 # Gomoku
 
