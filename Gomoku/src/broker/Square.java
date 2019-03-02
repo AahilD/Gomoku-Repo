@@ -8,17 +8,6 @@ package broker;
  */
 public class Square
 {
-	// TODO implement variables, constructors, getters, setters, and other
-	// methods.
-	// TODO the constructor(s) should initialize the value of Player to null
-	// TODO the setter should throw an exception if the square.getPlayer() !=
-	// null
-	// TODO each square should have the x and y coordinates that it belongs to
-	// TODO the x and y coordinates getters and setters should both be private
-	// (no one should be able to change them)
-	// TODO the default constructor must require x and y coordinates and set
-	// Player to null by default
-
 	// * The player Stored in this square
 	private Player player;
 

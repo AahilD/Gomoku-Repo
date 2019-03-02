@@ -40,12 +40,7 @@ public class Player
 	{
 		setUserName(toName);
 		setPieceColour(toColour);
-		// TODO use the setter methods to reduce code duplication
-		// I would make all the setter methods private since we don't want to be
-		// able to make
-		// any chages to Player after the instance has been initialized. be it
-		// through this constructor
-		// or the copy constructor.
+		// TODO @Emily use the setter methods to reduce code duplication
 		this.winCount = 0;
 		this.loseCount = 0;
 		this.drawCount = 0;

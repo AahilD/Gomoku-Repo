@@ -9,10 +9,17 @@ package broker;
 
 public class Board
 {
-	// TODO Add javadoc
+	// TODO @Steven Javadoc
+
 	// Initializes a 2D array for the board //
 	private Square[][] board;
+
+	// TODO @Leslie, please make sure to use the following constants instead of
+	// using magic numbers in any of the logic
+
+	// board is always width of 19
 	final int WIDTHLENGTH = 19;
+	// board is always height of 19
 	final int HEIGHTLENGTH = 19;
 
 	public Board()
@@ -36,7 +43,7 @@ public class Board
 	}
 
 	/**
-	 * TODO make sure this passes unit tests TODO javadoc properly
+	 * TODO @Leslie fix till all unit tests pass
 	 * 
 	 * @param char pieceColour
 	 * @return
@@ -53,10 +60,6 @@ public class Board
 			// column by column
 			for (int col = 0; col < board[row].length && !fiveInARow; col++)
 			{
-				// TODO Squre might need a copy constructor
-				// Square thisSquare = new Square(board[x][y])
-				// if square[x][y].getPlayer != null &&
-				// thisSquare.getplayer.getcolour == pieceColour
 				if (board[row][col].getPlayer() != null && board[row][col]
 						.getPlayer().getPieceColour() == pieceColour)
 				{
@@ -79,6 +82,12 @@ public class Board
 		return fiveInARow;
 	}
 
+	/**
+	 * TODO @Leslie fix till tests pass.
+	 * 
+	 * @param pieceColour
+	 * @return
+	 */
 	@SuppressWarnings("unused")
 	public boolean verifyVertical(char pieceColour)
 	{
@@ -119,6 +128,12 @@ public class Board
 		return fiveInARow;
 	}
 
+	/**
+	 * TODO @Leslie fix till tests pass
+	 * 
+	 * @param pieceColour
+	 * @return
+	 */
 	@SuppressWarnings("unused")
 	public boolean verifyDiagonalLeft(char pieceColour)
 	{
@@ -155,6 +170,12 @@ public class Board
 		return fiveInARow;
 	}
 
+	/**
+	 * TODO @Leslie fix till tests pass.
+	 * 
+	 * @param pieceColour
+	 * @return
+	 */
 	@SuppressWarnings("unused")
 	public boolean verifyDiagonalRight(char pieceColour)
 	{
@@ -182,6 +203,10 @@ public class Board
 		return fiveInARow;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@SuppressWarnings("unused")
 	private boolean boardFull()
 	{
@@ -217,7 +242,14 @@ public class Board
 	 */
 	public boolean gameOver(char pieceColour)
 	{
-		// winining condition methods are depricated
+		
+		// TODO @Leslie 
+		/*
+		 * remove comments once all the rest is complete
+		 * remove @depprecated and @unused symbols 
+		 */
+		
+		// winining condition methods are depricated 
 		/*
 		 * return verifyVertical(pieceColour) || verifyHorizontal(pieceColour)
 		 * || verifyDiagonalLeft(pieceColour) ||
