@@ -1,6 +1,6 @@
 package gui;
 
-import controller.GameManager;
+import controller.PVPlayerContoller;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -138,15 +138,16 @@ public class PlayerRegistration extends Application implements GUICommons
 				stage.close();
 
 				if (playerVplayerRB.isSelected())
-					GameManager.initializeGame(PLAYER_ONE_USERNAME.getText(),
+					PVPlayerContoller.initializeGame(
+							PLAYER_ONE_USERNAME.getText(),
 							PLAYER_TWO_USERNAME.getText());
 				else if (playerVEnvironmentRB.isSelected())
 					// TODO once the computer game environment has been
 					// implemented
 					// change the following to call the appropriate method
 					// for now we will just invoke 2player mode
-					GameManager.initializeGame(PLAYER_ONE_USERNAME.getText(),
-							"COMPUTER (NOT)");
+					PVPlayerContoller.initializeGame(
+							PLAYER_ONE_USERNAME.getText(), "COMPUTER (NOT)");
 				else
 					System.out.println(
 							"Something went wrong with the radio buttons");

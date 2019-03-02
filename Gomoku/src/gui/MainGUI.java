@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.sun.glass.ui.Screen;
 
-import controller.GameManager;
+import controller.PVPlayerContoller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -237,7 +237,7 @@ public class MainGUI implements GUICommons
 				int y = Integer.parseInt(xy[1]);
 				sqrButton.setDisable(true);
 				String output = OCUPIED_BOARD_SQUARE_CLASSNAME
-						+ GameManager.playMove(x, y);
+						+ PVPlayerContoller.playMove(x, y);
 				sqrButton.getStyleClass().add(output);
 				sqrButton.applyCss();
 			}

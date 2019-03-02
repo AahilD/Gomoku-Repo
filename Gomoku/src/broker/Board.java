@@ -34,10 +34,10 @@ public class Board
 	{
 		return board;
 	}
-	
+
 	/**
-	 * TODO make sure this passes unit tests
-	 * TODO javadoc properly
+	 * TODO make sure this passes unit tests TODO javadoc properly
+	 * 
 	 * @param char pieceColour
 	 * @return
 	 */
@@ -57,7 +57,8 @@ public class Board
 				// Square thisSquare = new Square(board[x][y])
 				// if square[x][y].getPlayer != null &&
 				// thisSquare.getplayer.getcolour == pieceColour
-				if (board[row][col].getPlayer() != null && board[row][col].getPlayer().getPieceColour() == pieceColour)
+				if (board[row][col].getPlayer() != null && board[row][col]
+						.getPlayer().getPieceColour() == pieceColour)
 				{
 					i++;
 				} else

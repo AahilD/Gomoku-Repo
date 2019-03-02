@@ -19,7 +19,7 @@ import javafx.scene.control.Button;
  *         GameManager which ever you prefer (right click on "GameSetup" >
  *         refractor > rename ... don't just highlight and backspace)
  */
-public class GameManager
+public class PVPlayerContoller
 {
 	// TODO have a global variable of type Game
 	// to store the current state of the game
