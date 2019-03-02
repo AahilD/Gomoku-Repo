@@ -88,16 +88,10 @@ public class MainGUI implements GUICommons
 		
 		Scene scene = new Scene(mainPane);
 
-		// primaryStage.setWidth(WIDTH);
-		// primaryStage.setHeight(HEIGHT);
-		// get the FXML file
-		// if file exists add it to the scene
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.setTitle(TITLE_BAR_NAME);
 		primaryStage.setFullScreen(true);
 		primaryStage.setScene(scene);
-		// TODO make custom task/title-bar
-		// primaryStage.initStyle(StageStyle.UNDECORATED);
 
 		primaryStage.show();
 

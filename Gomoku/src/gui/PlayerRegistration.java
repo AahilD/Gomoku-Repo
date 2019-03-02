@@ -142,10 +142,7 @@ public class PlayerRegistration extends Application implements GUICommons
 							PLAYER_ONE_USERNAME.getText(),
 							PLAYER_TWO_USERNAME.getText());
 				else if (playerVEnvironmentRB.isSelected())
-					// TODO once the computer game environment has been
-					// implemented
-					// change the following to call the appropriate method
-					// for now we will just invoke 2player mode
+					// TODO @Emmanuel, once PVEcontroller fix next line
 					PVPlayerContoller.initializeGame(
 							PLAYER_ONE_USERNAME.getText(), "COMPUTER (NOT)");
 				else

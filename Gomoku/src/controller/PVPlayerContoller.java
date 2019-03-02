@@ -13,16 +13,12 @@ import javafx.scene.control.Button;
  *         this controller class will set up the game with the players after
  *         they enter their user name and click on "start game" it will then
  *         relay the game setup to the gui.
- *
- *
- *         TODO rename by refractoring the class to GameController or
- *         GameManager which ever you prefer (right click on "GameSetup" >
- *         refractor > rename ... don't just highlight and backspace)
+ *         
  */
 public class PVPlayerContoller
 {
-	// TODO make private
-	// TODO	remove roundCount (controllers will keep track of this)
+	// TODO @Aahil make private variable private
+	// TODO	@Aahil remove roundCount (controllers will keep track of this)
 	static Game game;
 	static int roundCount;
 	static int turnCount;
@@ -61,8 +57,6 @@ public class PVPlayerContoller
 	private static ArrayList<ArrayList<Button>> setupBoard()
 	{
 		ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
-		// TODO fix the following for loops to use the size of the table
-		// rather than hardcoded number 19. I prefere ArrayLists, but oh well.
 		for (int x = 0; x < 19; x++)
 		{
 			ArrayList<Button> column = new ArrayList<Button>();
