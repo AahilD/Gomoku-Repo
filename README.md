@@ -1,3 +1,6 @@
+# Disclaimer
+- the BankingApplication is only for the team assignment. Best to keep an other project with a different name e.g BankingApp in your local workspace for Individual assignments.
+
 # University of Calgary
  CPSC 219 T05
  
