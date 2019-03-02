@@ -572,6 +572,7 @@ public class WinningConditions
 		addPiecesDiagonalRight();
 
 		message += x + ", " + y + "]";
+		message += "";
 
 		boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 
