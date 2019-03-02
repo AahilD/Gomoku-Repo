@@ -2,6 +2,7 @@ package gui;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
 public interface GUICommons
@@ -13,6 +14,8 @@ public interface GUICommons
 
 	// CSS CLASS
 	final static String HEADER_CLASS = "title-head";
+	
+	
 
 	static Label windowHeader(String header)
 	{

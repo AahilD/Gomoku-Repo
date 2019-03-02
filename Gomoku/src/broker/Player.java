@@ -60,7 +60,6 @@ public class Player
 	public Player(Player toPlayer)
 	{
 		setUserName(toPlayer.getUserName());
-		// fix this line of code once it's implemented
 		setPieceColour(toPlayer.pieceColour);
 		setWinCount(toPlayer.getWinCount());
 		setLoseCount(toPlayer.getWinCount());
@@ -207,8 +206,6 @@ public class Player
 		pStats.add("Piece Colour: " + pieceColourToString());
 		return pStats;
 	}
-
-	// Methods to increment the counts of win, lose, and draw amounts
 
 	/**
 	 * This method increments the amount in winCount by one

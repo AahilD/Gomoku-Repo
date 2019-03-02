@@ -45,6 +45,15 @@ public class Game
 	 */
 	public Game(Player p1, Player p2)
 	{
+		// TODO @steve make following changes
+		/*
+		 * 1. use the other player constructor (String, char) to switch around the piece colours
+		 * ie => playerone = new player(p1.getusername, p2.getpiececolour)
+		 * 2. playertwo = new player(p2.getusername, p1.getpiececolour)
+		 * 3. use the setters for the win, loos, draw count (do NOT swap these :P)
+		 * 4. leave resetRound();
+		 */
+		
 		playerOne = new Player(p1);
 		playerTwo = new Player(p2);
 		resetRound();
@@ -166,6 +175,22 @@ public class Game
 			if (currentBoard.gameOver(getTurnPlayer().getPieceColour()))
 			{
 				isWinningMove = true;
+
+				/*
+				 * TODO @Steven implement code as per the following instructions.
+				 * 
+				 * 1. Adjust player one's and two's stats (wins, loses, draws)
+				 * 2. do NOT increment turnCount: this will meess up who played the winning move.
+				 * 
+				 * Note: Due to encapsulation you need conditional statements to
+				 * identify if turn player is either player one or player two
+				 * (perhaps you could use piece colour, or user name; if you use
+				 * user name, player registration will have to make sure that the
+				 * user name is unique for both players)
+				 * 
+				 * Also Note: we are not currently doing anything for the draw
+				 * count, we can implement this later.
+				 */
 			}
 
 		} catch (IllegalMove e)
@@ -196,7 +221,7 @@ public class Game
 	}
 
 	/**
-	 * This method increments the turn count by one
+	 * This method increments the turn count by one each time it is called.
 	 */
 	public int incrementPlayerTurn()
 	{

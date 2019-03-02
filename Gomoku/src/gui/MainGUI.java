@@ -1,9 +1,11 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.sun.glass.ui.Screen;
 
+import controller.GameOverException;
 import controller.PVPlayerContoller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,14 +15,19 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sun.security.action.GetLongAction;
 
 /**
  * @author manu
@@ -34,7 +41,10 @@ public class MainGUI implements GUICommons
 	private final static double WIDTH = Screen.getMainScreen().getWidth();
 	@SuppressWarnings("unused")
 	private final static double HEIGHT = Screen.getMainScreen().getHeight();
-
+	
+	private static BorderPane mainPane = new BorderPane();
+	
+	
 	// CSS FILEPATH
 	private final static String CUSTOM_CSS_FILENAME = "css/gomoku.css";
 
@@ -73,9 +83,10 @@ public class MainGUI implements GUICommons
 			ArrayList<String> playerStats, int roundCount, int turnCount)
 	{
 		Stage primaryStage = new Stage();
-
-		Scene scene = new Scene(
-				stageGUI(board, playerStats, roundCount, turnCount));
+		
+		stageGUI(board, playerStats, roundCount, turnCount);
+		
+		Scene scene = new Scene(mainPane);
 
 		// primaryStage.setWidth(WIDTH);
 		// primaryStage.setHeight(HEIGHT);
@@ -134,14 +145,14 @@ public class MainGUI implements GUICommons
 	 *                    bottom panel
 	 * @return
 	 */
-	private static Parent stageGUI(ArrayList<ArrayList<Button>> board,
+	private static void stageGUI(ArrayList<ArrayList<Button>> board,
 			ArrayList<String> playerStats, int roundCount, int turnCount)
 	{
 		// use borderpanes for the main layout
-		BorderPane borderpane = new BorderPane();
+		
 
 		// TOP: account information
-		borderpane.setTop(GUICommons.windowHeader(GAME_NAME));
+		mainPane.setTop(GUICommons.windowHeader(GAME_NAME));
 
 		// LEFT: empty for now
 		// perhaps we could display the moves played through out the game
@@ -150,15 +161,13 @@ public class MainGUI implements GUICommons
 		// etc..
 
 		// CENTER: Transaction form
-		borderpane.setCenter(displayBoard(board));
+		mainPane.setCenter(createBoard(board));
 
 		// RIGHT:player information/stats
-		borderpane.setRight(setupGameStatsPanel(playerStats));
+		mainPane.setRight(setupGameStatsPanel(playerStats));
 
 		// BOTTOM: start game button
-		borderpane.setBottom(setupBottomPane(roundCount, turnCount));
-
-		return borderpane;
+		mainPane.setBottom(setupBottomPane(roundCount, turnCount));
 	}
 
 	/**
@@ -178,7 +187,7 @@ public class MainGUI implements GUICommons
 	 *              represents the board composition
 	 * @return
 	 */
-	private static Node displayBoard(ArrayList<ArrayList<Button>> board)
+	private static Node createBoard(ArrayList<ArrayList<Button>> board)
 	{
 		int i = 0;
 		GridPane boardgrid = new GridPane();
@@ -236,10 +245,40 @@ public class MainGUI implements GUICommons
 				int x = Integer.parseInt(xy[0]);
 				int y = Integer.parseInt(xy[1]);
 				sqrButton.setDisable(true);
-				String output = OCUPIED_BOARD_SQUARE_CLASSNAME
-						+ PVPlayerContoller.playMove(x, y);
-				sqrButton.getStyleClass().add(output);
-				sqrButton.applyCss();
+				String output;
+				try
+				{
+					output = OCUPIED_BOARD_SQUARE_CLASSNAME
+							+ PVPlayerContoller.playMove(x, y);
+					sqrButton.getStyleClass().add(output);
+					sqrButton.applyCss();
+					
+				} catch (GameOverException e)
+				{
+					getNewRoundConfirmationAlert(e.getWinnerUsername(), e.getLooserUsername());
+				}
+			}
+
+			private void getNewRoundConfirmationAlert(String winnerName, String looserName)
+			{
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setHeaderText(winnerName + " wins!\n"
+						+ "Do you wish to play an other round?");
+				
+				ButtonType yes = new ButtonType("Yes");
+				ButtonType no = new ButtonType("No");
+				
+				alert.getButtonTypes().setAll(yes, no);
+				
+				Optional<ButtonType> result = alert.showAndWait();
+				if (result.get() == yes)
+				{
+					PVPlayerContoller.settupNewRound();
+				}
+				else if (result.get() == no)
+				{
+					
+				}
 			}
 		};
 	}
@@ -367,6 +406,17 @@ public class MainGUI implements GUICommons
 		grid.getChildren().addAll(roundLabel, turnLabel, endGame);
 		grid.getStyleClass().add(BOTTOM_PANE_CLASSNAME);
 		return grid;
+	}
+
+	public static void resetBoard(ArrayList<ArrayList<Button>> board)
+	{
+		mainPane.setCenter(createBoard(board));
+	}
+
+	public static void updateGameStats(ArrayList<String> setupPlayerStats,
+			int roundCount, int turnCount)
+	{
+		mainPane.setRight(setupGameStatsPanel(setupPlayerStats));
 	}
 
 }

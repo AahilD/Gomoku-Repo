@@ -21,24 +21,12 @@ import javafx.scene.control.Button;
  */
 public class PVPlayerContoller
 {
-	// TODO have a global variable of type Game
-	// to store the current state of the game
+	// TODO make private
+	// TODO	remove roundCount (controllers will keep track of this)
 	static Game game;
 	static int roundCount;
 	static int turnCount;
-
-	// TODO you will probably also need a variable to store the number of rounds
-	// as this is not the responsibility of Game.java (I know it sounds counter
-	// intuitive
-	// we can fix the naming conventions later).
-	// don't use conventional getters and setters GameSetup (Aka
-	// GameManager/Controller) is not an Object
-	// it will be processing and aggregating all the information until somone
-	// tells it to endGame()
-	// the endGame() method will terminate the entire program for now.
-	// the controller
-	//
-	// we will have to discus the rest you and
+	
 	/**
 	 * Call this method for the initial game setup. should be called by the GUI
 	 * once both players have entered their desired user name and have clicked
@@ -69,8 +57,7 @@ public class PVPlayerContoller
 
 		return playerboardcontent;
 	}
-
-	// TODO i think there is a better way (emmanuel look into this)
+	
 	private static ArrayList<ArrayList<Button>> setupBoard()
 	{
 		ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
@@ -87,47 +74,48 @@ public class PVPlayerContoller
 		}
 		return board;
 	}
-
-	public static void setupGame(String player1name, String player2name)
+	
+	/**
+	 * 1) this method needs to increment round count
+	 * 2) use the constructor that takes player objects
+	 * but switch around p1 and p2
+	 * 3) Set up the new board and have the maingui update the board
+	 * 4) set up the new player stats panel and have the main gui update the player stats panel
+	 * 
+	 * Note: use the methods already implemented to help you code this
+	 * I was able to do it in 5 lines or so. perhaps implement a method to increment round count
+	 */
+	public static void settupNewRound()
 	{
-		// Delete this method
+		//TODO @Aahil implement method as per javadoc above
 	}
-
-	// Add win/lose/draw to players
-	public static void updateStats()
-	{
-
-	}
-
-	public static char playMove(int x, int y)
+	
+	public static char playMove(int x, int y) throws GameOverException
 	{
 		char currentcolour = game.getTurnPlayer().getPieceColour();
+		
 		try
 		{
 			if (!game.makeMove(x, y))
 			{
 				game.incrementPlayerTurn();
+				
 			} else
 			{
-				// TODO Emmanuel needs to set up a pop that will ask the user
-				// if they wish to play an other round.
+				// TODO @Aahil throw new GameOverException
+				/*
+				 * see GameOverException.java to understand
+				 * how to create a new instance.
+				 */
 			}
 		} catch (IllegalMove e)
 		{
-			// TODO we will implement a pop up that will tell the user
-			// that they performed an invalid move// game goes on business as
-			// usuall turn not incremented
+			// TODO @Emmanuel implement illegal move warning alert
+			
 			System.out.println(e.toString());
 		}
-
+		
 		return currentcolour;
-	}
-
-	// Reset board
-	// Reset turn count to 0
-	public static void playAnotherRound()
-	{
-
 	}
 
 }

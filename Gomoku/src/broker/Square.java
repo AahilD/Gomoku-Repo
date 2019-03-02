@@ -154,18 +154,16 @@ public class Square
 		}
 		return false;
 	}
-	// TODO remove paramaters and just check to see if player == null
-	// TODO return true if player is null
-
-	// TODO you should be able to implement this method once the other changes
-	// have been done
-
-	// Isn't this method a copy of getPlayer? I don't know if its required?(<--
-	// Steve)
+	
 	/**
 	 * returns a reference of the Player object stored in this square
 	 * 
-	 * @return Reference to player object stored in this square
+	 * TODO @Emily
+	 * 
+	 * 1. refractor the name of this method to "playedBy" (right click > refractor > rename)
+	 * 2. use the player copy constructor to encapsulate.
+	 * 
+	 * @return copy of the player object stored in this square
 	 */
 	public Player playedby()
 	{
