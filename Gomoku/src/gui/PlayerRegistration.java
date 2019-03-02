@@ -24,10 +24,11 @@ import javafx.stage.Stage;
  * @author GROUP 22
  * @author Emmanuel
  * 
- * This class is the main application launcher.
- * This GUI will prompt user to select either player versus player mode (PVP), or, player versus envrionment mode (PVE).
- * The user(s) will be prompted to enter a user name.
- * Start Game button will open the MainGUI to start playing.
+ *         This class is the main application launcher. This GUI will prompt
+ *         user to select either player versus player mode (PVP), or, player
+ *         versus envrionment mode (PVE). The user(s) will be prompted to enter
+ *         a user name. Start Game button will open the MainGUI to start
+ *         playing.
  * 
  */
 public class PlayerRegistration extends Application implements GUICommons
@@ -57,7 +58,7 @@ public class PlayerRegistration extends Application implements GUICommons
 	private static final String FORM_LABEL_CSS_CLASSNAME = "form-label";
 	private static final String BUTTON_CSS_CLASSNAME = "start-game-button";
 	private static final String RADIO_BUTTON_CSS_CLASSNAME = "radio-button";
-	
+
 	/**
 	 * This is the official main method that will be called to launch the
 	 * application.
@@ -80,15 +81,16 @@ public class PlayerRegistration extends Application implements GUICommons
 	{
 		//
 		Scene scene = new Scene(stageGUI());
-	//	primaryStage.minWidthProperty().bind(scene.widthProperty());
+		// primaryStage.minWidthProperty().bind(scene.widthProperty());
 //		primaryStage.minHeightProperty().bind(scene.heightProperty());
 		primaryStage.setMinHeight(300);
 		primaryStage.setMinWidth(300);
 		primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
-		scene.getStylesheets().add(MainGUI.class.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
+
+		scene.getStylesheets().add(MainGUI.class
+				.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
 	}
 
 	/**
@@ -101,7 +103,7 @@ public class PlayerRegistration extends Application implements GUICommons
 	{
 		// use borderpanes for the main layout
 		BorderPane borderpane = new BorderPane();
-		
+
 		// TOP: account information
 		borderpane.setTop(GUICommons.windowHeader(PLAYER_REGISTRATION));
 		// CENTER: Transaction form
@@ -170,7 +172,7 @@ public class PlayerRegistration extends Application implements GUICommons
 		// Labels for the place holders
 		Label enterUsernameLabel1 = new Label(USERNAME_LABEL);
 		Label enterUsernameLabel2 = new Label(USERNAME_LABEL);
-		
+
 		// Radio buttons
 		// RB group
 		ToggleGroup opponentMode = new ToggleGroup();
@@ -251,7 +253,7 @@ public class PlayerRegistration extends Application implements GUICommons
 					}
 
 				});
-		
+
 		return form;
 	}
 

@@ -55,7 +55,6 @@ public class GameManager
 	{
 		roundCount = 0;
 		game = new Game(player1name, player2name);
-
 		MainGUI.mainwindow(
 				setupBoard(), setupPlayerStats(), roundCount,
 				game.getTurnCount()
@@ -74,6 +73,7 @@ public class GameManager
 		return playerboardcontent;
 	}
 
+	//TODO i think there is a better way (emmanuel look into this)
 	private static ArrayList<ArrayList<Button>> setupBoard()
 	{
 		ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
@@ -84,14 +84,7 @@ public class GameManager
 			ArrayList<Button> column = new ArrayList<Button>();
 			for (int y = 0; y < 19; y++)
 			{
-				Button button = new Button();
-				Square sqr = game.getCurrentBoard().getBoard()[x][y];
-				if (!sqr.isEmpty())
-				{
-					// TODO change the button background to the colour of the
-					// player
-				}
-				column.add(button);
+				column.add(new Button());
 			}
 			board.add(column);
 		}
@@ -100,7 +93,7 @@ public class GameManager
 
 	public static void setupGame(String player1name, String player2name)
 	{
-
+		// Delete this method
 	}
 
 	// Add win/lose/draw to players
@@ -111,25 +104,27 @@ public class GameManager
 
 	public static char playMove(int x, int y)
 	{
-		// the following three lines of code is just to show you how the
-		// information
-		// is being processed when you do front end testing
-		System.out.println("x: " + x);
-		System.out.println("y: " + y);
-		
-		try {
-			if (game.makeMove(x, y) == true) 
+		char currentcolour = game.getTurnPlayer().getPieceColour();
+		try
+		{
+			if (!game.makeMove(x, y))
 			{
-				game.incrementPlayerTurn();	
+				game.incrementPlayerTurn();
+			} else
+			{
+				// TODO Emmanuel needs to set up a pop that will ask the user
+				// if they wish to play an other round.
 			}
-		} catch (IllegalMove e) {
-			System.out.println(e);
-		}	
-		
-		return game.getTurnPlayer().getPieceColour();
+		} catch (IllegalMove e)
+		{
+			// TODO we will implement a pop up that will tell the user
+			// that they performed an invalid move// game goes on business as usuall turn not incremented
+			System.out.println(e.toString());
+		}
+
+		return currentcolour;
 	}
 
-	
 	// Reset board
 	// Reset turn count to 0
 	public static void playAnotherRound()

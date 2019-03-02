@@ -20,9 +20,10 @@ public class Piece
 	public Piece()
 	{
 	}
-	
+
 	/**
 	 * This constructs a player by creating a copy of another piece.
+	 * 
 	 * @param originalPiece is the original piece that will be copied
 	 */
 	public Piece(Piece originalPiece)
@@ -32,8 +33,9 @@ public class Piece
 
 	/**
 	 * This constructs a player with a char.
-	 * @param letter this char given in letter is assigned 
-	 * 				 into the blackOrWhit instance variable
+	 * 
+	 * @param letter this char given in letter is assigned into the blackOrWhit
+	 *               instance variable
 	 */
 	public Piece(char letter)
 	{
@@ -43,7 +45,8 @@ public class Piece
 	// Getter
 	/**
 	 * This returns the char stored in the instance variable of backOrWhite.
-	 * @return the piece's colour 
+	 * 
+	 * @return the piece's colour
 	 */
 	public char getBlackOrWhite()
 	{
@@ -53,6 +56,7 @@ public class Piece
 	// Setter
 	/**
 	 * This sets the value of the char in the instance variable blackOrWhite.
+	 * 
 	 * @param blackOrWhite the char given is assigned to blackOrWhite
 	 */
 	public void setBlackOrWhite(char blackOrWhite)
