@@ -555,7 +555,7 @@ public class WinningConditions
 	public void testVerifyDiagonalRight_3()
 	{
 		board = new Board();
-		x = r.nextInt(19);
+		x = r.nextInt(18);
 		if (x < 4)
 			y = r.nextInt(15) + 4;
 		else if (x > 14)
