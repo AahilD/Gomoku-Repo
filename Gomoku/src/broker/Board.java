@@ -34,28 +34,13 @@ public class Board
 	{
 		return board;
 	}
-
-	/*
-	 * TODO this method is big and complicated break it down by calling smaller
-	 * private methods that will do one explicit thing for instance you should
-	 * break it down into the following private methods private boolean
-	 * verifyHorizontal() private boolean verifyVerticle() private boolean
-	 * verifyLeftDiagonal() private boolean verifyRightDiagonal() you may even
-	 * have to break down these methods to smaller methods
-	 * 
-	 * remember we do not want code duplication if you can make a re-usable
-	 * method then feel free to do so.
-	 * 
-	 * think of every package as an anthology, every class as a chapter every
-	 * method as a paragraph and every line as a sentence
-	 * 
-	 * other than that this looks great
-	 */
+	
 	/**
+	 * TODO make sure this passes unit tests
+	 * TODO javadoc properly
 	 * @param char pieceColour
 	 * @return
 	 */
-	@SuppressWarnings("unused")
 	public boolean verifyHorizontal(char pieceColour)
 	{
 		// five in a row flag
@@ -72,10 +57,8 @@ public class Board
 				// Square thisSquare = new Square(board[x][y])
 				// if square[x][y].getPlayer != null &&
 				// thisSquare.getplayer.getcolour == pieceColour
-				if (board[row][col].getPlayer().getPieceColour() == pieceColour)
+				if (board[row][col].getPlayer() != null && board[row][col].getPlayer().getPieceColour() == pieceColour)
 				{
-					// if this square is the piece we are looking for
-					// increment i
 					i++;
 				} else
 				{
@@ -96,7 +79,7 @@ public class Board
 	}
 
 	@SuppressWarnings("unused")
-	private boolean verifyVertical(char pieceColour)
+	public boolean verifyVertical(char pieceColour)
 	{
 		// five in a row flag
 		boolean fiveInARow = false;
@@ -136,7 +119,7 @@ public class Board
 	}
 
 	@SuppressWarnings("unused")
-	private boolean verifyDiagonalLeft(char pieceColour)
+	public boolean verifyDiagonalLeft(char pieceColour)
 	{
 
 		boolean fiveInARow = false;
@@ -172,7 +155,7 @@ public class Board
 	}
 
 	@SuppressWarnings("unused")
-	private boolean verifyDiagonalRight(char pieceColour)
+	public boolean verifyDiagonalRight(char pieceColour)
 	{
 		boolean fiveInARow = false;
 		int counter = 0;
