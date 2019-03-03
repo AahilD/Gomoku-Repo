@@ -173,9 +173,9 @@ public class WinningConditions
 		{
 			for (int col = 0; col < 19; col++)
 			{
-				if (board.getBoard()[row][col].playedby() != null)
+				if (board.getBoard()[row][col].playedBy() != null)
 				{
-					System.out.print(board.getBoard()[row][col].playedby()
+					System.out.print(board.getBoard()[row][col].playedBy()
 							.getPieceColour());
 				} else
 				{
