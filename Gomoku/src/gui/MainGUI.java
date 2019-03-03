@@ -13,11 +13,9 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
@@ -27,7 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sun.security.action.GetLongAction;
 
 /**
  * @author manu
@@ -111,7 +108,15 @@ public class MainGUI implements GUICommons
 	setBoard(toBoard);
 	mainWindow.setCenter(addBoardToGridPane());
     }
-
+    
+    public static void updateBoardSquareButton(int x, int y, char pieceColour)
+    {
+	Button sqr2update = board.get(x).get(y);
+	
+	sqr2update.getStyleClass().add(OCUPIED_BOARD_SQUARE_CLASSNAME + pieceColour);
+	sqr2update.applyCss();
+    }
+    
     /**
      * The controller may call this method to updatePlayerStatsPanel, by passing
      * in a new set of playerstats in an ArrayList of type <String>. Each item
@@ -478,10 +483,7 @@ public class MainGUI implements GUICommons
 		String output;
 		try
 		{
-		    output = OCUPIED_BOARD_SQUARE_CLASSNAME
-			    + PVPlayerContoller.playMove(x, y);
-		    sqrButton.getStyleClass().add(output);
-		    sqrButton.applyCss();
+		    PVPlayerContoller.playMove(x, y);
 
 		} catch (GameOverException e)
 		{

@@ -31,7 +31,6 @@ public class PVPlayerContoller
 	 * @param player1name is the value of player one's username
 	 * @param player2name is the value of plyaer two's username
 	 */
-
 	public static void initializeGame(String player1name, String player2name)
 	{
 		roundCount = 0;
@@ -84,8 +83,19 @@ public class PVPlayerContoller
 		//TODO @Aahil implement method as per javadoc above
 	}
 	
+	
 	public static char playMove(int x, int y) throws GameOverException
 	{
+	    // TODO @Aahil fix this method as per the following
+	    /*
+	     * Instead of returning char and throwing GameOverException
+	     * I would like it to:
+	     * 1. call the appropriate update method in the gui by passing the x and y coordinates and the piececolour of the player that made the move if it is not the wining move.
+	     * 2. if it is the wining move invoke the appropriate alert in the MainGUI class that will display the winer and loser and ask if they wish to play a new game, or not.
+	     * 3. if it is an illegal move invoke the appropriate alert in the maingui class that will warn the user they have performed an illegal move.
+	     * 
+	     * Note: you should only increment turn count if the move is valid and not winning move.
+	     */
 		char currentcolour = game.getTurnPlayer().getPieceColour();
 		
 		try
@@ -96,11 +106,7 @@ public class PVPlayerContoller
 				
 			} else
 			{
-				// TODO @Aahil throw new GameOverException
-				/*
-				 * see GameOverException.java to understand
-				 * how to create a new instance.
-				 */
+			    
 			}
 		} catch (IllegalMove e)
 		{
