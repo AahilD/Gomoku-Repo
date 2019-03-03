@@ -22,7 +22,11 @@ import javafx.scene.control.TextField;
  */
 public class BankGUI extends Application
 {
-
+	/**
+	 * 		This class Handles the ActionEvent from the deposit button by depositing
+	 * 		the number in the TextField (converted from a string to a double) into a
+	 * 		BankAccount, then updates the labels in the GUI with the new balance
+	 */
 	class HandleDeposit implements EventHandler<ActionEvent>
 	{
 		@Override
@@ -34,7 +38,12 @@ public class BankGUI extends Application
 
 	}
 	
-	class HandleWithdrawl implements EventHandler<ActionEvent>
+	/**
+	 * 		This class Handles the ActionEvent from the withdrawal button by withdrawing
+	 * 		the number in the TextField (converted from a string to a double) from a
+	 * 		BankAccount, then updates the labels in the GUI with the new balance
+	 */
+	class HandleWithdrawal implements EventHandler<ActionEvent>
 	{
 		@Override
 		public void handle(ActionEvent arg0)
@@ -205,7 +214,7 @@ public class BankGUI extends Application
 		depositB.setOnAction(new HandleDeposit());
 		
 		// setup the action event for the withdraw button
-		withdrawB.setOnAction(new HandleWithdrawl());
+		withdrawB.setOnAction(new HandleWithdrawal());
 
 		
 		// Each button represents an action for the form
@@ -224,7 +233,7 @@ public class BankGUI extends Application
 	
 	/**
 	 * Call this method to set (update) the text for the balanceLabel.
-	 * Uses balanceToString() to setupt the balance into a formatted string
+	 * Uses balanceToString() to setup the balance into a formatted string
 	 */
 	private void updateBalanceLabel()
 	{
