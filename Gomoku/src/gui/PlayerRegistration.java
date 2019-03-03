@@ -1,6 +1,6 @@
 package gui;
 
-import controller.PVPlayerContoller;
+import controller.PVPlayer;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -132,12 +132,12 @@ public class PlayerRegistration extends Application implements GUICommons
 		stage.close();
 
 		if (playerVplayerRB.isSelected())
-		    PVPlayerContoller.initializeGame(
+		    PVPlayer.initializeGame(
 			    PLAYER_ONE_USERNAME.getText(),
 			    PLAYER_TWO_USERNAME.getText());
 		else if (playerVEnvironmentRB.isSelected())
 		    // TODO @Emmanuel, once PVEcontroller fix next line
-		    PVPlayerContoller.initializeGame(
+		    PVPlayer.initializeGame(
 			    PLAYER_ONE_USERNAME.getText(), "COMPUTER (NOT)");
 		else
 		    System.out.println(

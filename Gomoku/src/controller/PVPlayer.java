@@ -15,14 +15,8 @@ import javafx.scene.control.Button;
  *         relay the game setup to the gui.
  * 
  */
-public class PVPlayerContoller
+public class PVPlayer extends GameController
 {
-    // TODO @Aahil make private variable private
-    // TODO @Aahil remove roundCount (controllers will keep track of this)
-    static Game game;
-    static int roundCount;
-    static int turnCount;
-
     /**
      * Call this method for the initial game setup. should be called by the GUI
      * once both players have entered their desired user name and have clicked

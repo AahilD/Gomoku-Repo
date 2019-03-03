@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.sun.glass.ui.Screen;
 
 import controller.GameOverException;
-import controller.PVPlayerContoller;
+import controller.PVPlayer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -517,7 +517,7 @@ public class MainGUI implements GUICommons
 	    public void handle(ActionEvent event)
 	    {
 
-		PVPlayerContoller.playMove(x, y);
+		PVPlayer.playMove(x, y);
 	    }
 	};
     }

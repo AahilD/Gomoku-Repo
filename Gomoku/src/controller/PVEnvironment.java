@@ -7,10 +7,7 @@ package controller;
  *         environment mode.
  * 
  */
-public class PVEnvironmentController
+public class PVEnvironment extends GameController
 {
-    public PVEnvironmentController()
-    {
-
-    }
+    
 }
