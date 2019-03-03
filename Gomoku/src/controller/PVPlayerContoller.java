@@ -36,7 +36,7 @@ public class PVPlayerContoller
 	{
 		roundCount = 0;
 		game = new Game(player1name, player2name);
-		MainGUI.mainwindow(
+		MainGUI.initMainWindow(
 				setupBoard(), setupPlayerStats(), roundCount,
 				game.getTurnCount()
 				);

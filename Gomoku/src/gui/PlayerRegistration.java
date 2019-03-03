@@ -53,12 +53,6 @@ public class PlayerRegistration extends Application implements GUICommons
 	private static RadioButton playerVEnvironmentRB = new RadioButton(
 			PVE_LABEL);
 
-	private static final String CUSTOM_CSS_FILENAME = "css/player-registration.css";
-	private static final String PR_FORMGRID_CLASSNAME = "registration-form";
-	private static final String FORM_LABEL_CSS_CLASSNAME = "form-label";
-	private static final String BUTTON_CSS_CLASSNAME = "start-game-button";
-	private static final String RADIO_BUTTON_CSS_CLASSNAME = "radio-button";
-
 	/**
 	 * This is the official main method that will be called to launch the
 	 * application.
