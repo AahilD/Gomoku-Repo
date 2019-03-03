@@ -145,14 +145,9 @@ public class Square
     }
 
     /**
-     * returns a reference of the Player object stored in this square
+     * Returns a reference of the Player object stored in this square.
      * 
-     * TODO Pending review:
-     * 
-     * 1. refractor the name of this method to "playedBy" (right click >
-     * refractor > rename) 2. use the player copy constructor to encapsulate.
-     * 
-     * @return copy of the player object stored in this square
+     * @return copy of the player object stored in this square.
      */
     public Player playedBy()
     {
