@@ -108,15 +108,16 @@ public class MainGUI implements GUICommons
 	setBoard(toBoard);
 	mainWindow.setCenter(addBoardToGridPane());
     }
-    
+
     public static void updateBoardSquareButton(int x, int y, char pieceColour)
     {
 	Button sqr2update = board.get(x).get(y);
-	
-	sqr2update.getStyleClass().add(OCUPIED_BOARD_SQUARE_CLASSNAME + pieceColour);
+
+	sqr2update.getStyleClass()
+		.add(OCUPIED_BOARD_SQUARE_CLASSNAME + pieceColour);
 	sqr2update.applyCss();
     }
-    
+
     /**
      * The controller may call this method to updatePlayerStatsPanel, by passing
      * in a new set of playerstats in an ArrayList of type <String>. Each item
@@ -481,50 +482,8 @@ public class MainGUI implements GUICommons
 		Button sqrButton = board.get(x).get(y);
 		sqrButton.setDisable(true);
 		String output;
-		try
-		{
-		    PVPlayerContoller.playMove(x, y);
-
-		} catch (GameOverException e)
-		{
-		    getNewRoundConfirmationAlert(e.getWinnerUsername(),
-			    e.getLooserUsername());
-		}
+		PVPlayerContoller.playMove(x, y);
 	    }
 	};
-    }
-
-    // Alerts
-    /**
-     * Call this method once victory has been signaled by the controller. Takes
-     * in the user name of the winner and the looser, will display the winner
-     * and ask if the user(s) to play again. Yes will signal to the controller
-     * that the user has agreed to play an other round. No will bring the user
-     * back to the player registration window.
-     * 
-     * @param winnerName is a string that represents the user name of the
-     *                   winner.
-     * @param looserName is a string that represents the user name of the loser.
-     */
-    private static void getNewRoundConfirmationAlert(String winnerName,
-	    String looserName)
-    {
-	Alert alert = new Alert(AlertType.CONFIRMATION);
-	alert.setHeaderText(winnerName + " wins!\n"
-		+ "Do you wish to play an other round?");
-
-	ButtonType yes = new ButtonType("Yes");
-	ButtonType no = new ButtonType("No");
-
-	alert.getButtonTypes().setAll(yes, no);
-
-	Optional<ButtonType> result = alert.showAndWait();
-	if (result.get() == yes)
-	{
-	    PVPlayerContoller.settupNewRound();
-	} else if (result.get() == no)
-	{
-
-	}
     }
 }
