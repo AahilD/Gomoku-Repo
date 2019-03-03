@@ -1,7 +1,7 @@
 package broker;
 
 /**
- * @author GROUP22 Code implemented by
+ * @author GROUP22 Code implemented by Emily Pang
  *
  *         This class represents an Object of type square which will contain and
  *         maintain all the necessary information for each square on the board.
@@ -154,9 +154,9 @@ public class Square
 	 * 
 	 * @return copy of the player object stored in this square
 	 */
-	public Player playedby()
+	public Player playedBy()
 	{
-		return player;
+		return getPlayer();
 	}
 
 }
