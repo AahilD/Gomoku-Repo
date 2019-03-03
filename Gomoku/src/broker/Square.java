@@ -8,156 +8,156 @@ package broker;
  */
 public class Square
 {
-	// * The player Stored in this square
-	private Player player;
+    // * The player Stored in this square
+    private Player player;
 
-	// * The x and y coordinates of this Square
-	private int x;
-	private int y;
+    // * The x and y coordinates of this Square
+    private int x;
+    private int y;
 
+    /**
+     * This is the default constructor which sets the x and y coordinates of
+     * this square
+     * 
+     * @param toX The x coordinate
+     * @param toY The y coordinate
+     */
+    public Square(int toX, int toY)
+    {
+	player = null;
+	setX(toX);
+	setY(toY);
+
+    }
+
+    /**
+     * This is a copy constructor that copies the Player and the x and y
+     * coordinate in toSquare
+     * 
+     * @param toSquare The Square object to copy
+     */
+    public Square(Square toSquare)
+    {
 	/**
-	 * This is the default constructor which sets the x and y coordinates of
-	 * this square
-	 * 
-	 * @param toX The x coordinate
-	 * @param toY The y coordinate
+	 * Tries to setPlayer to desired Player object, and if the player
+	 * variable in toSquare is null or there is already a player set to this
+	 * square, player is not copied.
 	 */
-	public Square(int toX, int toY)
+	try
 	{
-		player = null;
-		setX(toX);
-		setY(toY);
-
-	}
-
-	/**
-	 * This is a copy constructor that copies the Player and the x and y
-	 * coordinate in toSquare
-	 * 
-	 * @param toSquare The Square object to copy
-	 */
-	public Square(Square toSquare)
+	    setPlayer(new Player(toSquare.getPlayer()));
+	} catch (NullPointerException npe)
 	{
-		/**
-		 * Tries to setPlayer to desired Player object, and if the player
-		 * variable in toSquare is null or there is already a player set to this
-		 * square, player is not copied.
-		 */
-		try
-		{
-			setPlayer(new Player(toSquare.getPlayer()));
-		} catch (NullPointerException npe)
-		{
-			System.out.println("going through line 50 of square.java");
-		} catch (IllegalMove e)
-		{
-			System.out.println("going through line 53 of square.java");
-		}
-		setX(toSquare.getX());
-		setY(toSquare.getY());
-	}
-
-	/**
-	 * This method sets the player and checks if there is already a player
-	 * stored in this square by checking if the instance variable player is
-	 * null, and throws "illegal move" error if player is not null
-	 * 
-	 * @param toPlayer Player object to set to this square
-	 * @throws IllegalMove
-	 */
-	public void setPlayer(Player toPlayer) throws IllegalMove
+	    System.out.println("going through line 50 of square.java");
+	} catch (IllegalMove e)
 	{
-		if (isEmpty())
-		{
-			player = toPlayer;
-
-		} else
-		{
-			throw new IllegalMove();
-		}
+	    System.out.println("going through line 53 of square.java");
 	}
+	setX(toSquare.getX());
+	setY(toSquare.getY());
+    }
 
-	/**
-	 * This setter sets the x coordinate of this square
-	 * 
-	 * @param xCoordinate The x coordinate to set
-	 */
-	private void setX(int xCoordinate)
+    /**
+     * This method sets the player and checks if there is already a player
+     * stored in this square by checking if the instance variable player is
+     * null, and throws "illegal move" error if player is not null
+     * 
+     * @param toPlayer Player object to set to this square
+     * @throws IllegalMove
+     */
+    public void setPlayer(Player toPlayer) throws IllegalMove
+    {
+	if (isEmpty())
 	{
-		x = xCoordinate;
-	}
+	    player = toPlayer;
 
-	/**
-	 * This setter sets the y coordinate of this square
-	 * 
-	 * @param yCoordinate The y coordinate to set
-	 */
-	private void setY(int yCoordinate)
+	} else
 	{
-		y = yCoordinate;
+	    throw new IllegalMove();
 	}
+    }
 
-	/**
-	 * Returns the x coordinate of this square
-	 * 
-	 * @return This square's x coordinate
-	 */
-	public int getX()
-	{
-		return x;
-	}
+    /**
+     * This setter sets the x coordinate of this square
+     * 
+     * @param xCoordinate The x coordinate to set
+     */
+    private void setX(int xCoordinate)
+    {
+	x = xCoordinate;
+    }
 
-	/**
-	 * Returns the y coordinate of this square
-	 * 
-	 * @return This square's y coordinate
-	 */
-	public int getY()
-	{
-		return y;
-	}
+    /**
+     * This setter sets the y coordinate of this square
+     * 
+     * @param yCoordinate The y coordinate to set
+     */
+    private void setY(int yCoordinate)
+    {
+	y = yCoordinate;
+    }
 
-	/**
-	 * Returns reference to the Player object stored in this square
-	 * 
-	 * @return The Player object stored in the instance variable player
-	 */
-	protected Player getPlayer()
-	{
-		return player;
-	}
+    /**
+     * Returns the x coordinate of this square
+     * 
+     * @return This square's x coordinate
+     */
+    public int getX()
+    {
+	return x;
+    }
 
-	/**
-	 * This methods checks to see if this square does not have a player set in
-	 * it
-	 * 
-	 * @return True is there is no player stored in this square, returns false
-	 *         if there is a player stored in this square
-	 */
-	public boolean isEmpty()
-	{
+    /**
+     * Returns the y coordinate of this square
+     * 
+     * @return This square's y coordinate
+     */
+    public int getY()
+    {
+	return y;
+    }
 
-		if (player == null)
-		{
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * returns a reference of the Player object stored in this square
-	 * 
-	 * TODO Pending review: 
-	 * 
-	 * 1. refractor the name of this method to "playedBy" (right click > refractor > rename)
-	 * 2. use the player copy constructor to encapsulate.
-	 * 
-	 * @return copy of the player object stored in this square
-	 */
-	public Player playedBy()
+    /**
+     * Returns reference to the Player object stored in this square
+     * 
+     * @return The Player object stored in the instance variable player
+     */
+    protected Player getPlayer()
+    {
+	return player;
+    }
+
+    /**
+     * This methods checks to see if this square does not have a player set in
+     * it
+     * 
+     * @return True is there is no player stored in this square, returns false
+     *         if there is a player stored in this square
+     */
+    public boolean isEmpty()
+    {
+
+	if (player == null)
 	{
-		Player p = new Player(player); 
-		return p;
+	    return true;
 	}
+	return false;
+    }
+
+    /**
+     * returns a reference of the Player object stored in this square
+     * 
+     * TODO Pending review:
+     * 
+     * 1. refractor the name of this method to "playedBy" (right click >
+     * refractor > rename) 2. use the player copy constructor to encapsulate.
+     * 
+     * @return copy of the player object stored in this square
+     */
+    public Player playedBy()
+    {
+	Player p = new Player(player);
+	return p;
+    }
 
 }

@@ -112,7 +112,8 @@ public class MainGUI implements GUICommons
     public static void updateBoardSquareButton(int x, int y, char pieceColour)
     {
 	Button sqr2update = board.get(x).get(y);
-
+	Button sqrButton = board.get(x).get(y);
+	sqrButton.setDisable(true);
 	sqr2update.getStyleClass()
 		.add(OCUPIED_BOARD_SQUARE_CLASSNAME + pieceColour);
 	sqr2update.applyCss();
@@ -237,21 +238,49 @@ public class MainGUI implements GUICommons
 	mainWindow.setBottom(initBottomPane());
     }
 
+    /**
+     * Call this method privately to set the global variable roundCount. The
+     * controller should use the public method updateRoundCount, or
+     * updateRoundCount_ResetTurnCount.
+     * 
+     * @param toRoundCount is a variable of type int that represents the number
+     *                     of rounds played.
+     */
     private static void setRoundCount(int toRoundCount)
     {
 	roundCount = toRoundCount;
     }
 
+    /**
+     * Call this method privately to set the turn count. The controller should
+     * use the method updateTurnCount instead.
+     * 
+     * @param toTurnCount
+     */
     private static void setTurnCount(int toTurnCount)
     {
 	turnCount = toTurnCount;
     }
 
+    /**
+     * Call this method privately to set the player stats. The controller should
+     * call updatePlayerStatsPanel instead.
+     * 
+     * @param toPlayerStats an ArrayList of type String containing player stats
+     */
     private static void setPlayerStatsList(ArrayList<String> toPlayerStats)
     {
 	playerStats = toPlayerStats;
     }
 
+    /**
+     * Call this method privately to set the board with new values, the
+     * Controller should use the resetBoard method, or the
+     * updateBoardSquareButton method isntead.
+     * 
+     * @param toBoard a 2d ArrayList of type <Button> representing each square
+     *                on the board.
+     */
     private static void setBoard(ArrayList<ArrayList<Button>> toBoard)
     {
 
@@ -442,11 +471,19 @@ public class MainGUI implements GUICommons
 	return grid;
     }
 
+    /**
+     * Call this method privately to update the text in the label that contains
+     * the turn count. The controller should use the update method instead.
+     */
     private static void updateTurnCountLabel()
     {
 	turnLabel.setText(TURN_COUNT_LABEL + turnCount);
     }
 
+    /**
+     * Call this method privately to update the text in the lable that contains
+     * the round count. The controller should use the update method instead.
+     */
     private static void updateRoundCountLabel()
     {
 	roundLabel.setText(ROUND_COUNT_LABEL + roundCount);
@@ -479,9 +516,7 @@ public class MainGUI implements GUICommons
 	    @Override
 	    public void handle(ActionEvent event)
 	    {
-		Button sqrButton = board.get(x).get(y);
-		sqrButton.setDisable(true);
-		String output;
+
 		PVPlayerContoller.playMove(x, y);
 	    }
 	};

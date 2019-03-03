@@ -99,8 +99,8 @@ public class PVPlayerContoller
 	 * not winning move. You may be required to set up as many methods to
 	 * break down the code into simpler steps, or to perform seperate tasks
 	 * under certain conditions. Everything you need on the GUI side is
-	 * there.
-	 * see the new class in the gui package called alertsanddialogs.java
+	 * there. see the new class in the gui package called
+	 * alertsanddialogs.java
 	 */
 	char currentcolour = game.getTurnPlayer().getPieceColour();
 
