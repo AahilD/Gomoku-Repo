@@ -54,8 +54,14 @@ public class Game
 		 * 4. leave resetRound();
 		 */
 		
-		playerOne = new Player(p1);
-		playerTwo = new Player(p2);
+		playerOne = new Player(p1.getUserName(), p2.getPieceColour());
+		playerTwo = new Player(p2.getUserName(), p2.getPieceColour());
+		playerOne.setWinCount(p1.getWinCount());
+		playerTwo.setWinCount(p2.getWinCount());
+		playerOne.setLoseCount(p1.getLoseCount());
+		playerTwo.setLoseCount(p2.getLoseCount());
+		playerOne.setDrawCount(p1.getDrawCount());
+		playerTwo.setDrawCount(p2.getDrawCount());
 		resetRound();
 	}
 
@@ -90,7 +96,7 @@ public class Game
 	}
 
 	/**
-	 * This getter reutnrs the current board in play
+	 * This getter returns the current board in play
 	 * 
 	 * @return reference to the current Board object in play
 	 */
