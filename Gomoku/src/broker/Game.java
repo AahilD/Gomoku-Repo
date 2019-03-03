@@ -45,24 +45,15 @@ public class Game
      */
     public Game(Player p1, Player p2)
     {
-	// TODO @steve make following changes
-	/*
-	 * 1. use the other player constructor (String, char) to switch around
-	 * the piece colours ie => playerone = new player(p1.getusername,
-	 * p2.getpiececolour) 2. playertwo = new player(p2.getusername,
-	 * p1.getpiececolour) 3. use the setters for the win, loos, draw count
-	 * (do NOT swap these :P) 4. leave resetRound();
-	 */
-
-	playerOne = new Player(p1.getUserName(), p2.getPieceColour());
-	playerTwo = new Player(p2.getUserName(), p2.getPieceColour());
-	playerOne.setWinCount(p1.getWinCount());
-	playerTwo.setWinCount(p2.getWinCount());
-	playerOne.setLoseCount(p1.getLoseCount());
-	playerTwo.setLoseCount(p2.getLoseCount());
-	playerOne.setDrawCount(p1.getDrawCount());
-	playerTwo.setDrawCount(p2.getDrawCount());
-	resetRound();
+    	playerOne = new Player(p1.getUserName(), p2.getPieceColour());
+    	playerTwo = new Player(p2.getUserName(), p1.getPieceColour());
+    	playerOne.setWinCount(p1.getWinCount());
+    	playerTwo.setWinCount(p2.getWinCount());
+    	playerOne.setLoseCount(p1.getLoseCount());
+		playerTwo.setLoseCount(p2.getLoseCount());
+		playerOne.setDrawCount(p1.getDrawCount());
+		playerTwo.setDrawCount(p2.getDrawCount());
+		resetRound();
     }
 
     /**
