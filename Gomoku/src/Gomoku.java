@@ -46,7 +46,7 @@ public class Gomoku
 					else
 						System.out.print("|"
 								+ game.getCurrentBoard().getBoard()[row][col]
-										.playedby().getPieceColour()
+										.playedBy().getPieceColour()
 								+ "|");
 				}
 				System.out.println("");

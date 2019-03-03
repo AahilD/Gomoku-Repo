@@ -40,10 +40,10 @@ public class Player
 	{
 		setUserName(toName);
 		setPieceColour(toColour);
-		// TODO @Emily use the setter methods to reduce code duplication
-		this.winCount = 0;
-		this.loseCount = 0;
-		this.drawCount = 0;
+		// TODO Pending review: use the setter methods to reduce code duplication
+		setWinCount(0);
+		setLoseCount(0);
+		setDrawCount(0);
 	}
 
 	/**
