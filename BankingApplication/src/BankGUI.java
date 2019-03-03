@@ -23,9 +23,31 @@ import javafx.scene.control.TextField;
 public class BankGUI extends Application
 {
 
+	class HandleDeposit implements EventHandler<ActionEvent>
+	{
+		@Override
+		public void handle(ActionEvent arg0)
+		{
+			bankAcc.deposit(Double.valueOf(amountValue.getText().trim()));
+			updateBalanceLabel();
+		}
+
+	}
+	
+	class HandleWithdrawl implements EventHandler<ActionEvent>
+	{
+		@Override
+		public void handle(ActionEvent arg0)
+		{
+			bankAcc.withdraw(Double.valueOf(amountValue.getText().trim()));
+			updateBalanceLabel();
+		}
+		
+	}
+
 	// BankAccount Instance Variable
 	private BankAccount bankAcc = new BankAccount();
-	// input text field for ammount value
+	// input text field for amount value
 	private TextField amountValue = new TextField();
 	// deposit button
 	private Button depositB = new Button("Deposit");
@@ -151,7 +173,7 @@ public class BankGUI extends Application
 		GridPane gridpane = new GridPane();
 
 		// nodes
-		Label amountLabel = new Label("Enter Aount: ");
+		Label amountLabel = new Label("Enter Amount: ");
 
 		// label
 		GridPane.setConstraints(amountLabel, 0, 0); // col=0 row=0
@@ -178,29 +200,13 @@ public class BankGUI extends Application
 	 */
 	private HBox setupActionButtonForm()
 	{
+		
 		// setup the action event for the deposit button
-		depositB.setOnAction(new EventHandler<ActionEvent>()
-		{
-
-			@Override
-			public void handle(ActionEvent arg0)
-			{
-				bankAcc.deposit(Double.valueOf(amountValue.getText().trim()));
-				updateBalanceLabel();
-			}
-		});
+		depositB.setOnAction(new HandleDeposit());
+		
 		// setup the action event for the withdraw button
-		withdrawB.setOnAction(new EventHandler<ActionEvent>()
-		{
+		withdrawB.setOnAction(new HandleWithdrawl());
 
-			@Override
-			public void handle(ActionEvent arg0)
-			{
-				bankAcc.withdraw(Double.valueOf(amountValue.getText().trim()));
-				updateBalanceLabel();
-			}
-			
-		});
 		
 		// Each button represents an action for the form
 		// Place them all in a row horizontally
@@ -229,6 +235,7 @@ public class BankGUI extends Application
 	 * this will setup and return a formated string for the current
 	 * account balance into the typical format for currency.
 	 * (e.g. if balance == 0.0 then it will return "$0.00" as a string)
+	 * 
 	 * @return the formatted string of the account balance.
 	 */
 	private String balanceToString()
