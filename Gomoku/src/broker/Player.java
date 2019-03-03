@@ -40,8 +40,6 @@ public class Player
     {
 	setUserName(toName);
 	setPieceColour(toColour);
-	// TODO Pending review: use the setter methods to reduce code
-	// duplication
 	setWinCount(0);
 	setLoseCount(0);
 	setDrawCount(0);
