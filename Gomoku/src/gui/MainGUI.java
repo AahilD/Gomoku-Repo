@@ -52,7 +52,7 @@ public class MainGUI implements GUICommons
     private static int roundCount;
     private static Label turnLabel = new Label(TURN_COUNT_LABEL);
     private static Label roundLabel = new Label(ROUND_COUNT_LABEL);
-    
+    private static GameController gControl;
     //Until I find a better way
     private static boolean isPVE;
     
@@ -73,7 +73,6 @@ public class MainGUI implements GUICommons
     public static void initMainWindow(ArrayList<ArrayList<Button>> toBoard,
 	    ArrayList<String> toPlayerStats, int roundCount, int turnCount, boolean toIsPVE)
     {
-
 	Stage primaryStage = new Stage();
 
 	// set the values
@@ -287,10 +286,22 @@ public class MainGUI implements GUICommons
      * @param toBoard a 2d ArrayList of type <Button> representing each square
      *                on the board.
      */
+    @SuppressWarnings("unchecked")
     private static void setBoard(ArrayList<ArrayList<Button>> toBoard)
     {
-
-	board = toBoard;
+	board = new ArrayList<ArrayList<Button>>();
+	
+	for (int x = 0; x < toBoard.size(); x++)
+	{
+	    
+	    ArrayList<Button> row = new ArrayList<Button>();
+	    
+	    for(int y = 0; y < toBoard.get(x).size(); y ++)
+		row.add(toBoard.get(x).get(y));
+	    
+	    board.add(row);
+	}
+	    
     }
 
     /**
@@ -324,9 +335,7 @@ public class MainGUI implements GUICommons
 		sqrButton.getStyleClass().add(ACTIVE_BOARD_SQUARE_CLASSNAME);
 
 		// apply action event handler
-		if (isPVE)
-		    sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
-		else
+		sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
 		    
 
 		// add button to gridpane
