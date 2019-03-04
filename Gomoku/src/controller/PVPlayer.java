@@ -1,5 +1,7 @@
 package controller;
 
+import broker.IllegalMove;
+
 /**
  * @author manu
  * 
@@ -23,8 +25,15 @@ public class PVPlayer extends GameController
     
     public static void playMoveAt(int x, int y)
     {
-	playMove(x, y);
-	// TODO @Ahil
+	try
+	{
+	    playMove(x, y);
+	} catch (IllegalMove e)
+	{
+	    // TODO @Aahil call the appropriate methods to notify the user of an illegal move
+	    
+	}
+	// TODO @Aahil
 	/*
 	 * have the parent class do the generic logic regardles of pve or pvp
 	 * do the pvp specific logic here

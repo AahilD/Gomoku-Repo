@@ -11,7 +11,8 @@ public abstract class GameController
 
     // TODO @Aahil make private variable private
     // TODO @Aahil remove roundCount (controllers will keep track of this)
-    private static Game game;
+    protected static Game game;
+    protected static MainGUI gui;
     private static int roundCount;
     
     public static void initializeGame(String player1name, String player2name, boolean isPVE)
@@ -68,8 +69,9 @@ public abstract class GameController
      *          of the square on the board.
      * @param y is a variable of type int that represents the column (y
      *          coordinate) of the square on the board.
+     * @throws IllegalMove 
      */
-    public static void playMove(int x, int y)
+    public static void playMove(int x, int y) throws IllegalMove
     {
 	// TODO @Aahil fix this method as per the following
 		/*
@@ -105,7 +107,7 @@ public abstract class GameController
 		} catch (IllegalMove e)
 		{
 
-		    System.out.println(e.toString());
+		    throw e;
 		}
     }
     

@@ -1,6 +1,9 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import broker.IllegalMove;
 
 /**
  * @author GROUP 22
@@ -24,7 +27,8 @@ public class PVEnvironment extends GameController
      * succesfful. 5. for now you should try just implementing level 0 where the
      * computer selects an available square at random
      */
-    private ArrayList<int[]> playerMoves = new ArrayList<int[]>();
+    private static ArrayList<int[]> playerMoves = new ArrayList<int[]>();
+    private static ArrayList<int[]> environmentMoves = new ArrayList<int[]>();
 
     public static void initializeGame(String player1name, String player2name)
     {
@@ -59,10 +63,21 @@ public class PVEnvironment extends GameController
 	 * next move
 	 * 
 	 */
-	playMove(x, y);
+	try
+	{
+	    playMove(x, y);
+	} catch (IllegalMove e)
+	{
+	    //call the proper methods to notify the user they have played an illegal move
+	}
+
+	// more logic here
+
+	// once player's turn is done
+	environmentPlayMove();
     }
 
-    private void environmentPlayMove()
+    private static void environmentPlayMove()
     {
 	// TODO @Emily implement method as per instructions
 	/*
@@ -71,9 +86,20 @@ public class PVEnvironment extends GameController
 	 * statements or what ever you prefer. then you need to
 	 * 
 	 */
+	// replace the following level with the value that will be passed by
+	// player registration (eventually)
+	int level = 1;
+	switch (level)
+	{
+	case 0:
+	    environment_lvl_zero();
+	case 1:
+	    environment_lvl_one();
+	    // etc
+	}
     }
 
-    private void environment_lvl_zero()
+    private static void environment_lvl_zero()
     {
 	// TODO @Emily implement level zero
 	/*
@@ -81,6 +107,79 @@ public class PVEnvironment extends GameController
 	 * at random and play on that square. environment should always be
 	 * Player 2.
 	 */
+    }
+
+    private static void environment_lvl_one()
+    {
+	// First lets check if the player has made a move at all
+	if (game.getTurnCount() == 0)
+	    // we might as well just use the random feature of
+	    // environment_lvl_zero
+	    environment_lvl_zero();
+
+	// on the second we can place our chip anywhere nearby
+	else if (game.getTurnCount() == 1)
+	{
+	    int[] xy = getLastCoordinatesPlayed();
+	    boolean success = false;
+	    do
+	    {
+
+		int x = newRandomAdjecentPosition(xy[0]);
+		int y = newRandomAdjecentPosition(xy[1]);
+
+		try
+		{
+		    playMove(x, y);
+		    updateGUI(x, y, game.getTurnPlayer().getPieceColour());
+		} catch (IllegalMove e)
+		{
+		    success = false;
+		}
+
+	    } while (!success);
+	} else
+	{
+	    // TODO I might have a few ideas for this
+	    
+	}
+
+    }
+
+    /**
+     * Use this method to get the coordinates in reverse order. index 1 will be
+     * the last item on the list
+     * 
+     * @param index of type int to indicate which position from the end of the
+     *              list
+     * @return primitive array of type int of the x and y coordinates at
+     *         position [0] and [1] respectively.
+     */
+    private static int[] getCoordinatesAt(int index)
+    {
+	return playerMoves.get(playerMoves.size() - index);
+    }
+
+    private static void updateGUI(int x, int y, char pieceColour)
+    {
+	gui.updateBoardSquareButton(x, y, pieceColour);
+	game.incrementPlayerTurn();
+	gui.updateTurnCount(game.getTurnCount());
+    }
+
+    private static int newRandomAdjecentPosition(int coordinate)
+    {
+	int offset = 1;
+	Random r = new Random();
+	if (!r.nextBoolean())
+	    offset *= - -1;
+
+	return coordinate + offset;
+    }
+
+    private static int[] getLastCoordinatesPlayed()
+    {
+	return getCoordinatesAt(1);
     }
 
     /**
@@ -103,6 +202,16 @@ public class PVEnvironment extends GameController
     {
 	int[] xy = { x, y };
 	playerMoves.add(xy);
+    }
+
+    public ArrayList<int[]> getEnvironmentMoves()
+    {
+	return environmentMoves;
+    }
+
+    public void setEnvironmentMoves(ArrayList<int[]> environmentMoves)
+    {
+	this.environmentMoves = environmentMoves;
     }
 
 }
