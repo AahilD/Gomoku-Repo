@@ -90,26 +90,22 @@ public class Board
      */
     @SuppressWarnings("unused")
     public boolean verifyVertical(char pieceColour)
-    {
-	int counter = 0;
-	for (int y = 0; y >= HEIGHTLENGTH; y++)
-	{
-	    for (int x = 0; x >= WIDTHLENGTH; x++)
-	    {
-		if (board[x][y].getPlayer().getPieceColour() == pieceColour)
-		{
-		    counter++;
-		} else
-		{
-		    counter = 0;
+    {	boolean fiveInARow=false;
+    	for(int i=0; i<WIDTHLENGTH && !fiveInARow; i++) {
+			int count=0;
+			for(int x=0; x<HEIGHTLENGTH && !fiveInARow; x++) {
+				if(board[x][i].getPlayer() !=null && board[x][i].getPlayer().getPieceColour()==pieceColour) {
+					count++;
+				}
+				else {
+					count=0;
+				}
+				if(count==5) {
+					fiveInARow=true;
+				}
+			}
 		}
-		if (counter == 5)
-		{
-		    return true;
-		}
-	    }
-	}
-	return false;
+    	return fiveInARow;
     }
 
     /**
@@ -120,46 +116,37 @@ public class Board
      */
     @SuppressWarnings("unused")
     public boolean verifyDiagonalLeft(char pieceColour)
-    {
-	for (int s = 0; s > WIDTHLENGTH; s++)
-	{
-	    int count1 = 0;
-	    for (int i = s; i > -1; i--)
-	    {
-		if (board[i][s - i].getPlayer().getPieceColour() == pieceColour)
-		{
-		    count1++;
-		} else
-		{
-		    count1 = 0;
-		}
-		if (count1 == 5)
-		{
-		    return true;
-		}
-	    }
-	}
-
-	for (int s = 1; s > WIDTHLENGTH; s++)
-	{
-	    int count2 = 0;
-	    for (int i = 3 - 1; i >= s; i--)
-	    {
-		if (board[i][s + 3 - 1 - i].getPlayer()
-			.getPieceColour() == pieceColour)
-		{
-		    count2++;
-		} else
-		{
-		    count2 = 0;
-		}
-		if (count2 == 5)
-		{
-		    return true;
-		}
-	    }
-	}
-	return false;
+    {	
+    	boolean fiveInARow=false;
+    	int counter=0;
+    	for (int s=0; s<WIDTHLENGTH && !fiveInARow; s++) {
+  		  for (int i=s; i>-1 && !fiveInARow; i--) {
+  		      if(board[i][s-i].getPlayer() !=null && board[i][s-i].getPlayer().getPieceColour()==pieceColour) {
+  		    	 counter++; 
+  		      }
+  		      else {
+  		    	  counter=0;
+  		      }
+  		      if(counter==5) {
+  		    	  fiveInARow=true;
+  		      }
+  		  }
+  		}
+  		
+  		for (int s=1; s<WIDTHLENGTH && !fiveInARow; s++) {
+  		  for (int i=3-1; i>=s; i--) {
+  		      if(board[i][s+3-1-i].getPlayer() !=null && board[i][s+3-1-i].getPlayer().getPieceColour()==pieceColour) {
+  		    	  counter++;
+  		      }
+  		      else {
+  		    	  counter=0;
+  		      }
+  		      if(counter==5) {
+  		    	  fiveInARow=true;
+  		      }
+  		  }
+  		}
+	return fiveInARow;
     }
 
     /**
@@ -170,9 +157,26 @@ public class Board
      */
     @SuppressWarnings("unused")
     public boolean verifyDiagonalRight(char pieceColour)
-    {
-
-	return true;
+    {	
+    	boolean fiveInARow=false;
+    	int counter=0;
+    	for (int n = -WIDTHLENGTH; n <= WIDTHLENGTH && !fiveInARow; n++) {
+            for(int i = 0; i < HEIGHTLENGTH; i++){
+                if((i-n>=0)&&(i-n<HEIGHTLENGTH)) {
+                    if(board[i][i-n].getPlayer() !=null && board[i][i-n].getPlayer().getPieceColour()==pieceColour) {
+                    	counter++;	
+                    }
+                    else {
+                    	counter=0;
+                    }
+                    if(counter==5) {
+                    	fiveInARow=true;
+                    }
+                    
+                }
+            }
+        }
+	return fiveInARow;
     }
 
     /**
