@@ -24,6 +24,11 @@ public class PVEnvironment extends GameController
      */
     private ArrayList<int[]> playerMoves = new ArrayList<int[]>();
     
+    public static void initializeGame(String player1name, String player2name)
+    {
+	initializeGame(player1name, player2name, true);
+    }
+    
     /*
      * (non-Javadoc)
      * @see controller.GameController#playAnotherRound()
@@ -34,9 +39,8 @@ public class PVEnvironment extends GameController
 	// TODO Auto-generated method stub
 	
     }
-
-    @Override
-    protected void playMove(int x, int y)
+    
+    public static void playMoveAt(int x, int y)
     {
 	// TODO @emily this method should follow the same logic as the pvp environment
 	/*
@@ -44,6 +48,7 @@ public class PVEnvironment extends GameController
 	 * you will call the environmentPlayMove() method to play the next move
 	 * 
 	 */
+	playMove(x, y);
     }
     
     

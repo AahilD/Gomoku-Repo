@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import com.sun.glass.ui.Screen;
 
+import controller.GameController;
 import controller.GameOverException;
+import controller.PVEnvironment;
 import controller.PVPlayer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -38,7 +40,7 @@ public class MainGUI implements GUICommons
     private final static double WIDTH = Screen.getMainScreen().getWidth();
     @SuppressWarnings("unused")
     private final static double HEIGHT = Screen.getMainScreen().getHeight();
-
+    
     // CSS FILEPATH
     private final static String CUSTOM_CSS_FILENAME = "css/gomoku.css";
 
@@ -50,7 +52,10 @@ public class MainGUI implements GUICommons
     private static int roundCount;
     private static Label turnLabel = new Label(TURN_COUNT_LABEL);
     private static Label roundLabel = new Label(ROUND_COUNT_LABEL);
-
+    
+    //Until I find a better way
+    private static boolean isPVE;
+    
     /**
      * Once the controller has initialized the game it should call this method
      * with all the necessary parameters to display the game information
@@ -66,12 +71,13 @@ public class MainGUI implements GUICommons
      *                      game
      */
     public static void initMainWindow(ArrayList<ArrayList<Button>> toBoard,
-	    ArrayList<String> toPlayerStats, int roundCount, int turnCount)
+	    ArrayList<String> toPlayerStats, int roundCount, int turnCount, boolean toIsPVE)
     {
 
 	Stage primaryStage = new Stage();
 
 	// set the values
+	isPVE = toIsPVE;
 	setBoard(toBoard);
 	setPlayerStatsList(toPlayerStats);
 	setTurnCount(turnCount);
@@ -318,7 +324,10 @@ public class MainGUI implements GUICommons
 		sqrButton.getStyleClass().add(ACTIVE_BOARD_SQUARE_CLASSNAME);
 
 		// apply action event handler
-		sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
+		if (isPVE)
+		    sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
+		else
+		    
 
 		// add button to gridpane
 		GridPane.setConstraints(sqrButton, // Node
@@ -507,7 +516,7 @@ public class MainGUI implements GUICommons
      * @return a new event handler for the button at the specified position on
      *         the board
      */
-    private static EventHandler<ActionEvent> getBoardButtonEventHandler(int x,
+    public static EventHandler<ActionEvent> getBoardButtonEventHandler(int x,
 	    int y)
     {
 	return new EventHandler<ActionEvent>()
@@ -516,8 +525,11 @@ public class MainGUI implements GUICommons
 	    @Override
 	    public void handle(ActionEvent event)
 	    {
-
-		PVPlayer.playMove(x, y);
+		if (isPVE)
+		    PVEnvironment.playMoveAt(x, y);
+		else
+		    PVPlayer.playMoveAt(x, y);
+		
 	    }
 	};
     }

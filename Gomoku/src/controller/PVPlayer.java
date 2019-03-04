@@ -1,12 +1,5 @@
 package controller;
 
-import java.util.ArrayList;
-
-import broker.Game;
-import broker.IllegalMove;
-import gui.MainGUI;
-import javafx.scene.control.Button;
-
 /**
  * @author manu
  * 
@@ -17,47 +10,25 @@ import javafx.scene.control.Button;
  */
 public class PVPlayer extends GameController
 {
-    /**
-     * Call this method for the initial game setup. should be called by the GUI
-     * once both players have entered their desired user name and have clicked
-     * on "start game" button.
-     * 
-     * @param player1name is the value of player one's username
-     * @param player2name is the value of plyaer two's username
+    
+    // TODO @Aahil fix everything that broke due to changes of implementation.
+    /*
+     * Refer to the GameController that this class extends 
      */
     public static void initializeGame(String player1name, String player2name)
     {
-	roundCount = 0;
-	game = new Game(player1name, player2name);
-	MainGUI.initMainWindow(setupBoard(), setupPlayerStats(), roundCount,
-		game.getTurnCount());
+	initializeGame(player1name, player2name, false);
     }
 
-    private static ArrayList<String> setupPlayerStats()
+    
+    public static void playMoveAt(int x, int y)
     {
-	ArrayList<String> playerboardcontent = new ArrayList<String>();
-
-	for (String line : game.getPlayerOne().getPlayerStats())
-	    playerboardcontent.add(line);
-	for (String line : game.getPlayerTwo().getPlayerStats())
-	    playerboardcontent.add(line);
-
-	return playerboardcontent;
-    }
-
-    private static ArrayList<ArrayList<Button>> setupBoard()
-    {
-	ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
-	for (int x = 0; x < 19; x++)
-	{
-	    ArrayList<Button> column = new ArrayList<Button>();
-	    for (int y = 0; y < 19; y++)
-	    {
-		column.add(new Button());
-	    }
-	    board.add(column);
-	}
-	return board;
+	playMove(x, y);
+	// TODO @Ahil
+	/*
+	 * have the parent class do the generic logic regardles of pve or pvp
+	 * do the pvp specific logic here
+	 */
     }
 
     /**
@@ -70,49 +41,11 @@ public class PVPlayer extends GameController
      * able to do it in 5 lines or so. perhaps implement a method to increment
      * round count
      */
-    public static void settupNewRound()
+    @Override
+    protected void playAnotherRound()
     {
 	// TODO @Aahil implement method as per javadoc above
-    }
-
-    public static void playMove(int x, int y)
-    {
-	// TODO @Aahil fix this method as per the following
-	/*
-	 * Instead of returning char and throwing GameOverException I would like
-	 * it to: 1. call the appropriate update method in the gui by passing
-	 * the x and y coordinates and the piececolour of the player that made
-	 * the move if it is not the wining move. 2. if it is the wining move
-	 * invoke the appropriate alert in the MainGUI class that will display
-	 * the winer and loser and ask if they wish to play a new game, or not.
-	 * 3. if it is an illegal move invoke the appropriate alert in the
-	 * maingui class that will warn the user they have performed an illegal
-	 * move.
-	 * 
-	 * Note: you should only increment turn count if the move is valid and
-	 * not winning move. You may be required to set up as many methods to
-	 * break down the code into simpler steps, or to perform seperate tasks
-	 * under certain conditions. Everything you need on the GUI side is
-	 * there. see the new class in the gui package called
-	 * alertsanddialogs.java
-	 */
-	char currentcolour = game.getTurnPlayer().getPieceColour();
-
-	try
-	{
-	    if (!game.makeMove(x, y))
-	    {
-		game.incrementPlayerTurn();
-
-	    } else
-	    {
-
-	    }
-	} catch (IllegalMove e)
-	{
-
-	    System.out.println(e.toString());
-	}
+	
     }
 
 }
