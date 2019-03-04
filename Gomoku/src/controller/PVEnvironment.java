@@ -1,6 +1,9 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import broker.Square; 
 
 /**
  * @author GROUP 22
@@ -66,7 +69,7 @@ public class PVEnvironment extends GameController
     {
 	// TODO @Emily implement method as per instructions
 	/*
-	 * this method should check the level of dificulty and select the
+	 * this method should check the level of difficulty and select the
 	 * appropriate method to play a move you can use if statements or case
 	 * statements or what ever you prefer. then you need to
 	 * 
@@ -75,12 +78,17 @@ public class PVEnvironment extends GameController
 
     private void environment_lvl_zero()
     {
-	// TODO @Emily implement level zero
+	// TODO @Pending review (not too sure which method to use to play the piece) 
 	/*
 	 * This method should randomly chose any available square on the board
 	 * at random and play on that square. environment should always be
 	 * Player 2.
 	 */
+    	Random rand = new Random();
+    	int x = rand.nextInt(19);
+    	int y = rand.nextInt(19); 
+    	playMove(x,y); 
+    
     }
 
     /**
