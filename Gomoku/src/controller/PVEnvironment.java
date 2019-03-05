@@ -101,7 +101,16 @@ public class PVEnvironment extends GameController
     	Random rand = new Random();
     	int x = rand.nextInt(19);
     	int y = rand.nextInt(19); 
-    	playMove(x,y); 
+    	while (Square.isEmpty() == false)
+    	{
+    		x = rand.nextInt(19);
+    		y = rand.nextInt(19); 
+    	}
+    	if (Square.isEmpty()==true)
+    	{
+    		playMove(x,y);
+    	}
+    	
     
     }
 
