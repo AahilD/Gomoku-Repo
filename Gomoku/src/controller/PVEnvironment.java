@@ -28,6 +28,7 @@ public class PVEnvironment extends GameController
      * computer selects an available square at random
      */
     private ArrayList<int[]> playerMoves = new ArrayList<int[]>();
+    private String level; 
 
     public static void initializeGame(String player1name, String player2name)
     {
@@ -74,6 +75,18 @@ public class PVEnvironment extends GameController
 	 * statements or what ever you prefer. then you need to
 	 * 
 	 */
+    	if (level == "zero")
+    	{
+    		environment_lvl_zero();
+    	}
+    	//if (level == "one")
+    	//{
+    		//environment_lvl_one();
+    	//}
+    	//if (level == "two")
+    	//{
+    		//environment_lvl_two();
+    	//{
     }
 
     private void environment_lvl_zero()
