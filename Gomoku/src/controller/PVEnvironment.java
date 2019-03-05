@@ -68,7 +68,8 @@ public class PVEnvironment extends GameController
 
     private void environmentPlayMove()
     {
-	// TODO @Pending Review 
+	// TODO @Pending Review  : Using if statement to play appropriate method for level (I am
+    // assuming the level chosen is a string input and also assuming 3 levels of difficulty)  
 	/*
 	 * this method should check the level of difficulty and select the
 	 * appropriate method to play a move you can use if statements or case
