@@ -114,7 +114,7 @@ public class MainGUI implements GUICommons
 	mainWindow.setCenter(addBoardToGridPane());
     }
 
-    public void updateBoardSquareButton(int x, int y, char pieceColour)
+    public static void updateBoardSquareButton(int x, int y, char pieceColour)
     {
 	Button sqr2update = board.get(x).get(y);
 	Button sqrButton = board.get(x).get(y);
