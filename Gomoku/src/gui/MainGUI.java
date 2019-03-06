@@ -265,6 +265,7 @@ public class MainGUI implements GUICommons
     private static void setTurnCount(int toTurnCount)
     {
 	turnCount = toTurnCount;
+	updateTurnCountLabel();
     }
 
     /**

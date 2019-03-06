@@ -94,11 +94,14 @@ public abstract class GameController
 
 		try
 		{
-		    if (!game.makeMove(x, y))
+		    if (game.makeMove(x, y) == false)
 		    {
-			game.incrementPlayerTurn();
+			MainGUI.updateBoardSquareButton(x, y, currentcolour);
+			MainGUI.updateTurnCount(game.incrementPlayerTurn());
+			
 
 		    } else
+		    	System.out.println("win");
 		    {
 
 		    }
