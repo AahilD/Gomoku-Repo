@@ -1,5 +1,7 @@
 package gui;
 
+import com.sun.glass.ui.Screen;
+
 import controller.PVEnvironment;
 import controller.PVPlayer;
 import javafx.application.Application;
@@ -34,7 +36,11 @@ import javafx.stage.Stage;
  */
 public class PlayerRegistration extends Application implements GUICommons
 {
-    // labels
+	// WINDOW DIMENTIONS
+    private static double WIDTH = Screen.getMainScreen().getWidth() - (Screen.getMainScreen().getWidth())/2;
+    private static double HEIGHT = Screen.getMainScreen().getHeight() - (Screen.getMainScreen().getHeight())/5;
+    	
+	// labels
     private static final String USERNAME_LABEL = "Enter username: ";
     private static final String START_GAME_BUTTON_VALUE = "Start Game";
     private static final String PLAYER_REGISTRATION = "Player Registration";
@@ -78,8 +84,8 @@ public class PlayerRegistration extends Application implements GUICommons
 	Scene scene = new Scene(stageGUI());
 	// primaryStage.minWidthProperty().bind(scene.widthProperty());
 //		primaryStage.minHeightProperty().bind(scene.heightProperty());
-	primaryStage.setMinHeight(300);
-	primaryStage.setMinWidth(300);
+	primaryStage.setMinHeight(HEIGHT);
+	primaryStage.setMinWidth(WIDTH);
 	primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 	primaryStage.setScene(scene);
 	primaryStage.show();
