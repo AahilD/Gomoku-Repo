@@ -29,7 +29,7 @@ public class PVEnvironment extends GameController
      * computer selects an available square at random
      */
     private ArrayList<int[]> playerMoves = new ArrayList<int[]>();
-    private String level;
+    private int level;
 
     public static void initializeGame(String player1name, String player2name)
     {
@@ -49,9 +49,18 @@ public class PVEnvironment extends GameController
 	 * Us an alert to prompt the user to play an other round if so increment
 	 * round count and set up a new game() use the constructor that will
 	 * swap the piece colours. keep the same players though. I think you can
-	 * just plass the players into the game constructor
+	 * just pass the players into the game constructor
 	 */
 
+    	//print(?) a statement to ask to play another round  - maybe use int to indicate
+    	//bc can't compare string accurately - mentioned in class
+    	// yes = 1 
+    	// no = 0
+    	//if (yes)
+    		//roundcount++ 
+    		//newGame()
+    	//else
+    		//endgame() 
     }
 
     public static void playMoveAt(int x, int y)
@@ -67,11 +76,11 @@ public class PVEnvironment extends GameController
 	playMove(x, y);
     }
 
-    private void environmentPlayMove(int level)
+    private void environmentPlayMove()
     {
 	// TODO @Emily yes of course I will have the gui pass in an int that
 	// will exactly equal to level in the method name
-	//
+	//note: make global variable
 	// FYI: perhaps using swtich {case #: methodcall_lvl_#(); break; case:
 	// #...} would make for cleaner coding style. If you are not familiar
 	// with switchcases I will provde an example in comments. I don't want
@@ -97,15 +106,15 @@ public class PVEnvironment extends GameController
 	 * statements or what ever you prefer. then you need to
 	 * 
 	 */
-	if (level == "zero")
+	if (level == 0)
 	{
 	    environment_lvl_zero();
 	}
-	// if (level == "one")
+	// if (level == 1)
 	// {
 	// environment_lvl_one();
 	// }
-	// if (level == "two")
+	// if (level == 2)
 	// {
 	// environment_lvl_two();
 	// {
@@ -149,15 +158,17 @@ public class PVEnvironment extends GameController
 	 * logic in here)))
 	 */
 
-	while (Square.isEmpty() == false)
-	{
-	    x = rand.nextInt(19);
-	    y = rand.nextInt(19);
-	}
-	if (Square.isEmpty() == true)
-	{
-	    playMove(x, y);
-	}
+	Board b = getGame().getCurrentBoard();
+	
+	//if()
+	//{
+	  //  x = rand.nextInt(19);
+	    //y = rand.nextInt(19);
+	//}
+	//if (Square.isEmpty() == true)
+	//{
+	   // playMove(x, y);
+	//}
 
     }
 
