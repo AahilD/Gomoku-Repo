@@ -370,7 +370,7 @@ public class WinningConditions
 
 	boolean condition = board.verifyVertical(p1.getPieceColour());
 
-	printBoardToConsole();
+	//printBoardToConsole();
 
 	// test
 	assertFalse(message, condition);
@@ -489,7 +489,7 @@ public class WinningConditions
 
 	boolean condition = board.verifyDiagonalLeft((p1.getPieceColour()));
 
-	printBoardToConsole();
+	//printBoardToConsole();
 
 	// test
 	assertFalse(message, condition);
@@ -604,7 +604,7 @@ public class WinningConditions
 
 	boolean condition = board.verifyDiagonalRight((p1.getPieceColour()));
 
-	printBoardToConsole();
+	//printBoardToConsole();
 
 	// test
 	assertFalse(message, condition);
