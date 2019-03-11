@@ -204,6 +204,7 @@ public class WinningConditions
 	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 
 	// test
+	//When it randomizes plays it will play 6 pieces and expect a win-LN
 	assertTrue(message, condition);
     }
 
@@ -295,6 +296,7 @@ public class WinningConditions
 	boolean condition = board.verifyVertical(p1.getPieceColour());
 
 	// test
+	//When it randomizes plays it will play 6 pieces and expect a win-LN
 	assertTrue(message, condition);
     }
 
@@ -370,6 +372,7 @@ public class WinningConditions
 
 	boolean condition = board.verifyVertical(p1.getPieceColour());
 
+	//THIS WAS GIVING ME ERRORS??? so I commented it out-LN
 	//printBoardToConsole();
 
 	// test
@@ -400,6 +403,7 @@ public class WinningConditions
 	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
 
 	// test
+	//When it randomizes plays it will play 6 pieces and expect a win-LN
 	assertTrue(message, condition);
     }
 
@@ -489,6 +493,7 @@ public class WinningConditions
 
 	boolean condition = board.verifyDiagonalLeft((p1.getPieceColour()));
 
+	//THIS WAS GIVING ME ERRORS??? so I commented it out-LN
 	//printBoardToConsole();
 
 	// test
@@ -519,6 +524,7 @@ public class WinningConditions
 	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
 
 	// test
+	//When it randomizes plays it will play 6 pieces and expect a win-LN
 	assertTrue(message, condition);
     }
 
@@ -604,6 +610,7 @@ public class WinningConditions
 
 	boolean condition = board.verifyDiagonalRight((p1.getPieceColour()));
 
+	//THIS WAS GIVING ME ERRORS??? so I commented it out-LN
 	//printBoardToConsole();
 
 	// test
