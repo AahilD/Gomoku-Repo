@@ -53,9 +53,10 @@ public class PVEnvironment extends GameController
 	 */
 
     	//print(?) a statement to ask to play another round  - maybe use int to indicate
-    	//bc can't compare string accurately - mentioned in class
+    	//because can't compare string accurately - mentioned in class, don't know if I should make another
+    	//global variable 
     	// yes = 1 
-    	// no = 0
+    	// no = 2
     	//if (yes)
     		//roundcount++ 
     		//newGame()
@@ -78,34 +79,10 @@ public class PVEnvironment extends GameController
 
     private void environmentPlayMove()
     {
-	// TODO @Emily yes of course I will have the gui pass in an int that
-	// will exactly equal to level in the method name
-	//note: make global variable
-	// FYI: perhaps using swtich {case #: methodcall_lvl_#(); break; case:
-	// #...} would make for cleaner coding style. If you are not familiar
-	// with switchcases I will provde an example in comments. I don't want
-	// to change your code, just change the reference value to be an int
-	// instead of a string.
-
-	/**
-	 * switch case statement example
-	 * 
-	 * switch(lvl) { case 0: environment_lvl_zero(); break; case 1:
-	 * environment_lvl_one(); break; case 2: environment_lvl_two(); break; }
-	 * 
-	 * Note: you can keep if statements if you so chose, I just thought I
-	 * would share with you a neat alternative. :) you chose what you
-	 * prefer.
-	 * 
-	 * Once you are done implementing this method remove any comments you no
-	 * longer need.
-	 */
-	/*
-	 * this method should check the level of difficulty and select the
-	 * appropriate method to play a move you can use if statements or case
-	 * statements or what ever you prefer. then you need to
-	 * 
-	 */
+	// TODO @Pending Review: I am just going to leave it as if statements cause 
+    // don't really get the switch.....Also I commented out the rest of the code
+    // cause the method hasn't been made yet
+    	
 	if (level == 0)
 	{
 	    environment_lvl_zero();
@@ -117,7 +94,7 @@ public class PVEnvironment extends GameController
 	// if (level == 2)
 	// {
 	// environment_lvl_two();
-	// {
+	// }
     }
 
     private void environment_lvl_zero()
