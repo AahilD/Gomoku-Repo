@@ -43,7 +43,7 @@ public class Board
     }
 
     /**
-     * TODO @Leslie fix till all unit tests pass [in progress-LN]
+     * TODO @Leslie fix till all unit tests pass [Up for review-LN]
      * 
      * @param char pieceColour
      * @return
@@ -74,7 +74,7 @@ public class Board
     }
 
     /**
-     * TODO @Leslie fix till tests pass. [in progress-LN]
+     * TODO @Leslie fix till tests pass. [Up for review-LN]
      * 
      * @param pieceColour
      * @return
@@ -104,7 +104,7 @@ public class Board
     }
 
     /**
-     * TODO @Leslie fix till tests pass [in progress-LN]
+     * TODO @Leslie fix till tests pass [Up for review-LN]
      * 
      * @param pieceColour
      * @return
@@ -132,7 +132,7 @@ public class Board
     }
 
     /**
-     * TODO @Leslie fix till tests pass. [in progress-LN]
+     * TODO @Leslie fix till tests pass. [Up for review-LN]
      * 
      * @param pieceColour
      * @return
