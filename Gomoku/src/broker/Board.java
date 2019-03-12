@@ -43,38 +43,38 @@ public class Board
     }
 
     /**
-     * TODO @Leslie fix till all unit tests pass [Up for review-LN]
      * 
      * @param char pieceColour
      * @return
      */
     public boolean verifyHorizontal(char pieceColour)
     {
-    	boolean fiveInARow = false;
-    	int i = 0;
-    	for (int row = 0; row < board.length && !fiveInARow; row++)
-    	{
-    		for (int col = 0; col < board[row].length && !fiveInARow; col++)
-    		{
-    			if (board[row][col].getPlayer()!= null && board[row][col].getPlayer().getPieceColour() == pieceColour)
-    			{
-    				i++;
-    			} 
-    			else
-    			{
-    				i = 0;
-    			}
-    			if ((i == 5 && board[row][col+1].getPlayer()!=null) && board[row][col+1].getPlayer().getPieceColour()!=pieceColour )
-    			{
-    				fiveInARow = true;
-    			}
-    		}
+	boolean fiveInARow = false;
+	int i = 0;
+	for (int row = 0; row < board.length && !fiveInARow; row++)
+	{
+	    for (int col = 0; col < board[row].length && !fiveInARow; col++)
+	    {
+		if (board[row][col].getPlayer() != null && board[row][col]
+			.getPlayer().getPieceColour() == pieceColour)
+		{
+		    i++;
+		} else
+		{
+		    i = 0;
+		}
+		if ((i == 5 && board[row][col + 1].getPlayer() != null)
+			&& board[row][col + 1].getPlayer()
+				.getPieceColour() != pieceColour)
+		{
+		    fiveInARow = true;
+		}
+	    }
 	}
 	return fiveInARow;
     }
 
     /**
-     * TODO @Leslie fix till tests pass. [Up for review-LN]
      * 
      * @param pieceColour
      * @return
@@ -83,52 +83,97 @@ public class Board
     public boolean verifyVertical(char pieceColour)
     {
 	int counter = 0;
+	// emmanuels version
+	
+	boolean win = false;
+	
+	for (int x = 0; x < WIDTHLENGTH; x ++)
+	{
+	    int maxContiguousCount = 0;
+	    for (int y = 0; y < HEIGHTLENGTH; y ++)
+	    {
+		if(getBoard()[x][y].getPlayer() == null)
+		{
+		    if(maxContiguousCount < counter)
+		    {
+			maxContiguousCount = counter;
+		    }
+		    
+		    counter = 0;
+		}
+		else if(getBoard()[x][y].getPlayer().getPieceColour() == pieceColour)
+		{
+		    counter ++;
+		} else
+		{
+		    counter = 0;
+		}
+	    }
+	    
+	    if (maxContiguousCount == 5)
+	    {
+		win = true;
+	    }
+	}
+	
+	/* Emily's code;
 	for (int y = 0; y >= HEIGHTLENGTH; y++)
 	{
 	    for (int x = 0; x >= WIDTHLENGTH; x++)
 	    {
-		if (board[x][y].getPlayer().getPieceColour() == pieceColour && (board[x][y].getPlayer()!=null))
+		if (board[x][y].getPlayer().getPieceColour() == pieceColour
+			&& (board[x][y].getPlayer() != null))
 		{
 		    counter++;
 		} else
 		{
 		    counter = 0;
 		}
-		if ((counter == 5 && board[x+1][y].getPlayer()!=null) && board[x+1][y].getPlayer().getPieceColour()!=pieceColour)
+		if ((counter == 5 && board[x + 1][y].getPlayer() != null)
+			&& board[x + 1][y].getPlayer()
+				.getPieceColour() != pieceColour)
 		{
+		    System.out.println("it caught the win!");
 		    return true;
 		}
 	    }
-	}
-	return false;
+	}*/
+	return win;
     }
 
     /**
-     * TODO @Leslie fix till tests pass [Up for review-LN]
      * 
      * @param pieceColour
      * @return
      */
-    @SuppressWarnings("unused")
     public boolean verifyDiagonalLeft(char pieceColour)
-    {	
-    	for (int n = -WIDTHLENGTH; n <= WIDTHLENGTH; n++) {
-        	int counter2=0;
-            for(int i = 0; i < WIDTHLENGTH; i++){
-                if((i-n>=0)&&(i-n<WIDTHLENGTH)){ 
-                	if(board[i][i-n].getPlayer()!=null && board[i][i-n].getPlayer().getPieceColour()==pieceColour) {
-                		counter2++;
-                		if((counter2==5 && board[i+1][i-n+1].getPlayer()!=null) && board[i+1][i-n+1].getPlayer().getPieceColour()!=pieceColour) {
-                			return true;
-                		}
-                	}
-                	else {
-                		counter2=0;
-                	}
-                }
-            }
-        }
-		return false;
+    {
+	for (int n = -WIDTHLENGTH; n <= WIDTHLENGTH; n++)
+	{
+	    int counter2 = 0;
+	    for (int i = 0; i < WIDTHLENGTH; i++)
+	    {
+		if ((i - n >= 0) && (i - n < WIDTHLENGTH))
+		{
+		    if (board[i][i - n].getPlayer() != null && board[i][i - n]
+			    .getPlayer().getPieceColour() == pieceColour)
+		    {
+			counter2++;
+			if ((counter2 == 5
+				&& board[i + 1][i - n + 1].getPlayer() != null)
+				&& board[i + 1][i - n + 1].getPlayer()
+					.getPieceColour() != pieceColour)
+			{
+			    return true;
+			}
+		    } else
+		    {
+			counter2 = 0;
+		    }
+		}
+	    }
+	}
+	return false;
     }
 
     /**
@@ -137,31 +182,39 @@ public class Board
      * @param pieceColour
      * @return
      */
-    @SuppressWarnings("unused")
     public boolean verifyDiagonalRight(char pieceColour)
     {
-    	for( int k = 0 ; k < WIDTHLENGTH * 2 ; k++ ) {
-    		int counter1=0;
-            for( int j = 0 ; j <= k ; j++ ) {
-                int i = k - j;
-                if( i < WIDTHLENGTH && j < WIDTHLENGTH ) {
-                	if(board[i][j].getPlayer()!=null && board[i][j].getPlayer().getPieceColour()==pieceColour) {
-                		counter1++;
-                		if((counter1==5 && board[i-1][j+1].getPlayer()!=null) && board[i-1][j+1].getPlayer().getPieceColour()!=pieceColour) {
-                			return true;
-                		}
-                	}
-                	else {
-                		counter1=0;
-                	}
-                }
-            }
-        }
-    	return false;
+	for (int k = 0; k < WIDTHLENGTH * 2; k++)
+	{
+	    int counter1 = 0;
+	    for (int j = 0; j <= k; j++)
+	    {
+		int i = k - j;
+		if (i < WIDTHLENGTH && j < WIDTHLENGTH)
+		{
+		    if (board[i][j].getPlayer() != null && board[i][j]
+			    .getPlayer().getPieceColour() == pieceColour)
+		    {
+			counter1++;
+			if ((counter1 == 5
+				&& board[i - 1][j + 1].getPlayer() != null)
+				&& board[i - 1][j + 1].getPlayer()
+					.getPieceColour() != pieceColour)
+			{
+			    return true;
+			}
+		    } else
+		    {
+			counter1 = 0;
+		    }
+		}
+	    }
+	}
+	return false;
     }
 
     /**
-     * 
+     * TODO I DONT THINK THIS METHOD WORKS
      * @return
      */
     @SuppressWarnings("unused")
@@ -190,28 +243,14 @@ public class Board
      * @param pieceColour takes in the piece colour to check if it has won
      * @return true if game is over (win || draw); false if no winner yet
      */
-    /**
-     * @deprecated This method is now deprecated, there is a bug that I need to
-     *             find I will add a todo once I have identified the specific
-     *             bug. I might even actually make JUnit tests to test them.
-     * @param pieceColour
-     * @return
-     */
     public boolean gameOver(char pieceColour)
     {
-
-	// TODO @Leslie
-	/*
-	 * remove comments once all the rest is complete remove @depprecated
-	 * and @unused symbols
-	 */
-
-	// winining condition methods are depricated
-	/*
-	 * return verifyVertical(pieceColour) || verifyHorizontal(pieceColour)
-	 * || verifyDiagonalLeft(pieceColour) ||
-	 * verifyDiagonalRight(pieceColour) || boardFull();
-	 */
-	return false;
+	return verifyVertical(pieceColour) 
+		|| verifyHorizontal(pieceColour)
+		|| verifyDiagonalLeft(pieceColour)
+		|| verifyDiagonalRight(pieceColour);
+		
+		// NOT WORK
+		//|| boardFull();
     }
 }

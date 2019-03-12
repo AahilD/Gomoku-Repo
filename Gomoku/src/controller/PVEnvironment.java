@@ -3,8 +3,15 @@ package controller;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.sun.media.jfxmediaimpl.platform.Platform;
+import com.sun.webkit.ThemeClient;
+
 import broker.Board;
+import broker.Game;
+import broker.IllegalMove;
 import broker.Square;
+import gui.AlertsAndDialogs;
+import gui.MainGUI;
 
 /**
  * @author GROUP 22
@@ -15,25 +22,32 @@ import broker.Square;
  */
 public class PVEnvironment extends GameController
 {
-    // TODO @Emily as per the following instructions
-    /*
-     * feel free to implement this class as you see fit. keep in mind:
-     * 
-     * 1. the environment needs to keep track of what level of difficulty has
-     * been selected 2. the environment needs to keep track of each move the
-     * player has played 3. depending on the difficulty level, you should call
-     * the appropriate method that will play the move according to that
-     * difficulty. You may need one method per difficulty. 4. the computer
-     * should automatically play a move right after the player's turn was
-     * succesfful. 5. for now you should try just implementing level 0 where the
-     * computer selects an available square at random
-     */
-    private ArrayList<int[]> playerMoves = new ArrayList<int[]>();
-    private int level;
 
-    public static void initializeGame(String player1name, String player2name)
+    private static ArrayList<int[]> playerMoveHistory;
+    private static int level;
+    private static String ENVIRONMENT_USERNAME = "Big Blue";
+
+    /**
+     * If you are initializing a Player Versus Environment session, call this
+     * method to setup the game for the first time. (To initialize a Player v
+     * Player session, call the same method in the PvPController instead; do not
+     * use the one in GameController).
+     * 
+     * @param player1name is a string value that represents the username for
+     *                    player 1
+     */
+    public static void initializeGame(String player1name)
     {
-	initializeGame(player1name, player2name, true);
+
+	initializeGame(player1name, ENVIRONMENT_USERNAME, true);
+	// TODO @Anyone:
+	/*
+	 * once the level selector feature has been added in the player
+	 * registration form, make sure to update this method to also pass in an
+	 * argument int environmentLevel and initialize the value here.
+	 */
+	playerMoveHistory = new ArrayList<int[]>();
+	level = 0;
     }
 
     /*
@@ -52,37 +66,67 @@ public class PVEnvironment extends GameController
 	 * just pass the players into the game constructor
 	 */
 
-    	//print(?) a statement to ask to play another round  - maybe use int to indicate
-    	//because can't compare string accurately - mentioned in class, don't know if I should make another
-    	//global variable 
-    	// yes = 1 
-    	// no = 2
-    	//if (yes)
-    		//roundcount++ 
-    		//newGame()
-    	//else
-    		//endgame() 
+	// print(?) a statement to ask to play another round - maybe use int to
+	// indicate
+	// because can't compare string accurately - mentioned in class, don't
+	// know if I should make another
+	// global variable
+	// yes = 1
+	// no = 2
+	// if (yes)
+	// roundcount++
+	// newGame()
+	// else
+	// endgame()
     }
 
+    /**
+     * The GUI should call this method to play the move requested by the user.
+     * then it will prompt the environment to make a move immediately afterwards
+     * based on the level setting the user selected for this PVE session.
+     * 
+     * @param x is the (n)th row (starting at 0) of the selected square the user
+     *          requested to place the piece on.
+     * @param y is the (n)th column (starting at 0) of the selected square the
+     *          user requested to place the piece on.
+     */
     public static void playMoveAt(int x, int y)
     {
-	// TODO @emily this method should follow the same logic as the pvp
-	// environment
-	/*
-	 * only difference being that once player turn is over and still no
-	 * winner you will call the environmentPlayMove() method to play the
-	 * next move
-	 * 
-	 */
-	playMove(x, y);
+	char currentcolour = game.getTurnPlayer().getPieceColour();
+	try
+	{
+	    if (!playMove(x, y))
+	    {
+		MainGUI.updateBoardSquareButton(x, y, currentcolour);
+		MainGUI.updateTurnCount(game.incrementPlayerTurn());
+		addPlayerMoves(x, y);
+		environmentPlayTurn();
+	    } else
+	    {
+		AlertsAndDialogs aad = new AlertsAndDialogs();
+		if (aad.display_newRoundConfirmationAlert(
+			"You Win, You must have cheated. :("))
+		{
+		    playAnOtherRound();
+		} else
+		{
+		    // TODO Emmanuel figure out how to go back to player
+		    // registration screen.
+		}
+	    }
+
+	} catch (IllegalMove e)
+	{
+
+	}
     }
 
-    private void environmentPlayMove()
+    /**
+     * This private method will determine which method will be executed to play
+     * a move based on the level selected. This method acts like a switch board.
+     */
+    public static void environmentPlayTurn()
     {
-	// TODO @Pending Review: I am just going to leave it as if statements cause 
-    // don't really get the switch.....Also I commented out the rest of the code
-    // cause the method hasn't been made yet
-    	
 	if (level == 0)
 	{
 	    environment_lvl_zero();
@@ -97,56 +141,75 @@ public class PVEnvironment extends GameController
 	// }
     }
 
-    private void environment_lvl_zero()
+    private static void playAnOtherRound()
     {
-	// TODO @Emily yes playMove in the main controller is the correct
-	// method.
-	/*
-	 * This method should randomly chose any available square on the board
-	 * at random and play on that square. environment should always be
-	 * Player 2.
-	 */
+
+	game = new Game(game);
+	incrementRoundCount();
+	MainGUI.resetBoard(setupGameBoard());
+	MainGUI.updatePlayerStatsPanel(setupPlayerStats());
+	MainGUI.updateTurnCount(game.getTurnCount());
+	if (game.getTurnPlayer().getUserName() == ENVIRONMENT_USERNAME)
+	    environmentPlayTurn();
+    }
+
+    /**
+     * This method contains the logic for environment level 0. Level 0 does not
+     * attempt to play on any kind of strategy and attempts to play on random
+     * coordinates. If the environment plays an illegal move it will simply
+     * generate a new random location until it finally plays a succesful move.
+     * 
+     */
+    private static void environment_lvl_zero()
+    {
 	Random rand = new Random();
-	int x = rand.nextInt(19);
-	int y = rand.nextInt(19);
-	// TODO @emily: Fix the followign.
-	/**
-	 * - you should not be making a static reference to Square - you need to
-	 * getGame().getCurrentBoard() - once you have the board you can check
-	 * to make sure your random coordinates target an available square to
-	 * play. - once a random coordinate has succesffully found an empty
-	 * square, it should attempt to play the move - to play the move you
-	 * 
-	 * Also: - isEmpty() is already returns a boolean checking to see if a
-	 * boolean is true or false is redundant, therfore all you need to do is
-	 * call the method. - you have an infinite loop here. Not sure why you
-	 * are using a while loop. - you should not hard code the value 19.
-	 * instead you should use the methods and variables already available to
-	 * determine these dimenssions. - you
-	 * 
-	 * Note: you can add/remove all the methods in this class as you see fit
-	 * to implement the logic. I think we should have one method that
-	 * overrides playmove in the parent class that will invoke the
-	 * environment to play a move. then there should be another private
-	 * method for the environment to play a move (if you do this you should
-	 * have this method make sure the square is available and play the move.
-	 * you can throw exceptions or return booleans as you see fit. but make
-	 * sure this method is reusable for the other levels keep difficulty
-	 * logic in here)))
-	 */
+	int x = -1;
+	int y = -1;
+	boolean environmentMoveSuccesful = false;
+	do
+	{
+	    x = rand.nextInt(19);
+	    y = rand.nextInt(19);
+	    environmentMoveSuccesful = environmentPlayMoveAt(x, y);
 
-	Board b = getGame().getCurrentBoard();
-	
-	//if()
-	//{
-	  //  x = rand.nextInt(19);
-	    //y = rand.nextInt(19);
-	//}
-	//if (Square.isEmpty() == true)
-	//{
-	   // playMove(x, y);
-	//}
+	} while (!environmentMoveSuccesful);
 
+	try
+	{
+	    Thread.sleep(1000);
+	} catch (InterruptedException e)
+	{
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	MainGUI.updateBoardSquareButton(x, y,
+		game.getTurnPlayer().getPieceColour());
+	MainGUI.updateTurnCount(game.incrementPlayerTurn());
+
+    }
+
+    private static boolean environmentPlayMoveAt(int x, int y)
+    {
+	boolean moveSuccessful = false;
+	try
+	{
+	    if (!game.makeMove(x, y))
+	    {
+
+		moveSuccessful = true;
+
+	    } else
+	    {
+		AlertsAndDialogs aad = new AlertsAndDialogs();
+		aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
+	    }
+
+	} catch (IllegalMove e)
+	{
+	    moveSuccessful = false;
+	}
+
+	return moveSuccessful;
     }
 
     /**
@@ -156,7 +219,7 @@ public class PVEnvironment extends GameController
      */
     public ArrayList<int[]> getPlayerMoves()
     {
-	return playerMoves;
+	return playerMoveHistory;
     }
 
     /**
@@ -165,10 +228,15 @@ public class PVEnvironment extends GameController
      * 
      * @param playerMoves the playerMoves to set
      */
-    public void addPlayerMoves(int x, int y)
+    public static void addPlayerMoves(int x, int y)
     {
 	int[] xy = { x, y };
-	playerMoves.add(xy);
+	playerMoveHistory.add(xy);
+    }
+
+    public int[] getPlayersLastMove()
+    {
+	return playerMoveHistory.get(playerMoveHistory.size() - 1);
     }
 
 }

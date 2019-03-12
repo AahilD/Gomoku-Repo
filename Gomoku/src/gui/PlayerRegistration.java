@@ -147,8 +147,7 @@ public class PlayerRegistration extends Application implements GUICommons
 		} else if (playerVEnvironmentRB.isSelected())
 		{
 		    
-		    PVEnvironment.initializeGame(PLAYER_ONE_USERNAME.getText(),
-			    "Big Blue");
+		    PVEnvironment.initializeGame(PLAYER_ONE_USERNAME.getText());
 		
 		} else
 		{

@@ -3,43 +3,77 @@ package controller;
 import java.util.ArrayList;
 import broker.Game;
 import broker.IllegalMove;
+import gui.AlertsAndDialogs;
 import gui.MainGUI;
 import javafx.scene.control.Button;
 
 public abstract class GameController
 {
-
-    // TODO @Aahil make private variable private
-    // TODO @Aahil remove roundCount (controllers will keep track of this)
-    private static Game game;
+    protected static Game game;
     private static int roundCount;
-    
-    public static void initializeGame(String player1name, String player2name, boolean isPVE)
-    {
 
+    /**
+     * call this method to initialize the game controller. This method should
+     * only be called on the initial game setup.
+     * 
+     * @param player1name is a string value that represents the username for
+     *                    player 1
+     * @param player2name is a string value that represents the username for
+     *                    player 2
+     * @param isPVE       is a bolean that indicates if the controller should
+     *                    enter PVE mode, if so boolean value should be true.
+     *                    Otherwise false for PvP mode.
+     */
+    public static void initializeGame(String player1name, String player2name,
+	    boolean isPVE)
+    {
 	setRoundCount(0);
 	game = new Game(player1name, player2name);
-	MainGUI.initMainWindow(setupEmptyBoard(), setupPlayerStats(), roundCount,
-		game.getTurnCount(), isPVE);
+	MainGUI.initMainWindow(setupGameBoard(), setupPlayerStats(),
+		roundCount, game.getTurnCount(), isPVE);
     }
-    
+
+    /**
+     * Call this method to get the current value for the number of rounds that
+     * have been played. The round currently in session is not included in this
+     * value.
+     * 
+     * @return roundCount of type int representing the number of rounds that
+     *         have been played prior to the current round being played.
+     */
     public int getRoundCount()
     {
 	return roundCount;
     }
 
+    /**
+     * Call this method to get the current instance of the game object.
+     * 
+     * @return game object instance of type Game.
+     */
     public Game getGame()
     {
 	return game;
     }
 
+    /**
+     * call this method to set an instance of Game object to this variable
+     * called game.
+     * 
+     * @param toGame a reference to an instance of an object of type Game.
+     */
     public void setGame(Game toGame)
     {
 	game = toGame;
     }
 
     /**
-     * @param roundCount
+     * Call this method to set the value for roundCount, which keeps tracks of
+     * how many consecutive games the same two players have played against each
+     * other .
+     * 
+     * @param roundCount holds the value of type int of how many rounds the same
+     *                   two players have played against each other.
      */
     public static void setRoundCount(int toRoundCount)
     {
@@ -47,7 +81,8 @@ public abstract class GameController
     }
 
     /**
-     * Call this method to increment the value for round count.
+     * Call this method to increment the value for round count by +1, instead of using
+     * the setter method every time.
      */
     public static void incrementRoundCount()
     {
@@ -68,55 +103,22 @@ public abstract class GameController
      *          of the square on the board.
      * @param y is a variable of type int that represents the column (y
      *          coordinate) of the square on the board.
+     * @return 
+     * @throws IllegalMove 
      */
-    public static void playMove(int x, int y)
+    public static boolean playMove(int x, int y) throws IllegalMove
     {
-	// TODO @Aahil fix this method as per the following
-		/*
-		 * Instead of returning char and throwing GameOverException I would like
-		 * it to: 1. call the appropriate update method in the gui by passing
-		 * the x and y coordinates and the piececolour of the player that made
-		 * the move if it is not the wining move. 2. if it is the wining move
-		 * invoke the appropriate alert in the MainGUI class that will display
-		 * the winer and loser and ask if they wish to play a new game, or not.
-		 * 3. if it is an illegal move invoke the appropriate alert in the
-		 * maingui class that will warn the user they have performed an illegal
-		 * move.
-		 * 
-		 * Note: you should only increment turn count if the move is valid and
-		 * not winning move. You may be required to set up as many methods to
-		 * break down the code into simpler steps, or to perform seperate tasks
-		 * under certain conditions. Everything you need on the GUI side is
-		 * there. see the new class in the gui package called
-		 * alertsanddialogs.java
-		 */
-		char currentcolour = game.getTurnPlayer().getPieceColour();
-
-		try
-		{
-		    if (game.makeMove(x, y) == false)
-		    {
-			MainGUI.updateBoardSquareButton(x, y, currentcolour);
-			MainGUI.updateTurnCount(game.incrementPlayerTurn());
-			
-
-		    } else
-		    	System.out.println("win");
-		    {
-
-		    }
-		} catch (IllegalMove e)
-		{
-
-		    System.out.println(e.toString());
-		}
+	return game.makeMove(x, y);
     }
-    
+
     /**
-     * call this method to get an ArrayList of type <String> containing all the player stats
-     * for player one and player two, aggregating them together in a single array. Player should have
-     * a method that does this for each player. 
-     * @return ArrayList of type <String> containing the player stats for both players
+     * call this method to get an ArrayList of type <String> containing all the
+     * player stats for player one and player two, aggregating them together in
+     * a single array. Player should have a method that does this for each
+     * player.
+     * 
+     * @return ArrayList of type <String> containing the player stats for both
+     *         players
      */
     public static ArrayList<String> setupPlayerStats()
     {
@@ -131,17 +133,19 @@ public abstract class GameController
     }
 
     /**
-     * Call this method to setup a new empty 2D ArrayList of type <Button>.
-     * Uses the dimentions of the board to setup the dimentions for this 2D array.
+     * Call this method to setup a new empty 2D ArrayList of type <Button>. Uses
+     * the dimentions of the board to setup the dimentions for this 2D array.
+     * 
      * @return
      */
-    public static ArrayList<ArrayList<Button>> setupEmptyBoard()
+    public static ArrayList<ArrayList<Button>> setupGameBoard()
     {
 	ArrayList<ArrayList<Button>> board = new ArrayList<ArrayList<Button>>();
 	for (int x = 0; x < game.getCurrentBoard().getBoard().length; x++)
 	{
 	    ArrayList<Button> column = new ArrayList<Button>();
-	    for (int y = 0; y < game.getCurrentBoard().getBoard()[x].length; y++)
+	    for (int y = 0; y < game.getCurrentBoard()
+		    .getBoard()[x].length; y++)
 	    {
 		column.add(new Button());
 	    }

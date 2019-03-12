@@ -38,22 +38,36 @@ public class Game
 
     /**
      * This Constructor copies player data, reset the turn count to 0, and
-     * create a new board
+     * create a new board. Use this copy constructor when the user(s) have
+     * decided to play a new game. copy the old game into the new game, but
+     * switch around playerone > to player two and player two > to player one.
+     * migrate all relevant info.
+     * 
+     * TODO @Steve I fixed your code, but I don't like how this method is
+     * implemented. I'd much rather call a player constructor that allows us to
+     * copy everything over except piece colour and instead uses the second
+     * param which will be the new colour. perhaps a copy constructor in
+     * Player.java
+     * 
+     * Player(Player toPlayer, char newPieceColour) { //copy data //
+     * this.piececolour = newPiececolour; }
      * 
      * @param p1 Player one to copy
      * @param p2 Player two to copy
      */
-    public Game(Player p1, Player p2)
+    public Game(Game toGame)
     {
-    	playerOne = new Player(p1.getUserName(), p2.getPieceColour());
-    	playerTwo = new Player(p2.getUserName(), p1.getPieceColour());
-    	playerOne.setWinCount(p1.getWinCount());
-    	playerTwo.setWinCount(p2.getWinCount());
-    	playerOne.setLoseCount(p1.getLoseCount());
-		playerTwo.setLoseCount(p2.getLoseCount());
-		playerOne.setDrawCount(p1.getDrawCount());
-		playerTwo.setDrawCount(p2.getDrawCount());
-		resetRound();
+	playerOne = new Player(toGame.getPlayerTwo().getUserName(),
+		PLAYER_ONE_COLOUR_VALUE);
+	playerTwo = new Player(toGame.getPlayerOne().getUserName(),
+		PLAYER_TWO_COLOUR_VALUE);
+	playerOne.setWinCount(toGame.getPlayerTwo().getWinCount());
+	playerTwo.setWinCount(toGame.getPlayerOne().getWinCount());
+	playerOne.setLoseCount(toGame.getPlayerTwo().getLoseCount());
+	playerTwo.setLoseCount(toGame.getPlayerOne().getLoseCount());
+	playerOne.setDrawCount(toGame.getPlayerTwo().getDrawCount());
+	playerTwo.setDrawCount(toGame.getPlayerOne().getDrawCount());
+	resetRound();
     }
 
     /**
@@ -121,9 +135,14 @@ public class Game
      * 
      * @param TurnCount the desired integer turn count to set
      */
-    public void setTurnCount(int turnCount)
+    private void setTurnCount(int turnCount)
     {
 	this.turnCount = turnCount;
+    }
+
+    public void resetTurnCount()
+    {
+	this.turnCount = 0;
     }
 
     /**
@@ -139,7 +158,7 @@ public class Game
     /**
      * This method creates a new empty board, and resets the turn count to 0
      */
-    private void resetRound()
+    public void resetRound()
     {
 	setCurrentBoard(new Board());
 	turnCount = 0;
@@ -157,7 +176,6 @@ public class Game
      *         in a win
      * @throws IllegalMove
      */
-    @SuppressWarnings("deprecation")
     public boolean makeMove(int x, int y) throws IllegalMove
     {
 	boolean isWinningMove = false;
@@ -172,24 +190,16 @@ public class Game
 	    if (currentBoard.gameOver(getTurnPlayer().getPieceColour()))
 	    {
 		isWinningMove = true;
-
-		/*
-		 * TODO @Steven implement code as per the following
-		 * instructions.
-		 * 
-		 * 1. Adjust player one's and two's stats (wins, loses, draws)
-		 * 2. do NOT increment turnCount: this will meess up who played
-		 * the winning move.
-		 * 
-		 * Note: Due to encapsulation you need conditional statements to
-		 * identify if turn player is either player one or player two
-		 * (perhaps you could use piece colour, or user name; if you use
-		 * user name, player registration will have to make sure that
-		 * the user name is unique for both players)
-		 * 
-		 * Also Note: we are not currently doing anything for the draw
-		 * count, we can implement this later.
-		 */
+		if (getTurnPlayer().getPieceColour() == playerOne
+			.getPieceColour())
+		{
+		    playerOne.incrementWinCount();
+		    playerTwo.incrementLoseCount();
+		} else
+		{
+		    playerTwo.incrementWinCount();
+		    playerOne.incrementLoseCount();
+		}
 	    }
 
 	} catch (IllegalMove e)

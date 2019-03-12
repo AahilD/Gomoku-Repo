@@ -1,5 +1,7 @@
 package controller;
 
+import broker.IllegalMove;
+
 /**
  * @author manu
  * 
@@ -10,24 +12,30 @@ package controller;
  */
 public class PVPlayer extends GameController
 {
-    
+
     // TODO @Aahil fix everything that broke due to changes of implementation.
     /*
-     * Refer to the GameController that this class extends 
+     * Refer to the GameController that this class extends
      */
     public static void initializeGame(String player1name, String player2name)
     {
 	initializeGame(player1name, player2name, false);
     }
 
-    
     public static void playMoveAt(int x, int y)
     {
-	playMove(x, y);
+	try
+	{
+	    playMove(x, y);
+	} catch (IllegalMove e)
+	{
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
 	// TODO @Ahil
 	/*
-	 * have the parent class do the generic logic regardles of pve or pvp
-	 * do the pvp specific logic here
+	 * see the PVE controller as a reference point. won't be exactly the
+	 * same since it is not playing against the environment
 	 */
     }
 
@@ -45,7 +53,7 @@ public class PVPlayer extends GameController
     protected void playAnotherRound()
     {
 	// TODO @Aahil implement method as per javadoc above
-	
+
     }
 
 }

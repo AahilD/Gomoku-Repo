@@ -40,7 +40,7 @@ public class MainGUI implements GUICommons
     private final static double WIDTH = Screen.getMainScreen().getWidth();
     @SuppressWarnings("unused")
     private final static double HEIGHT = Screen.getMainScreen().getHeight();
-    
+
     // CSS FILEPATH
     private final static String CUSTOM_CSS_FILENAME = "css/gomoku.css";
 
@@ -53,9 +53,9 @@ public class MainGUI implements GUICommons
     private static Label turnLabel = new Label(TURN_COUNT_LABEL);
     private static Label roundLabel = new Label(ROUND_COUNT_LABEL);
     private static GameController gControl;
-    //Until I find a better way
+    // Until I find a better way
     private static boolean isPVE;
-    
+
     /**
      * Once the controller has initialized the game it should call this method
      * with all the necessary parameters to display the game information
@@ -71,7 +71,8 @@ public class MainGUI implements GUICommons
      *                      game
      */
     public static void initMainWindow(ArrayList<ArrayList<Button>> toBoard,
-	    ArrayList<String> toPlayerStats, int roundCount, int turnCount, boolean toIsPVE)
+	    ArrayList<String> toPlayerStats, int roundCount, int turnCount,
+	    boolean toIsPVE)
     {
 	Stage primaryStage = new Stage();
 
@@ -287,22 +288,21 @@ public class MainGUI implements GUICommons
      * @param toBoard a 2d ArrayList of type <Button> representing each square
      *                on the board.
      */
-    @SuppressWarnings("unchecked")
     private static void setBoard(ArrayList<ArrayList<Button>> toBoard)
     {
 	board = new ArrayList<ArrayList<Button>>();
-	
+
 	for (int x = 0; x < toBoard.size(); x++)
 	{
-	    
+
 	    ArrayList<Button> row = new ArrayList<Button>();
-	    
-	    for(int y = 0; y < toBoard.get(x).size(); y ++)
+
+	    for (int y = 0; y < toBoard.get(x).size(); y++)
 		row.add(toBoard.get(x).get(y));
-	    
+
 	    board.add(row);
 	}
-	    
+
     }
 
     /**
@@ -337,7 +337,6 @@ public class MainGUI implements GUICommons
 
 		// apply action event handler
 		sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
-		    
 
 		// add button to gridpane
 		GridPane.setConstraints(sqrButton, // Node
@@ -531,15 +530,15 @@ public class MainGUI implements GUICommons
     {
 	return new EventHandler<ActionEvent>()
 	{
-
 	    @Override
 	    public void handle(ActionEvent event)
 	    {
 		if (isPVE)
+		{
 		    PVEnvironment.playMoveAt(x, y);
-		else
+		} else
 		    PVPlayer.playMoveAt(x, y);
-		
+
 	    }
 	};
     }
