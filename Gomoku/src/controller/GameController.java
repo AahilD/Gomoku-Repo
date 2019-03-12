@@ -90,12 +90,6 @@ public abstract class GameController
     }
 
     /**
-     * This method will be invoked by the gui to indicate to the controller that
-     * the user wants to play an other round.
-     */
-    protected abstract void playAnotherRound();
-
-    /**
      * This method will handle any request by the GUI to place a piece on the
      * board at the given coordinates.
      * 

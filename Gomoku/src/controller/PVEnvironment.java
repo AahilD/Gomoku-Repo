@@ -55,30 +55,6 @@ public class PVEnvironment extends GameController
      * 
      * @see controller.GameController#playAnotherRound()
      */
-    @Override
-    protected void playAnotherRound()
-    {
-	// @Emily
-	/*
-	 * Us an alert to prompt the user to play an other round if so increment
-	 * round count and set up a new game() use the constructor that will
-	 * swap the piece colours. keep the same players though. I think you can
-	 * just pass the players into the game constructor
-	 */
-
-	// print(?) a statement to ask to play another round - maybe use int to
-	// indicate
-	// because can't compare string accurately - mentioned in class, don't
-	// know if I should make another
-	// global variable
-	// yes = 1
-	// no = 2
-	// if (yes)
-	// roundcount++
-	// newGame()
-	// else
-	// endgame()
-    }
 
     /**
      * The GUI should call this method to play the move requested by the user.
@@ -110,8 +86,7 @@ public class PVEnvironment extends GameController
 		    playAnOtherRound();
 		} else
 		{
-		    // TODO Emmanuel figure out how to go back to player
-		    // registration screen.
+		    // TODO go back to player registration screen.
 		}
 	    }
 

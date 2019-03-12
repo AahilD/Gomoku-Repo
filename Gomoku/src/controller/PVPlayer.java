@@ -1,6 +1,9 @@
 package controller;
 
+import broker.Game;
 import broker.IllegalMove;
+import gui.AlertsAndDialogs;
+import gui.MainGUI;
 
 /**
  * @author manu
@@ -26,10 +29,26 @@ public class PVPlayer extends GameController
     {
 	try
 	{
-	    playMove(x, y);
+	    if (!playMove(x, y))
+	    {
+		MainGUI.updateBoardSquareButton(x, y,
+			game.getTurnPlayer().getPieceColour());
+		MainGUI.updateTurnCount(game.incrementPlayerTurn());
+	    } else
+	    {
+		AlertsAndDialogs aad = new AlertsAndDialogs();
+		if (aad.display_newRoundConfirmationAlert(
+			game.getTurnPlayer().getUserName() + " wins!"))
+		{
+		    playAnotherRound();
+		} else
+		{
+		    // TODO @Aahil close the main window and go back to player
+		    // registration.
+		}
+	    }
 	} catch (IllegalMove e)
 	{
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 	// TODO @Ahil
@@ -49,11 +68,13 @@ public class PVPlayer extends GameController
      * able to do it in 5 lines or so. perhaps implement a method to increment
      * round count
      */
-    @Override
-    protected void playAnotherRound()
+    private static void playAnotherRound()
     {
-	// TODO @Aahil implement method as per javadoc above
-
+	game = new Game(game);
+	incrementRoundCount();
+	MainGUI.resetBoard(setupGameBoard());
+	MainGUI.updatePlayerStatsPanel(setupPlayerStats());
+	MainGUI.updateTurnCount(game.getTurnCount());
     }
 
 }
