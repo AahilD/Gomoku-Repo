@@ -22,6 +22,9 @@ public class Board
     // board is always height of 19
     final int HEIGHTLENGTH = 19;
 
+    /**
+     * Default Constructor to create an empty Board
+     */
     public Board()
     {
 	board = new Square[WIDTHLENGTH][HEIGHTLENGTH];
@@ -35,7 +38,7 @@ public class Board
     }
 
     /**
-     * @return
+     * @return The array list forming the board.
      */
     public Square[][] getBoard()
     {
@@ -43,9 +46,12 @@ public class Board
     }
 
     /**
+     * Checks the horizontals of the board for 5 pieces of the same colour 
+     * in a row, signifying a win
      * 
      * @param char pieceColour
-     * @return
+     * @return	True if there are five pieces of the same colour
+     * 			in a row
      */
     public boolean verifyHorizontal(char pieceColour)
     {
@@ -75,9 +81,12 @@ public class Board
     }
 
     /**
+     * Check the verticals in the board to determine if there are 5 pieces in a row, 
+     * signifying a win
      * 
-     * @param pieceColour
-     * @return
+     * @param char pieceColour
+     * @return  True if there are 5 pieces in a column as a row. Otherwise returns
+     * 			false
      */
     @SuppressWarnings("unused")
     public boolean verifyVertical(char pieceColour)
@@ -142,9 +151,10 @@ public class Board
     }
 
     /**
+     * Checks the diagonals of the board for 5 pieces in a row, signifying a win
      * 
-     * @param pieceColour
-     * @return
+     * @param char pieceColour
+     * @return	True if there are 5 pieces in a diagonal as a row. Otherwise returns false.
      */
     public boolean verifyDiagonalLeft(char pieceColour)
     {
