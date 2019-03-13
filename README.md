@@ -14,8 +14,7 @@
 
 # Gomoku
 
-This Java based application is a reproduction of the game called Gomoku (also known as, Go, or five-in-a-row)
-
+This Java based application is a reproduction of the traditional Japanese game Gomoku according to its standard rules.
 # How to Play
 
 This game will prompt the user if they wish to play against another player (PVP), or if they wish to play against the computer environment (PVE). Once the user(s) have entered their desired user name, they may proceed to begin playing by clicking on the start button. Once the game board appears, player 1 may play the first move. For now players will only be able to play agains the lowest level computer environment (level: 0). Eventually two more levels will be added.
@@ -66,6 +65,10 @@ Note: the controller does not communicate with the Broker, neither does the brok
 - The image files used for the game pieces: black-piece.jpg; white-piece.jpg [1]
 - The background image for the main game window graphical user interface: gui.images/background.jp [2]
 - The font used for certain header text in the graphical user interface: gui.fonts/KnifeFightBallet-Regular.otf [3]
+- https://stackoverflow.com/questions/20420065/loop-diagonally-through-two-dimensional-array
+- https://www.youtube.com/watch?v=T8ErAYobcbc
+- https://stackoverflow.com/questions/22488100/find-winner-in-a-tic-tac-toe-match
+- https://codereview.stackexchange.com/questions/116830/check-if-a-game-of-tic-tac-toe-has-a-winner
 
 # Bibliography
 
