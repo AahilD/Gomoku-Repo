@@ -2,6 +2,7 @@ package junit;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 import org.junit.Test;
 
@@ -9,7 +10,7 @@ import broker.Board;
 import broker.IllegalMove;
 import broker.Player;
 
-public class WinningConditions
+public class TestWinConditions
 {
     private Board board = new Board();
     private static Player p1 = new Player("PLAYER ONE", 'w');
@@ -18,144 +19,26 @@ public class WinningConditions
     private int y;
     private int numberOfPieces;
 
-    private void addPiecesHorizontally()
+    // TODO Emmanuel fix tests remove randomization feature
+    
+    private void addPiecesToBoard(ArrayList<int[]> coorList)
     {
-	if (y <= 9)
-	    for (int i = 0; i < numberOfPieces; i++)
+	board = new Board();
+	for (int index = 0; index < coorList.size(); index++)
+	{
+	    int x = coorList.get(index)[0];
+	    int y = coorList.get(index)[1];
+	    
+	    try
 	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		y++;
-	    }
-	else
-	    for (int i = 0; i < numberOfPieces; i++)
+		board.getBoard()[x][y].setPlayer(p1);
+	    } catch (IllegalMove e)
 	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		y--;
+		e.printStackTrace();
 	    }
+	}
     }
-
-    private void addPiecesVertically()
-    {
-	if (x <= 9)
-	    for (int i = 0; i < numberOfPieces; i++)
-	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		x++;
-	    }
-	else
-	    for (int i = 0; i < numberOfPieces; i++)
-	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		x--;
-	    }
-    }
-
-    private void addPiecesDiagonalLeft()
-    {
-	if (x > 6 && y < 12)
-	    for (int i = 0; i < numberOfPieces; i++)
-	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		x--;
-		y++;
-	    }
-	else
-	    for (int i = 0; i < numberOfPieces; i++)
-	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		x++;
-		y--;
-	    }
-    }
-
-    private void addPiecesDiagonalRight()
-    {
-	if (x < 12 && y < 12)
-	    for (int i = 0; i < numberOfPieces; i++)
-	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		x++;
-		y++;
-	    }
-	else if (x > 7 && y > 7)
-	    for (int i = 0; i < numberOfPieces; i++)
-	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		x--;
-		y--;
-	    }
-	else
-	    for (int i = 0; i < numberOfPieces; i++)
-	    {
-		try
-		{
-		    printCoordinate();
-		    board.getBoard()[x][y].setPlayer(p1);
-		} catch (IllegalMove e)
-		{
-		    System.out.println(e.toString());
-		}
-		x++;
-		y++;
-	    }
-    }
-
+    
     private void printCoordinate()
     {
 	if (x < 0 || x > 18)
@@ -189,93 +72,71 @@ public class WinningConditions
     @Test
     public void testVerrifyHorrizontal_1()
     {
-	board = new Board();
-	int y = r.nextInt(19);
-	int x = r.nextInt(19);
-	numberOfPieces = 5;
-
-	String message = "VerifyHorizontal did not detect the win from: [" + x
-		+ ", " + (y - 5) + "] to: [";
-
-	addPiecesHorizontally();
-
-	// setup test
-	message += x + ", " + y + "]";
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {5, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {5, 8});
+	coorList.add(new int[] {5, 9});
+	
+	addPiecesToBoard(coorList);
+	
 	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 
 	// test
-	//When it randomizes plays it will play 6 pieces and expect a win-LN
-	assertTrue(message, condition);
+	assertTrue("VerifyHorizontal did not detect the win of 5 in a row", condition);
     }
 
     @Test
     public void testVerrifyHorrizontal_2()
     {
-	board = new Board();
-	y = r.nextInt(19);
-	x = r.nextInt(19);
-	numberOfPieces = 6;
-
-	String message = "VerifyHorizontal detected a win for 6 in arow, a win can only be 5 in a row (no more no less): ["
-		+ x + ", " + y + "] to: [";
-
-	addPiecesHorizontally();
-
-	message += x + ", " + y + "]";
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {5, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {5, 8});
+	coorList.add(new int[] {5, 9});
+	coorList.add(new int[] {5, 10});
+	
+	addPiecesToBoard(coorList);
+	
 	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 
-	assertFalse(message, condition);
+	assertFalse("VerifyHorizontal should not have detected a win of 6 in a row.", condition);
     }
 
     @Test
     public void testVerrifyHorrizontal_3()
     {
-	board = new Board();
-	y = r.nextInt(19);
-	x = r.nextInt(19);
-	numberOfPieces = 4;
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {5, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {5, 8});
+	
+	addPiecesToBoard(coorList);
 
-	String message = "VerifyHorizontal detected a win with less than 5 in a row: ["
-		+ x + ", " + (y - 4) + "] to: [";
-
-	addPiecesHorizontally();
-
-	message += x + ", " + y + "]";
 	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 
-	assertFalse(message, condition);
+	assertFalse("VerrifyHorrizontal should not detect a win with only 4 in a row.", condition);
     }
 
     @Test
     public void testVerrifyHorrizontal_4()
     {
-	board = new Board();
-	y = r.nextInt(19);
-	x = r.nextInt(19);
-	numberOfPieces = 4;
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {5, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {5, 8});
+	coorList.add(new int[] {5, 10});
 
-	int diff = 0;
-	if (y <= 9)
-	    diff++;
-	else
-	    diff--;
 
-	String message = "VerifyHorizontal detected a win where there where 5 piece horizontally, but not consecutively: ["
-		+ x + ", " + y + "] to: [";
-
-	addPiecesHorizontally();
-
-	y += diff;
-
-	// Add a gap between consecutive pieces
-
-	addPiecesHorizontally();
-
-	message += x + ", " + y + "]";
-
+	addPiecesToBoard(coorList);
+	
 	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 
-	assertFalse(message, condition);
+	assertFalse("Verrify Horrizontally detected a win where the 5 pieces where not contiguous.", condition);
     }
 
     @Test
@@ -290,7 +151,7 @@ public class WinningConditions
 	String message = "VerifyVertical did not detect the win from: [" + x
 		+ ", " + y + "] to:";
 
-	addPiecesVertically();
+//	addPiecesVertically();
 
 	message += "[" + x + ", " + y + "]";
 	boolean condition = board.verifyVertical(p1.getPieceColour());
@@ -312,7 +173,7 @@ public class WinningConditions
 	String message = "VerifyVertical did not detect the win from: [" + x
 		+ ", " + y + "] to: [";
 
-	addPiecesVertically();
+	//addPiecesVertically();
 
 	message += x + ", " + y + "]";
 
@@ -334,7 +195,7 @@ public class WinningConditions
 	String message = "VerifyVertical detected a win when there was 6 in a row (should only detect a win for 5 in a row): ["
 		+ x + ", " + y + "] to: [";
 
-	addPiecesVertically();
+	//addPiecesVertically();
 
 	message += x + ", " + y + "]";
 
@@ -362,11 +223,11 @@ public class WinningConditions
 	String message = "VerifyVertical detected a win when not all 5 pieces where contiguous to each other ["
 		+ x + ", " + y + "] to: [";
 
-	addPiecesVertically();
+	//addPiecesVertically();
 
 	x += diff;
 
-	addPiecesVertically();
+	//addPiecesVertically();
 
 	message += x + ", " + y + "]";
 
@@ -397,7 +258,7 @@ public class WinningConditions
 	String message = "VerifyDiagonalLeft did not detect the win from: [" + x
 		+ ", " + y + "] to:";
 
-	addPiecesDiagonalLeft();
+	//addPiecesDiagonalLeft();
 
 	message += "[" + x + ", " + y + "]";
 	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
@@ -425,7 +286,7 @@ public class WinningConditions
 	String message = "VerifyDiagonalLeft did not detect the win from: [" + x
 		+ ", " + y + "] to: [";
 
-	addPiecesDiagonalLeft();
+	//addPiecesDiagonalLeft();
 
 	message += x + ", " + y + "]";
 
@@ -453,7 +314,7 @@ public class WinningConditions
 	String message = "VerifyDiagonalLeft detected a win when there was 6 in a row (should only detect a win for 5 in a row): ["
 		+ x + ", " + y + "] to: [";
 
-	addPiecesDiagonalLeft();
+	//addPiecesDiagonalLeft();
 
 	message += x + ", " + y + "]";
 
@@ -482,12 +343,12 @@ public class WinningConditions
 	String message = "VerifyDiagonalLeft detected a win when not all 5 pieces where contiguous to each other ["
 		+ x + ", " + y + "] to: [";
 
-	addPiecesDiagonalLeft();
+	//addPiecesDiagonalLeft();
 
 	x += diff;
 	numberOfPieces = 1;
 
-	addPiecesDiagonalRight();
+	//addPiecesDiagonalRight();
 
 	message += x + ", " + y + "]";
 
@@ -518,13 +379,14 @@ public class WinningConditions
 	String message = "VerifyDiagonalRight did not detect the win from: ["
 		+ x + ", " + y + "] to:";
 
-	addPiecesDiagonalRight();
+	//addPiecesDiagonalRight();
 
 	message += "[" + x + ", " + y + "]";
 	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
-
+	
+	printBoardToConsole();
+	
 	// test
-	//When it randomizes plays it will play 6 pieces and expect a win-LN
 	assertTrue(message, condition);
     }
 
@@ -546,7 +408,7 @@ public class WinningConditions
 	String message = "VerifyDiagonalRight did not detect the win from: ["
 		+ x + ", " + y + "] to: [";
 
-	addPiecesDiagonalRight();
+	//addPiecesDiagonalRight();
 
 	message += x + ", " + y + "]";
 
@@ -574,7 +436,7 @@ public class WinningConditions
 	String message = "VerifyDiagonalRight detected a win when there was 6 in a row (should only detect a win for 5 in a row): ["
 		+ x + ", " + y + "] to: [";
 
-	addPiecesDiagonalRight();
+	//addPiecesDiagonalRight();
 
 	message += x + ", " + y + "]";
 	message += "";
@@ -598,20 +460,17 @@ public class WinningConditions
 	String message = "VerifyDiagonalRight detected a win when not all 5 pieces where contiguous to each other ["
 		+ x + ", " + y + "] to: [";
 
-	addPiecesDiagonalRight();
+	//addPiecesDiagonalRight();
 
 	x--;
 	y++;
 	numberOfPieces = 1;
 
-	addPiecesDiagonalRight();
+	//addPiecesDiagonalRight();
 
 	message += x + ", " + y + "]";
 
 	boolean condition = board.verifyDiagonalRight((p1.getPieceColour()));
-
-	//THIS WAS GIVING ME ERRORS??? so I commented it out-LN
-	//printBoardToConsole();
 
 	// test
 	assertFalse(message, condition);
