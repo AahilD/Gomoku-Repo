@@ -69,6 +69,13 @@ Note: the controller does not communicate with the Broker, neither does the brok
 - https://www.youtube.com/watch?v=T8ErAYobcbc
 - https://stackoverflow.com/questions/22488100/find-winner-in-a-tic-tac-toe-match
 - https://codereview.stackexchange.com/questions/116830/check-if-a-game-of-tic-tac-toe-has-a-winner
+- https://stackoverflow.com/questions/2438231/how-do-i-start-with-gomoku
+- https://stackoverflow.com/questions/6952607/ai-strategy-for-gomoku-a-variation-of-tic-tac-toe
+- https://stackoverflow.com/questions/22087006/using-arrays-to-detect-a-win-in-a-gomoku-game
+- https://www.youtube.com/watch?v=lebCk5SLnrU
+- https://www.youtube.com/watch?v=nj8zXSIa0kw
+- http://faculty.washington.edu/jtenenbg/courses/360/f01/code/gomoku.html
+- http://math.hws.edu/eck/cs124/javanotes3/c8/ex-8-6-answer.html
 
 # Bibliography
 
