@@ -14,15 +14,28 @@
 
 # Gomoku
 
-This Java based application is a reproduction of the game called Gomoku (also known as, Go, or five-in-a-row)
+This Java based application is a reproduction of the traditional Japanese game Gomoku according to its standard rules.
+# How to Play
+
+This game will prompt the user if they wish to play against another player (PVP), or if they wish to play against the computer environment (PVE). Once the user(s) have entered their desired user name, they may proceed to begin playing by clicking on the start button. Once the game board appears, player 1 may play the first move. For now players will only be able to play agains the lowest level computer environment (level: 0). Eventually two more levels will be added.
+
+# Rules
+
+- Each player gets to place one Gomoku piece on the board per turn
+- Turns alternate once a piece has been placed on the board.
+- The first player to sucessfully place five consecutive pieces in a straight line in any direction wins.
+- Directions include: Vertically, Horizontally, Diagonally (forward and back)
+- However, if a player manages to connect more than 5 in a row on their turn, this will not be counted as a win.
+- For instance, if you have three consecutive pieces on both sides of a single square, and you connect them, this will not count.
+- Once a player has won, they wil be asked if they wish to play an other round.
+- The player board panel on the right side of the board will keep track of each player's wins, loses, draws, and the bottom panel will show how many rounds have been played (not including the current round) and will show how many turns (cumulative of both players) have been played (not including current turn); Each new round will reset the turn count.
 
 # Repository URL
 https://github.com/manucote/UC-G22.git
 
 # Run Instructions
 
-Once you have imported this application into Eclipse, (for now) run the application from StartGameForm.Java.
-The player registration form window will appear and prompt the user's to enter a username. For now, the game is a 2-Player game with no option to play against the computer. The option to play against the computer will come in a future iteration once the 2-Player version is working properly.
+Once you have imported this application into Eclipse, (for now) run the application from PlayerRegistrationForm.Java (this will launch the GUI based application. The default package will only contain a single class that will run the text based application.
 
 # Project Architecture
 
@@ -52,6 +65,10 @@ Note: the controller does not communicate with the Broker, neither does the brok
 - The image files used for the game pieces: black-piece.jpg; white-piece.jpg [1]
 - The background image for the main game window graphical user interface: gui.images/background.jp [2]
 - The font used for certain header text in the graphical user interface: gui.fonts/KnifeFightBallet-Regular.otf [3]
+- https://stackoverflow.com/questions/20420065/loop-diagonally-through-two-dimensional-array
+- https://www.youtube.com/watch?v=T8ErAYobcbc
+- https://stackoverflow.com/questions/22488100/find-winner-in-a-tic-tac-toe-match
+- https://codereview.stackexchange.com/questions/116830/check-if-a-game-of-tic-tac-toe-has-a-winner
 
 # Bibliography
 
