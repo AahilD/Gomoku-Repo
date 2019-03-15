@@ -67,8 +67,9 @@ public class Board
 	 * there is 6+ in a row in one section of the line (vert, horiz, diag)
 	 * and then 5 in a row on the same line, it does not validate the win.
 	 * 
-	 * e.g. [0][0], [0][1], [0][2], [0][3], [0][4], [0][5], empty, empty, [0][6], [0][7], [0][8], [0][9], [0][10] 
-	 * here we have 2 pieces and 3 pieces conected in the midle to make 6 in arow (not a win all good)
+	 * e.g. [0][0], [0][1], [0][2], [0][3], [0][4], [0][5], empty, empty,
+	 * [0][6], [0][7], [0][8], [0][9], [0][10] here we have 2 pieces and 3
+	 * pieces conected in the midle to make 6 in arow (not a win all good)
 	 * but on the same line (serated by one (or more) empty squares, you
 	 * manage to place 5 in a row it will not be detected as a win.
 	 */
@@ -83,7 +84,8 @@ public class Board
 		if (getBoard()[row][col].getPlayer() == null)
 		{
 		    // i think the problem is here
-		    // possible solution would be to add an addition conditional statement to see if counter == 5
+		    // possible solution would be to add an addition conditional
+		    // statement to see if counter == 5
 		    // if so: set win to true.
 		    // DONT HESITATE TO CALL ME IF YOU NEED CLARIFCATION
 		    if (maxContiguousCount < counter)
@@ -188,32 +190,43 @@ public class Board
     {
 	boolean win = false;
 
-	//TODO Emily
+	// TODO Emily
 	/*
 	 * This one has an additional bug
 	 * 
-	 * on the corners (the first diagonal that has only 5 squares that cuts the accross the corner),
-	 * the for loop is unable to check the next square, since there is no next square.
-	 * therefore even if counter reaches == 5, the conditional statements that identify 5 pieces in row (no more no less)
-	 * are being bypassed as a result.
+	 * on the corners (the first diagonal that has only 5 squares that cuts
+	 * the accross the corner), the for loop is unable to check the next
+	 * square, since there is no next square. therefore even if counter
+	 * reaches == 5, the conditional statements that identify 5 pieces in
+	 * row (no more no less) are being bypassed as a result.
 	 * 
-	 * you will need to find a way to set win to true if any of those corners have 5 in a row
-	 * (2 corners in each diagonal
-	 * for this one the coordinates are [0][14], [1][15], [2][16], [3][17], [4][18]
-	 * the coordinates for the other corner are the same, just flip x and y around.
+	 * you will need to find a way to set win to true if any of those
+	 * corners have 5 in a row (2 corners in each diagonal for this one the
+	 * coordinates are [0][14], [1][15], [2][16], [3][17], [4][18] the
+	 * coordinates for the other corner are the same, just flip x and y
+	 * around.
 	 * 
-	 * What ever you do for this method carry over the same logic into diagonal right I did not do anything for that method
+	 * What ever you do for this method carry over the same logic into
+	 * diagonal right I did not do anything for that method
 	 */
-	
+	int counter = 0;
 	for (int col = WIDTHLENGTH - 1; col >= 0; col--)
 	{
 	    int maxContiguousCount = 0;
-	    int counter = 0;
-	    // copy col to col1 so we can increment it without messing up the forloop
+	    
+	    // copy col to col1 so we can increment it without messing up the
+	    // forloop
 	    int col1 = col;
-	    System.out.println(col1 + "");
+
+	    // possible fix to second bug
+	    if (counter == 5)
+	    {
+		win = true;
+	    }
+	    counter = 0;
 	    for (int row = 0; row < HEIGHTLENGTH && col1 < WIDTHLENGTH; row++)
 	    {
+
 		if (getBoard()[row][col1].getPlayer() == null)
 		{
 		    if (maxContiguousCount < counter)
@@ -226,6 +239,8 @@ public class Board
 			.getPieceColour() == pieceColour)
 		{
 		    counter++;
+		    if (pieceColour == 'w')
+			System.out.println(col1 + "");
 		} else
 		{
 		    counter = 0;
