@@ -106,10 +106,10 @@ public class PVEnvironment extends GameController
 	{
 	    environment_lvl_zero();
 	}
-	// if (level == 1)
-	// {
-	// environment_lvl_one();
-	// }
+	if (level == 1)
+	{
+		environment_lvl_one();
+	}
 	// if (level == 2)
 	// {
 	// environment_lvl_two();
@@ -162,6 +162,38 @@ public class PVEnvironment extends GameController
 	MainGUI.updateTurnCount(game.incrementPlayerTurn());
 
     }
+    
+    //@Pending review
+    //Made method lvl1 so that it takes the last move from the arraylist and places
+    //the token around where the player place their token 
+    private static void environment_lvl_one()
+    {
+    	boolean environmentMoveSuccesful=false;
+    	int hmmm = 0;
+    	do {
+    	int[] lastmove = getPlayersLastMove();
+    	Random rand = new Random();
+    	boolean xneg = rand.nextBoolean();
+    	boolean yneg = rand.nextBoolean();
+    	if (xneg) {
+    		lastmove[0]=lastmove[0]-1;
+    	}
+    	else {
+    		lastmove[0] = lastmove[0]+1;
+    	}
+    	if (yneg) {
+    		lastmove[1] = lastmove[1]-1;
+    	}
+    	else {
+    		lastmove[0]=lastmove[0]+1;
+    	}
+    	environmentMoveSuccesful = environmentPlayMoveAt(lastmove[0], lastmove[1]);
+    	hmmm +=1;
+    	}while (!environmentMoveSuccesful && hmmm < 15);
+    	if (hmmm == 15) {
+    		environment_lvl_zero();
+    	}
+    }
 
     private static boolean environmentPlayMoveAt(int x, int y)
     {
@@ -209,7 +241,7 @@ public class PVEnvironment extends GameController
 	playerMoveHistory.add(xy);
     }
 
-    public int[] getPlayersLastMove()
+    public static int[] getPlayersLastMove()
     {
 	return playerMoveHistory.get(playerMoveHistory.size() - 1);
     }
