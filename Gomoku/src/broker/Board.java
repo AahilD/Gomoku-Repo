@@ -46,107 +46,134 @@ public class Board
     }
 
     /**
-     * Checks the horizontals of the board for 5 pieces of the same colour 
-     * in a row, signifying a win
+     * Checks the horizontals of the board for 5 pieces of the same colour in a
+     * row, signifying a win
      * 
      * @param char pieceColour
-     * @return	True if there are five pieces of the same colour
-     * 			in a row
+     * @return True if there are five pieces of the same colour in a row
      */
     public boolean verifyHorizontal(char pieceColour)
     {
-	boolean fiveInARow = false;
-	int i = 0;
-	for (int row = 0; row < board.length && !fiveInARow; row++)
-	{
-	    for (int col = 0; col < board[row].length && !fiveInARow; col++)
-	    {
-		if (board[row][col].getPlayer() != null && board[row][col]
-			.getPlayer().getPieceColour() == pieceColour)
-		{
-		    i++;
-		} else
-		{
-		    i = 0;
-		}
-		if ((i == 5 && board[row][col + 1].getPlayer() != null)
-			&& board[row][col + 1].getPlayer()
-				.getPieceColour() != pieceColour)
-		{
-		    fiveInARow = true;
-		}
-	    }
-	}
-	return fiveInARow;
-    }
-
-    /**
-     * Check the verticals in the board to determine if there are 5 pieces in a row, 
-     * signifying a win
-     * 
-     * @param char pieceColour
-     * @return  True if there are 5 pieces in a column as a row. Otherwise returns
-     * 			false
-     */
-    @SuppressWarnings("unused")
-    public boolean verifyVertical(char pieceColour)
-    {
 	int counter = 0;
 	// emmanuels version
-	
+	// TODO EMILY
+	/*
+	 * - your code is in comments below my code - fix your code, you can use
+	 * mine as an example - delete my code once you'r done - NOTE: my code
+	 * has a bug see below for details.
+	 * 
+	 * Bug: in my code, I am using maxContiguousCount: int to store the
+	 * maximum number of side-by-side pieces of same colour. Problem is: say
+	 * there is 6+ in a row in one section of the line (vert, horiz, diag)
+	 * and then 5 in a row on the same line, it does not validate the win.
+	 * 
+	 * e.g. [0][0], [0][1], [0][2], [0][3], [0][4], [0][5], empty, empty, [0][6], [0][7], [0][8], [0][9], [0][10] 
+	 * here we have 2 pieces and 3 pieces conected in the midle to make 6 in arow (not a win all good)
+	 * but on the same line (serated by one (or more) empty squares, you
+	 * manage to place 5 in a row it will not be detected as a win.
+	 */
+
 	boolean win = false;
-	
-	for (int x = 0; x < WIDTHLENGTH; x ++)
+
+	for (int row = 0; row < HEIGHTLENGTH; row++)
 	{
 	    int maxContiguousCount = 0;
-	    for (int y = 0; y < HEIGHTLENGTH; y ++)
+	    for (int col = 0; col < WIDTHLENGTH; col++)
 	    {
-		if(getBoard()[x][y].getPlayer() == null)
+		if (getBoard()[row][col].getPlayer() == null)
 		{
-		    if(maxContiguousCount < counter)
+		    // i think the problem is here
+		    // possible solution would be to add an addition conditional statement to see if counter == 5
+		    // if so: set win to true.
+		    // DONT HESITATE TO CALL ME IF YOU NEED CLARIFCATION
+		    if (maxContiguousCount < counter)
 		    {
 			maxContiguousCount = counter;
 		    }
-		    
+
 		    counter = 0;
-		}
-		else if(getBoard()[x][y].getPlayer().getPieceColour() == pieceColour)
-		{
-		    counter ++;
-		} else
-		{
-		    counter = 0;
-		}
-	    }
-	    
-	    if (maxContiguousCount == 5)
-	    {
-		win = true;
-	    }
-	}
-	
-	/* Emily's code;
-	for (int y = 0; y >= HEIGHTLENGTH; y++)
-	{
-	    for (int x = 0; x >= WIDTHLENGTH; x++)
-	    {
-		if (board[x][y].getPlayer().getPieceColour() == pieceColour
-			&& (board[x][y].getPlayer() != null))
+		} else if (getBoard()[row][col].getPlayer()
+			.getPieceColour() == pieceColour)
 		{
 		    counter++;
 		} else
 		{
 		    counter = 0;
 		}
-		if ((counter == 5 && board[x + 1][y].getPlayer() != null)
-			&& board[x + 1][y].getPlayer()
-				.getPieceColour() != pieceColour)
+	    }
+
+	    if (maxContiguousCount == 5)
+	    {
+		win = true;
+	    }
+	}
+
+	return win;
+	/*
+	 * EMILY'S ORIGINAL CODE DO NOT REMOVE boolean fiveInARow = false; int i
+	 * = 0; for (int row = 0; row < board.length && !fiveInARow; row++) {
+	 * for (int col = 0; col < board[row].length && !fiveInARow; col++) { if
+	 * (board[row][col].getPlayer() != null && board[row][col]
+	 * .getPlayer().getPieceColour() == pieceColour) { i++; } else { i = 0;
+	 * } if ((i == 5 && board[row][col + 1].getPlayer() != null) &&
+	 * board[row][col + 1].getPlayer() .getPieceColour() != pieceColour) {
+	 * fiveInARow = true; } } } return fiveInARow;
+	 */
+    }
+
+    /**
+     * Check the verticals in the board to determine if there are 5 pieces in a
+     * row, signifying a win
+     * 
+     * @param char pieceColour
+     * @return True if there are 5 pieces in a column as a row. Otherwise
+     *         returns false
+     */
+    public boolean verifyVertical(char pieceColour)
+    {
+	int counter = 0;
+	// emmanuels version
+
+	boolean win = false;
+
+	for (int col = 0; col < HEIGHTLENGTH; col++)
+	{
+	    int maxContiguousCount = 0;
+	    for (int row = 0; row < WIDTHLENGTH; row++)
+	    {
+		if (getBoard()[row][col].getPlayer() == null)
 		{
-		    System.out.println("it caught the win!");
-		    return true;
+		    if (maxContiguousCount < counter)
+		    {
+			maxContiguousCount = counter;
+		    }
+
+		    counter = 0;
+		} else if (getBoard()[row][col].getPlayer()
+			.getPieceColour() == pieceColour)
+		{
+		    counter++;
+		} else
+		{
+		    counter = 0;
 		}
 	    }
-	}*/
+
+	    if (maxContiguousCount == 5)
+	    {
+		win = true;
+	    }
+	}
+
+	/*
+	 * Emily's code; DOD NOT DELETE!!!!!!!! for (int y = 0; y >=
+	 * HEIGHTLENGTH; y++) { for (int x = 0; x >= WIDTHLENGTH; x++) { if
+	 * (board[x][y].getPlayer().getPieceColour() == pieceColour &&
+	 * (board[x][y].getPlayer() != null)) { counter++; } else { counter = 0;
+	 * } if ((counter == 5 && board[x + 1][y].getPlayer() != null) &&
+	 * board[x + 1][y].getPlayer() .getPieceColour() != pieceColour) {
+	 * System.out.println("it caught the win!"); return true; } } }
+	 */
 	return win;
     }
 
@@ -154,36 +181,59 @@ public class Board
      * Checks the diagonals of the board for 5 pieces in a row, signifying a win
      * 
      * @param char pieceColour
-     * @return	True if there are 5 pieces in a diagonal as a row. Otherwise returns false.
+     * @return True if there are 5 pieces in a diagonal as a row. Otherwise
+     *         returns false.
      */
     public boolean verifyDiagonalLeft(char pieceColour)
     {
-	for (int n = -WIDTHLENGTH; n <= WIDTHLENGTH; n++)
+	boolean win = false;
+
+	for (int col = WIDTHLENGTH - 1; col >= 0; col--)
 	{
-	    int counter2 = 0;
-	    for (int i = 0; i < WIDTHLENGTH; i++)
+	    int maxContiguousCount = 0;
+	    int counter = 0;
+	    int col1 = col;
+	    for (int row = 0; row < HEIGHTLENGTH && col1 < WIDTHLENGTH; row++)
 	    {
-		if ((i - n >= 0) && (i - n < WIDTHLENGTH))
+
+		if (getBoard()[row][col1].getPlayer() == null)
 		{
-		    if (board[i][i - n].getPlayer() != null && board[i][i - n]
-			    .getPlayer().getPieceColour() == pieceColour)
+		    if (maxContiguousCount < counter)
 		    {
-			counter2++;
-			if ((counter2 == 5
-				&& board[i + 1][i - n + 1].getPlayer() != null)
-				&& board[i + 1][i - n + 1].getPlayer()
-					.getPieceColour() != pieceColour)
-			{
-			    return true;
-			}
-		    } else
-		    {
-			counter2 = 0;
+			maxContiguousCount = counter;
 		    }
+
+		    counter = 0;
+		} else if (getBoard()[row][col1].getPlayer()
+			.getPieceColour() == pieceColour)
+		{
+		    counter++;
+		} else
+		{
+		    counter = 0;
 		}
+
+		col1++;
+	    }
+
+	    if (maxContiguousCount == 5)
+	    {
+		win = true;
 	    }
 	}
-	return false;
+
+	return win;
+
+	/*
+	 * Emily's Original code Do not delete for (int n = -WIDTHLENGTH; n <=
+	 * WIDTHLENGTH; n++) { int counter2 = 0; for (int i = 0; i <
+	 * WIDTHLENGTH; i++) { if ((i - n >= 0) && (i - n < WIDTHLENGTH)) { if
+	 * (board[i][i - n].getPlayer() != null && board[i][i - n]
+	 * .getPlayer().getPieceColour() == pieceColour) { counter2++; if
+	 * ((counter2 == 5 && board[i + 1][i - n + 1].getPlayer() != null) &&
+	 * board[i + 1][i - n + 1].getPlayer() .getPieceColour() != pieceColour)
+	 * { return true; } } else { counter2 = 0; } } } } return false;
+	 */
     }
 
     /**
@@ -225,6 +275,7 @@ public class Board
 
     /**
      * TODO I DONT THINK THIS METHOD WORKS
+     * 
      * @return
      */
     @SuppressWarnings("unused")
@@ -255,12 +306,11 @@ public class Board
      */
     public boolean gameOver(char pieceColour)
     {
-	return verifyVertical(pieceColour) 
-		|| verifyHorizontal(pieceColour)
+	return verifyVertical(pieceColour) || verifyHorizontal(pieceColour)
 		|| verifyDiagonalLeft(pieceColour)
 		|| verifyDiagonalRight(pieceColour);
-		
-		// NOT WORK
-		//|| boardFull();
+
+	// NOT WORK
+	// || boardFull();
     }
 }
