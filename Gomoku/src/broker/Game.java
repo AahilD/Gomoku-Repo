@@ -178,6 +178,25 @@ public class Game
      */
     public boolean makeMove(int x, int y) throws IllegalMove
     {
+
+	// TODO @Steven when you get a chance
+	/*
+	 * make this method return nothing (void instead of boolean) in the
+	 * if-statement that determines if the move played is the winning move
+	 * throw new Excption object (you can call it what ever you want). Have
+	 * this exception object store the winning player and loosing player.
+	 * simply have a constructor that will save the instance of each object.
+	 * don't forget getters and setters.
+	 * 
+	 * now once you do this other classes will report errors (bassically you
+	 * broke the code) you can either commit and push the code with them, or
+	 * if you have time adjust the rest of the code to match the new
+	 * implementation of the exception (I'd rather you do the latter option
+	 * if you have time. If not make sure you let me know asap so I, or
+	 * someone else can fix it)
+	 * 
+	 * 
+	 */
 	boolean isWinningMove = false;
 
 	/*
