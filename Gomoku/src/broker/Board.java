@@ -239,8 +239,6 @@ public class Board
 			.getPieceColour() == pieceColour)
 		{
 		    counter++;
-		    if (pieceColour == 'w')
-			System.out.println(col1 + "");
 		} else
 		{
 		    counter = 0;

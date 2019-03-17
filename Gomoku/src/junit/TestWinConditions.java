@@ -3,25 +3,30 @@ package junit;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Random;
 import org.junit.Test;
 
 import broker.Board;
 import broker.IllegalMove;
 import broker.Player;
 
+/**
+ * These tests will ensure that win condition methods are working as they should
+ * The ability for these tests to function as they should relly on the player class to be
+ * fully functional. Make sure all tests for player class pass before running these ones.
+ * 
+ * @author manu
+ *
+ */
 public class TestWinConditions
 {
-    private Board board = new Board();
-    private static Player p1 = new Player("PLAYER ONE", 'w');
-    private Random r = new Random();
-    private int x;
-    private int y;
-    private int numberOfPieces;
-
-    // TODO Emmanuel fix tests remove randomization feature
+    private final static char PLAYER_0NE_PIECE_COLOUR = 'w';
+    private final static char PLAYER_TWO_PIECE_COLOUR = 'b';
     
-    private void addPiecesToBoard(ArrayList<int[]> coorList)
+    private Board board;
+    private static Player p1 = new Player("PLAYER ONE", PLAYER_0NE_PIECE_COLOUR);
+    private static Player p2 = new Player("PLAYER TWO", PLAYER_TWO_PIECE_COLOUR);
+    
+    private void addPiecesToBoard(Player p, ArrayList<int[]> coorList)
     {
 	board = new Board();
 	for (int index = 0; index < coorList.size(); index++)
@@ -31,7 +36,7 @@ public class TestWinConditions
 	    
 	    try
 	    {
-		board.getBoard()[x][y].setPlayer(p1);
+		board.getBoard()[x][y].setPlayer(p);
 	    } catch (IllegalMove e)
 	    {
 		e.printStackTrace();
@@ -39,16 +44,32 @@ public class TestWinConditions
 	}
     }
     
-    private void printCoordinate()
+    private void addDifferentPiecesToBoard(ArrayList<int[]> coorList)
     {
-	if (x < 0 || x > 18)
-	    System.out.println("If you see this message it's not your"
-		    + " fault it's mine\nX out of bounds: " + x);
-	if (y < 0 || y > 18)
-	    System.out.println("If you see this message it's"
-		    + " not your fault, it's mine\nY out of " + "bounds: " + y);
+	board = new Board();
+	
+	for (int index = 0; index < coorList.size(); index++)
+	{
+	    int x = coorList.get(index)[0];
+	    int y = coorList.get(index)[1];
+	    
+	    try
+	    {
+		if(index % 2 == 0)
+		    board.getBoard()[x][y].setPlayer(p1);
+		else
+		    board.getBoard()[x][y].setPlayer(p2);
+	    } catch (IllegalMove e)
+	    {
+		e.printStackTrace();
+	    }
+	}
     }
 
+    /**
+     * place this method anywhere to display the full set of test values
+     */
+    @SuppressWarnings("unused")
     private void printBoardToConsole()
     {
 	for (int row = 0; row < 19; row++)
@@ -69,8 +90,12 @@ public class TestWinConditions
 	}
     }
 
+    /**
+     * Test verify horizontal detects a win
+     * (5 in a row of same colour)
+     */
     @Test
-    public void testVerrifyHorrizontal_1()
+    public void testVerifyHorrizontal_1()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
 	coorList.add(new int[] {5, 5});
@@ -79,400 +104,562 @@ public class TestWinConditions
 	coorList.add(new int[] {5, 8});
 	coorList.add(new int[] {5, 9});
 	
-	addPiecesToBoard(coorList);
+	addPiecesToBoard(p1, coorList);
 	
+	String message = "VerifyHorizontal did not detect the win of 5 in a row";
 	boolean condition = board.verifyHorizontal(p1.getPieceColour());
-
-	// test
-	assertTrue("VerifyHorizontal did not detect the win of 5 in a row", condition);
-    }
-
-    @Test
-    public void testVerrifyHorrizontal_2()
-    {
-	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {5, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {5, 8});
-	coorList.add(new int[] {5, 9});
-	coorList.add(new int[] {5, 10});
 	
-	addPiecesToBoard(coorList);
-	
-	boolean condition = board.verifyHorizontal(p1.getPieceColour());
-
-	assertFalse("VerifyHorizontal should not have detected a win of 6 in a row.", condition);
-    }
-
-    @Test
-    public void testVerrifyHorrizontal_3()
-    {
-	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {5, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {5, 8});
-	
-	addPiecesToBoard(coorList);
-
-	boolean condition = board.verifyHorizontal(p1.getPieceColour());
-
-	assertFalse("VerrifyHorrizontal should not detect a win with only 4 in a row.", condition);
-    }
-
-    @Test
-    public void testVerrifyHorrizontal_4()
-    {
-	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {5, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {5, 8});
-	coorList.add(new int[] {5, 10});
-
-
-	addPiecesToBoard(coorList);
-	
-	boolean condition = board.verifyHorizontal(p1.getPieceColour());
-
-	assertFalse("Verrify Horrizontally detected a win where the 5 pieces where not contiguous.", condition);
-    }
-
-    @Test
-    public void testVerrifyVeritcle_1()
-    {
-	board = new Board();
-	x = r.nextInt(19);
-	y = r.nextInt(19);
-	numberOfPieces = 5;
-
-	// setup test
-	String message = "VerifyVertical did not detect the win from: [" + x
-		+ ", " + y + "] to:";
-
-//	addPiecesVertically();
-
-	message += "[" + x + ", " + y + "]";
-	boolean condition = board.verifyVertical(p1.getPieceColour());
-
-	// test
-	//When it randomizes plays it will play 6 pieces and expect a win-LN
 	assertTrue(message, condition);
     }
 
+    /**
+     * Test that anything over 5 in a row is NOT counted as a win
+     */
     @Test
-    public void testVerrifyVeritcle_2()
+    public void testVerifyHorrizontal_2()
     {
-	board = new Board();
-	x = r.nextInt(19);
-	y = r.nextInt(19);
-	numberOfPieces = 4;
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {5, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {5, 8});
+	coorList.add(new int[] {5, 9});
+	coorList.add(new int[] {5, 10});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "VerifyHorizontal should not have detected a win of 6 in a row.";
+	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 
-	// setup test
-	String message = "VerifyVertical did not detect the win from: [" + x
-		+ ", " + y + "] to: [";
-
-	//addPiecesVertically();
-
-	message += x + ", " + y + "]";
-
-	boolean condition = board.verifyVertical(p1.getPieceColour());
-
-	// test
 	assertFalse(message, condition);
     }
 
+    /**
+     * test that anything less than 5 is not a win
+     */
     @Test
-    public void testVerrifyVerticle_3()
+    public void testVerifyHorrizontal_3()
     {
-	board = new Board();
-	x = r.nextInt(19);
-	y = r.nextInt(19);
-	numberOfPieces = 6;
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {5, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {5, 8});
+	
+	addPiecesToBoard(p1, coorList);
 
-	// setup test
-	String message = "VerifyVertical detected a win when there was 6 in a row (should only detect a win for 5 in a row): ["
-		+ x + ", " + y + "] to: [";
+	String message = "VerrifyHorrizontal should not detect a win with only 4 in a row.";
+	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 
-	//addPiecesVertically();
-
-	message += x + ", " + y + "]";
-
-	boolean condition = board.verifyVertical(p1.getPieceColour());
-
-	// test
 	assertFalse(message, condition);
     }
 
+    /**
+     * test that a 5 pieces separated by empty square is NOT a win
+     */
     @Test
-    public void testVerrifyVerticle_4()
+    public void testVerifyHorrizontal_4()
     {
-	board = new Board();
-	x = r.nextInt(19);
-	y = r.nextInt(19);
-	numberOfPieces = 4;
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {5, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {5, 8});
+	//skip square [5][9]
+	coorList.add(new int[] {5, 10});
 
-	int diff = 0;
-	if (x <= 9)
-	    diff++;
-	else
-	    diff--;
 
-	// setup test
-	String message = "VerifyVertical detected a win when not all 5 pieces where contiguous to each other ["
-		+ x + ", " + y + "] to: [";
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Horrizontally detected a win where the 5 pieces where not contiguous.";
+	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 
-	//addPiecesVertically();
-
-	x += diff;
-
-	//addPiecesVertically();
-
-	message += x + ", " + y + "]";
-
-	boolean condition = board.verifyVertical(p1.getPieceColour());
-
-	//THIS WAS GIVING ME ERRORS??? so I commented it out-LN
-	//printBoardToConsole();
-
-	// test
 	assertFalse(message, condition);
     }
 
+    /**
+     * test that a 5 pieces in a row NOT of the same colour is NOT a win
+     */
     @Test
-    public void testVerrifyDiagonalLeft_1()
+    public void testVerifyHorrizontal_5()
     {
-	board = new Board();
-	x = r.nextInt(19);
-	if (x < 4)
-	    y = r.nextInt(15) + 4;
-	else if (x > 14)
-	    y = r.nextInt(15);
-	else
-	    y = r.nextInt(19);
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {5, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {5, 8});
+	coorList.add(new int[] {5, 9});
 
-	numberOfPieces = 5;
 
-	// setup test
-	String message = "VerifyDiagonalLeft did not detect the win from: [" + x
-		+ ", " + y + "] to:";
+	addDifferentPiecesToBoard(coorList);
+	
+	String message = "Verify Horizontal should NOT have detect a win with 5 pieces in a row of different colour";
+	
+	// p1
+	boolean condition = board.verifyHorizontal(p1.getPieceColour());
+	assertFalse(message, condition);
+	
+	// p2
+	condition = board.verifyHorizontal(p2.getPieceColour());
+	assertFalse(message, condition);
+    }
+    
+    /**
+     * same as testVerrifyHorrizontal_1
+     */
+    @Test
+    public void testVerifyVeritcle_1()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {6, 5});
+	coorList.add(new int[] {7, 5});
+	coorList.add(new int[] {8, 5});
+	coorList.add(new int[] {9, 5});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "VerifyVertical did not detect the win from: [5][5] - [9][5];";
+	boolean condition = board.verifyVertical(p1.getPieceColour());
+	
+	assertTrue(message, condition);
+    }
 
-	//addPiecesDiagonalLeft();
+    /**
+     * same as testVerrifyHorrizontal_2
+     */
+    @Test
+    public void testVerifyVeritcle_2()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {6, 5});
+	coorList.add(new int[] {7, 5});
+	coorList.add(new int[] {8, 5});
+	coorList.add(new int[] {9, 5});
+	coorList.add(new int[] {10, 5});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "VerifyVertical detected a win from: [5][5] - [10][5], when it wasn't supose to.";
+	boolean condition = board.verifyVertical(p1.getPieceColour());
+	
+	assertFalse(message, condition);
+    }
 
-	message += "[" + x + ", " + y + "]";
+    /**
+     * same as testVerrifyHorrizontal_3
+     */
+    @Test
+    public void testVerifyVerticle_3()
+    {
+
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {6, 5});
+	coorList.add(new int[] {7, 5});
+	coorList.add(new int[] {8, 5});
+	
+	addPiecesToBoard(p1, coorList);
+
+	String message = "verrifyVerticle should NOT have detected a win with less than 5 pieces in a row.";
+	boolean condition = board.verifyVertical(p1.getPieceColour());
+	
+	assertFalse(message, condition);
+    }
+
+    /**
+     * same as testVerrifyHorrizontal_4
+     */
+    @Test
+    public void testVerifyVerticle_4()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {6, 5});
+	coorList.add(new int[] {7, 5});
+	coorList.add(new int[] {8, 5});
+	//skip square [9][5]
+	coorList.add(new int[] {10, 5});
+
+
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "VerifyVertical should NOT have detected a win with 5 pieces seperated by an empty square.";
+	boolean condition = board.verifyVertical(p1.getPieceColour());
+	
+	assertFalse(message, condition);
+    }
+
+    /**
+     * test that a 5 pieces in a row NOT of the same colour is NOT a win
+     */
+    @Test
+    public void testVerifyVerticle_5()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {6, 5});
+	coorList.add(new int[] {7, 5});
+	coorList.add(new int[] {8, 5});
+	coorList.add(new int[] {9, 5});
+
+
+	addDifferentPiecesToBoard(coorList);
+	
+	String message = "Verify Horizontal should NOT have detect a win with 5 pieces in a row of different colour";
+	
+	// p1
+	boolean condition = board.verifyHorizontal(p1.getPieceColour());
+	assertFalse(message, condition);
+	// p2
+	condition = board.verifyHorizontal(p2.getPieceColour());
+	assertFalse(message, condition);
+    }
+    
+    /**
+     * check if win is properly detected on the top right half of the board
+     */
+    @Test
+    public void testVerifyDiagonalLeft_1()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {3, 5});
+	coorList.add(new int[] {4, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {6, 8});
+	coorList.add(new int[] {7, 9});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should have detected a win.";
 	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
-
-	// test
-	//When it randomizes plays it will play 6 pieces and expect a win-LN
+	
 	assertTrue(message, condition);
     }
 
+    /**
+     * verify a win at the most top right corner where exactly 5 pieces fit.
+     */
     @Test
     public void testVerifyDiagonalLeft_2()
     {
-	board = new Board();
-	x = r.nextInt(19);
-	if (x < 4)
-	    y = r.nextInt(15) + 4;
-	else if (x > 14)
-	    y = r.nextInt(15);
-	else
-	    y = r.nextInt(19);
-
-	numberOfPieces = r.nextInt(4) + 1;
-
-	// setup test
-	String message = "VerifyDiagonalLeft did not detect the win from: [" + x
-		+ ", " + y + "] to: [";
-
-	//addPiecesDiagonalLeft();
-
-	message += x + ", " + y + "]";
-
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
-
-	// test
-	assertFalse(message, condition);
-    }
-
-    @Test
-    public void testVerifyDiagonalLeft_3()
-    {
-	board = new Board();
-	x = r.nextInt(19);
-	if (x < 4)
-	    y = r.nextInt(15) + 4;
-	else if (x > 14)
-	    y = r.nextInt(15);
-	else
-	    y = r.nextInt(19);
-
-	numberOfPieces = 6;
-
-	// setup test
-	String message = "VerifyDiagonalLeft detected a win when there was 6 in a row (should only detect a win for 5 in a row): ["
-		+ x + ", " + y + "] to: [";
-
-	//addPiecesDiagonalLeft();
-
-	message += x + ", " + y + "]";
-
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
-
-	// test
-	assertFalse(message, condition);
-    }
-
-    @Test
-    public void testVerrifyDiagonalLeft_4()
-    {
-	board = new Board();
-	x = 7;
-	y = 7;
-
-	numberOfPieces = 4;
-
-	int diff = 0;
-	if (x <= 9)
-	    diff++;
-	else
-	    diff--;
-
-	// setup test
-	String message = "VerifyDiagonalLeft detected a win when not all 5 pieces where contiguous to each other ["
-		+ x + ", " + y + "] to: [";
-
-	//addPiecesDiagonalLeft();
-
-	x += diff;
-	numberOfPieces = 1;
-
-	//addPiecesDiagonalRight();
-
-	message += x + ", " + y + "]";
-
-	boolean condition = board.verifyDiagonalLeft((p1.getPieceColour()));
-
-	//THIS WAS GIVING ME ERRORS??? so I commented it out-LN
-	//printBoardToConsole();
-
-	// test
-	assertFalse(message, condition);
-    }
-
-    @Test
-    public void testVerrifyDiagonalRight_1()
-    {
-	board = new Board();
-	x = r.nextInt(19);
-	if (x < 4)
-	    y = r.nextInt(15) + 4;
-	else if (x > 14)
-	    y = r.nextInt(15);
-	else
-	    y = r.nextInt(19);
-
-	numberOfPieces = 5;
-
-	// setup test
-	String message = "VerifyDiagonalRight did not detect the win from: ["
-		+ x + ", " + y + "] to:";
-
-	//addPiecesDiagonalRight();
-
-	message += "[" + x + ", " + y + "]";
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {0, 14});
+	coorList.add(new int[] {1, 15});
+	coorList.add(new int[] {2, 16});
+	coorList.add(new int[] {3, 17});
+	coorList.add(new int[] {4, 18});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should have detected a win.";
 	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
 	
-	printBoardToConsole();
-	
-	// test
 	assertTrue(message, condition);
     }
 
+    /**
+     * verify a win on the bottom left half of the board
+     */
+    @Test
+    public void testVerifyDiagonalLeft_3()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {10, 4});
+	coorList.add(new int[] {11, 5});
+	coorList.add(new int[] {12, 6});
+	coorList.add(new int[] {13, 7});
+	coorList.add(new int[] {14, 8});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should have detected a win.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertTrue(message, condition);
+    }
+
+    /**
+     * verify a win at the most bottom left corner where exactly 5 pieces fit.
+     */
+    @Test
+    public void testVerifyDiagonalLeft_4()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {14, 0});
+	coorList.add(new int[] {15, 1});
+	coorList.add(new int[] {16, 2});
+	coorList.add(new int[] {17, 3});
+	coorList.add(new int[] {18, 4});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should have detected a win.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertTrue(message, condition);
+    }
+    
+    /**
+     * verify that anything over 5 in a row does not count as a win
+     */
+    @Test
+    public void testVerifyDiagonalLeft_5()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {10, 4});
+	coorList.add(new int[] {11, 5});
+	coorList.add(new int[] {12, 6});
+	coorList.add(new int[] {13, 7});
+	coorList.add(new int[] {14, 8});
+	coorList.add(new int[] {15, 9});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should NOT have detected a win with more than 5 in a row.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertFalse(message, condition);
+    }
+
+    /**
+     * verify that anything less than 5 does NOT count as a win.
+     */
+    @Test
+    public void testVerifyDiagonalLeft_6()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {4, 4});
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {6, 6});
+	coorList.add(new int[] {7, 7});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should NOT have detected a win with less than 5 in a row.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertFalse(message, condition);
+    }
+    
+    /**
+     * verify that 5 not in a row does not count as a win
+     */
+    @Test
+    public void testVerifyDiagonalLeft_7()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {4, 4});
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {6, 6});
+	coorList.add(new int[] {7, 7});
+	// skip square [8][8]
+	coorList.add(new int[] {9, 9});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should NOT have detected a win with 5 pieces seperated by an empty space.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertFalse(message, condition);
+    }
+    
+    /**
+     * verify that 5 in a row of different colour pieces does not count as a win
+     */
+    @Test
+    public void testVerifyDiagonalLeft_8()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {4, 4});
+	coorList.add(new int[] {5, 5});
+	coorList.add(new int[] {6, 6});
+	coorList.add(new int[] {7, 7});
+	coorList.add(new int[] {8, 8});
+	
+	addDifferentPiecesToBoard(coorList);
+	
+	String message = "Verrify Diagonal left should NOT have detected a win with 5 pieces in a row of different colour.";
+	
+	// p1
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	assertFalse(message, condition);
+	// p2
+	condition = board.verifyDiagonalLeft(p2.getPieceColour());
+	assertFalse(message, condition);
+    }    
+    /**
+     * check if win is properly detected on the top left half of the board
+     */
+    @Test
+    public void testVerifyDiagonalRight_1()
+    {
+
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {7, 5});
+	coorList.add(new int[] {6, 6});
+	coorList.add(new int[] {5, 7});
+	coorList.add(new int[] {4, 8});
+	coorList.add(new int[] {3, 9});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should have detected a win.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertTrue(message, condition);
+    }
+
+    /**
+     * verify a win at the most top left corner where exactly 5 pieces fit.
+     */
     @Test
     public void testVerifyDiagonalRight_2()
     {
-	board = new Board();
-	x = r.nextInt(19);
-	if (x < 4)
-	    y = r.nextInt(15) + 4;
-	else if (x > 14)
-	    y = r.nextInt(15);
-	else
-	    y = r.nextInt(19);
-
-	numberOfPieces = r.nextInt(4) + 1;
-
-	// setup test
-	String message = "VerifyDiagonalRight did not detect the win from: ["
-		+ x + ", " + y + "] to: [";
-
-	//addPiecesDiagonalRight();
-
-	message += x + ", " + y + "]";
-
-	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
-
-	// test
-	assertFalse(message, condition);
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {4, 0});
+	coorList.add(new int[] {3, 1});
+	coorList.add(new int[] {2, 2});
+	coorList.add(new int[] {1, 3});
+	coorList.add(new int[] {0, 4});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should have detected a win.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertTrue(message, condition);
     }
 
+    /**
+     * verify a win on the bottom right half of the board
+     */
     @Test
     public void testVerifyDiagonalRight_3()
     {
-	board = new Board();
-	x = r.nextInt(18);
-	if (x < 4)
-	    y = r.nextInt(15) + 4;
-	else if (x > 14)
-	    y = r.nextInt(15);
-	else
-	    y = r.nextInt(19);
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {10, 14});
+	coorList.add(new int[] {11, 13});
+	coorList.add(new int[] {12, 12});
+	coorList.add(new int[] {13, 11});
+	coorList.add(new int[] {14, 10});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should have detected a win.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertTrue(message, condition);
+    }
 
-	numberOfPieces = 6;
-
-	// setup test
-	String message = "VerifyDiagonalRight detected a win when there was 6 in a row (should only detect a win for 5 in a row): ["
-		+ x + ", " + y + "] to: [";
-
-	//addPiecesDiagonalRight();
-
-	message += x + ", " + y + "]";
-	message += "";
-
-	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
-
-	// test
+    /**
+     * verify a win at the most bottom right corner where exactly 5 pieces fit.
+     */
+    @Test
+    public void testVerifyDiagonalRight_4()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {14, 18});
+	coorList.add(new int[] {15, 17});
+	coorList.add(new int[] {16, 16});
+	coorList.add(new int[] {17, 15});
+	coorList.add(new int[] {18, 14});
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should have detected a win.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertTrue(message, condition);
+    }
+    
+    /**
+     * verify that anything over 5 in a row does not count as a win
+     */
+    @Test
+    public void testVerifyDiagonalRight_5()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {8, 10}); 	//1
+	coorList.add(new int[] {9, 9}); 	//2
+	coorList.add(new int[] {10, 8});	//3
+	coorList.add(new int[] {11, 7});	//4
+	coorList.add(new int[] {12, 6});	//5
+	coorList.add(new int[] {13, 5});	//6
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should NOT have detected a win with more than 5 in a row.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
 	assertFalse(message, condition);
     }
 
+    /**
+     * verify that anything less than 5 does NOT count as a win.
+     */
     @Test
-    public void testVerrifyDiagonalRight_4()
+    public void testVerifyDiagonalRight_6()
     {
-	board = new Board();
-	x = 7;
-	y = 7;
-
-	numberOfPieces = 4;
-
-	// setup test
-	String message = "VerifyDiagonalRight detected a win when not all 5 pieces where contiguous to each other ["
-		+ x + ", " + y + "] to: [";
-
-	//addPiecesDiagonalRight();
-
-	x--;
-	y++;
-	numberOfPieces = 1;
-
-	//addPiecesDiagonalRight();
-
-	message += x + ", " + y + "]";
-
-	boolean condition = board.verifyDiagonalRight((p1.getPieceColour()));
-
-	// test
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {8, 10}); 	//1
+	coorList.add(new int[] {9, 9}); 	//2
+	coorList.add(new int[] {10, 8});	//3
+	coorList.add(new int[] {11, 7});	//4
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should NOT have detected a win with less than 5 in a row.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertFalse(message, condition);
+    }
+    
+    /**
+     * verify that 5 not in a row does not count as a win
+     */
+    @Test
+    public void testVerifyDiagonalRight_7()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {8, 10}); 	//1
+	coorList.add(new int[] {9, 9}); 	//2
+	coorList.add(new int[] {10, 8});	//3
+	coorList.add(new int[] {11, 7});	//4
+	// skip square [12][6]
+	coorList.add(new int[] {13, 5});	//5
+	
+	addPiecesToBoard(p1, coorList);
+	
+	String message = "Verrify Diagonal left should NOT have detected a win with 5 pieces seperated by an empty space.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertFalse(message, condition);
+    }
+    
+    /**
+     * verify that 5 different pieces in a row does not count as a win
+     */
+    @Test
+    public void testVerifyDiagonalRight_8()
+    {
+	ArrayList<int[]> coorList = new ArrayList<int[]>();
+	coorList.add(new int[] {8, 10}); 	//1
+	coorList.add(new int[] {9, 9}); 	//2
+	coorList.add(new int[] {10, 8});	//3
+	coorList.add(new int[] {11, 7});	//4
+	coorList.add(new int[] {12, 6});	//5
+	
+	addDifferentPiecesToBoard(coorList);
+	
+	String message = "Verrify Diagonal left should NOT have detected a win with 5 pieces in a row of different colour.";
+	
+	// p1
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	assertFalse(message, condition);
+	// p2
+	condition = board.verifyDiagonalLeft(p2.getPieceColour());
 	assertFalse(message, condition);
     }
 }
