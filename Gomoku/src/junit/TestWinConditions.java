@@ -98,15 +98,15 @@ public class TestWinConditions
     public void testVerifyHorrizontal_1()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {5, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {5, 8});
-	coorList.add(new int[] {5, 9});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {5, 6}); // 2
+	coorList.add(new int[] {5, 7}); // 3
+	coorList.add(new int[] {5, 8}); // 4
+	coorList.add(new int[] {5, 9}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
-	String message = "VerifyHorizontal did not detect the win of 5 in a row";
+	String message = "VerifyHorizontal should have detected the win of 5 in a row";
 	boolean condition = board.verifyHorizontal(p1.getPieceColour());
 	
 	assertTrue(message, condition);
@@ -119,12 +119,12 @@ public class TestWinConditions
     public void testVerifyHorrizontal_2()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {5, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {5, 8});
-	coorList.add(new int[] {5, 9});
-	coorList.add(new int[] {5, 10});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {5, 6}); // 2
+	coorList.add(new int[] {5, 7}); // 3
+	coorList.add(new int[] {5, 8}); // 4
+	coorList.add(new int[] {5, 9}); // 5
+	coorList.add(new int[] {5, 10}); // 6 !!!
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -141,10 +141,11 @@ public class TestWinConditions
     public void testVerifyHorrizontal_3()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {5, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {5, 8});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {5, 6}); // 2
+	coorList.add(new int[] {5, 7}); // 3
+	coorList.add(new int[] {5, 8}); // 4
+	 // 5!!!!
 	
 	addPiecesToBoard(p1, coorList);
 
@@ -161,12 +162,12 @@ public class TestWinConditions
     public void testVerifyHorrizontal_4()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {5, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {5, 8});
-	//skip square [5][9]
-	coorList.add(new int[] {5, 10});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {5, 6}); // 2
+	coorList.add(new int[] {5, 7}); // 3
+	coorList.add(new int[] {5, 8}); // 4
+	//skip square [5][9] !!!
+	coorList.add(new int[] {5, 10}); // 5
 
 
 	addPiecesToBoard(p1, coorList);
@@ -184,14 +185,14 @@ public class TestWinConditions
     public void testVerifyHorrizontal_5()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {5, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {5, 8});
-	coorList.add(new int[] {5, 9});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {5, 6}); // 2
+	coorList.add(new int[] {5, 7}); // 3
+	coorList.add(new int[] {5, 8}); // 4
+	coorList.add(new int[] {5, 9}); // 5
 
 
-	addDifferentPiecesToBoard(coorList);
+	addDifferentPiecesToBoard(coorList); // add DIFFERENT pieces to board !!! alternate colours
 	
 	String message = "Verify Horizontal should NOT have detect a win with 5 pieces in a row of different colour";
 	
@@ -211,15 +212,15 @@ public class TestWinConditions
     public void testVerifyVeritcle_1()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {6, 5});
-	coorList.add(new int[] {7, 5});
-	coorList.add(new int[] {8, 5});
-	coorList.add(new int[] {9, 5});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {6, 5}); // 2
+	coorList.add(new int[] {7, 5}); // 3
+	coorList.add(new int[] {8, 5}); // 4
+	coorList.add(new int[] {9, 5}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
-	String message = "VerifyVertical did not detect the win from: [5][5] - [9][5];";
+	String message = "VerifyVertical should have detected a win from: [5][5] - [9][5];";
 	boolean condition = board.verifyVertical(p1.getPieceColour());
 	
 	assertTrue(message, condition);
@@ -232,12 +233,12 @@ public class TestWinConditions
     public void testVerifyVeritcle_2()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {6, 5});
-	coorList.add(new int[] {7, 5});
-	coorList.add(new int[] {8, 5});
-	coorList.add(new int[] {9, 5});
-	coorList.add(new int[] {10, 5});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {6, 5}); // 2
+	coorList.add(new int[] {7, 5}); // 3
+	coorList.add(new int[] {8, 5}); // 4
+	coorList.add(new int[] {9, 5}); // 5
+	coorList.add(new int[] {10, 5}); // 6 !!!
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -255,10 +256,11 @@ public class TestWinConditions
     {
 
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {6, 5});
-	coorList.add(new int[] {7, 5});
-	coorList.add(new int[] {8, 5});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {6, 5}); // 2
+	coorList.add(new int[] {7, 5}); // 3
+	coorList.add(new int[] {8, 5}); // 4
+	 // 5 !!!
 	
 	addPiecesToBoard(p1, coorList);
 
@@ -275,12 +277,12 @@ public class TestWinConditions
     public void testVerifyVerticle_4()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {6, 5});
-	coorList.add(new int[] {7, 5});
-	coorList.add(new int[] {8, 5});
-	//skip square [9][5]
-	coorList.add(new int[] {10, 5});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {6, 5}); // 2
+	coorList.add(new int[] {7, 5}); // 3
+	coorList.add(new int[] {8, 5}); // 4
+	//skip square [9][5] !!!
+	coorList.add(new int[] {10, 5}); // 5
 
 
 	addPiecesToBoard(p1, coorList);
@@ -298,14 +300,14 @@ public class TestWinConditions
     public void testVerifyVerticle_5()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {6, 5});
-	coorList.add(new int[] {7, 5});
-	coorList.add(new int[] {8, 5});
-	coorList.add(new int[] {9, 5});
+	coorList.add(new int[] {5, 5}); // 1
+	coorList.add(new int[] {6, 5}); // 2
+	coorList.add(new int[] {7, 5}); // 3
+	coorList.add(new int[] {8, 5}); // 4
+	coorList.add(new int[] {9, 5}); // 5
 
 
-	addDifferentPiecesToBoard(coorList);
+	addDifferentPiecesToBoard(coorList); //!!!
 	
 	String message = "Verify Horizontal should NOT have detect a win with 5 pieces in a row of different colour";
 	
@@ -324,11 +326,11 @@ public class TestWinConditions
     public void testVerifyDiagonalLeft_1()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {3, 5});
-	coorList.add(new int[] {4, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {6, 8});
-	coorList.add(new int[] {7, 9});
+	coorList.add(new int[] {3, 5}); // 1
+	coorList.add(new int[] {4, 6}); // 2
+	coorList.add(new int[] {5, 7}); // 3
+	coorList.add(new int[] {6, 8}); // 4
+	coorList.add(new int[] {7, 9}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -345,11 +347,11 @@ public class TestWinConditions
     public void testVerifyDiagonalLeft_2()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {0, 14});
-	coorList.add(new int[] {1, 15});
-	coorList.add(new int[] {2, 16});
-	coorList.add(new int[] {3, 17});
-	coorList.add(new int[] {4, 18});
+	coorList.add(new int[] {0, 14}); // 1
+	coorList.add(new int[] {1, 15}); // 2
+	coorList.add(new int[] {2, 16}); // 3
+	coorList.add(new int[] {3, 17}); // 4
+	coorList.add(new int[] {4, 18}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -366,11 +368,11 @@ public class TestWinConditions
     public void testVerifyDiagonalLeft_3()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {10, 4});
-	coorList.add(new int[] {11, 5});
-	coorList.add(new int[] {12, 6});
-	coorList.add(new int[] {13, 7});
-	coorList.add(new int[] {14, 8});
+	coorList.add(new int[] {10, 4}); // 1
+	coorList.add(new int[] {11, 5}); // 2
+	coorList.add(new int[] {12, 6}); // 3
+	coorList.add(new int[] {13, 7}); // 4
+	coorList.add(new int[] {14, 8}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -387,12 +389,12 @@ public class TestWinConditions
     public void testVerifyDiagonalLeft_4()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {14, 0});
-	coorList.add(new int[] {15, 1});
-	coorList.add(new int[] {16, 2});
-	coorList.add(new int[] {17, 3});
-	coorList.add(new int[] {18, 4});
-	
+	coorList.add(new int[] {14, 0}); // 1
+	coorList.add(new int[] {15, 1}); // 2
+	coorList.add(new int[] {16, 2}); // 3
+	coorList.add(new int[] {17, 3}); // 4
+	coorList.add(new int[] {18, 4}); // 5
+
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should have detected a win.";
@@ -408,12 +410,12 @@ public class TestWinConditions
     public void testVerifyDiagonalLeft_5()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {10, 4});
-	coorList.add(new int[] {11, 5});
-	coorList.add(new int[] {12, 6});
-	coorList.add(new int[] {13, 7});
-	coorList.add(new int[] {14, 8});
-	coorList.add(new int[] {15, 9});
+	coorList.add(new int[] {10, 4}); // 1
+	coorList.add(new int[] {11, 5}); // 2
+	coorList.add(new int[] {12, 6}); // 3
+	coorList.add(new int[] {13, 7}); // 4
+	coorList.add(new int[] {14, 8}); // 5
+	coorList.add(new int[] {15, 9}); // 6 !!!
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -430,11 +432,11 @@ public class TestWinConditions
     public void testVerifyDiagonalLeft_6()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {4, 4});
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {6, 6});
-	coorList.add(new int[] {7, 7});
-	
+	coorList.add(new int[] {4, 4}); // 1
+	coorList.add(new int[] {5, 5}); // 2
+	coorList.add(new int[] {6, 6}); // 3
+	coorList.add(new int[] {7, 7}); // 4
+	 // 5 !!!
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should NOT have detected a win with less than 5 in a row.";
@@ -450,12 +452,12 @@ public class TestWinConditions
     public void testVerifyDiagonalLeft_7()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {4, 4});
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {6, 6});
-	coorList.add(new int[] {7, 7});
-	// skip square [8][8]
-	coorList.add(new int[] {9, 9});
+	coorList.add(new int[] {4, 4}); // 1
+	coorList.add(new int[] {5, 5}); // 2
+	coorList.add(new int[] {6, 6}); // 3
+	coorList.add(new int[] {7, 7}); // 4
+	// skip square [8][8] !!!
+	coorList.add(new int[] {9, 9}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -472,13 +474,13 @@ public class TestWinConditions
     public void testVerifyDiagonalLeft_8()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {4, 4});
-	coorList.add(new int[] {5, 5});
-	coorList.add(new int[] {6, 6});
-	coorList.add(new int[] {7, 7});
-	coorList.add(new int[] {8, 8});
+	coorList.add(new int[] {4, 4}); // 1
+	coorList.add(new int[] {5, 5}); // 2
+	coorList.add(new int[] {6, 6}); // 3
+	coorList.add(new int[] {7, 7}); // 4
+	coorList.add(new int[] {8, 8}); // 5
 	
-	addDifferentPiecesToBoard(coorList);
+	addDifferentPiecesToBoard(coorList); // !!!
 	
 	String message = "Verrify Diagonal left should NOT have detected a win with 5 pieces in a row of different colour.";
 	
@@ -497,11 +499,11 @@ public class TestWinConditions
     {
 
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {7, 5});
-	coorList.add(new int[] {6, 6});
-	coorList.add(new int[] {5, 7});
-	coorList.add(new int[] {4, 8});
-	coorList.add(new int[] {3, 9});
+	coorList.add(new int[] {7, 5}); // 1
+	coorList.add(new int[] {6, 6}); // 2
+	coorList.add(new int[] {5, 7}); // 3
+	coorList.add(new int[] {4, 8}); // 4
+	coorList.add(new int[] {3, 9}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -518,11 +520,11 @@ public class TestWinConditions
     public void testVerifyDiagonalRight_2()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {4, 0});
-	coorList.add(new int[] {3, 1});
-	coorList.add(new int[] {2, 2});
-	coorList.add(new int[] {1, 3});
-	coorList.add(new int[] {0, 4});
+	coorList.add(new int[] {4, 0}); // 1
+	coorList.add(new int[] {3, 1}); // 2
+	coorList.add(new int[] {2, 2}); // 3
+	coorList.add(new int[] {1, 3}); // 4
+	coorList.add(new int[] {0, 4}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -539,11 +541,11 @@ public class TestWinConditions
     public void testVerifyDiagonalRight_3()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {10, 14});
-	coorList.add(new int[] {11, 13});
-	coorList.add(new int[] {12, 12});
-	coorList.add(new int[] {13, 11});
-	coorList.add(new int[] {14, 10});
+	coorList.add(new int[] {10, 14}); // 1
+	coorList.add(new int[] {11, 13}); // 2
+	coorList.add(new int[] {12, 12}); // 3
+	coorList.add(new int[] {13, 11}); // 4
+	coorList.add(new int[] {14, 10}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -560,11 +562,11 @@ public class TestWinConditions
     public void testVerifyDiagonalRight_4()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {14, 18});
-	coorList.add(new int[] {15, 17});
-	coorList.add(new int[] {16, 16});
-	coorList.add(new int[] {17, 15});
-	coorList.add(new int[] {18, 14});
+	coorList.add(new int[] {14, 18}); // 1
+	coorList.add(new int[] {15, 17}); // 2
+	coorList.add(new int[] {16, 16}); // 3
+	coorList.add(new int[] {17, 15}); // 4
+	coorList.add(new int[] {18, 14}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -581,12 +583,12 @@ public class TestWinConditions
     public void testVerifyDiagonalRight_5()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {8, 10}); 	//1
-	coorList.add(new int[] {9, 9}); 	//2
-	coorList.add(new int[] {10, 8});	//3
-	coorList.add(new int[] {11, 7});	//4
-	coorList.add(new int[] {12, 6});	//5
-	coorList.add(new int[] {13, 5});	//6
+	coorList.add(new int[] {8, 10}); // 1
+	coorList.add(new int[] {9, 9});  // 2
+	coorList.add(new int[] {10, 8}); // 3
+	coorList.add(new int[] {11, 7}); // 4
+	coorList.add(new int[] {12, 6}); // 5
+	coorList.add(new int[] {13, 5}); // 6 !!!
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -603,11 +605,11 @@ public class TestWinConditions
     public void testVerifyDiagonalRight_6()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {8, 10}); 	//1
-	coorList.add(new int[] {9, 9}); 	//2
-	coorList.add(new int[] {10, 8});	//3
-	coorList.add(new int[] {11, 7});	//4
-	
+	coorList.add(new int[] {8, 10}); // 1
+	coorList.add(new int[] {9, 9});  // 2
+	coorList.add(new int[] {10, 8}); // 3
+	coorList.add(new int[] {11, 7}); // 4
+	 // 5 !!!
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should NOT have detected a win with less than 5 in a row.";
@@ -623,12 +625,12 @@ public class TestWinConditions
     public void testVerifyDiagonalRight_7()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {8, 10}); 	//1
-	coorList.add(new int[] {9, 9}); 	//2
-	coorList.add(new int[] {10, 8});	//3
-	coorList.add(new int[] {11, 7});	//4
-	// skip square [12][6]
-	coorList.add(new int[] {13, 5});	//5
+	coorList.add(new int[] {8, 10}); // 1
+	coorList.add(new int[] {9, 9});  // 2
+	coorList.add(new int[] {10, 8}); // 3
+	coorList.add(new int[] {11, 7}); // 4
+	// skip square [12][6] !!!
+	coorList.add(new int[] {13, 5}); // 5
 	
 	addPiecesToBoard(p1, coorList);
 	
@@ -645,13 +647,13 @@ public class TestWinConditions
     public void testVerifyDiagonalRight_8()
     {
 	ArrayList<int[]> coorList = new ArrayList<int[]>();
-	coorList.add(new int[] {8, 10}); 	//1
-	coorList.add(new int[] {9, 9}); 	//2
-	coorList.add(new int[] {10, 8});	//3
-	coorList.add(new int[] {11, 7});	//4
-	coorList.add(new int[] {12, 6});	//5
+	coorList.add(new int[] {8, 10}); // 1
+	coorList.add(new int[] {9, 9});  // 2
+	coorList.add(new int[] {10, 8}); // 3
+	coorList.add(new int[] {11, 7}); // 4
+	coorList.add(new int[] {12, 6}); // 5
 	
-	addDifferentPiecesToBoard(coorList);
+	addDifferentPiecesToBoard(coorList); // !!!
 	
 	String message = "Verrify Diagonal left should NOT have detected a win with 5 pieces in a row of different colour.";
 	
