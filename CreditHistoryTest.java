@@ -34,11 +34,12 @@ public class CreditHistoryTest {
 	}
 	
 	/**
-	 * This test will test getRatings. 
+	 * This test will test getRatings. Will then verify that the list is in the 
+	 * same order as it was inputtted.
 	 */
 	
 	@Test
-	public void testGetRatings() {
+	public void test_getRatings() {
 		CreditHistory c = new CreditHistory();
 		ArrayList<Integer> l = new ArrayList<Integer>();
 		c.addRating(1);
@@ -57,7 +58,7 @@ public class CreditHistoryTest {
 	 * ratings inside the ArrayList.
 	 */
 	@Test
-	public void testTrimRatings() {
+	public void test_trimRatings() {
 		CreditHistory c = new CreditHistory();
 		Integer[] res = {0,0,0,0,0,0,0,0,0,0};
 		ArrayList<Integer> l = new ArrayList<Integer>();
@@ -78,7 +79,7 @@ public class CreditHistoryTest {
 	 * This test will test numOfRatings, specificaly testing how many ratings are in the ArrayList.
 	 */
 	@Test
-	public void testNumOfRatings() {
+	public void test_numOfRatings() {
 		CreditHistory c = new CreditHistory();
 		Integer[] res = {0,0,0,0,0,0,0,0,0,0};
 		ArrayList<Integer> l = new ArrayList<Integer>();
@@ -97,13 +98,14 @@ public class CreditHistoryTest {
 	}
 	
 	/*
-	 * The following tests will test the getCreditRating method. It will ensure that 
-	 * the correct rating is given. 
+	 * The following tests will test the getCreditRating method with various ArrayList length. It will verify that 
+	 * the expected credit rating matches the actual result. 
 	 */
 	
-	//This will test for the credit rating with a list of 9 numbers
+	//This will test for the credit rating with a list of 9 numbers.
+	
 	@Test
-	public void testGetCreditRating_9() {
+	public void test_getCreditRating_9() {
 		CreditHistory c = new CreditHistory();
 		c.addRating(4);
 		c.addRating(3);
@@ -120,7 +122,7 @@ public class CreditHistoryTest {
 	
 	//This will test for the credit rating with a list of 3 numbers
 	@Test
-	public void testGetCreditRating_3() {
+	public void test_getCreditRating_3() {
 		CreditHistory c = new CreditHistory();
 		c.addRating(4);
 		c.addRating(-1);
@@ -131,7 +133,7 @@ public class CreditHistoryTest {
 	
 	//This will test for the credit rating with a list of 4 numbers
 	@Test 
-	public void testGetCreditRating_4() {
+	public void test_getCreditRating_4() {
 		CreditHistory c = new CreditHistory();
 		c.addRating(5);
 		c.addRating(3);
@@ -143,7 +145,7 @@ public class CreditHistoryTest {
 	
 	//This will test for the credit rating with a list of 1 number
 	@Test
-	public void testGetCreditRating_1() {
+	public void test_getCreditRating_1() {
 		CreditHistory c = new CreditHistory();
 		c.addRating(1);
 		double result = c.getCreditRating();
@@ -152,7 +154,7 @@ public class CreditHistoryTest {
 
 	//This will test for the credit rating with a list of 10 numbers
 	@Test
-	public void testGetCreditRating_10() {
+	public void test_getCreditRating_10() {
 		CreditHistory c = new CreditHistory();
 		c.addRating(4);
 		c.addRating(3);
