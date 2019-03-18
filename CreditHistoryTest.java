@@ -8,11 +8,18 @@ import org.junit.Test;
 
 
 
-//GROUP 22
+/**
+ * @author GROUP 22
+ *
+ *	This class will test the methods presented in the Credit History class.
+ */
 
 public class CreditHistoryTest {
 
-	
+	/**
+	 * This test will test the method of addRating, ensures that the ratings are correctly added
+	 * to the ArrayList.
+	 */
 	@Test
 	public void testAddRating() {
 		CreditHistory c = new CreditHistory();
@@ -26,7 +33,9 @@ public class CreditHistoryTest {
 		assertTrue(c.getRatings().contains(5));
 	}
 	
-	
+	/**
+	 * This test will test getRatings. 
+	 */
 	
 	@Test
 	public void testGetRatings() {
@@ -43,6 +52,10 @@ public class CreditHistoryTest {
 		assertTrue(l.equals(c.getRatings()));
 	}
 
+	/**
+	 * This test will test trimRatings, ensures the list will have a max of 10 
+	 * ratings inside the ArrayList.
+	 */
 	@Test
 	public void testTrimRatings() {
 		CreditHistory c = new CreditHistory();
@@ -61,6 +74,9 @@ public class CreditHistoryTest {
 		assertTrue(l.equals(c.getRatings()));
 	}
 	
+	/*
+	 * This test will test numOfRatings, specificaly testing how many ratings are in the ArrayList.
+	 */
 	@Test
 	public void testNumOfRatings() {
 		CreditHistory c = new CreditHistory();
@@ -80,6 +96,12 @@ public class CreditHistoryTest {
 		assertEquals(10, r);
 	}
 	
+	/*
+	 * The following tests will test the getCreditRating method. It will ensure that 
+	 * the correct rating is given. 
+	 */
+	
+	//This will test for the credit rating with a list of 9 numbers
 	@Test
 	public void testGetCreditRating_9() {
 		CreditHistory c = new CreditHistory();
@@ -96,6 +118,7 @@ public class CreditHistoryTest {
 		assertEquals(2.267, result,0.001 );
 	}
 	
+	//This will test for the credit rating with a list of 3 numbers
 	@Test
 	public void testGetCreditRating_3() {
 		CreditHistory c = new CreditHistory();
@@ -106,6 +129,7 @@ public class CreditHistoryTest {
 		assertEquals(1.833, result, 0.001);
 	}
 	
+	//This will test for the credit rating with a list of 4 numbers
 	@Test 
 	public void testGetCreditRating_4() {
 		CreditHistory c = new CreditHistory();
@@ -117,6 +141,7 @@ public class CreditHistoryTest {
 		assertEquals(2.625, result, 0.001);
 	}
 	
+	//This will test for the credit rating with a list of 1 number
 	@Test
 	public void testGetCreditRating_1() {
 		CreditHistory c = new CreditHistory();
@@ -125,6 +150,7 @@ public class CreditHistoryTest {
 		assertEquals(1.000, result, 0.001);
 	}
 
+	//This will test for the credit rating with a list of 10 numbers
 	@Test
 	public void testGetCreditRating_10() {
 		CreditHistory c = new CreditHistory();
