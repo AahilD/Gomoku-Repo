@@ -164,7 +164,7 @@ public class PVEnvironment extends GameController
     }
     
     /**
-     * @Emily
+     * @Pending Review
      * 1. identify player's last move (x,y)
      * 2. loop through each square next to the coordinate (above, top right,
      * to the right, right bottom, below, left bottom, to the left, top left) until 
@@ -177,30 +177,37 @@ public class PVEnvironment extends GameController
     private static void environment_lvl_one()
     {
     	boolean environmentMoveSuccesful=false;
-    	int hmmm = 0;
-    	do {
-    	int[] lastmove = getPlayersLastMove();
-    	Random rand = new Random();
-    	boolean xneg = rand.nextBoolean();
-    	boolean yneg = rand.nextBoolean();
-    	if (xneg) {
-    		lastmove[0]=lastmove[0]-1;
+    	ArrayList<int[]> moves = getPlayerMoves();
+    	for(int i=moves.size()-1;i>=0 && !environmentMoveSuccesful;i--) {
+    		int[] move = moves.get(i);
+    		if (!environmentMoveSuccesful) {
+    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]+1, move[1]+1);
+    		}
+    		if (!environmentMoveSuccesful) {
+    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]+1);
+    		}
+    		if (!environmentMoveSuccesful) {
+    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]+1, move[1]-1);
+    		}
+    		if (!environmentMoveSuccesful) {
+    			environmentMoveSuccesful = environmentPlayMoveAt(move[0], move[1]+1);
+    		}
+    		if (!environmentMoveSuccesful) {
+    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]+1, move[1]);
+    		}
+    		if (!environmentMoveSuccesful) {
+    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]);
+    		}
+    		if (!environmentMoveSuccesful) {
+    			environmentMoveSuccesful = environmentPlayMoveAt(move[0], move[1]-1);
+    		}
+    		if (!environmentMoveSuccesful) {
+    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]-1);
+    		}
     	}
-    	else {
-    		lastmove[0] = lastmove[0]+1;
-    	}
-    	if (yneg) {
-    		lastmove[1] = lastmove[1]-1;
-    	}
-    	else {
-    		lastmove[0]=lastmove[0]+1;
-    	}
-    	environmentMoveSuccesful = environmentPlayMoveAt(lastmove[0], lastmove[1]);
-    	hmmm +=1;
-    	}while (!environmentMoveSuccesful && hmmm < 15);
-    	if (hmmm == 15) {
-    		environment_lvl_zero();
-    	}
+    	if (!environmentMoveSuccesful) {
+			environment_lvl_zero();
+		}
     }
 
     private static boolean environmentPlayMoveAt(int x, int y)
@@ -232,7 +239,7 @@ public class PVEnvironment extends GameController
      * 
      * @return the playerMoves
      */
-    public ArrayList<int[]> getPlayerMoves()
+    public static ArrayList<int[]> getPlayerMoves()
     {
 	return playerMoveHistory;
     }
