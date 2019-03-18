@@ -163,9 +163,17 @@ public class PVEnvironment extends GameController
 
     }
     
-    //@Pending review
-    //Made method lvl1 so that it takes the last move from the arraylist and places
-    //the token around where the player place their token 
+    /**
+     * @Emily
+     * 1. identify player's last move (x,y)
+     * 2. loop through each square next to the coordinate (above, top right,
+     * to the right, right bottom, below, left bottom, to the left, top left) until 
+     * player == null
+     * 3. place token on the available square
+     * 4. if not available, try second last move 
+     * 5. keep going through the entire list of player's move 
+     */
+    
     private static void environment_lvl_one()
     {
     	boolean environmentMoveSuccesful=false;
