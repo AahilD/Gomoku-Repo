@@ -186,22 +186,22 @@ public class PVEnvironment extends GameController
     		if (!environmentMoveSuccesful) {
     			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]+1);
     		}
-    		if (!environmentMoveSuccesful) {
+    		else if (!environmentMoveSuccesful) {
     			environmentMoveSuccesful = environmentPlayMoveAt(move[0]+1, move[1]-1);
     		}
-    		if (!environmentMoveSuccesful) {
+    		else if (!environmentMoveSuccesful) {
     			environmentMoveSuccesful = environmentPlayMoveAt(move[0], move[1]+1);
     		}
-    		if (!environmentMoveSuccesful) {
+    		else if (!environmentMoveSuccesful) {
     			environmentMoveSuccesful = environmentPlayMoveAt(move[0]+1, move[1]);
     		}
-    		if (!environmentMoveSuccesful) {
+    		else if (!environmentMoveSuccesful) {
     			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]);
     		}
-    		if (!environmentMoveSuccesful) {
+    		else if (!environmentMoveSuccesful) {
     			environmentMoveSuccesful = environmentPlayMoveAt(move[0], move[1]-1);
     		}
-    		if (!environmentMoveSuccesful) {
+    		else if (!environmentMoveSuccesful) {
     			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]-1);
     		}
     	}
