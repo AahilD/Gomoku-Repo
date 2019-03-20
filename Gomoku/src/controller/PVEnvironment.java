@@ -24,7 +24,7 @@ public class PVEnvironment extends GameController
 {
 
     private static ArrayList<int[]> playerMoveHistory;
-    private static int level;
+    private static int environmentLevel;
     private static String ENVIRONMENT_USERNAME = "Big Blue";
 
     /**
@@ -36,18 +36,12 @@ public class PVEnvironment extends GameController
      * @param player1name is a string value that represents the username for
      *                    player 1
      */
-    public static void initializeGame(String player1name)
+    public static void initializeGame(String player1name, int toLevel)
     {
 
 	initializeGame(player1name, ENVIRONMENT_USERNAME, true);
-	// TODO @Anyone:
-	/*
-	 * once the level selector feature has been added in the player
-	 * registration form, make sure to update this method to also pass in an
-	 * argument int environmentLevel and initialize the value here.
-	 */
 	playerMoveHistory = new ArrayList<int[]>();
-	level = 0;
+	environmentLevel = toLevel;
     }
 
     /*
@@ -102,11 +96,11 @@ public class PVEnvironment extends GameController
      */
     public static void environmentPlayTurn()
     {
-	if (level == 0)
+	if (environmentLevel == 0)
 	{
 	    environment_lvl_zero();
 	}
-	if (level == 1)
+	if (environmentLevel == 1)
 	{
 		environment_lvl_one();
 	}

@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 import com.sun.glass.ui.Screen;
 
 import controller.PVEnvironment;
@@ -23,42 +25,64 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+// TODO @Aahil finish fixing the styling for Player Registration
+// if level 2 has you allready too busy, please let me know I will take this on over the weekend.
+
 /**
  * @author GROUP 22
  * @author Emmanuel
  * 
  *         This class is the main application launcher. This GUI will prompt
  *         user to select either player versus player mode (PVP), or, player
- *         versus envrionment mode (PVE). The user(s) will be prompted to enter
+ *         versus environment mode (PVE). The user(s) will be prompted to enter
  *         a user name. Start Game button will open the MainGUI to start
  *         playing.
  * 
  */
 public class PlayerRegistration extends Application implements GUICommons
 {
-	// WINDOW DIMENTIONS
-    private static double WIDTH = Screen.getMainScreen().getWidth() - (Screen.getMainScreen().getWidth())/2;
-    private static double HEIGHT = Screen.getMainScreen().getHeight() - (Screen.getMainScreen().getHeight())/5;
-    	
-	// labels
-    private static final String USERNAME_LABEL = "Enter username: ";
-    private static final String START_GAME_BUTTON_VALUE = "Start Game";
-    private static final String PLAYER_REGISTRATION = "Player Registration";
+    // WINDOW DIMENTIONS
+    private static double WIDTH = Screen.getMainScreen().getWidth()
+	    - (Screen.getMainScreen().getWidth()) / 2;
+    private static double HEIGHT = Screen.getMainScreen().getHeight()
+	    - (Screen.getMainScreen().getHeight()) / 5;
+
+    // Strings
+    private static final String USERNAME_TEXTINPUT_PLACEHOLDER_VALUE = "Enter username: ";
+    private static final String START_GAME_BUTTON_TEXT_VALUE = "Start Game";
+    private static final String PLAYER_REGISTRATION_HEADER_TEXT_VALUE = "Player Registration";
+    private static final String PVPLAYER_LABEL_TEXT_VALUE = "PvP";
+    private static final String PVENVIRONMENT_LABEL_TEXT_VALUE = "PvE";
+
+    // Level values in int[]
+    // as you add levels include them in this array
+    private static final int[] LEVEL = { 0, 1, 2 };
+
+    // labels
+
+    private static final Label ENTER_UNAME_LABEL1 = new Label(
+	    USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
+    private static final Label ENTER_UNAME_LABEL2 = new Label(
+	    USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
+    private static final Label LEVEL_SELECTION_LABEL = new Label("Label");
 
     // The TextField for player 1 user name
     private static TextField PLAYER_ONE_USERNAME = new TextField("Player 1");
     // The TextField for player 2 user name
     private static TextField PLAYER_TWO_USERNAME = new TextField("Player 2");
 
-    // Radio Buttons
+    // toggle group and Radio Buttons
     // PLAYER VS PLAYER (2 PLAYER)
-    private static final String PVP_LABEL = "PvP";
-    RadioButton playerVplayerRB = new RadioButton(PVP_LABEL);
+    private static ToggleGroup opponentMode;
+    private static RadioButton playerVplayerRB = new RadioButton(
+	    PVPLAYER_LABEL_TEXT_VALUE);
 
     // PLAYER VS ENVRIONMENT (SINGLE_PLAYER)
-    private static final String PVE_LABEL = "PvE";
     private static RadioButton playerVEnvironmentRB = new RadioButton(
-	    PVE_LABEL);
+	    PVENVIRONMENT_LABEL_TEXT_VALUE);
+
+    private static ToggleGroup levelSelector;
+    private static ArrayList<RadioButton> levelOptions_rbList;
 
     /**
      * This is the official main method that will be called to launch the
@@ -96,7 +120,7 @@ public class PlayerRegistration extends Application implements GUICommons
 
     /**
      * Use this method to manage the setup for the main window of the user
-     * registration gui. Currently uses BorderPane for the final window layout.
+     * registration GUI. Currently uses BorderPane for the final window layout.
      * 
      * @return Node of type BorderPane composed of various sub-nodes
      */
@@ -106,7 +130,8 @@ public class PlayerRegistration extends Application implements GUICommons
 	BorderPane borderpane = new BorderPane();
 
 	// TOP: account information
-	borderpane.setTop(GUICommons.windowHeader(PLAYER_REGISTRATION));
+	borderpane.setTop(
+		GUICommons.windowHeader(PLAYER_REGISTRATION_HEADER_TEXT_VALUE));
 	// CENTER: Transaction form
 	borderpane.setCenter(setupPlayerInfoForm());
 	borderpane.getCenter().getStyleClass().add(PR_FORMGRID_CLASSNAME);
@@ -127,7 +152,7 @@ public class PlayerRegistration extends Application implements GUICommons
      */
     private Node startGameButton()
     {
-	Button startGame = new Button(START_GAME_BUTTON_VALUE);
+	Button startGame = new Button(START_GAME_BUTTON_TEXT_VALUE);
 	startGame.getStyleClass().add(BUTTON_CSS_CLASSNAME);
 	startGame.setOnAction(new EventHandler<ActionEvent>()
 	{
@@ -140,21 +165,19 @@ public class PlayerRegistration extends Application implements GUICommons
 
 		if (playerVplayerRB.isSelected())
 		{
-		    
 		    PVPlayer.initializeGame(PLAYER_ONE_USERNAME.getText(),
 			    PLAYER_TWO_USERNAME.getText());
-		    
+
 		} else if (playerVEnvironmentRB.isSelected())
 		{
-		    
-		    PVEnvironment.initializeGame(PLAYER_ONE_USERNAME.getText());
-		
+		    RadioButton lvl = (RadioButton) levelSelector.getSelectedToggle();
+		    PVEnvironment.initializeGame(PLAYER_ONE_USERNAME.getText(), Integer.parseInt(lvl.getText()));
+
 		} else
 		{
 		    System.out.println(
 			    "Something went wrong with the radio buttons");
 		}
-		    
 
 	    }
 	});
@@ -174,13 +197,9 @@ public class PlayerRegistration extends Application implements GUICommons
      */
     private Node setupPlayerInfoForm()
     {
-	// Labels for the place holders
-	Label enterUsernameLabel1 = new Label(USERNAME_LABEL);
-	Label enterUsernameLabel2 = new Label(USERNAME_LABEL);
-
 	// Radio buttons
 	// RB group
-	ToggleGroup opponentMode = new ToggleGroup();
+	opponentMode = new ToggleGroup();
 
 	// RB 1: PvP
 	playerVplayerRB.setToggleGroup(opponentMode);
@@ -190,39 +209,43 @@ public class PlayerRegistration extends Application implements GUICommons
 	playerVEnvironmentRB.setToggleGroup(opponentMode);
 
 	// add radioButtons to hbox
-	HBox rbhb = new HBox();
-	rbhb.getChildren().addAll(playerVplayerRB, playerVEnvironmentRB);
+	HBox opponentModeModeHbox = new HBox();
+	opponentModeModeHbox.getChildren().addAll(playerVplayerRB,
+		playerVEnvironmentRB);
+
+	// level selector
+	init_levelSelector();
+
+	HBox levelSelectionHbox = new HBox();
+	levelSelectionHbox.getChildren().addAll(levelOptions_rbList);
 
 	// Style the nodes
 	// radio buttons
-	playerVplayerRB.setPadding(DEFAULT_PADDING);
-	playerVEnvironmentRB.setPadding(DEFAULT_PADDING);
-	rbhb.setPadding(DEFAULT_PADDING);
-	rbhb.setMaxWidth(Double.MAX_VALUE);
-	rbhb.setAlignment(Pos.CENTER);
+	opponentModeModeHbox.setMaxWidth(Double.MAX_VALUE);
+	opponentModeModeHbox.setAlignment(Pos.CENTER);
 	playerVplayerRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
-	// Labels
-	enterUsernameLabel1.setPadding(DEFAULT_PADDING);
-	enterUsernameLabel2.setPadding(DEFAULT_PADDING);
-	enterUsernameLabel1.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
-	enterUsernameLabel2.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
-	// Text fields
-	PLAYER_ONE_USERNAME.setPadding(DEFAULT_PADDING);
-	PLAYER_TWO_USERNAME.setPadding(DEFAULT_PADDING);
+	playerVEnvironmentRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
+	ENTER_UNAME_LABEL1.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
+	ENTER_UNAME_LABEL2.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
 
 	// create GridPane
 	GridPane form = new GridPane();
 
 	// add all nodes to grid pane
-	GridPane.setColumnSpan(rbhb, 2);
-	GridPane.setConstraints(enterUsernameLabel1, 0, 1); // col=0 row=0
-	GridPane.setConstraints(PLAYER_ONE_USERNAME, 1, 1); // col=1 row=0
-	GridPane.setConstraints(enterUsernameLabel2, 0, 2); // col=0 row=1
-	GridPane.setConstraints(PLAYER_TWO_USERNAME, 1, 2); // col=1 row=1
+
+	GridPane.setColumnSpan(opponentModeModeHbox, 2); // span both col
+	GridPane.setRowIndex(opponentModeModeHbox, 0);// row 0
+	GridPane.setColumnSpan(levelSelectionHbox, 2); // span both col
+	GridPane.setRowIndex(levelSelectionHbox, 1); // row 1
+	GridPane.setConstraints(ENTER_UNAME_LABEL1, 0, 2); // col=0 row 2
+	GridPane.setConstraints(PLAYER_ONE_USERNAME, 1, 2); // col=1 row 2
+	GridPane.setConstraints(ENTER_UNAME_LABEL2, 0, 3); // col=0 row 3
+	GridPane.setConstraints(PLAYER_TWO_USERNAME, 1, 3); // col=1 row 3
 
 	// add children nodes
-	form.getChildren().addAll(rbhb, enterUsernameLabel1,
-		PLAYER_ONE_USERNAME, enterUsernameLabel2, PLAYER_TWO_USERNAME);
+	form.getChildren().addAll(opponentModeModeHbox, levelSelectionHbox,
+		ENTER_UNAME_LABEL1, PLAYER_ONE_USERNAME, ENTER_UNAME_LABEL2,
+		PLAYER_TWO_USERNAME);
 
 	// Style grid pane
 	form.setHgap(10);
@@ -232,34 +255,62 @@ public class PlayerRegistration extends Application implements GUICommons
 	form.setAlignment(Pos.CENTER);
 	form.setPadding(GUICommons.DEFAULT_PADDING);
 
-	opponentMode.selectedToggleProperty()
-		.addListener(new ChangeListener<Toggle>()
-		{
-
-		    @Override
-		    public void changed(
-			    ObservableValue<? extends Toggle> observable,
-			    Toggle oldValue, Toggle newValue)
-		    {
-			RadioButton rb = (RadioButton) opponentMode
-				.getSelectedToggle();
-
-			// if the user selected single player mode than hide
-			// the option to enter the player 2 user name
-			if (rb.getText().equals(PVE_LABEL))
-			{
-			    enterUsernameLabel2.setVisible(false);
-			    PLAYER_TWO_USERNAME.setVisible(false);
-			} else if (rb.getText().contentEquals(PVP_LABEL))
-			{
-			    enterUsernameLabel2.setVisible(true);
-			    PLAYER_TWO_USERNAME.setVisible(true);
-			}
-		    }
-
-		});
+	opponentMode.selectedToggleProperty().addListener(getToggleListener());
 
 	return form;
+    }
+
+    private ChangeListener<? super Toggle> getToggleListener()
+    {
+	return new ChangeListener<Toggle>()
+	{
+
+	    @Override
+	    public void changed(ObservableValue<? extends Toggle> observable,
+		    Toggle oldValue, Toggle newValue)
+	    {
+		RadioButton modeRb = (RadioButton) opponentMode
+			.getSelectedToggle();
+
+		// TODO EMMANUEL IMPROVE THIS CODE
+		// if the user selected single player mode than hide
+		// the option to enter the player 2 user name
+		if (modeRb.getText().equals(PVENVIRONMENT_LABEL_TEXT_VALUE))
+		{
+		    ENTER_UNAME_LABEL2.setVisible(false);
+		    PLAYER_TWO_USERNAME.setVisible(false);
+
+		    for (RadioButton lvlRb : levelOptions_rbList)
+		    {
+			lvlRb.setVisible(true);
+			lvlRb.setDisable(false);
+		    }
+		} else if (modeRb.getText()
+			.contentEquals(PVPLAYER_LABEL_TEXT_VALUE))
+		{
+		    ENTER_UNAME_LABEL2.setVisible(true);
+		    PLAYER_TWO_USERNAME.setVisible(true);
+		    for (RadioButton lvlRb : levelOptions_rbList)
+		    {
+			lvlRb.setVisible(false);
+			lvlRb.setDisable(true);
+		    }
+		}
+	    }
+	};
+    }
+
+    private void init_levelSelector()
+    {
+	levelOptions_rbList = new ArrayList<RadioButton>();
+
+	for (int i = 0; i < LEVEL.length; i++)
+	{
+	    RadioButton rb = new RadioButton(String.valueOf(LEVEL[i]).trim()); // make sure that level 
+	    levelOptions_rbList.add(rb);
+	    rb.setToggleGroup(levelSelector);
+	    rb.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
+	}
     }
 
 }
