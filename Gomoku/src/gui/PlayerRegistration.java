@@ -47,6 +47,12 @@ public class PlayerRegistration extends Application implements GUICommons
     private static double HEIGHT = Screen.getMainScreen().getHeight()
 	    - (Screen.getMainScreen().getHeight()) / 5;
 
+    // MAIN BORDERPANE
+    private BorderPane mainBorderPane = new BorderPane();
+    
+    // BUTTONS
+    private Button startGame = new Button(START_GAME_BUTTON_TEXT_VALUE);
+    
     // Strings
     private static final String USERNAME_TEXTINPUT_PLACEHOLDER_VALUE = "Enter username: ";
     private static final String START_GAME_BUTTON_TEXT_VALUE = "Start Game";
@@ -64,7 +70,7 @@ public class PlayerRegistration extends Application implements GUICommons
 	    USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
     private static final Label ENTER_UNAME_LABEL2 = new Label(
 	    USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
-    private static final Label LEVEL_SELECTION_LABEL = new Label("Label");
+    private static final Label LEVEL_SELECTION_LABEL = new Label("Level: ");
 
     // The TextField for player 1 user name
     private static TextField PLAYER_ONE_USERNAME = new TextField("Player 1");
@@ -127,21 +133,20 @@ public class PlayerRegistration extends Application implements GUICommons
     private BorderPane stageGUI()
     {
 	// use borderpanes for the main layout
-	BorderPane borderpane = new BorderPane();
 
 	// TOP: account information
-	borderpane.setTop(
+	mainBorderPane.setTop(
 		GUICommons.windowHeader(PLAYER_REGISTRATION_HEADER_TEXT_VALUE));
 	// CENTER: Transaction form
-	borderpane.setCenter(setupPlayerInfoForm());
-	borderpane.getCenter().getStyleClass().add(PR_FORMGRID_CLASSNAME);
+	mainBorderPane.setCenter(setupPlayerInfoForm());
+	
 	// BOTTOM: start game button
-	borderpane.setBottom(startGameButton());
+	mainBorderPane.setBottom(startGameButton());
 
 	// LEFT: Nothing
 	// RIGHT: Nothing
 
-	return borderpane;
+	return mainBorderPane;
     }
 
     /**
@@ -152,8 +157,8 @@ public class PlayerRegistration extends Application implements GUICommons
      */
     private Node startGameButton()
     {
-	Button startGame = new Button(START_GAME_BUTTON_TEXT_VALUE);
-	startGame.getStyleClass().add(BUTTON_CSS_CLASSNAME);
+	
+	
 	startGame.setOnAction(new EventHandler<ActionEvent>()
 	{
 
@@ -170,8 +175,10 @@ public class PlayerRegistration extends Application implements GUICommons
 
 		} else if (playerVEnvironmentRB.isSelected())
 		{
-		    RadioButton lvl = (RadioButton) levelSelector.getSelectedToggle();
-		    PVEnvironment.initializeGame(PLAYER_ONE_USERNAME.getText(), Integer.parseInt(lvl.getText()));
+		    RadioButton lvl = (RadioButton) levelSelector
+			    .getSelectedToggle();
+		    PVEnvironment.initializeGame(PLAYER_ONE_USERNAME.getText(),
+			    Integer.parseInt(lvl.getText()));
 
 		} else
 		{
@@ -197,17 +204,8 @@ public class PlayerRegistration extends Application implements GUICommons
      */
     private Node setupPlayerInfoForm()
     {
-	// Radio buttons
-	// RB group
-	opponentMode = new ToggleGroup();
-
-	// RB 1: PvP
-	playerVplayerRB.setToggleGroup(opponentMode);
-	playerVplayerRB.setSelected(true);
-
-	// RB 2: PvE
-	playerVEnvironmentRB.setToggleGroup(opponentMode);
-
+	init_opponentMode();
+	
 	// add radioButtons to hbox
 	HBox opponentModeModeHbox = new HBox();
 	opponentModeModeHbox.getChildren().addAll(playerVplayerRB,
@@ -217,16 +215,12 @@ public class PlayerRegistration extends Application implements GUICommons
 	init_levelSelector();
 
 	HBox levelSelectionHbox = new HBox();
+	levelSelectionHbox.getChildren().add(LEVEL_SELECTION_LABEL);
 	levelSelectionHbox.getChildren().addAll(levelOptions_rbList);
 
-	// Style the nodes
-	// radio buttons
+	// add css to nodes
 	opponentModeModeHbox.setMaxWidth(Double.MAX_VALUE);
 	opponentModeModeHbox.setAlignment(Pos.CENTER);
-	playerVplayerRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
-	playerVEnvironmentRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
-	ENTER_UNAME_LABEL1.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
-	ENTER_UNAME_LABEL2.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
 
 	// create GridPane
 	GridPane form = new GridPane();
@@ -260,6 +254,22 @@ public class PlayerRegistration extends Application implements GUICommons
 	return form;
     }
 
+    private void init_opponentMode()
+    {
+	// Radio buttons
+	// RB group
+	opponentMode = new ToggleGroup();
+
+	// RB 1: PvP
+	playerVplayerRB.setToggleGroup(opponentMode); // add to toggle group
+	
+	// RB 2: PvE
+	playerVEnvironmentRB.setToggleGroup(opponentMode); // add to toggle group
+	
+	// default selection
+	playerVplayerRB.setSelected(true);
+    }
+
     private ChangeListener<? super Toggle> getToggleListener()
     {
 	return new ChangeListener<Toggle>()
@@ -273,26 +283,25 @@ public class PlayerRegistration extends Application implements GUICommons
 			.getSelectedToggle();
 
 		// TODO EMMANUEL IMPROVE THIS CODE
+
 		// if the user selected single player mode than hide
 		// the option to enter the player 2 user name
 		if (modeRb.getText().equals(PVENVIRONMENT_LABEL_TEXT_VALUE))
 		{
-		    ENTER_UNAME_LABEL2.setVisible(false);
-		    PLAYER_TWO_USERNAME.setVisible(false);
+		    ENTER_UNAME_LABEL2.setDisable(true);
+		    PLAYER_TWO_USERNAME.setDisable(true);
 
 		    for (RadioButton lvlRb : levelOptions_rbList)
 		    {
-			lvlRb.setVisible(true);
 			lvlRb.setDisable(false);
 		    }
 		} else if (modeRb.getText()
 			.contentEquals(PVPLAYER_LABEL_TEXT_VALUE))
 		{
-		    ENTER_UNAME_LABEL2.setVisible(true);
-		    PLAYER_TWO_USERNAME.setVisible(true);
+		    ENTER_UNAME_LABEL2.setDisable(false);
+		    PLAYER_TWO_USERNAME.setDisable(false);
 		    for (RadioButton lvlRb : levelOptions_rbList)
 		    {
-			lvlRb.setVisible(false);
 			lvlRb.setDisable(true);
 		    }
 		}
@@ -303,14 +312,36 @@ public class PlayerRegistration extends Application implements GUICommons
     private void init_levelSelector()
     {
 	levelOptions_rbList = new ArrayList<RadioButton>();
-
+	levelSelector = new ToggleGroup();
+	
 	for (int i = 0; i < LEVEL.length; i++)
 	{
-	    RadioButton rb = new RadioButton(String.valueOf(LEVEL[i]).trim()); // make sure that level 
+	    RadioButton rb = new RadioButton(String.valueOf(LEVEL[i]).trim());
 	    levelOptions_rbList.add(rb);
-	    rb.setToggleGroup(levelSelector);
-	    rb.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
+
+	    if (i == 0)
+		rb.setSelected(true);
+
+	    rb.setDisable(true);
+	    levelOptions_rbList.get(i).setToggleGroup(levelSelector);
 	}
+    }
+    
+    
+    
+    /**
+     * Call this method to add all the css class names to all the nodes
+     */
+    private void addCSSclassNameToNodes()
+    {
+	mainBorderPane.getCenter().getStyleClass().add(PR_FORMGRID_CLASSNAME);
+	startGame.getStyleClass().add(BUTTON_CSS_CLASSNAME);
+	playerVplayerRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
+	playerVEnvironmentRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
+	ENTER_UNAME_LABEL1.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
+	ENTER_UNAME_LABEL2.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
+	LEVEL_SELECTION_LABEL.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
+	levelOptions_rbList.forEach(rb -> rb.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME));
     }
 
 }
