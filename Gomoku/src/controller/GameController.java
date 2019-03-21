@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import broker.Game;
 import broker.IllegalMove;
+import broker.WinAndLosses;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
 import javafx.scene.control.Button;
@@ -102,7 +103,22 @@ public abstract class GameController
      */
     public static boolean playMove(int x, int y) throws IllegalMove
     {
-	return game.makeMove(x, y);
+    	boolean isWin = false;
+    	try
+    	{
+    		game.makeMove(x, y);
+    	} catch (WinAndLosses WnL){
+    		isWin = true;
+    	} catch (IllegalMove e){
+    		throw e;
+    	}
+    	return isWin;
+  
+    /*
+     * previous code:
+     * 
+     * return game.makeMove(x, y):
+     */
     }
 
     /**
