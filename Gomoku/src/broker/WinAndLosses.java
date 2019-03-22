@@ -2,6 +2,8 @@ package broker;
 
 public class WinAndLosses extends Exception {
 
+	private static final long serialVersionUID = 1L;
+	
 	//Instance variables
 	private Player winner;
 	private Player loser;

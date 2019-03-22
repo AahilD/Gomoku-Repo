@@ -174,13 +174,15 @@ public class Game
      * @param yCoordinate Vertical placement
      * @return False if move does not result in a win, True if move does result
      *         in a win
-     * @throws IllegalMove
+     * @throws IllegalMove and WinAndLosses
+     * 
      */
-    public boolean makeMove(int x, int y) throws IllegalMove
+    public void makeMove(int x, int y) throws IllegalMove , WinAndLosses
     {
 
 	// TODO @Steven when you get a chance
 	/*
+	 * COMPLETED - NEED REVIEW @Anyone:
 	 * make this method return nothing (void instead of boolean) in the
 	 * if-statement that determines if the move played is the winning move
 	 * throw new Excption object (you can call it what ever you want). Have
@@ -197,36 +199,39 @@ public class Game
 	 * 
 	 * 
 	 */
-	boolean isWinningMove = false;
 
 	/*
-	 * Tries to assign player to desired square, but if another player
-	 * already occupies that square, throws IllegalMove
+	 * Tries to assign a player to the desired square, but if another player
+	 * already occupies that square, throws IllegalMove (Incorrect description @Steve)
 	 */
 	try
 	{
 	    currentBoard.getBoard()[x][y].setPlayer(getTurnPlayer());
 	    if (currentBoard.gameOver(getTurnPlayer().getPieceColour()))
-	    {
-		isWinningMove = true;
-		if (getTurnPlayer().getPieceColour() == playerOne
-			.getPieceColour())
-		{
-		    playerOne.incrementWinCount();
-		    playerTwo.incrementLoseCount();
-		} else
-		{
-		    playerTwo.incrementWinCount();
-		    playerOne.incrementLoseCount();
-		}
-	    }
-
+	    	{
+	    	Player winner = null;
+	    	Player loser = null;
+	    	if (getTurnPlayer().getPieceColour() == playerOne
+	    			.getPieceColour())
+	    	{
+	    		playerOne.incrementWinCount();
+	    		playerTwo.incrementLoseCount();
+	    		winner = playerOne;
+	    		loser = playerTwo;
+	    	} else
+	    	{
+	    		playerTwo.incrementWinCount();
+	    		playerOne.incrementLoseCount();
+	    		winner = playerTwo;
+	    		loser = playerOne;
+	    	}
+	    	WinAndLosses WnL = new WinAndLosses(winner, loser);
+	    	throw WnL;
+	    	}
 	} catch (IllegalMove e)
 	{
 	    throw e;
 	}
-
-	return isWinningMove;
     }
 
     /**

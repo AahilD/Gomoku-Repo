@@ -209,7 +209,11 @@ public class PVEnvironment extends GameController
 	boolean moveSuccessful = false;
 	try
 	{
-	    if (!game.makeMove(x, y))
+	   /*
+	    * Used to be:
+	    * if(!game.makeMove(x, y)){...}
+	    */
+		if (!playMove(x, y))
 	    {
 
 		moveSuccessful = true;
@@ -219,7 +223,7 @@ public class PVEnvironment extends GameController
 		AlertsAndDialogs aad = new AlertsAndDialogs();
 		aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
 	    }
-
+	
 	} catch (IllegalMove e)
 	{
 	    moveSuccessful = false;
