@@ -101,7 +101,20 @@ public abstract class GameController
      * @return 
      * @throws IllegalMove 
      */
-    public static boolean playMove(int x, int y) throws IllegalMove
+   
+    public static void playMove(int x, int y) throws IllegalMove, WinAndLosses
+    {
+    	try
+    	{
+    		game.makeMove(x, y);
+    	} catch (WinAndLosses wnl){
+    		throw wnl;
+    	} catch (IllegalMove e){
+    		throw e;
+    	}
+    }
+    //Previous code
+    /**public static boolean playMove(int x, int y) throws IllegalMove, WinAndLosses
     {
     	boolean isWin = false;
     	try
@@ -113,13 +126,14 @@ public abstract class GameController
     		throw e;
     	}
     	return isWin;
-  
+  	*/
     /*
-     * previous code:
+     * previous-previous code:
      * 
      * return game.makeMove(x, y):
-     */
     }
+    * end of previous code
+	*/
 
     /**
      * call this method to get an ArrayList of type <String> containing all the

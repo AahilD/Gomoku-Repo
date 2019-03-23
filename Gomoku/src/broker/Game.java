@@ -225,8 +225,8 @@ public class Game
 	    		winner = playerTwo;
 	    		loser = playerOne;
 	    	}
-	    	WinAndLosses WnL = new WinAndLosses(winner, loser);
-	    	throw WnL;
+	    	WinAndLosses wnl = new WinAndLosses(winner, loser);
+	    	throw wnl;
 	    	}
 	} catch (IllegalMove e)
 	{

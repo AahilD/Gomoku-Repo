@@ -2,6 +2,7 @@ package controller;
 
 import broker.Game;
 import broker.IllegalMove;
+import broker.WinAndLosses;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
 
@@ -29,6 +30,24 @@ public class PVPlayer extends GameController
     {
 	try
 	{
+		playMove(x, y);
+		MainGUI.updateBoardSquareButton(x, y,
+				game.getTurnPlayer().getPieceColour());
+		MainGUI.updateTurnCount(game.incrementPlayerTurn());
+	} catch (WinAndLosses wnl)
+	{
+		AlertsAndDialogs aad = new AlertsAndDialogs();
+		if (aad.display_newRoundConfirmationAlert(
+				game.getTurnPlayer().getUserName() + " wins!"))
+			{
+			    playAnotherRound();
+		} else
+		{
+			    // TODO @Aahil close the main window and go back to player
+			    // registration.
+		}
+		
+		/* start of Previous code
 	    if (!playMove(x, y))
 	    {
 		MainGUI.updateBoardSquareButton(x, y,
@@ -47,6 +66,9 @@ public class PVPlayer extends GameController
 		    // registration.
 		}
 	    }
+	    * end of previous code
+	    */
+		
 	} catch (IllegalMove e)
 	{
 	    e.printStackTrace();
@@ -54,7 +76,7 @@ public class PVPlayer extends GameController
 	// TODO @Ahil
 	/*
 	 * see the PVE controller as a reference point. won't be exactly the
-	 * same since it is not playing against the environment
+	 * same since it is not playing against thae environment
 	 */
     }
 

@@ -13,6 +13,8 @@ import broker.Square;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
 
+import broker.WinAndLosses;
+
 /**
  * @author GROUP 22
  *
@@ -65,6 +67,23 @@ public class PVEnvironment extends GameController
 	char currentcolour = game.getTurnPlayer().getPieceColour();
 	try
 	{
+		playMove(x, y);
+		MainGUI.updateBoardSquareButton(x, y, currentcolour);
+		MainGUI.updateTurnCount(game.incrementPlayerTurn());
+		addPlayerMoves(x, y);
+		environmentPlayTurn();
+	} catch (WinAndLosses wnl){
+		AlertsAndDialogs aad = new AlertsAndDialogs();
+		if (aad.display_newRoundConfirmationAlert(
+				"You Win, You must have cheated. :("))
+			{
+			    playAnOtherRound();
+			} else
+			{
+			    // TODO go back to player registration screen.
+			}
+		
+		/** start of previous Code
 	    if (!playMove(x, y))
 	    {
 		MainGUI.updateBoardSquareButton(x, y, currentcolour);
@@ -83,13 +102,14 @@ public class PVEnvironment extends GameController
 		    // TODO go back to player registration screen.
 		}
 	    }
+	    * end of previous code
+	    */
 
 	} catch (IllegalMove e)
 	{
 
 	}
     }
-
     /**
      * This private method will determine which method will be executed to play
      * a move based on the level selected. This method acts like a switch board.
@@ -209,10 +229,20 @@ public class PVEnvironment extends GameController
 	boolean moveSuccessful = false;
 	try
 	{
-	   /*
-	    * Used to be:
+		playMove(x, y);
+		moveSuccessful = true;
+		
+	} catch (WinAndLosses wnl) {
+		AlertsAndDialogs aad = new AlertsAndDialogs();
+		aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
+	  
+	/*Start of previous code
+	    * previous-previous code
 	    * if(!game.makeMove(x, y)){...}
+	    * end of previous-previous code
 	    */
+		
+		/*
 		if (!playMove(x, y))
 	    {
 
@@ -223,7 +253,8 @@ public class PVEnvironment extends GameController
 		AlertsAndDialogs aad = new AlertsAndDialogs();
 		aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
 	    }
-	
+	* end of previous code
+	*/
 	} catch (IllegalMove e)
 	{
 	    moveSuccessful = false;
