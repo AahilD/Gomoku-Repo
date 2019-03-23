@@ -26,8 +26,8 @@ public class Game
      * This constructor sets each player, sets turn count to 0, and creates a
      * new board
      * 
-     * @param gotPlayerOne Name of player one
-     * @param gotPlayerTwo Name of player two
+     * @param String gotPlayerOne Name of player one
+     * @param String gotPlayerTwo Name of player two
      */
     public Game(String gotPlayerOne, String gotPlayerTwo)
     {

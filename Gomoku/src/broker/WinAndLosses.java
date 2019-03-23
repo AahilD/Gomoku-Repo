@@ -1,5 +1,11 @@
 package broker;
 
+/**
+ * 
+ * This class acts as an exception that stores who the winning and losing player
+ * are in a single round
+ *
+ */
 public class WinAndLosses extends Exception {
 
 	//Serial Version id
