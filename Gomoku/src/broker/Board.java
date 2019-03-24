@@ -3,16 +3,16 @@ package broker;
 import java.util.ArrayList;
 
 /**
- * @author GROUP 22 Code implemented by Emily Pang This class represents and
- *         Object of Type Board. An instance of this class will contain and
- *         maintain the state of the current game being played.
+ * @author GROUP 22 Code implemented by Emily Pang 
+ * 
+ * 		   This class represents and Object of Type Board. An instance 
+ * 		   of this class will contain and maintain the state of the 
+ * 		   current game being played.
  * 
  */
 
 public class Board
 {
-    // TODO @Steven Javadoc
-
     // Initializes a 2D array for the board //
     private Square[][] board;
 
@@ -25,7 +25,8 @@ public class Board
     final int HEIGHTLENGTH = 19;
 
     /**
-     * Default Constructor to create an empty Board
+     * This is the default constuctor, which creates an empty 19 x 19 board made
+     * from a 2d array
      */
     public Board()
     {
@@ -40,6 +41,8 @@ public class Board
     }
 
     /**
+     * This method returns the board
+     * 
      * @return The array list forming the board.
      */
     public Square[][] getBoard()
@@ -51,8 +54,8 @@ public class Board
      * Checks the horizontals of the board for 5 pieces of the same colour in a
      * row, signifying a win
      * 
-     * @param char pieceColour
-     * @return True if there are five pieces of the same colour in a row
+     * @param char pieceColour	The colour of the piece
+     * @return 					True if there are five pieces of the same colour in a row
      */
     public boolean verifyHorizontal(char pieceColour)
     {
@@ -129,9 +132,9 @@ public class Board
      * Check the verticals in the board to determine if there are 5 pieces in a
      * row, signifying a win
      * 
-     * @param char pieceColour
-     * @return True if there are 5 pieces in a column as a row. Otherwise
-     *         returns false
+     * @param char pieceColour	The Colour of the piece
+     * @return 					True if there are 5 pieces in a column as a row. Otherwise
+     *        					returns false
      */
     public boolean verifyVertical(char pieceColour)
     {
@@ -184,7 +187,7 @@ public class Board
     /**
      * Checks the diagonals of the board for 5 pieces in a row, signifying a win
      * 
-     * @param char pieceColour
+     * @param char pieceColour	The colour of the piece
      * @return True if there are 5 pieces in a diagonal as a row. Otherwise
      *         returns false.
      */
