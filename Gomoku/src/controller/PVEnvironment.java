@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import com.sun.media.jfxmediaimpl.platform.Platform;
@@ -28,6 +29,8 @@ public class PVEnvironment extends GameController
     private static ArrayList<int[]> playerMoveHistory;
     private static int environmentLevel;
     private static String ENVIRONMENT_USERNAME = "Big Blue";
+    private static int count = 0;
+
 
     /**
      * If you are initializing a Player Versus Environment session, call this
@@ -124,10 +127,10 @@ public class PVEnvironment extends GameController
 	{
 		environment_lvl_one();
 	}
-	// if (level == 2)
-	// {
-	// environment_lvl_two();
-	// }
+	if (environmentLevel == 2)
+	{
+	    environment_lvl_two();
+	}
     }
 
     private static void playAnOtherRound()
@@ -171,10 +174,7 @@ public class PVEnvironment extends GameController
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	MainGUI.updateBoardSquareButton(x, y,
-		game.getTurnPlayer().getPieceColour());
-	MainGUI.updateTurnCount(game.incrementPlayerTurn());
-
+	
     }
     
     /**
@@ -223,12 +223,242 @@ public class PVEnvironment extends GameController
 			environment_lvl_zero();
 		}
     }
+    
+    private static void environment_lvl_two() 
+    {
+    	boolean environmentMoveSuccesful = false;
+    	int aiPlayMoveAtx = 0;
+    	int aiPlayMoveAty = 0;
+    	ArrayList <int[]> moves = getPlayerMoves();
+    	int i = moves.size();	    	
+    	
+    	if (!environmentMoveSuccesful) 
+    	{
+    		if (count == 0)
+    		{
+    			int[] x = moves.get(count);
+    			if (!environmentMoveSuccesful) 
+    			{
+    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]+1, x[1]+1);
+        		}
+    			else if (!environmentMoveSuccesful) {
+    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]-1, x[1]+1);
+        		}
+    			else if (!environmentMoveSuccesful) {
+    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]+1, x[1]-1);
+        		}
+    			else if (!environmentMoveSuccesful) {
+    				environmentMoveSuccesful= environmentPlayMoveAt(x[0], x[1]+1);
+        		}
+    			else if (!environmentMoveSuccesful) {
+    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]+1, x[1]);
+        		}
+    			else if (!environmentMoveSuccesful) {
+    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]-1, x[1]);
+        		}
+    			else if (!environmentMoveSuccesful) {
+    				environmentMoveSuccesful= environmentPlayMoveAt(x[0], x[1]-1);
+        		}
+    			else if (!environmentMoveSuccesful) {
+    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]-1, x[1]-1);
+        		}
+    			count++;
+    			
+    		}
+    		
+    		else if (count < i) {
+    			int[] secondLastMove = moves.get(count - 1);
+	    		int[] lastMove = moves.get(count);
+	    		
+	    		// Horizontal Block
+	    		if (secondLastMove[0] == lastMove[0]) 
+	    		{
+	    			if (!environmentMoveSuccesful && (secondLastMove[1] - lastMove[1] == 1 ))
+		    		{
+	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], lastMove[1]+1);
+		    		}
+	    				
+	    			else if (!environmentMoveSuccesful && (secondLastMove[1] - lastMove[1] == -1))
+	    			{
+	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], lastMove[1]+1);
+	    			}
+	    				
+	    			else if (!environmentMoveSuccesful && ((secondLastMove[1] - lastMove[1]) % 2 == 0) 
+	    				&& secondLastMove[1] > lastMove[1]) 
+	    			{
+	    				aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
+	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], aiPlayMoveAty);
+	    			}
+	    			
+	    			else if (!environmentMoveSuccesful && ((lastMove[1] - secondLastMove[1]) % 2 == 0)) 
+	    			{
+	    				aiPlayMoveAty = (lastMove[1] + secondLastMove[1]) / 2;
+	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], aiPlayMoveAty);
+	    			}
+	    			
+	    			else if (!environmentMoveSuccesful && ((secondLastMove[1] - lastMove[1]) % 2 != 0)) 
+	    			{
+	    				aiPlayMoveAty = (secondLastMove[1] + lastMove[1] - 1) / 2;
+	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], aiPlayMoveAty);
+	    			}
+	    		}
+	    		
+	    		
+	    		// Vertical Block
+	    		else if (secondLastMove[1] == lastMove[1])
+	    		{
+	    			if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0] == 1 ))
+		    		{
+	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0]+1, lastMove[1]);
+		    		}
+	    				
+	    			else if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0] == -1))
+	    			{
+	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0]+1, lastMove[1]);
+	    			}
+	    				
+	    			else if (!environmentMoveSuccesful && ((secondLastMove[0] - lastMove[0]) % 2 == 0) 
+	    				&& secondLastMove[0] > lastMove[0]) 
+	    			{
+	    				aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
+	    				environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, lastMove[1]);
+	    			}
+	    			
+	    			else if (!environmentMoveSuccesful && ((lastMove[0] - secondLastMove[0]) % 2 == 0)) 
+	    			{
+	    				aiPlayMoveAtx = (lastMove[0] + secondLastMove[0]) / 2;
+	    				environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, lastMove[1]);
+	    			}
+	    			
+	    			else if (!environmentMoveSuccesful && ((secondLastMove[0] - lastMove[0]) % 2 != 0)) 
+	    			{
+	    				aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] - 1) / 2;
+	    				environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, lastMove[1]);
+	    			}
+	    		}
+	    		
+	    		
+	    		// Diagnal top left - bottom right
+	    		else if (secondLastMove[0] - lastMove[0] == secondLastMove[1] - lastMove[1])
+	    		{
+	    			if (!environmentMoveSuccesful && secondLastMove[0] > lastMove[0])
+	    			{
+	    				if (!environmentMoveSuccesful && secondLastMove[0] - lastMove[0] == 1) 
+	    				{
+	    					environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0] - 1, lastMove[1] - 1);
+	    				}
+	    				
+	    				else if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0]) % 2 == 0 )
+	    				{
+	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
+	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
+	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
+	    				}
+	    				
+	    				else if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0]) % 2 != 0 )
+	    				{
+	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] + 1) / 2;
+	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1] + 1) / 2;
+	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
+	    				}
+	    						    				
+	    			}
+	    			
+	    			
+	    			else if (!environmentMoveSuccesful && secondLastMove[0] < lastMove[0])
+	    			{
+	    				if (!environmentMoveSuccesful && secondLastMove[0] - lastMove[0] == -1)
+	    				{
+	    					environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0] + 1, lastMove[1] + 1);
+	    				}
+	    				
+	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 == 0 )
+	    				{
+	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
+	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
+	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
+	    				}
+	    				
+	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 != 0 )
+	    				{
+	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] + 1) / 2;
+	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1] + 1) / 2;
+	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
+	    				}
+	    				    					
+	    			}
+	    		}
+	    		
+	    		//Diagnal top right - bottom left
+	    		else if (secondLastMove[0] - lastMove[0] != secondLastMove[1] - lastMove[1])
+	    		{
+	    			if (!environmentMoveSuccesful && secondLastMove[0] > lastMove[0])
+	    			{
+	    				if (!environmentMoveSuccesful && secondLastMove[0] - lastMove[0] == 1) 
+	    				{
+	    					environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0] - 1, lastMove[1] + 1);
+	    				}
+	    				
+	    				else if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0]) % 2 == 0 )
+	    				{
+	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
+	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
+	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
+	    				}
+	    				
+	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 != 0 )
+	    				{
+	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] + 1) / 2;
+	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1] - 1) / 2;
+	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
+	    				}
+	    			    								
+	    			}
+	    			
+	    			
+	    			else if (!environmentMoveSuccesful && secondLastMove[0] < lastMove[0])
+	    			{
+	    				
+	    				if (!environmentMoveSuccesful && secondLastMove[0] - lastMove[0] == 1) 
+	    				{
+	    					environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0] + 1, lastMove[1] - 1);
+	    				}
+	    				
+	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 == 0 )
+	    				{
+	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
+	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
+	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
+	    				}
+	    				
+	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 != 0 )
+	    				{
+	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] + 1) / 2;
+	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1] - 1) / 2;
+	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
+	    				}
+	    
+	    			}
+	    		}
+	    		count++;
+    		}    		
+    	}
+    }
+    
+    
+
 
     private static boolean environmentPlayMoveAt(int x, int y)
     {
 	boolean moveSuccessful = false;
 	try
 	{
+		
+		MainGUI.updateBoardSquareButton(x, y,
+				game.getTurnPlayer().getPieceColour());
+			MainGUI.updateTurnCount(game.incrementPlayerTurn());
+
+		
 		playMove(x, y);
 		moveSuccessful = true;
 		

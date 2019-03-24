@@ -6,6 +6,9 @@ import broker.IllegalMove;
 import broker.WinAndLosses;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
+import gui.PlayerRegistration;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 
 public abstract class GameController
@@ -177,5 +180,12 @@ public abstract class GameController
 	}
 	return board;
     }
+    
+    
+    public static void resetGame()
+    {
+    	Platform.exit();
+    }
+    
 
 }

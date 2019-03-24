@@ -5,6 +5,9 @@ import broker.IllegalMove;
 import broker.WinAndLosses;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
+import gui.PlayerRegistration;
+import javafx.application.Application;
+import javafx.application.Platform;
 
 /**
  * @author manu
@@ -43,6 +46,7 @@ public class PVPlayer extends GameController
 			    playAnotherRound();
 		} else
 		{
+			resetGame();
 			    // TODO @Aahil close the main window and go back to player
 			    // registration.
 		}
