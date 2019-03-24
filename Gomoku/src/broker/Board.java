@@ -290,11 +290,11 @@ public class Board
 			counter1=0;
 		}
 		if(counter1==5 && listLeftDiagonal.get(i+1)!=pieceColour) {
-				return true;
+				win=true;
 			}			
 	}
 	
-	return true;
+	return win; 
 	
 	
 	
@@ -308,33 +308,39 @@ public class Board
      */
     public boolean verifyDiagonalRight(char pieceColour)
     {
-	for (int k = 0; k < WIDTHLENGTH * 2; k++)
-	{
-	    int counter1 = 0;
-	    for (int j = 0; j <= k; j++)
-	    {
-		int i = k - j;
-		if (i < WIDTHLENGTH && j < WIDTHLENGTH)
-		{
-		    if (board[i][j].getPlayer() != null && board[i][j]
-			    .getPlayer().getPieceColour() == pieceColour)
-		    {
-			counter1++;
-			if ((counter1 == 5
-				&& board[i - 1][j + 1].getPlayer() != null)
-				&& board[i - 1][j + 1].getPlayer()
-					.getPieceColour() != pieceColour)
-			{
-			    return false; 
-			}
-		    } else
-		    {
-			counter1 = 0;
-		    }
-		}
-	    }
-	}
-	return false;
+    	boolean win=false;
+    	ArrayList<Character> listLeftDiagonal = new ArrayList<Character>();
+    	for( int k = 0 ; k < WIDTHLENGTH * 2 ; k++ ) {
+            for( int j = 0 ; j <= k ; j++ ) {
+                int i = k - j;
+                if( i < WIDTHLENGTH && j < WIDTHLENGTH ) {
+                	if(board[i][j].getPlayer()!=null){
+                		listLeftDiagonal.add(board[i][j].getPlayer().getPieceColour());
+                	}
+                	else {
+                		listLeftDiagonal.add('#');
+                	}
+                }
+            }
+            listLeftDiagonal.add('*');
+        }
+    	
+    	
+    	int counter1=0;
+    	for(int i=0; i<399; i++) {
+    		if(listLeftDiagonal.get(i)==pieceColour) {
+    			counter1++;
+    			
+    		}
+    		else {
+    			counter1=0;
+    		}
+    		if(counter1==5 && listLeftDiagonal.get(i+1)!=pieceColour) {
+    				win=true;
+    			}			
+    	}
+    	
+    	return win;
     }
 
     /**

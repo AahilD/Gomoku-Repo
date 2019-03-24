@@ -508,7 +508,7 @@ public class TestWinConditions
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should have detected a win.";
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 	
 	assertTrue(message, condition);
     }
@@ -529,7 +529,7 @@ public class TestWinConditions
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should have detected a win.";
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 	
 	assertTrue(message, condition);
     }
@@ -550,7 +550,7 @@ public class TestWinConditions
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should have detected a win.";
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 	
 	assertTrue(message, condition);
     }
@@ -571,7 +571,7 @@ public class TestWinConditions
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should have detected a win.";
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 	
 	assertTrue(message, condition);
     }
@@ -593,7 +593,7 @@ public class TestWinConditions
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should NOT have detected a win with more than 5 in a row.";
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 	
 	assertFalse(message, condition);
     }
@@ -613,7 +613,7 @@ public class TestWinConditions
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should NOT have detected a win with less than 5 in a row.";
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 	
 	assertFalse(message, condition);
     }
@@ -635,7 +635,7 @@ public class TestWinConditions
 	addPiecesToBoard(p1, coorList);
 	
 	String message = "Verrify Diagonal left should NOT have detected a win with 5 pieces seperated by an empty space.";
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 	
 	assertFalse(message, condition);
     }
@@ -661,7 +661,7 @@ public class TestWinConditions
 	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
 	assertFalse(message, condition);
 	// p2
-	condition = board.verifyDiagonalLeft(p2.getPieceColour());
+	condition = board.verifyDiagonalRight(p2.getPieceColour());
 	assertFalse(message, condition);
     }
 }
