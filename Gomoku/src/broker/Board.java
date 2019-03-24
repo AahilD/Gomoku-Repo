@@ -294,7 +294,7 @@ public class Board
 			}			
 	}
 	
-	return win;
+	return true;
 	
 	
 	
@@ -325,7 +325,7 @@ public class Board
 				&& board[i - 1][j + 1].getPlayer()
 					.getPieceColour() != pieceColour)
 			{
-			    return true; 
+			    return false; 
 			}
 		    } else
 		    {
