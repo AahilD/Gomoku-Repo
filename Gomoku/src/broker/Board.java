@@ -1,5 +1,7 @@
 package broker;
 
+import java.util.ArrayList;
+
 /**
  * @author GROUP 22 Code implemented by Emily Pang This class represents and
  *         Object of Type Board. An instance of this class will contain and
@@ -209,7 +211,9 @@ public class Board
 	 * What ever you do for this method carry over the same logic into
 	 * diagonal right I did not do anything for that method
 	 */
-	int counter = 0;
+	
+	
+	/*int counter = 0;
 	for (int col = WIDTHLENGTH - 1; col >= 0; col--)
 	{
 	    int maxContiguousCount = 0;
@@ -254,17 +258,43 @@ public class Board
 	}
 
 	return win;
+	*/
 
-	/*
-	 * Emily's Original code Do not delete for (int n = -WIDTHLENGTH; n <=
-	 * WIDTHLENGTH; n++) { int counter2 = 0; for (int i = 0; i <
-	 * WIDTHLENGTH; i++) { if ((i - n >= 0) && (i - n < WIDTHLENGTH)) { if
-	 * (board[i][i - n].getPlayer() != null && board[i][i - n]
-	 * .getPlayer().getPieceColour() == pieceColour) { counter2++; if
-	 * ((counter2 == 5 && board[i + 1][i - n + 1].getPlayer() != null) &&
-	 * board[i + 1][i - n + 1].getPlayer() .getPieceColour() != pieceColour)
-	 * { return true; } } else { counter2 = 0; } } } } return false;
-	 */
+	ArrayList<Character> listLeftDiagonal = new ArrayList<Character>();
+	for( int k = 0 ; k < WIDTHLENGTH * 2 ; k++ ) {
+        for( int j = 0 ; j <= k ; j++ ) {
+            int i = k - j;
+            if( i < WIDTHLENGTH && j < WIDTHLENGTH ) {
+            	if(board[i][j].getPlayer()!=null){
+            		listLeftDiagonal.add(board[i][j].getPlayer().getPieceColour());
+            	}
+            	else {
+            		listLeftDiagonal.add('#');
+            	}
+            }
+        }
+        listLeftDiagonal.add('*');
+    }
+	
+	
+	int counter1=0;
+	for(int i=0; i<399; i++) {
+		if(listLeftDiagonal.get(i)==pieceColour) {
+			counter1++;
+			
+		}
+		else {
+			counter1=0;
+		}
+		if(counter1==5 && listLeftDiagonal.get(i+1)!=pieceColour) {
+				return true;
+			}			
+	}
+	
+	return win;
+	
+	
+	
     }
 
     /**
