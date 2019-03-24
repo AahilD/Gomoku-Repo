@@ -193,102 +193,32 @@ public class Board
      */
     public boolean verifyDiagonalLeft(char pieceColour)
     {
-	boolean win = false;
-
-	// TODO Emily
-	/*
-	 * This one has an additional bug
-	 * 
-	 * on the corners (the first diagonal that has only 5 squares that cuts
-	 * the accross the corner), the for loop is unable to check the next
-	 * square, since there is no next square. therefore even if counter
-	 * reaches == 5, the conditional statements that identify 5 pieces in
-	 * row (no more no less) are being bypassed as a result.
-	 * 
-	 * you will need to find a way to set win to true if any of those
-	 * corners have 5 in a row (2 corners in each diagonal for this one the
-	 * coordinates are [0][14], [1][15], [2][16], [3][17], [4][18] the
-	 * coordinates for the other corner are the same, just flip x and y
-	 * around.
-	 * 
-	 * What ever you do for this method carry over the same logic into
-	 * diagonal right I did not do anything for that method
-	 */
-	
-	
-	/*int counter = 0;
-	for (int col = WIDTHLENGTH - 1; col >= 0; col--)
-	{
-	    int maxContiguousCount = 0;
-	    
-	    // copy col to col1 so we can increment it without messing up the
-	    // forloop
-	    int col1 = col;
-
-	    // possible fix to second bug
-	    if (counter == 5)
-	    {
-		win = true;
-	    }
-	    counter = 0;
-	    for (int row = 0; row < HEIGHTLENGTH && col1 < WIDTHLENGTH; row++)
-	    {
-
-		if (getBoard()[row][col1].getPlayer() == null)
-		{
-		    if (maxContiguousCount < counter)
-		    {
-			maxContiguousCount = counter;
-		    }
-
-		    counter = 0;
-		} else if (getBoard()[row][col1].getPlayer()
-			.getPieceColour() == pieceColour)
-		{
-		    counter++;
-		} else
-		{
-		    counter = 0;
-		}
-
-		col1++;
-	    }
-
-	    if (maxContiguousCount == 5)
-	    {
-		win = true;
-	    }
-	}
-
-	return win;
-	*/
-	
-	
-	ArrayList<Character> listRightDiagonal= new ArrayList<Character>();
+	boolean win = false;	
+	ArrayList<Character> listLeftDiagonal= new ArrayList<Character>();
     for (int n = -WIDTHLENGTH; n <= HEIGHTLENGTH; n++) {
         for(int i = 0; i < WIDTHLENGTH; i++){
             if((i-n>=0)&&(i-n<HEIGHTLENGTH)){
                 if(board[i][i-n].getPlayer()!=null) {
-                	listRightDiagonal.add(board[i][i-n].getPlayer().getPieceColour());
+                	listLeftDiagonal.add(board[i][i-n].getPlayer().getPieceColour());
                 }
                 else {
-                	listRightDiagonal.add('#');
+                	listLeftDiagonal.add('#');
                 }
             	
             }
         }
-        listRightDiagonal.add('*');
+        listLeftDiagonal.add('*');
     }
     
     int counter2=0;
-	for(int i=0; i<400; i++) {
-		if(listRightDiagonal.get(i)==pieceColour) {
+	for(int i=0; i<(WIDTHLENGTH*HEIGHTLENGTH)+(WIDTHLENGTH*2); i++) {
+		if(listLeftDiagonal.get(i)==pieceColour) {
 			counter2++;	
 		}
 		else {
 			counter2=0;
 		}
-		if(counter2==5 && listRightDiagonal.get(i+1)!=pieceColour) {
+		if(counter2==5 && listLeftDiagonal.get(i+1)!=pieceColour) {
 				win=true;
 			}			
 	}
@@ -308,33 +238,33 @@ public class Board
     public boolean verifyDiagonalRight(char pieceColour)
     {
     	boolean win=false;
-    	ArrayList<Character> listLeftDiagonal = new ArrayList<Character>();
+    	ArrayList<Character> listRightDiagonal = new ArrayList<Character>();
     	for( int k = 0 ; k < WIDTHLENGTH * 2 ; k++ ) {
             for( int j = 0 ; j <= k ; j++ ) {
                 int i = k - j;
                 if( i < WIDTHLENGTH && j < WIDTHLENGTH ) {
                 	if(board[i][j].getPlayer()!=null){
-                		listLeftDiagonal.add(board[i][j].getPlayer().getPieceColour());
+                		listRightDiagonal.add(board[i][j].getPlayer().getPieceColour());
                 	}
                 	else {
-                		listLeftDiagonal.add('#');
+                		listRightDiagonal.add('#');
                 	}
                 }
             }
-            listLeftDiagonal.add('*');
+            listRightDiagonal.add('*');
         }
     	
     	
     	int counter1=0;
-    	for(int i=0; i<399; i++) {
-    		if(listLeftDiagonal.get(i)==pieceColour) {
+    	for(int i=0; i<(WIDTHLENGTH*HEIGHTLENGTH)+(WIDTHLENGTH*2); i++) {
+    		if(listRightDiagonal.get(i)==pieceColour) {
     			counter1++;
     			
     		}
     		else {
     			counter1=0;
     		}
-    		if(counter1==5 && listLeftDiagonal.get(i+1)!=pieceColour) {
+    		if(counter1==5 && listRightDiagonal.get(i+1)!=pieceColour) {
     				win=true;
     			}			
     	}
