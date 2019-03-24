@@ -262,38 +262,37 @@ public class Board
 
 	return win;
 	*/
-
-	ArrayList<Character> listLeftDiagonal = new ArrayList<Character>();
-	for( int k = 0 ; k < WIDTHLENGTH * 2 ; k++ ) {
-        for( int j = 0 ; j <= k ; j++ ) {
-            int i = k - j;
-            if( i < WIDTHLENGTH && j < WIDTHLENGTH ) {
-            	if(board[i][j].getPlayer()!=null){
-            		listLeftDiagonal.add(board[i][j].getPlayer().getPieceColour());
-            	}
-            	else {
-            		listLeftDiagonal.add('#');
-            	}
+	
+	
+	ArrayList<Character> listRightDiagonal= new ArrayList<Character>();
+    for (int n = -WIDTHLENGTH; n <= HEIGHTLENGTH; n++) {
+        for(int i = 0; i < WIDTHLENGTH; i++){
+            if((i-n>=0)&&(i-n<HEIGHTLENGTH)){
+                if(board[i][i-n].getPlayer()!=null) {
+                	listRightDiagonal.add(board[i][i-n].getPlayer().getPieceColour());
+                }
+                else {
+                	listRightDiagonal.add('#');
+                }
+            	
             }
         }
-        listLeftDiagonal.add('*');
+        listRightDiagonal.add('*');
     }
-	
-	
-	int counter1=0;
-	for(int i=0; i<399; i++) {
-		if(listLeftDiagonal.get(i)==pieceColour) {
-			counter1++;
-			
+    
+    int counter2=0;
+	for(int i=0; i<400; i++) {
+		if(listRightDiagonal.get(i)==pieceColour) {
+			counter2++;	
 		}
 		else {
-			counter1=0;
+			counter2=0;
 		}
-		if(counter1==5 && listLeftDiagonal.get(i+1)!=pieceColour) {
+		if(counter2==5 && listRightDiagonal.get(i+1)!=pieceColour) {
 				win=true;
 			}			
 	}
-	
+
 	return win; 
 	
 	
