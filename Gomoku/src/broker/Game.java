@@ -177,59 +177,47 @@ public class Game
      * @throws IllegalMove and WinAndLosses
      * 
      */
-    public void makeMove(int x, int y) throws IllegalMove , WinAndLosses
+    public void makeMove(int x, int y) throws IllegalMove, WinAndLosses
     {
-
-	// TODO @Steven when you get a chance
-	/*
-	 * COMPLETED - NEED REVIEW @Anyone:
-	 * make this method return nothing (void instead of boolean) in the
-	 * if-statement that determines if the move played is the winning move
-	 * throw new Excption object (you can call it what ever you want). Have
-	 * this exception object store the winning player and loosing player.
-	 * simply have a constructor that will save the instance of each object.
-	 * don't forget getters and setters.
-	 * 
-	 * now once you do this other classes will report errors (bassically you
-	 * broke the code) you can either commit and push the code with them, or
-	 * if you have time adjust the rest of the code to match the new
-	 * implementation of the exception (I'd rather you do the latter option
-	 * if you have time. If not make sure you let me know asap so I, or
-	 * someone else can fix it)
-	 * 
-	 * 
-	 */
-
-	/*
-	 * Tries to assign a player to the desired square, but if another player
-	 * already occupies that square, throws IllegalMove (Incorrect description @Steve)
-	 */
 	try
 	{
+	    // try to play the move the player requested
 	    currentBoard.getBoard()[x][y].setPlayer(getTurnPlayer());
+
+	    // verify if this move was the wining move by invoking gameOver
+	    // method.
 	    if (currentBoard.gameOver(getTurnPlayer().getPieceColour()))
-	    	{
-	    	Player winner = null;
-	    	Player loser = null;
-	    	if (getTurnPlayer().getPieceColour() == playerOne
-	    			.getPieceColour())
-	    	{
-	    		playerOne.incrementWinCount();
-	    		playerTwo.incrementLoseCount();
-	    		winner = playerOne;
-	    		loser = playerTwo;
-	    	} else
-	    	{
-	    		playerTwo.incrementWinCount();
-	    		playerOne.incrementLoseCount();
-	    		winner = playerTwo;
-	    		loser = playerOne;
-	    	}
-	    	WinAndLosses wnl = new WinAndLosses(winner, loser);
-	    	throw wnl;
-	    	}
+	    {
+		// variable to store the winning player
+		Player winner = null;
+		// variable to store the losing player
+		Player loser = null;
+
+		// if winner is player one
+		if (getTurnPlayer().getPieceColour() == playerOne
+			.getPieceColour())
+		{
+		    // Adjust wincount lose count etc
+		    playerOne.incrementWinCount();
+		    playerTwo.incrementLoseCount();
+		    // store the players into their respective variables
+		    winner = playerOne;
+		    loser = playerTwo;
+		} else
+		{
+		    // adjust wincount etc
+		    playerTwo.incrementWinCount();
+		    playerOne.incrementLoseCount();
+		    // store the players into their respective variables
+		    winner = playerTwo;
+		    loser = playerOne;
+		}
+		// throw the win/loss exception with the respective winner and loser
+		throw new WinAndLosses(winner, loser);
+	    }
 	} catch (IllegalMove e)
 	{
+	    // if move was invalid throw the illegal move exception
 	    throw e;
 	}
     }

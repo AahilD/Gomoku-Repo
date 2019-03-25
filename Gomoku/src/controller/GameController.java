@@ -33,8 +33,8 @@ public abstract class GameController
     {
 	setRoundCount(0);
 	game = new Game(player1name, player2name);
-	MainGUI.initMainWindow(setupGameBoard(), setupPlayerStats(),
-		roundCount, game.getTurnCount(), isPVE);
+	MainGUI.initMainWindow(setupGameBoard(), setupPlayerStats(), roundCount,
+		game.getTurnCount(), isPVE);
     }
 
     /**
@@ -85,8 +85,8 @@ public abstract class GameController
     }
 
     /**
-     * Call this method to increment the value for round count by +1, instead of using
-     * the setter method every time.
+     * Call this method to increment the value for round count by +1, instead of
+     * using the setter method every time.
      */
     public static void incrementRoundCount()
     {
@@ -101,42 +101,35 @@ public abstract class GameController
      *          of the square on the board.
      * @param y is a variable of type int that represents the column (y
      *          coordinate) of the square on the board.
-     * @return 
-     * @throws IllegalMove 
+     * @return
+     * @throws IllegalMove
      */
-   
+
     public static void playMove(int x, int y) throws IllegalMove, WinAndLosses
     {
-    	try
-    	{
-    		game.makeMove(x, y);
-    	} catch (WinAndLosses wnl){
-    		throw wnl;
-    	} catch (IllegalMove e){
-    		throw e;
-    	}
+	try
+	{
+	    game.makeMove(x, y);
+	} catch (WinAndLosses wnl)
+	{
+	    throw wnl;
+	} catch (IllegalMove e)
+	{
+	    throw e;
+	}
     }
-    //Previous code
-    /**public static boolean playMove(int x, int y) throws IllegalMove, WinAndLosses
-    {
-    	boolean isWin = false;
-    	try
-    	{
-    		game.makeMove(x, y);
-    	} catch (WinAndLosses WnL){
-    		isWin = true;
-    	} catch (IllegalMove e){
-    		throw e;
-    	}
-    	return isWin;
-  	*/
+    // Previous code
+    /**
+     * public static boolean playMove(int x, int y) throws IllegalMove,
+     * WinAndLosses { boolean isWin = false; try { game.makeMove(x, y); } catch
+     * (WinAndLosses WnL){ isWin = true; } catch (IllegalMove e){ throw e; }
+     * return isWin;
+     */
     /*
      * previous-previous code:
      * 
-     * return game.makeMove(x, y):
-    }
-    * end of previous code
-	*/
+     * return game.makeMove(x, y): } end of previous code
+     */
 
     /**
      * call this method to get an ArrayList of type <String> containing all the
@@ -180,12 +173,14 @@ public abstract class GameController
 	}
 	return board;
     }
-    
-    
+
+    /**
+     * Call this method to reset the board once the user(s) have confirmed to
+     * play an other round
+     */
     public static void resetGame()
     {
-    	Platform.exit();
+	Platform.exit();
     }
-    
 
 }
