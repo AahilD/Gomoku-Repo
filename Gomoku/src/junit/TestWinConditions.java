@@ -658,7 +658,7 @@ public class TestWinConditions
 	String message = "Verrify Diagonal left should NOT have detected a win with 5 pieces in a row of different colour.";
 	
 	// p1
-	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	boolean condition = board.verifyDiagonalRight(p1.getPieceColour());
 	assertFalse(message, condition);
 	// p2
 	condition = board.verifyDiagonalRight(p2.getPieceColour());
