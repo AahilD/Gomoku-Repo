@@ -13,7 +13,7 @@ import broker.IllegalMove;
 import broker.Square;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
-
+import javafx.stage.Stage;
 import broker.WinAndLosses;
 
 /**
@@ -84,13 +84,12 @@ public class PVEnvironment extends GameController
 	} catch (WinAndLosses wnl)
 	{
 	    AlertsAndDialogs aad = new AlertsAndDialogs();
-	    if (aad.display_newRoundConfirmationAlert(
-		    "You Win, You must have cheated. :("))
+	    if (aad.display_newRoundConfirmationAlert(wnl.toString()))
 	    {
 		playAnOtherRound();
 	    } else
 	    {
-		// TODO go back to player registration screen.
+		MainGUI.returnToPlayerRegistration();
 	    }
 	} catch (IllegalMove e)
 	{
@@ -140,9 +139,12 @@ public class PVEnvironment extends GameController
     private static void environment_lvl_zero()
     {
 	Random rand = new Random();
+	
 	int x = -1;
 	int y = -1;
+	
 	boolean environmentMoveSuccesful = false;
+	
 	do
 	{
 	    x = rand.nextInt(19);
@@ -150,16 +152,6 @@ public class PVEnvironment extends GameController
 	    environmentMoveSuccesful = environmentPlayMoveAt(x, y);
 
 	} while (!environmentMoveSuccesful);
-
-	try
-	{
-	    Thread.sleep(1000);
-	} catch (InterruptedException e)
-	{
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
-
     }
 
     /**
@@ -524,15 +516,18 @@ public class PVEnvironment extends GameController
 		    game.getTurnPlayer().getPieceColour());
 	    MainGUI.updateTurnCount(game.incrementPlayerTurn());
 	    
-	    
-
 	} catch (WinAndLosses wnl)
 	{
 	    AlertsAndDialogs aad = new AlertsAndDialogs();
-	    aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
+	    
+	    if(aad.display_newRoundConfirmationAlert(wnl.toString()))
+	    {
+		playAnOtherRound();
+	    }
+	    
 	} catch (IllegalMove e)
 	{
-	    moveSuccessful = false;
+	    //do nothing here the environment will keep trying till moveSuccessful == true
 	}
 
 	return moveSuccessful;

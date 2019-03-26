@@ -487,6 +487,13 @@ public class MainGUI implements GUICommons
 	return grid;
     }
 
+    public static void returnToPlayerRegistration()
+    {
+	Platform.exit();
+	System.exit(0);
+	PlayerRegistration.launch("");
+    }
+    
     /**
      * Call this method privately to update the text in the label that contains
      * the turn count. The controller should use the update method instead.

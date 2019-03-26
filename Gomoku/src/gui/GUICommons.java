@@ -1,17 +1,24 @@
 package gui;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.stage.Screen;
 
 public interface GUICommons
 {
     static final String TITLE_BAR_NAME = "GROUP22";
-    
+
     // CSS CLASSNAMES
     static final String HEADER_CLASS = "title-head";
     static final String BOTTOM_PANE_CLASSNAME = "bottom-pane";
@@ -33,7 +40,6 @@ public interface GUICommons
     static final String PLAYER_STATS_HEADER_VALUE = "Player Panel Board";
     static final String ROUND_COUNT_LABEL = "Rounds: ";
     static final String TURN_COUNT_LABEL = "Turns: ";
-    
 
     /**
      * @param header
@@ -48,13 +54,15 @@ public interface GUICommons
 	gametitle.setMaxWidth(Double.MAX_VALUE);
 	return gametitle;
     }
-    
+
     public static void applyCSS(Scene scene, String filename)
     {
 	File f = new File("res/css/" + filename);
 	try
 	{
-	    scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+	    scene.getStylesheets()
+		    .add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+
 	} catch (Exception e)
 	{
 	    System.out.println("Could not load css file.");

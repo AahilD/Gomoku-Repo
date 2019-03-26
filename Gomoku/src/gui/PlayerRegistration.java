@@ -1,9 +1,6 @@
 package gui;
 
-import java.io.File;
 import java.util.ArrayList;
-
-import com.sun.glass.ui.Screen;
 
 import controller.PVEnvironment;
 import controller.PVPlayer;
@@ -12,8 +9,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,6 +19,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 // TODO @Aahil finish fixing the styling for Player Registration
@@ -43,19 +39,24 @@ import javafx.stage.Stage;
 public class PlayerRegistration extends Application implements GUICommons
 {
     // WINDOW DIMENTIONS
-    private static double WIDTH = Screen.getMainScreen().getWidth()
-	    - (Screen.getMainScreen().getWidth()) / 2;
-    private static double HEIGHT = Screen.getMainScreen().getHeight()
-	    - (Screen.getMainScreen().getHeight()) / 5;
+    private static double WIDTH = Screen.getPrimary().getBounds().getWidth()
+	    / 3;
+    private static double HEIGHT = Screen.getPrimary().getBounds().getHeight()
+	    / 2;
 
     // MAIN BORDERPANE
     private BorderPane mainBorderPane = new BorderPane();
-    
+
     // BUTTONS
     private Button startGame = new Button(START_GAME_BUTTON_TEXT_VALUE);
-    
-    // Strings
+    private HBox actionButtonContainer = new HBox();
+
+    // CSS FILE NAME
     private static final String CUSTOM_CSS_FILENAME = "player-registration.css";
+    // CSS CLASSNAMES
+    private static final String ACTION_BUTTON_CONTAINER_CSS_CLASSNAME = "action-button-hbox";
+    private static final String PLAYER_REGISTRATION_FORM_GRIDPANE_CSS_CLASSNAME = "registration-form-gridpane";
+
     private static final String USERNAME_TEXTINPUT_PLACEHOLDER_VALUE = "Enter username: ";
     private static final String START_GAME_BUTTON_TEXT_VALUE = "Start Game";
     private static final String PLAYER_REGISTRATION_HEADER_TEXT_VALUE = "Player Registration";
@@ -66,8 +67,10 @@ public class PlayerRegistration extends Application implements GUICommons
     // as you add levels include them in this array
     private static final int[] LEVEL = { 0, 1, 2 };
 
-    // labels
+    // Player Registration form grid pane
+    private static GridPane regForm_gridPane = new GridPane();
 
+    // labels
     private static final Label ENTER_UNAME_LABEL1 = new Label(
 	    USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
     private static final Label ENTER_UNAME_LABEL2 = new Label(
@@ -114,16 +117,19 @@ public class PlayerRegistration extends Application implements GUICommons
     {
 	//
 	Scene scene = new Scene(stageGUI());
-	// primaryStage.minWidthProperty().bind(scene.widthProperty());
-//		primaryStage.minHeightProperty().bind(scene.heightProperty());
-	primaryStage.setMinHeight(HEIGHT);
-	primaryStage.setMinWidth(WIDTH);
+//	scene.widthProperty().add(WIDTH);
+//	scene.heightProperty().add(HEIGHT);
+//	primaryStage.setMinWidth(WIDTH);
+//	primaryStage.setMinHeight(HEIGHT);
 	primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 	primaryStage.setScene(scene);
 	primaryStage.show();
-	
+
 	GUICommons.applyCSS(scene, CUSTOM_CSS_FILENAME);
 	addCSSclassNameToNodes();
+
+	primaryStage.setMinWidth(WIDTH);
+	primaryStage.setMinHeight(HEIGHT);
     }
 
     /**
@@ -140,10 +146,12 @@ public class PlayerRegistration extends Application implements GUICommons
 	mainBorderPane.setTop(
 		GUICommons.windowHeader(PLAYER_REGISTRATION_HEADER_TEXT_VALUE));
 	// CENTER: Transaction form
-	mainBorderPane.setCenter(setupPlayerInfoForm());
-	
+	setupPlayerInfoForm();
+	mainBorderPane.setCenter(regForm_gridPane);
+
 	// BOTTOM: start game button
-	mainBorderPane.setBottom(startGameButton());
+	setupActionBar();
+	mainBorderPane.setBottom(actionButtonContainer);
 
 	// LEFT: Nothing
 	// RIGHT: Nothing
@@ -157,10 +165,9 @@ public class PlayerRegistration extends Application implements GUICommons
      * 
      * @return Node of HBox containing the button to start the game.
      */
-    private Node startGameButton()
+    private void setupActionBar()
     {
-	
-	
+
 	startGame.setOnAction(new EventHandler<ActionEvent>()
 	{
 
@@ -190,9 +197,8 @@ public class PlayerRegistration extends Application implements GUICommons
 
 	    }
 	});
-	HBox box = new HBox(startGame);
-	
-	return box;
+
+	actionButtonContainer.getChildren().add(startGame);
     }
 
     /**
@@ -202,10 +208,10 @@ public class PlayerRegistration extends Application implements GUICommons
      * 
      * @return Node of type GridPane containing user registration form
      */
-    private Node setupPlayerInfoForm()
+    private void setupPlayerInfoForm()
     {
 	init_opponentMode();
-	
+
 	// add radioButtons to hbox
 	HBox opponentModeModeHbox = new HBox();
 	opponentModeModeHbox.getChildren().addAll(playerVplayerRB,
@@ -218,36 +224,25 @@ public class PlayerRegistration extends Application implements GUICommons
 	levelSelectionHbox.getChildren().add(LEVEL_SELECTION_LABEL);
 	levelSelectionHbox.getChildren().addAll(levelOptions_rbList);
 
-	// add css to nodes
-	opponentModeModeHbox.setMaxWidth(Double.MAX_VALUE);
-	opponentModeModeHbox.setAlignment(Pos.CENTER);
-
-	// create GridPane
-	GridPane form = new GridPane();
-
 	// add all nodes to grid pane
 
 	GridPane.setColumnSpan(opponentModeModeHbox, 2); // span both col
 	GridPane.setRowIndex(opponentModeModeHbox, 0);// row 0
 	GridPane.setColumnSpan(levelSelectionHbox, 2); // span both col
-	GridPane.setRowIndex(levelSelectionHbox, 1); // row 1
-	GridPane.setConstraints(ENTER_UNAME_LABEL1, 0, 2); // col=0 row 2
-	GridPane.setConstraints(PLAYER_ONE_USERNAME, 1, 2); // col=1 row 2
-	GridPane.setConstraints(ENTER_UNAME_LABEL2, 0, 3); // col=0 row 3
-	GridPane.setConstraints(PLAYER_TWO_USERNAME, 1, 3); // col=1 row 3
+	GridPane.setRowIndex(levelSelectionHbox, 3); // row 1
+	GridPane.setConstraints(ENTER_UNAME_LABEL1, 0, 1); // col=0 row 2
+	GridPane.setConstraints(PLAYER_ONE_USERNAME, 1, 1); // col=1 row 2
+	GridPane.setConstraints(ENTER_UNAME_LABEL2, 0, 2); // col=0 row 3
+	GridPane.setConstraints(PLAYER_TWO_USERNAME, 1, 2); // col=1 row 3
 
 	// add children nodes
-	form.getChildren().addAll(opponentModeModeHbox, levelSelectionHbox,
-		ENTER_UNAME_LABEL1, PLAYER_ONE_USERNAME, ENTER_UNAME_LABEL2,
-		PLAYER_TWO_USERNAME);
+	regForm_gridPane.getChildren().addAll(opponentModeModeHbox,
+		levelSelectionHbox, ENTER_UNAME_LABEL1, PLAYER_ONE_USERNAME,
+		ENTER_UNAME_LABEL2, PLAYER_TWO_USERNAME);
 
 	// Style grid pane
-	form.setHgap(10);
-	form.setVgap(10);
 
 	opponentMode.selectedToggleProperty().addListener(getToggleListener());
-
-	return form;
     }
 
     private void init_opponentMode()
@@ -258,10 +253,11 @@ public class PlayerRegistration extends Application implements GUICommons
 
 	// RB 1: PvP
 	playerVplayerRB.setToggleGroup(opponentMode); // add to toggle group
-	
+
 	// RB 2: PvE
-	playerVEnvironmentRB.setToggleGroup(opponentMode); // add to toggle group
-	
+	playerVEnvironmentRB.setToggleGroup(opponentMode); // add to toggle
+							   // group
+
 	// default selection
 	playerVplayerRB.setSelected(true);
     }
@@ -277,29 +273,32 @@ public class PlayerRegistration extends Application implements GUICommons
 	    {
 		RadioButton modeRb = (RadioButton) opponentMode
 			.getSelectedToggle();
-
-		// TODO EMMANUEL IMPROVE THIS CODE
-
+		
 		// if the user selected single player mode than hide
 		// the option to enter the player 2 user name
 		if (modeRb.getText().equals(PVENVIRONMENT_LABEL_TEXT_VALUE))
 		{
+		    // single player mode (toggle dissable properties)
 		    ENTER_UNAME_LABEL2.setDisable(true);
 		    PLAYER_TWO_USERNAME.setDisable(true);
+		    PLAYER_TWO_USERNAME.setText("Big Blue");
+		    ENTER_UNAME_LABEL2.setText("Computer: ");
 
+		    LEVEL_SELECTION_LABEL.setDisable(false);
 		    for (RadioButton lvlRb : levelOptions_rbList)
-		    {
 			lvlRb.setDisable(false);
-		    }
+
 		} else if (modeRb.getText()
 			.contentEquals(PVPLAYER_LABEL_TEXT_VALUE))
 		{
+		    // 2 payer mode toggle disable properties
 		    ENTER_UNAME_LABEL2.setDisable(false);
 		    PLAYER_TWO_USERNAME.setDisable(false);
+		    PLAYER_TWO_USERNAME.setText("Player 2");
+		    ENTER_UNAME_LABEL2.setText(USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
+		    
 		    for (RadioButton lvlRb : levelOptions_rbList)
-		    {
 			lvlRb.setDisable(true);
-		    }
 		}
 	    }
 	};
@@ -309,7 +308,7 @@ public class PlayerRegistration extends Application implements GUICommons
     {
 	levelOptions_rbList = new ArrayList<RadioButton>();
 	levelSelector = new ToggleGroup();
-	
+
 	for (int i = 0; i < LEVEL.length; i++)
 	{
 	    RadioButton rb = new RadioButton(String.valueOf(LEVEL[i]).trim());
@@ -319,13 +318,11 @@ public class PlayerRegistration extends Application implements GUICommons
 		rb.setSelected(true);
 
 	    rb.setDisable(true);
-	    
+
 	    levelOptions_rbList.get(i).setToggleGroup(levelSelector);
 	}
     }
-    
-    
-    
+
     /**
      * Call this method to add all the css class names to all the nodes
      */
@@ -333,12 +330,17 @@ public class PlayerRegistration extends Application implements GUICommons
     {
 	mainBorderPane.getCenter().getStyleClass().add(PR_FORMGRID_CLASSNAME);
 	startGame.getStyleClass().add(BUTTON_CSS_CLASSNAME);
+	actionButtonContainer.getStyleClass()
+		.add(ACTION_BUTTON_CONTAINER_CSS_CLASSNAME);
 	playerVplayerRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
 	playerVEnvironmentRB.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME);
 	ENTER_UNAME_LABEL1.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
 	ENTER_UNAME_LABEL2.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
 	LEVEL_SELECTION_LABEL.getStyleClass().add(FORM_LABEL_CSS_CLASSNAME);
-	levelOptions_rbList.forEach(rb -> rb.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME));
+	levelOptions_rbList.forEach(
+		rb -> rb.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME));
+	regForm_gridPane.getStyleClass()
+		.add(PLAYER_REGISTRATION_FORM_GRIDPANE_CSS_CLASSNAME);
     }
 
 }
