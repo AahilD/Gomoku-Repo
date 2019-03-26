@@ -42,7 +42,7 @@ public class MainGUI implements GUICommons
     private final static double HEIGHT = Screen.getMainScreen().getHeight();
 
     // CSS FILEPATH
-    private final static String CUSTOM_CSS_FILENAME = "css/gomoku.css";
+    private final static String CUSTOM_CSS_FILENAME = "gomoku.css";
 
     // Physical GUI properties
     private static BorderPane mainWindow = new BorderPane();
@@ -94,11 +94,9 @@ public class MainGUI implements GUICommons
 	primaryStage.setFullScreen(true);
 	primaryStage.setScene(scene);
 	primaryStage.show();
-
-	// LOAD CUSTOM CSS STYLE SHEET
-	scene.getStylesheets().add(MainGUI.class
-		.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
-
+	
+	//ApplyCSS
+	GUICommons.applyCSS(scene, CUSTOM_CSS_FILENAME);
     }
 
     /**

@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.sun.glass.ui.Screen;
@@ -54,6 +55,7 @@ public class PlayerRegistration extends Application implements GUICommons
     private Button startGame = new Button(START_GAME_BUTTON_TEXT_VALUE);
     
     // Strings
+    private static final String CUSTOM_CSS_FILENAME = "player-registration.css";
     private static final String USERNAME_TEXTINPUT_PLACEHOLDER_VALUE = "Enter username: ";
     private static final String START_GAME_BUTTON_TEXT_VALUE = "Start Game";
     private static final String PLAYER_REGISTRATION_HEADER_TEXT_VALUE = "Player Registration";
@@ -119,9 +121,9 @@ public class PlayerRegistration extends Application implements GUICommons
 	primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 	primaryStage.setScene(scene);
 	primaryStage.show();
-
-	scene.getStylesheets().add(MainGUI.class
-		.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
+	
+	GUICommons.applyCSS(scene, CUSTOM_CSS_FILENAME);
+	addCSSclassNameToNodes();
     }
 
     /**
@@ -189,9 +191,7 @@ public class PlayerRegistration extends Application implements GUICommons
 	    }
 	});
 	HBox box = new HBox(startGame);
-	box.setMaxWidth(Double.MAX_VALUE);
-	box.setAlignment(Pos.CENTER_RIGHT);
-	box.setPadding(GUICommons.DEFAULT_PADDING);
+	
 	return box;
     }
 
@@ -244,10 +244,6 @@ public class PlayerRegistration extends Application implements GUICommons
 	// Style grid pane
 	form.setHgap(10);
 	form.setVgap(10);
-	form.setPadding(GUICommons.DEFAULT_PADDING);
-	form.setMaxWidth(Double.MAX_VALUE);
-	form.setAlignment(Pos.CENTER);
-	form.setPadding(GUICommons.DEFAULT_PADDING);
 
 	opponentMode.selectedToggleProperty().addListener(getToggleListener());
 
@@ -323,6 +319,7 @@ public class PlayerRegistration extends Application implements GUICommons
 		rb.setSelected(true);
 
 	    rb.setDisable(true);
+	    
 	    levelOptions_rbList.get(i).setToggleGroup(levelSelector);
 	}
     }
