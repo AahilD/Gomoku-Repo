@@ -26,6 +26,23 @@ public class TestWinConditions
     private static Player p1 = new Player("PLAYER ONE", PLAYER_0NE_PIECE_COLOUR);
     private static Player p2 = new Player("PLAYER TWO", PLAYER_TWO_PIECE_COLOUR);
     
+    private void appendPiecesToBoard(Player p, ArrayList<int[]> coorList)
+    {
+	for (int index = 0; index < coorList.size(); index++)
+	{
+	    int x = coorList.get(index)[0];
+	    int y = coorList.get(index)[1];
+	    
+	    try
+	    {
+		board.getBoard()[x][y].setPlayer(p);
+	    } catch (IllegalMove e)
+	    {
+		e.printStackTrace();
+	    }
+	}
+    }
+    
     private void addPiecesToBoard(Player p, ArrayList<int[]> coorList)
     {
 	board = new Board();
@@ -663,5 +680,39 @@ public class TestWinConditions
 	// p2
 	condition = board.verifyDiagonalRight(p2.getPieceColour());
 	assertFalse(message, condition);
+    }
+    
+    /**
+     * This test replicates a bug that was found during front end testing
+     * 
+     * see screenshot 001.png in 'res/bugscreenshot' folder
+     */
+    @Test
+    public void testVerifyDiagonalLeft_9()
+    {
+	
+	ArrayList<int[]> p1_coordinates = new ArrayList<int[]>();
+	ArrayList<int[]> p2_coordinates = new ArrayList<int[]>();
+	
+	// sequence pieces
+	p1_coordinates.add(new int[] {6, 10}); // 1 -- player one
+	p1_coordinates.add(new int[] {7, 11});  // 2 -- player one
+	p1_coordinates.add(new int[] {8, 12}); //3 -- player one
+	p2_coordinates.add(new int[] {9, 13}); // 4 -- player two
+	p1_coordinates.add(new int[] {11, 7}); // 5 -- player one
+	
+	//other pieces that where played
+	p1_coordinates.add(new int[] {5, 16});
+	p2_coordinates.add(new int[] {2, 2});
+	p2_coordinates.add(new int[] {2, 17});
+	p2_coordinates.add(new int[] {8, 6});
+	
+	addPiecesToBoard(p1, p1_coordinates);
+	appendPiecesToBoard(p2, p2_coordinates);
+	
+	String msg = "A win was detected with a single black piece interupting the sequence of 5 white pieces.";
+	boolean condition = board.verifyDiagonalLeft(p1.getPieceColour());
+	
+	assertFalse(msg, condition);
     }
 }

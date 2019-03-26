@@ -31,7 +31,6 @@ public class PVEnvironment extends GameController
     private static String ENVIRONMENT_USERNAME = "Big Blue";
     private static int count = 0;
 
-
     /**
      * If you are initializing a Player Versus Environment session, call this
      * method to setup the game for the first time. (To initialize a Player v
@@ -67,52 +66,38 @@ public class PVEnvironment extends GameController
      */
     public static void playMoveAt(int x, int y)
     {
+	// get the current turn player piece colour
 	char currentcolour = game.getTurnPlayer().getPieceColour();
+
 	try
 	{
-		playMove(x, y);
-		MainGUI.updateBoardSquareButton(x, y, currentcolour);
-		MainGUI.updateTurnCount(game.incrementPlayerTurn());
-		addPlayerMoves(x, y);
-		environmentPlayTurn();
-	} catch (WinAndLosses wnl){
-		AlertsAndDialogs aad = new AlertsAndDialogs();
-		if (aad.display_newRoundConfirmationAlert(
-				"You Win, You must have cheated. :("))
-			{
-			    playAnOtherRound();
-			} else
-			{
-			    // TODO go back to player registration screen.
-			}
-		
-		/** start of previous Code
-	    if (!playMove(x, y))
+	    // attempt to play the move
+	    playMove(x, y);
+	    // update the board to show played move
+	    MainGUI.updateBoardSquareButton(x, y, currentcolour);
+	    // increment turn count and update the GUI
+	    MainGUI.updateTurnCount(game.incrementPlayerTurn());
+	    // append the player's move to the list
+	    addPlayerMoves(x, y);
+	    // have the environment play it's turn.
+	    environmentPlayTurn();
+	} catch (WinAndLosses wnl)
+	{
+	    AlertsAndDialogs aad = new AlertsAndDialogs();
+	    if (aad.display_newRoundConfirmationAlert(
+		    "You Win, You must have cheated. :("))
 	    {
-		MainGUI.updateBoardSquareButton(x, y, currentcolour);
-		MainGUI.updateTurnCount(game.incrementPlayerTurn());
-		addPlayerMoves(x, y);
-		environmentPlayTurn();
+		playAnOtherRound();
 	    } else
 	    {
-		AlertsAndDialogs aad = new AlertsAndDialogs();
-		if (aad.display_newRoundConfirmationAlert(
-			"You Win, You must have cheated. :("))
-		{
-		    playAnOtherRound();
-		} else
-		{
-		    // TODO go back to player registration screen.
-		}
+		// TODO go back to player registration screen.
 	    }
-	    * end of previous code
-	    */
-
 	} catch (IllegalMove e)
 	{
 
 	}
     }
+
     /**
      * This private method will determine which method will be executed to play
      * a move based on the level selected. This method acts like a switch board.
@@ -125,7 +110,7 @@ public class PVEnvironment extends GameController
 	}
 	if (environmentLevel == 1)
 	{
-		environment_lvl_one();
+	    environment_lvl_one();
 	}
 	if (environmentLevel == 2)
 	{
@@ -174,317 +159,377 @@ public class PVEnvironment extends GameController
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	
+
     }
-    
+
     /**
-     * @Pending Review
-     * 1. identify player's last move (x,y)
-     * 2. loop through each square next to the coordinate (above, top right,
-     * to the right, right bottom, below, left bottom, to the left, top left) until 
-     * player == null
-     * 3. place token on the available square
-     * 4. if not available, try second last move 
-     * 5. keep going through the entire list of player's move 
+     * @Pending Review 1. identify player's last move (x,y) 2. loop through each
+     *          square next to the coordinate (above, top right, to the right,
+     *          right bottom, below, left bottom, to the left, top left) until
+     *          player == null 3. place token on the available square 4. if not
+     *          available, try second last move 5. keep going through the entire
+     *          list of player's move
      */
-    
+
     private static void environment_lvl_one()
     {
-    	boolean environmentMoveSuccesful=false;
-    	ArrayList<int[]> moves = getPlayerMoves();
-    	for(int i=moves.size()-1;i>=0 && !environmentMoveSuccesful;i--) {
-    		int[] move = moves.get(i);
-    		if (!environmentMoveSuccesful) {
-    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]+1, move[1]+1);
-    		}
-    		else if (!environmentMoveSuccesful) {
-    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]+1);
-    		}
-    		else if (!environmentMoveSuccesful) {
-    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]+1, move[1]-1);
-    		}
-    		else if (!environmentMoveSuccesful) {
-    			environmentMoveSuccesful = environmentPlayMoveAt(move[0], move[1]+1);
-    		}
-    		else if (!environmentMoveSuccesful) {
-    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]+1, move[1]);
-    		}
-    		else if (!environmentMoveSuccesful) {
-    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]);
-    		}
-    		else if (!environmentMoveSuccesful) {
-    			environmentMoveSuccesful = environmentPlayMoveAt(move[0], move[1]-1);
-    		}
-    		else if (!environmentMoveSuccesful) {
-    			environmentMoveSuccesful = environmentPlayMoveAt(move[0]-1, move[1]-1);
-    		}
-    	}
-    	if (!environmentMoveSuccesful) {
-			environment_lvl_zero();
-		}
+	boolean environmentMoveSuccesful = false;
+	ArrayList<int[]> moves = getPlayerMoves();
+	for (int i = moves.size() - 1; i >= 0 && !environmentMoveSuccesful; i--)
+	{
+	    int[] move = moves.get(i);
+	    if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0] + 1,
+			move[1] + 1);
+	    } else if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0] - 1,
+			move[1] + 1);
+	    } else if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0] + 1,
+			move[1] - 1);
+	    } else if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0],
+			move[1] + 1);
+	    } else if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0] + 1,
+			move[1]);
+	    } else if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0] - 1,
+			move[1]);
+	    } else if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0],
+			move[1] - 1);
+	    } else if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0] - 1,
+			move[1] - 1);
+	    }
+	}
+	if (!environmentMoveSuccesful)
+	{
+	    environment_lvl_zero();
+	}
     }
-    
-    private static void environment_lvl_two() 
-    {
-    	boolean environmentMoveSuccesful = false;
-    	int aiPlayMoveAtx = 0;
-    	int aiPlayMoveAty = 0;
-    	ArrayList <int[]> moves = getPlayerMoves();
-    	int i = moves.size();	    	
-    	
-    	if (!environmentMoveSuccesful) 
-    	{
-    		if (count == 0)
-    		{
-    			int[] x = moves.get(count);
-    			if (!environmentMoveSuccesful) 
-    			{
-    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]+1, x[1]+1);
-        		}
-    			else if (!environmentMoveSuccesful) {
-    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]-1, x[1]+1);
-        		}
-    			else if (!environmentMoveSuccesful) {
-    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]+1, x[1]-1);
-        		}
-    			else if (!environmentMoveSuccesful) {
-    				environmentMoveSuccesful= environmentPlayMoveAt(x[0], x[1]+1);
-        		}
-    			else if (!environmentMoveSuccesful) {
-    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]+1, x[1]);
-        		}
-    			else if (!environmentMoveSuccesful) {
-    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]-1, x[1]);
-        		}
-    			else if (!environmentMoveSuccesful) {
-    				environmentMoveSuccesful= environmentPlayMoveAt(x[0], x[1]-1);
-        		}
-    			else if (!environmentMoveSuccesful) {
-    				environmentMoveSuccesful = environmentPlayMoveAt(x[0]-1, x[1]-1);
-        		}
-    			count++;
-    			
-    		}
-    		
-    		else if (count < i) {
-    			int[] secondLastMove = moves.get(count - 1);
-	    		int[] lastMove = moves.get(count);
-	    		
-	    		// Horizontal Block
-	    		if (secondLastMove[0] == lastMove[0]) 
-	    		{
-	    			if (!environmentMoveSuccesful && (secondLastMove[1] - lastMove[1] == 1 ))
-		    		{
-	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], lastMove[1]+1);
-		    		}
-	    				
-	    			else if (!environmentMoveSuccesful && (secondLastMove[1] - lastMove[1] == -1))
-	    			{
-	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], lastMove[1]+1);
-	    			}
-	    				
-	    			else if (!environmentMoveSuccesful && ((secondLastMove[1] - lastMove[1]) % 2 == 0) 
-	    				&& secondLastMove[1] > lastMove[1]) 
-	    			{
-	    				aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
-	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], aiPlayMoveAty);
-	    			}
-	    			
-	    			else if (!environmentMoveSuccesful && ((lastMove[1] - secondLastMove[1]) % 2 == 0)) 
-	    			{
-	    				aiPlayMoveAty = (lastMove[1] + secondLastMove[1]) / 2;
-	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], aiPlayMoveAty);
-	    			}
-	    			
-	    			else if (!environmentMoveSuccesful && ((secondLastMove[1] - lastMove[1]) % 2 != 0)) 
-	    			{
-	    				aiPlayMoveAty = (secondLastMove[1] + lastMove[1] - 1) / 2;
-	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0], aiPlayMoveAty);
-	    			}
-	    		}
-	    		
-	    		
-	    		// Vertical Block
-	    		else if (secondLastMove[1] == lastMove[1])
-	    		{
-	    			if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0] == 1 ))
-		    		{
-	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0]+1, lastMove[1]);
-		    		}
-	    				
-	    			else if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0] == -1))
-	    			{
-	    				environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0]+1, lastMove[1]);
-	    			}
-	    				
-	    			else if (!environmentMoveSuccesful && ((secondLastMove[0] - lastMove[0]) % 2 == 0) 
-	    				&& secondLastMove[0] > lastMove[0]) 
-	    			{
-	    				aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
-	    				environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, lastMove[1]);
-	    			}
-	    			
-	    			else if (!environmentMoveSuccesful && ((lastMove[0] - secondLastMove[0]) % 2 == 0)) 
-	    			{
-	    				aiPlayMoveAtx = (lastMove[0] + secondLastMove[0]) / 2;
-	    				environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, lastMove[1]);
-	    			}
-	    			
-	    			else if (!environmentMoveSuccesful && ((secondLastMove[0] - lastMove[0]) % 2 != 0)) 
-	    			{
-	    				aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] - 1) / 2;
-	    				environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, lastMove[1]);
-	    			}
-	    		}
-	    		
-	    		
-	    		// Diagnal top left - bottom right
-	    		else if (secondLastMove[0] - lastMove[0] == secondLastMove[1] - lastMove[1])
-	    		{
-	    			if (!environmentMoveSuccesful && secondLastMove[0] > lastMove[0])
-	    			{
-	    				if (!environmentMoveSuccesful && secondLastMove[0] - lastMove[0] == 1) 
-	    				{
-	    					environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0] - 1, lastMove[1] - 1);
-	    				}
-	    				
-	    				else if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0]) % 2 == 0 )
-	    				{
-	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
-	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
-	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
-	    				}
-	    				
-	    				else if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0]) % 2 != 0 )
-	    				{
-	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] + 1) / 2;
-	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1] + 1) / 2;
-	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
-	    				}
-	    						    				
-	    			}
-	    			
-	    			
-	    			else if (!environmentMoveSuccesful && secondLastMove[0] < lastMove[0])
-	    			{
-	    				if (!environmentMoveSuccesful && secondLastMove[0] - lastMove[0] == -1)
-	    				{
-	    					environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0] + 1, lastMove[1] + 1);
-	    				}
-	    				
-	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 == 0 )
-	    				{
-	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
-	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
-	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
-	    				}
-	    				
-	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 != 0 )
-	    				{
-	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] + 1) / 2;
-	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1] + 1) / 2;
-	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
-	    				}
-	    				    					
-	    			}
-	    		}
-	    		
-	    		//Diagnal top right - bottom left
-	    		else if (secondLastMove[0] - lastMove[0] != secondLastMove[1] - lastMove[1])
-	    		{
-	    			if (!environmentMoveSuccesful && secondLastMove[0] > lastMove[0])
-	    			{
-	    				if (!environmentMoveSuccesful && secondLastMove[0] - lastMove[0] == 1) 
-	    				{
-	    					environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0] - 1, lastMove[1] + 1);
-	    				}
-	    				
-	    				else if (!environmentMoveSuccesful && (secondLastMove[0] - lastMove[0]) % 2 == 0 )
-	    				{
-	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
-	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
-	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
-	    				}
-	    				
-	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 != 0 )
-	    				{
-	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] + 1) / 2;
-	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1] - 1) / 2;
-	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
-	    				}
-	    			    								
-	    			}
-	    			
-	    			
-	    			else if (!environmentMoveSuccesful && secondLastMove[0] < lastMove[0])
-	    			{
-	    				
-	    				if (!environmentMoveSuccesful && secondLastMove[0] - lastMove[0] == 1) 
-	    				{
-	    					environmentMoveSuccesful = environmentPlayMoveAt(lastMove[0] + 1, lastMove[1] - 1);
-	    				}
-	    				
-	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 == 0 )
-	    				{
-	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
-	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
-	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
-	    				}
-	    				
-	    				else if (!environmentMoveSuccesful && (lastMove[0] - secondLastMove[0]) % 2 != 0 )
-	    				{
-	    					aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] + 1) / 2;
-	    					aiPlayMoveAty = (secondLastMove[1] + lastMove[1] - 1) / 2;
-	    					environmentMoveSuccesful = environmentPlayMoveAt(aiPlayMoveAtx, aiPlayMoveAty);
-	    				}
-	    
-	    			}
-	    		}
-	    		count++;
-    		}    		
-    	}
-    }
-    
-    
 
+    private static void environment_lvl_two()
+    {
+	boolean environmentMoveSuccesful = false;
+	int aiPlayMoveAtx = 0;
+	int aiPlayMoveAty = 0;
+	ArrayList<int[]> moves = getPlayerMoves();
+	int i = moves.size();
+
+	if (!environmentMoveSuccesful)
+	{
+	    if (count == 0)
+	    {
+		int[] x = moves.get(count);
+		if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
+			    x[1] + 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
+			    x[1] + 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
+			    x[1] - 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0],
+			    x[1] + 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
+			    x[1]);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
+			    x[1]);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0],
+			    x[1] - 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
+			    x[1] - 1);
+		}
+		count++;
+
+	    }
+
+	    else if (count < i)
+	    {
+		int[] secondLastMove = moves.get(count - 1);
+		int[] lastMove = moves.get(count);
+
+		// Horizontal Block
+		if (secondLastMove[0] == lastMove[0])
+		{
+		    if (!environmentMoveSuccesful
+			    && (secondLastMove[1] - lastMove[1] == 1))
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], lastMove[1] + 1);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && (secondLastMove[1] - lastMove[1] == -1))
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], lastMove[1] + 1);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((secondLastMove[1] - lastMove[1]) % 2 == 0)
+			    && secondLastMove[1] > lastMove[1])
+		    {
+			aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], aiPlayMoveAty);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((lastMove[1] - secondLastMove[1]) % 2 == 0))
+		    {
+			aiPlayMoveAty = (lastMove[1] + secondLastMove[1]) / 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], aiPlayMoveAty);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((secondLastMove[1] - lastMove[1]) % 2 != 0))
+		    {
+			aiPlayMoveAty = (secondLastMove[1] + lastMove[1] - 1)
+				/ 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], aiPlayMoveAty);
+		    }
+		}
+
+		// Vertical Block
+		else if (secondLastMove[1] == lastMove[1])
+		{
+		    if (!environmentMoveSuccesful
+			    && (secondLastMove[0] - lastMove[0] == 1))
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0] + 1, lastMove[1]);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && (secondLastMove[0] - lastMove[0] == -1))
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0] + 1, lastMove[1]);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((secondLastMove[0] - lastMove[0]) % 2 == 0)
+			    && secondLastMove[0] > lastMove[0])
+		    {
+			aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				aiPlayMoveAtx, lastMove[1]);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((lastMove[0] - secondLastMove[0]) % 2 == 0))
+		    {
+			aiPlayMoveAtx = (lastMove[0] + secondLastMove[0]) / 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				aiPlayMoveAtx, lastMove[1]);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((secondLastMove[0] - lastMove[0]) % 2 != 0))
+		    {
+			aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] - 1)
+				/ 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				aiPlayMoveAtx, lastMove[1]);
+		    }
+		}
+
+		// Diagnal top left - bottom right
+		else if (secondLastMove[0] - lastMove[0] == secondLastMove[1]
+			- lastMove[1])
+		{
+		    if (!environmentMoveSuccesful
+			    && secondLastMove[0] > lastMove[0])
+		    {
+			if (!environmentMoveSuccesful
+				&& secondLastMove[0] - lastMove[0] == 1)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    lastMove[0] - 1, lastMove[1] - 1);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (secondLastMove[0] - lastMove[0]) % 2 == 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0])
+				    / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1])
+				    / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (secondLastMove[0] - lastMove[0]) % 2 != 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]
+				    + 1) / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1]
+				    + 1) / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && secondLastMove[0] < lastMove[0])
+		    {
+			if (!environmentMoveSuccesful
+				&& secondLastMove[0] - lastMove[0] == -1)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    lastMove[0] + 1, lastMove[1] + 1);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 == 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0])
+				    / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1])
+				    / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 != 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]
+				    + 1) / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1]
+				    + 1) / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+		    }
+		}
+
+		// Diagnal top right - bottom left
+		else if (secondLastMove[0] - lastMove[0] != secondLastMove[1]
+			- lastMove[1])
+		{
+		    if (!environmentMoveSuccesful
+			    && secondLastMove[0] > lastMove[0])
+		    {
+			if (!environmentMoveSuccesful
+				&& secondLastMove[0] - lastMove[0] == 1)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    lastMove[0] - 1, lastMove[1] + 1);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (secondLastMove[0] - lastMove[0]) % 2 == 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0])
+				    / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1])
+				    / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 != 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]
+				    + 1) / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1]
+				    - 1) / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && secondLastMove[0] < lastMove[0])
+		    {
+
+			if (!environmentMoveSuccesful
+				&& secondLastMove[0] - lastMove[0] == 1)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    lastMove[0] + 1, lastMove[1] - 1);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 == 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0])
+				    / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1])
+				    / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 != 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]
+				    + 1) / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1]
+				    - 1) / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+		    }
+		}
+		count++;
+	    }
+	}
+    }
 
     private static boolean environmentPlayMoveAt(int x, int y)
     {
 	boolean moveSuccessful = false;
 	try
 	{
-		
-		MainGUI.updateBoardSquareButton(x, y,
-				game.getTurnPlayer().getPieceColour());
-			MainGUI.updateTurnCount(game.incrementPlayerTurn());
+	    playMove(x, y);
+	    moveSuccessful = true;
+	    
+	    MainGUI.updateBoardSquareButton(x, y,
+		    game.getTurnPlayer().getPieceColour());
+	    MainGUI.updateTurnCount(game.incrementPlayerTurn());
+	    
+	    
 
-		
-		playMove(x, y);
-		moveSuccessful = true;
-		
-	} catch (WinAndLosses wnl) {
-		AlertsAndDialogs aad = new AlertsAndDialogs();
-		aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
-	  
-	/*Start of previous code
-	    * previous-previous code
-	    * if(!game.makeMove(x, y)){...}
-	    * end of previous-previous code
-	    */
-		
-		/*
-		if (!playMove(x, y))
-	    {
-
-		moveSuccessful = true;
-
-	    } else
-	    {
-		AlertsAndDialogs aad = new AlertsAndDialogs();
-		aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
-	    }
-	* end of previous code
-	*/
+	} catch (WinAndLosses wnl)
+	{
+	    AlertsAndDialogs aad = new AlertsAndDialogs();
+	    aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
 	} catch (IllegalMove e)
 	{
 	    moveSuccessful = false;

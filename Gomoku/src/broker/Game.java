@@ -183,6 +183,9 @@ public class Game
 	{
 	    // try to play the move the player requested
 	    currentBoard.getBoard()[x][y].setPlayer(getTurnPlayer());
+	    
+	    // Uncomment following line for debugging purposes ONLY
+	    //System.out.println(getTurnPlayer().getUserName() + " payed on [" + x + "][" + y + "]");
 
 	    // verify if this move was the wining move by invoking gameOver
 	    // method.
@@ -246,7 +249,7 @@ public class Game
      */
     public int incrementPlayerTurn()
     {
-	turnCount += 1;
+	turnCount++;
 	return turnCount;
     }
 }
