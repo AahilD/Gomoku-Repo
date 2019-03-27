@@ -232,10 +232,16 @@ public class PVEnvironment extends GameController
     private static void environment_lvl_two()
     {
 	boolean environmentMoveSuccesful = false;
+
 	int aiPlayMoveAtx = 0;
 	int aiPlayMoveAty = 0;
+
 	ArrayList<int[]> moves = getPlayerMoves();
+
 	int i = moves.size();
+
+	// TODO @Aahil for the first move just call on environment level 1
+	// don't duplicate code
 
 	if (!environmentMoveSuccesful)
 	{
@@ -283,6 +289,19 @@ public class PVEnvironment extends GameController
 	    {
 		int[] secondLastMove = moves.get(count - 1);
 		int[] lastMove = moves.get(count);
+
+		// TODO @Aahil so the problem is...
+		/*
+		 * So this is my fault, I gave poor instructions to Emily you
+		 * followed her same logic.
+		 * 
+		 * see level 1, its weird, but it works. you need nest if
+		 * statement after nested if statement
+		 * 
+		 * i know. its weird... but actually if you can find a way to
+		 * create a private method that will can do it recursively you
+		 * may do so. up to you.
+		 */
 
 		// Horizontal Block
 		if (secondLastMove[0] == lastMove[0])
@@ -518,6 +537,20 @@ public class PVEnvironment extends GameController
 
 		    }
 		}
+		
+		//TODO @Aahil you need a catch-all statement
+		/*
+		 * somewhere at teh verry end of your method here you need to see if environment still failed to play a move. 
+		 * if so call env_lvl_1()
+		 * let it do it's magic.
+		 * 
+		 * everywhere in your code that could run into a dead-end so to speak, add an else{} statement
+		 * or whatever and call on the level bellow it to attempt to make a move.
+		 * 
+		 * you will see env_level_1() calls env_lvl_0() when lvl 1 logic fails to play a move.
+		 * 
+		 *  that way you keep going down the latter.
+		 */
 		count++;
 	    }
 	}
