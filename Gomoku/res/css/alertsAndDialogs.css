@@ -5,18 +5,43 @@
 */
 
 .dialog-pane {
-    -fx-background-color: white;
+	/*-fx-background-image: url("../images/pr-background.jpeg");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center center;
+	-fx-background-size: 100% auto;*/
+	-fx-background: transparent;
+	
 }
 
 .dialog-pane .label {
-    -fx-text-fill: blue;
+	-fx-text-fill: rgba(255, 255, 255, 0.75);
 }
 
 .dialog-pane:header .header-panel {
-    -fx-background-color: red;
+	-fx-background-color: rgba(0, 0, 0, 0.5);
 }
 
 .dialog-pane:header .header-panel .label {
-    -fx-font-style: italic;
-    -fx-font-size: 2em;
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-font-size: 28px;
+}
+
+.button {
+	-fx-background-color: rgba(52, 152, 219, 0.75);
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-text-fill: rgba(255, 255, 255, 0.75);
+	-fx-padding: 10px;
+	-fx-text-alignment: center center;
+}
+
+.no-button {
+	-fx-background-color: rgba(255, 100, 100, 0.75);
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-text-fill: rgba(255, 255, 255, 0.75);
+	-fx-padding: 10px;
+	-fx-text-alignment: center center;
 }

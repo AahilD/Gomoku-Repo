@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Screen;
 
 public interface GUICommons
@@ -54,14 +55,13 @@ public interface GUICommons
 	gametitle.setMaxWidth(Double.MAX_VALUE);
 	return gametitle;
     }
-    
+
     public static void applyCSS(Scene scene, String filename)
     {
-	File f = getCSSFile(filename);
 	try
 	{
 	    scene.getStylesheets()
-		    .add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+		    .add(getResourceFileURI("css", filename));
 
 	} catch (Exception e)
 	{
@@ -69,8 +69,14 @@ public interface GUICommons
 	}
     }
     
-    public static File getCSSFile(String filename)
+    public static Image getResourceImage(String fileName)
     {
-	return new File("res/css/" + filename);
+	return new Image(getResourceFileURI("images", fileName));
+    }
+
+    public static String getResourceFileURI(String parentFolderName, String fileName)
+    {
+	File f = new File("res/"+ parentFolderName +"/" + fileName);
+	return "file:///" + f.getAbsolutePath().replace("\\", "/");
     }
 }

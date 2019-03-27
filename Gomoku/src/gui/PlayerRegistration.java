@@ -9,6 +9,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +20,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -40,7 +42,7 @@ public class PlayerRegistration extends Application implements GUICommons
 {
     // WINDOW DIMENTIONS
     private static double WIDTH = Screen.getPrimary().getBounds().getWidth()
-	    / 3;
+	    / 2;
     private static double HEIGHT = Screen.getPrimary().getBounds().getHeight()
 	    / 2;
 
@@ -144,15 +146,30 @@ public class PlayerRegistration extends Application implements GUICommons
 	// CENTER: Transaction form
 	setupPlayerInfoForm();
 	mainBorderPane.setCenter(regForm_gridPane);
+	mainBorderPane.setRight(getEnvironmentLevelSelectionToggles());
 
 	// BOTTOM: start game button
 	setupActionBar();
 	mainBorderPane.setBottom(actionButtonContainer);
 
-	// LEFT: Nothing
-	// RIGHT: Nothing
+	HBox emptyspace = new HBox();
+	emptyspace.setMinWidth(GUICommons.getResourceImage("illegal-move-icon.png").getWidth() / 2);
+	mainBorderPane.setLeft(emptyspace);
 
 	return mainBorderPane;
+    }
+
+    private Node getEnvironmentLevelSelectionToggles()
+    {
+	// level selector
+	init_levelSelector();
+
+	VBox levelSelectionVbox = new VBox();
+	levelSelectionVbox.getChildren().add(LEVEL_SELECTION_LABEL);
+	levelSelectionVbox.getChildren().addAll(levelOptions_rbList);
+	levelSelectionVbox.getStyleClass().add("lvl-selection-container");
+	
+	return levelSelectionVbox;
     }
 
     /**
@@ -213,19 +230,10 @@ public class PlayerRegistration extends Application implements GUICommons
 	opponentModeModeHbox.getChildren().addAll(playerVplayerRB,
 		playerVEnvironmentRB);
 
-	// level selector
-	init_levelSelector();
-
-	HBox levelSelectionHbox = new HBox();
-	levelSelectionHbox.getChildren().add(LEVEL_SELECTION_LABEL);
-	levelSelectionHbox.getChildren().addAll(levelOptions_rbList);
-
 	// add all nodes to grid pane
 
 	GridPane.setColumnSpan(opponentModeModeHbox, 2); // span both col
 	GridPane.setRowIndex(opponentModeModeHbox, 0);// row 0
-	GridPane.setColumnSpan(levelSelectionHbox, 2); // span both col
-	GridPane.setRowIndex(levelSelectionHbox, 3); // row 1
 	GridPane.setConstraints(ENTER_UNAME_LABEL1, 0, 1); // col=0 row 2
 	GridPane.setConstraints(PLAYER_ONE_USERNAME, 1, 1); // col=1 row 2
 	GridPane.setConstraints(ENTER_UNAME_LABEL2, 0, 2); // col=0 row 3
@@ -233,8 +241,8 @@ public class PlayerRegistration extends Application implements GUICommons
 
 	// add children nodes
 	regForm_gridPane.getChildren().addAll(opponentModeModeHbox,
-		levelSelectionHbox, ENTER_UNAME_LABEL1, PLAYER_ONE_USERNAME,
-		ENTER_UNAME_LABEL2, PLAYER_TWO_USERNAME);
+		ENTER_UNAME_LABEL1, PLAYER_ONE_USERNAME, ENTER_UNAME_LABEL2,
+		PLAYER_TWO_USERNAME);
 
 	// Style grid pane
 
@@ -269,7 +277,7 @@ public class PlayerRegistration extends Application implements GUICommons
 	    {
 		RadioButton modeRb = (RadioButton) opponentMode
 			.getSelectedToggle();
-		
+
 		// if the user selected single player mode than hide
 		// the option to enter the player 2 user name
 		if (modeRb.getText().equals(PVENVIRONMENT_LABEL_TEXT_VALUE))
@@ -291,8 +299,9 @@ public class PlayerRegistration extends Application implements GUICommons
 		    ENTER_UNAME_LABEL2.setDisable(false);
 		    PLAYER_TWO_USERNAME.setDisable(false);
 		    PLAYER_TWO_USERNAME.setText("Player 2");
-		    ENTER_UNAME_LABEL2.setText(USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
-		    
+		    ENTER_UNAME_LABEL2
+			    .setText(USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
+
 		    for (RadioButton lvlRb : levelOptions_rbList)
 			lvlRb.setDisable(true);
 		}
