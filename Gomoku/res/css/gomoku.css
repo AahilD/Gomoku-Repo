@@ -19,6 +19,11 @@
 	-fx-font-size: 14px;
 }
 
+.top-pane-hbox{
+	-fx-alignment: center-right;
+	-fx-padding: 10px;
+}
+
 // bottom panel of the main window
 .bottom-pane {
 	-fx-background-color: rgba(255, 255, 255, 0.7);
@@ -36,6 +41,7 @@
 	-fx-font-size: 82px;
 	-fx-font-weight: bold;
 	-fx-font-family: "Knife Fight Ballet";
+	-fx-alignment: center-right;
 }
 
 .gridpane-game-board {
@@ -92,16 +98,15 @@
 
 // the styel for the "end game" button
 .end-game-button {
-	-fx-background-color: rgba(52, 152, 219, 0.75);
-	-fx-font-size: 24px;
+	-fx-background-color: rgba(0, 0, 0, 0);
+	-fx-font-size: 100px;
 	-fx-font-weight: bold;
 	-fx-font-family: "Knife Fight Ballet";
-	-fx-text-fill: rgba(255, 255, 255, 0.75);
-	-fx-padding: 10px 20px;
+	-fx-text-fill: rgba(0, 0, 0, 0.5);
+	-fx-alignment: right;
 }
 
 // the style for the "end game" button upon hover
 .end-game-button:hover {
-	-fx-background-color: rgba(52,152,219, 1);
-	-fx-text-fill: white;
+	-fx-text-fill: rgba(255, 0 , 0, 0.75);
 }
