@@ -117,10 +117,6 @@ public class PlayerRegistration extends Application implements GUICommons
     {
 	//
 	Scene scene = new Scene(stageGUI());
-//	scene.widthProperty().add(WIDTH);
-//	scene.heightProperty().add(HEIGHT);
-//	primaryStage.setMinWidth(WIDTH);
-//	primaryStage.setMinHeight(HEIGHT);
 	primaryStage.setTitle(GUICommons.TITLE_BAR_NAME);
 	primaryStage.setScene(scene);
 	primaryStage.show();

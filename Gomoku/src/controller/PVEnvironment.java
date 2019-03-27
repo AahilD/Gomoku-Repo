@@ -13,6 +13,7 @@ import broker.IllegalMove;
 import broker.Square;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import broker.WinAndLosses;
 
@@ -71,12 +72,8 @@ public class PVEnvironment extends GameController
 
 	try
 	{
-	    // attempt to play the move
-	    playMove(x, y);
-	    // update the board to show played move
-	    MainGUI.updateBoardSquareButton(x, y, currentcolour);
-	    // increment turn count and update the GUI
-	    MainGUI.updateTurnCount(game.incrementPlayerTurn());
+	    tryToPlayMove(x, y);
+
 	    // append the player's move to the list
 	    addPlayerMoves(x, y);
 	    // have the environment play it's turn.
@@ -89,7 +86,7 @@ public class PVEnvironment extends GameController
 		playAnOtherRound();
 	    } else
 	    {
-		MainGUI.returnToPlayerRegistration();
+		MainGUI.closeApplication();
 	    }
 	} catch (IllegalMove e)
 	{
@@ -138,20 +135,30 @@ public class PVEnvironment extends GameController
      */
     private static void environment_lvl_zero()
     {
-	Random rand = new Random();
-	
-	int x = -1;
-	int y = -1;
-	
-	boolean environmentMoveSuccesful = false;
-	
-	do
-	{
-	    x = rand.nextInt(19);
-	    y = rand.nextInt(19);
-	    environmentMoveSuccesful = environmentPlayMoveAt(x, y);
+	ArrayList<Square> availableSquareCoordinates = new ArrayList<Square>();
+	Random r = new Random();
 
-	} while (!environmentMoveSuccesful);
+	for (Square[] row : game.getCurrentBoard().getBoard())
+	{
+	    for (Square sq : row)
+	    {
+		if (sq.isEmpty())
+		{
+		    availableSquareCoordinates.add(sq);
+		}
+	    }
+	}
+
+	if (!availableSquareCoordinates.isEmpty())
+	{
+	    Square sqr = availableSquareCoordinates
+		    .get(r.nextInt(availableSquareCoordinates.size()));
+	    if (!environmentPlayMoveAt(sqr.getX(), sqr.getY()))
+	    {
+		environment_lvl_zero(); // just a fail safe
+	    }
+	}
+
     }
 
     /**
@@ -166,44 +173,56 @@ public class PVEnvironment extends GameController
     private static void environment_lvl_one()
     {
 	boolean environmentMoveSuccesful = false;
+
 	ArrayList<int[]> moves = getPlayerMoves();
+
+	// in case the last move played has no empty square keep moving down the
+	// list
 	for (int i = moves.size() - 1; i >= 0 && !environmentMoveSuccesful; i--)
 	{
 	    int[] move = moves.get(i);
+
+	    environmentMoveSuccesful = environmentPlayMoveAt(move[0] + 1,
+		    move[1] + 1);
+
 	    if (!environmentMoveSuccesful)
 	    {
-		environmentMoveSuccesful = environmentPlayMoveAt(move[0] + 1,
-			move[1] + 1);
-	    } else if (!environmentMoveSuccesful)
-	    {
 		environmentMoveSuccesful = environmentPlayMoveAt(move[0] - 1,
 			move[1] + 1);
-	    } else if (!environmentMoveSuccesful)
-	    {
-		environmentMoveSuccesful = environmentPlayMoveAt(move[0] + 1,
-			move[1] - 1);
-	    } else if (!environmentMoveSuccesful)
-	    {
-		environmentMoveSuccesful = environmentPlayMoveAt(move[0],
-			move[1] + 1);
-	    } else if (!environmentMoveSuccesful)
-	    {
-		environmentMoveSuccesful = environmentPlayMoveAt(move[0] + 1,
-			move[1]);
-	    } else if (!environmentMoveSuccesful)
-	    {
-		environmentMoveSuccesful = environmentPlayMoveAt(move[0] - 1,
-			move[1]);
-	    } else if (!environmentMoveSuccesful)
-	    {
-		environmentMoveSuccesful = environmentPlayMoveAt(move[0],
-			move[1] - 1);
-	    } else if (!environmentMoveSuccesful)
-	    {
-		environmentMoveSuccesful = environmentPlayMoveAt(move[0] - 1,
-			move[1] - 1);
+		if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(
+			    move[0] + 1, move[1] - 1);
+		    if (!environmentMoveSuccesful)
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				move[0], move[1] + 1);
+			if (!environmentMoveSuccesful)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    move[0] + 1, move[1]);
+			    if (!environmentMoveSuccesful)
+			    {
+				environmentMoveSuccesful = environmentPlayMoveAt(
+					move[0] - 1, move[1]);
+				if (!environmentMoveSuccesful)
+				{
+				    environmentMoveSuccesful = environmentPlayMoveAt(
+					    move[0], move[1] - 1);
+				    if (!environmentMoveSuccesful)
+				    {
+					environmentMoveSuccesful = environmentPlayMoveAt(
+						move[0] - 1, move[1] - 1);
+				    }
+				}
+
+			    }
+			}
+		    }
+		}
 	    }
 	}
+	// if all else fails have environment lvl zero find an empty square!
 	if (!environmentMoveSuccesful)
 	{
 	    environment_lvl_zero();
@@ -504,30 +523,43 @@ public class PVEnvironment extends GameController
 	}
     }
 
+    private static void tryToPlayMove(int x, int y)
+	    throws IllegalMove, WinAndLosses
+    {
+	playMove(x, y);
+	MainGUI.updateBoardSquareButton(x, y,
+		game.getTurnPlayer().getPieceColour());
+	MainGUI.updateTurnCount(game.incrementPlayerTurn());
+    }
+
     private static boolean environmentPlayMoveAt(int x, int y)
     {
 	boolean moveSuccessful = false;
+
 	try
 	{
-	    playMove(x, y);
+	    tryToPlayMove(x, y);
 	    moveSuccessful = true;
-	    
-	    MainGUI.updateBoardSquareButton(x, y,
-		    game.getTurnPlayer().getPieceColour());
-	    MainGUI.updateTurnCount(game.incrementPlayerTurn());
-	    
+
 	} catch (WinAndLosses wnl)
 	{
 	    AlertsAndDialogs aad = new AlertsAndDialogs();
-	    
-	    if(aad.display_newRoundConfirmationAlert(wnl.toString()))
+
+	    if (aad.display_newRoundConfirmationAlert(wnl.toString()))
 	    {
 		playAnOtherRound();
+	    } else
+	    {
+		// if they do not wish to play an other round just close the
+		// application.
+		MainGUI.closeApplication();
 	    }
-	    
+
 	} catch (IllegalMove e)
 	{
-	    //do nothing here the environment will keep trying till moveSuccessful == true
+	    // do nothing here the environment will keep trying till
+	    // moveSuccessful == true
+	    // this is essentially
 	}
 
 	return moveSuccessful;

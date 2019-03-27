@@ -12,6 +12,7 @@ import controller.PVPlayer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -43,6 +44,7 @@ public class MainGUI implements GUICommons
 
     // CSS FILEPATH
     private final static String CUSTOM_CSS_FILENAME = "gomoku.css";
+    private static final String TOP_PANE_CSS_CLASSNAME = "top-pane-hbox";
 
     // Physical GUI properties
     private static BorderPane mainWindow = new BorderPane();
@@ -94,8 +96,8 @@ public class MainGUI implements GUICommons
 	primaryStage.setFullScreen(true);
 	primaryStage.setScene(scene);
 	primaryStage.show();
-	
-	//ApplyCSS
+
+	// ApplyCSS
 	GUICommons.applyCSS(scene, CUSTOM_CSS_FILENAME);
     }
 
@@ -111,6 +113,12 @@ public class MainGUI implements GUICommons
     {
 	setBoard(toBoard);
 	mainWindow.setCenter(addBoardToGridPane());
+    }
+
+    public static void closeApplication()
+    {
+	Platform.exit();
+	System.exit(0);
     }
 
     public static void updateBoardSquareButton(int x, int y, char pieceColour)
@@ -224,7 +232,7 @@ public class MainGUI implements GUICommons
 	// use borderpanes for the main layout
 
 	// TOP: account information
-	mainWindow.setTop(GUICommons.windowHeader(GAME_NAME));
+	mainWindow.setTop(getTopBorderPane());
 
 	// LEFT: empty for now
 	// perhaps we could display the moves played through out the game
@@ -240,6 +248,41 @@ public class MainGUI implements GUICommons
 
 	// BOTTOM: start game button
 	mainWindow.setBottom(initBottomPane());
+    }
+
+    private static Node getTopBorderPane()
+    {
+	// button
+	GridPane container = new GridPane();
+	
+	Button endGame = new Button("x");
+	
+	endGame.getStyleClass().add(END_GAME_BUTTON_CLASSNAME);
+
+	endGame.setOnAction(new EventHandler<ActionEvent>()
+	{
+
+	    @Override
+	    public void handle(ActionEvent event)
+	    {
+		Platform.exit();
+		System.exit(0);
+	    }
+
+	});
+	
+	Label header = GUICommons.windowHeader(GAME_NAME);
+	
+	GridPane.setConstraints(header, 0, 0);
+	GridPane.setConstraints(endGame, 1, 0);
+	
+	container.getChildren().addAll(header, endGame);
+	
+	container.setHgap(WIDTH / 2.5);
+	
+	container.getStyleClass().add(TOP_PANE_CSS_CLASSNAME);
+	
+	return container;
     }
 
     /**
@@ -449,51 +492,28 @@ public class MainGUI implements GUICommons
 	// labels
 	roundLabel = new Label(ROUND_COUNT_LABEL + roundCount);
 	turnLabel = new Label(TURN_COUNT_LABEL + turnCount);
-
-	// button
-	Button endGame = new Button("End Game");
-
+	
 	// styles
 	roundLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
 	turnLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
 
-	endGame.getStyleClass().add(END_GAME_BUTTON_CLASSNAME);
-
-	endGame.setOnAction(new EventHandler<ActionEvent>()
-	{
-
-	    @Override
-	    public void handle(ActionEvent event)
-	    {
-		Platform.exit();
-		System.exit(0);
-	    }
-
-	});
 
 	GridPane grid = new GridPane();
 
 	GridPane.setConstraints(roundLabel, 0, 0);
 	GridPane.setConstraints(turnLabel, 1, 0);
-	GridPane.setConstraints(endGame, 2, 0);
+	//GridPane.setConstraints(endGame, 2, 0);
 
 	// style
 	// grid.setPadding(GUICommons.DEFAULT_PADDING);
 	grid.setMaxWidth(Double.MAX_VALUE);
 	// grid.setAlignment(Pos.CENTER);
 	grid.setHgap(WIDTH / 2.75);
-	grid.getChildren().addAll(roundLabel, turnLabel, endGame);
+	grid.getChildren().addAll(roundLabel, turnLabel/*, endGame*/);
 	grid.getStyleClass().add(BOTTOM_PANE_CLASSNAME);
 	return grid;
     }
 
-    public static void returnToPlayerRegistration()
-    {
-	Platform.exit();
-	System.exit(0);
-	PlayerRegistration.launch("");
-    }
-    
     /**
      * Call this method privately to update the text in the label that contains
      * the turn count. The controller should use the update method instead.
