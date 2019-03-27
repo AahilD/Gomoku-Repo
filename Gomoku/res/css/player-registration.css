@@ -1,15 +1,18 @@
 .root{
-	-fx-background-image: url("../images/pr-background.jpeg");
+	-fx-background-image: url("../images/illegal-move-icon.png");
 	-fx-background-repeat: no-repeat;
-	-fx-background-position: center center;
+	-fx-background-position: bottom left;
 	-fx-background-size: auto 100%;
 }
 
 .registration-form{
-	-fx-background-color: rgba(255, 255, 255, 0.75);
 	-fx-padding: 10px;
-	-fx-alignment: center;
-	
+}
+
+.lvl-selection-container{
+	-fx-max-width:75px;
+	-fx-alignment: center-left;
+	-fx-float: left;
 }
 
 .title-head {
@@ -45,7 +48,7 @@
 	-fx-font-family: "Knife Fight Ballet";
 	-fx-text-fill: rgba(255, 255, 255, 0.75);
 	-fx-padding: 10px;
-	-fx-alignment: center-right;
+	-fx-alignment: center;
 }
 
 .radio-button {
