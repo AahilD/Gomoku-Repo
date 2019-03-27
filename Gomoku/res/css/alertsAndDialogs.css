@@ -1,0 +1,22 @@
+/*
+* This style sheet builds from an example in the following link.
+*
+* https://stackoverflow.com/questions/28417140/styling-default-javafx-dialogs
+*/
+
+.dialog-pane {
+    -fx-background-color: white;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: blue;
+}
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: red;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-style: italic;
+    -fx-font-size: 2em;
+}

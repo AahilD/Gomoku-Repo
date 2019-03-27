@@ -80,14 +80,7 @@ public class PVEnvironment extends GameController
 	    environmentPlayTurn();
 	} catch (WinAndLosses wnl)
 	{
-	    AlertsAndDialogs aad = new AlertsAndDialogs();
-	    if (aad.display_newRoundConfirmationAlert(wnl.toString()))
-	    {
-		playAnOtherRound();
-	    } else
-	    {
-		MainGUI.closeApplication();
-	    }
+	    MainGUI.displayWinnerAndLoser(wnl.toString());
 	} catch (IllegalMove e)
 	{
 
@@ -114,7 +107,7 @@ public class PVEnvironment extends GameController
 	}
     }
 
-    private static void playAnOtherRound()
+    public static void playAnOtherRound()
     {
 
 	game = new Game(game);

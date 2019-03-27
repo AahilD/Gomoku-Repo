@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.util.Optional;
 
 import broker.WinAndLosses;
@@ -14,7 +15,7 @@ import javafx.scene.control.Alert.AlertType;
  *         display to the user as required.
  * 
  */
-public class AlertsAndDialogs
+public class AlertsAndDialogs implements GUICommons
 {
     /**
      * The controller may call this method to warn the user of an illegal move.
@@ -57,9 +58,16 @@ public class AlertsAndDialogs
     public boolean display_newRoundConfirmationAlert(String wnlMsg)
     {
 	Alert alert = new Alert(AlertType.CONFIRMATION);
+	
+	
+	File f = GUICommons.getCSSFile("alertsAndDialogs.css");
+	
+	alert.getDialogPane().getStylesheets().add(
+		"file:///" + f.getAbsolutePath().replace("\\", "/"));
+	
 	alert.setHeaderText(
 		 wnlMsg + "\n" + "Do you wish to play an other round?");
-
+	
 	ButtonType yes = new ButtonType("Yes");
 	ButtonType no = new ButtonType("No");
 

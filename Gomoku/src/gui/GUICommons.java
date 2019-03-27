@@ -54,10 +54,10 @@ public interface GUICommons
 	gametitle.setMaxWidth(Double.MAX_VALUE);
 	return gametitle;
     }
-
+    
     public static void applyCSS(Scene scene, String filename)
     {
-	File f = new File("res/css/" + filename);
+	File f = getCSSFile(filename);
 	try
 	{
 	    scene.getStylesheets()
@@ -67,5 +67,10 @@ public interface GUICommons
 	{
 	    System.out.println("Could not load css file.");
 	}
+    }
+    
+    public static File getCSSFile(String filename)
+    {
+	return new File("res/css/" + filename);
     }
 }

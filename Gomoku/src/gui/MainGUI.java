@@ -567,4 +567,23 @@ public class MainGUI implements GUICommons
 	    }
 	};
     }
+
+    public static void displayWinnerAndLoser(String wnlException_toString)
+    {
+
+	    AlertsAndDialogs aad = new AlertsAndDialogs();
+	    if (aad.display_newRoundConfirmationAlert(wnlException_toString))
+	    {
+		if (isPVE)
+		{
+		    PVEnvironment.playAnOtherRound();
+		} else
+		{
+		    PVPlayer.playAnotherRound();
+		}
+	    } else
+	    {
+		closeApplication();
+	    }
+    }
 }
