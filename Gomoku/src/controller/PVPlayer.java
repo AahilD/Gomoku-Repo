@@ -33,11 +33,11 @@ public class PVPlayer extends GameController
 	    MainGUI.updateBoardSquareButton(x, y,
 		    game.getTurnPlayer().getPieceColour());
 	    MainGUI.updateTurnCount(game.incrementPlayerTurn());
-	    
+
 	} catch (WinAndLosses wnl)
 	{
 	    MainGUI.displayWinnerAndLoser(wnl.toString());
-	    
+
 	} catch (IllegalMove e)
 	{
 	    e.printStackTrace();

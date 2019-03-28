@@ -153,7 +153,9 @@ public class PlayerRegistration extends Application implements GUICommons
 	mainBorderPane.setBottom(actionButtonContainer);
 
 	HBox emptyspace = new HBox();
-	emptyspace.setMinWidth(GUICommons.getResourceImage("illegal-move-icon.png").getWidth() / 2);
+	emptyspace.setMinWidth(
+		GUICommons.getResourceImage("illegal-move-icon.png").getWidth()
+			/ 2);
 	mainBorderPane.setLeft(emptyspace);
 
 	return mainBorderPane;
@@ -168,7 +170,7 @@ public class PlayerRegistration extends Application implements GUICommons
 	levelSelectionVbox.getChildren().add(LEVEL_SELECTION_LABEL);
 	levelSelectionVbox.getChildren().addAll(levelOptions_rbList);
 	levelSelectionVbox.getStyleClass().add("lvl-selection-container");
-	
+
 	return levelSelectionVbox;
     }
 

@@ -523,19 +523,21 @@ public class PVEnvironment extends GameController
 
 		    }
 		}
-		
-		//TODO @Aahil you need a catch-all statement
+
+		// TODO @Aahil you need a catch-all statement
 		/*
-		 * somewhere at teh verry end of your method here you need to see if environment still failed to play a move. 
-		 * if so call env_lvl_1()
-		 * let it do it's magic.
+		 * somewhere at teh verry end of your method here you need to
+		 * see if environment still failed to play a move. if so call
+		 * env_lvl_1() let it do it's magic.
 		 * 
-		 * everywhere in your code that could run into a dead-end so to speak, add an else{} statement
-		 * or whatever and call on the level bellow it to attempt to make a move.
+		 * everywhere in your code that could run into a dead-end so to
+		 * speak, add an else{} statement or whatever and call on the
+		 * level bellow it to attempt to make a move.
 		 * 
-		 * you will see env_level_1() calls env_lvl_0() when lvl 1 logic fails to play a move.
+		 * you will see env_level_1() calls env_lvl_0() when lvl 1 logic
+		 * fails to play a move.
 		 * 
-		 *  that way you keep going down the latter.
+		 * that way you keep going down the latter.
 		 */
 		count++;
 	    }

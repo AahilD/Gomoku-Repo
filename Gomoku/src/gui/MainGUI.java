@@ -31,29 +31,29 @@ public class MainGUI implements GUICommons
 {
     // Screen Dimentions
     private final static double WIDTH = Screen.getMainScreen().getWidth();
-    @SuppressWarnings("unused") //just in case
+    @SuppressWarnings("unused") // just in case
     private final static double HEIGHT = Screen.getMainScreen().getHeight();
 
     // CSS FILEPATH
     private final static String CUSTOM_CSS_FILENAME = "gomoku.css";
 
     // Physical GUI properties
-    
-    //mainwindow layout
+
+    // mainwindow layout
     private static BorderPane mainWindow = new BorderPane();
-    
+
     // top panel child nodes
     private static Button endGame = new Button("x");
     private static GridPane headerContainer = new GridPane();
     private static Label header = new Label(PLAYER_STATS_HEADER_VALUE);
-    
-    //center panel child nodes
+
+    // center panel child nodes
     private static ArrayList<ArrayList<Button>> board;
     private static GridPane boardgrid = new GridPane();
-    
-    //right panel child nodes
+
+    // right panel child nodes
     private static ArrayList<String> playerStats;
-    
+
     // bottom panel child nodes
     private static Label turnLabel = new Label(TURN_COUNT_LABEL);
     private static Label roundLabel = new Label(ROUND_COUNT_LABEL);
@@ -87,7 +87,6 @@ public class MainGUI implements GUICommons
 		Button sqrButton = board.get(x).get(y);
 
 		// STYLE - PLAYABLE SQUARE
-		
 
 		// apply action event handler
 		sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
@@ -267,7 +266,7 @@ public class MainGUI implements GUICommons
 	HBox hb = new HBox();
 
 	// PLAYER STATS BOARD TITLE
-	
+
 	hb.getChildren().add(header);
 
 	// add the hb containing the header label into the vb
@@ -287,10 +286,10 @@ public class MainGUI implements GUICommons
 
 	    GridPane.setConstraints(placeholder, 0, i);
 	    GridPane.setConstraints(valueholder, 1, i);
-	    
+
 	    gp.getChildren().addAll(placeholder, valueholder);
 	}
-	
+
 	vb.getStyleClass().add(PLAYER_STATS_VBOX_CLASSNAME);
 	vb.getChildren().add(gp);
 

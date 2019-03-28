@@ -33,9 +33,11 @@ public class AlertsAndDialogs implements GUICommons
 	alert.initStyle(StageStyle.UNDECORATED);
 
 	Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-	
-	stage.getIcons().add(GUICommons.getResourceImage("illegal-move-icon.png"));
-	alert.getDialogPane().setGraphic(new ImageView(GUICommons.getResourceImage("illegal-move-icon.png")));
+
+	stage.getIcons()
+		.add(GUICommons.getResourceImage("illegal-move-icon.png"));
+	alert.getDialogPane().setGraphic(new ImageView(
+		GUICommons.getResourceImage("illegal-move-icon.png")));
 	GUICommons.applyCSS(alert.getDialogPane().getScene(),
 		"alertsAndDialogs.css");
 
@@ -73,9 +75,10 @@ public class AlertsAndDialogs implements GUICommons
 	alert.initStyle(StageStyle.UNDECORATED);
 
 	Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-	
+
 	stage.getIcons().add(GUICommons.getResourceImage("win-icon.png"));
-	alert.getDialogPane().setGraphic(new ImageView(GUICommons.getResourceImage("win-icon.png")));
+	alert.getDialogPane().setGraphic(
+		new ImageView(GUICommons.getResourceImage("win-icon.png")));
 	GUICommons.applyCSS(alert.getDialogPane().getScene(),
 		"alertsAndDialogs.css");
 
@@ -84,12 +87,13 @@ public class AlertsAndDialogs implements GUICommons
 
 	ButtonType yes = new ButtonType("Yes");
 	ButtonType no = new ButtonType("No");
-	
+
 	alert.getButtonTypes().setAll(yes, no);
 
-	Button noBT = (Button) alert.getDialogPane().lookupButton(alert.getButtonTypes().get(1));
+	Button noBT = (Button) alert.getDialogPane()
+		.lookupButton(alert.getButtonTypes().get(1));
 	noBT.getStyleClass().add("no-button");
-	
+
 	Optional<ButtonType> result = alert.showAndWait();
 	return result.get() == yes;
     }

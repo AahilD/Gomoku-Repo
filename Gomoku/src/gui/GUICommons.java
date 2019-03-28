@@ -61,23 +61,23 @@ public interface GUICommons
     {
 	try
 	{
-	    scene.getStylesheets()
-		    .add(getResourceFileURI("css", filename));
+	    scene.getStylesheets().add(getResourceFileURI("css", filename));
 
 	} catch (Exception e)
 	{
 	    System.out.println("Could not load css file.");
 	}
     }
-    
+
     public static Image getResourceImage(String fileName)
     {
 	return new Image(getResourceFileURI("images", fileName));
     }
 
-    public static String getResourceFileURI(String parentFolderName, String fileName)
+    public static String getResourceFileURI(String parentFolderName,
+	    String fileName)
     {
-	File f = new File("res/"+ parentFolderName +"/" + fileName);
+	File f = new File("res/" + parentFolderName + "/" + fileName);
 	return "file:///" + f.getAbsolutePath().replace("\\", "/");
     }
 }

@@ -297,14 +297,11 @@ public class Board
     }
 
     /**
-     * Call this method to run each one of the verify methods in a single method call.
-     * This method will true if any one of the verify conditions return true.
-     * Takes in the piece colour to scan the board for.
+     * Call this method to run each one of the verify methods in a single method
+     * call. This method will true if any one of the verify conditions return
+     * true. Takes in the piece colour to scan the board for.
      * 
-     * Methods include:
-     * - verifyVertical
-     * - verifyHorizontal
-     * - verifyDiagonalLeft
+     * Methods include: - verifyVertical - verifyHorizontal - verifyDiagonalLeft
      * - verifyDiagonalRight
      * 
      * @param pieceColour takes in the piece colour to check if it has won
