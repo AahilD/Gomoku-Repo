@@ -21,13 +21,15 @@
 
 .top-pane-hbox{
 	-fx-alignment: center-right;
-	-fx-padding: 10px;
+	-fx-padding: -10px;
 }
 
 /* bottom panel of the main window*/
 .bottom-pane {
 	-fx-background-color: rgba(255, 255, 255, 0.7);
-	-fx-alignment: center;
+	-fx-padding: 10px;
+	-fx-alignment: center-left;
+	-fx-hgap: 300px;
 }
 
 /* For each label inside the bottom panel of the main window */
@@ -76,7 +78,7 @@
 
 /* the style for the header of the player stats panel (left pane) */
 .player-stats-header {
-	-fx-font-size: 28px;
+	-fx-font-size: 32px;
 	-fx-font-weight: bold;
 	-fx-font-family: "Knife Fight Ballet";
 }
@@ -99,7 +101,7 @@
 /* the styel for the "end game" button */
 .end-game-button {
 	-fx-background-color: rgba(0, 0, 0, 0);
-	-fx-font-size: 100px;
+	-fx-font-size: 72px;
 	-fx-font-weight: bold;
 	-fx-font-family: "Knife Fight Ballet";
 	-fx-text-fill: rgba(0, 0, 0, 0.5);
