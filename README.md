@@ -76,6 +76,12 @@ Note: the controller does not communicate with the Broker, neither does the brok
 - https://www.youtube.com/watch?v=nj8zXSIa0kw
 - http://faculty.washington.edu/jtenenbg/courses/360/f01/code/gomoku.html
 - http://math.hws.edu/eck/cs124/javanotes3/c8/ex-8-6-answer.html
+- https://stackoverflow.com/questions/6952607/ai-strategy-for-gomoku-a-variation-of-tic-tac-toe
+- https://stackoverflow.com/questions/42853231/gomoku-ai-how-to-find-out-if-a-connect-is-blocked-using-bit-boards
+- https://stackoverflow.com/questions/2753399/gomoku-array-based-ai-algorithm
+- https://medium.freecodecamp.org/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37
+- https://www.youtube.com/watch?v=AtjsHoalTEU
+- https://www.youtube.com/watch?v=RYUBVSjpli8
 
 # Bibliography
 
