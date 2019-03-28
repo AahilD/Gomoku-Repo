@@ -35,6 +35,7 @@ public interface GUICommons
     static final String BUTTON_CSS_CLASSNAME = "start-game-button";
     static final String RADIO_BUTTON_CSS_CLASSNAME = "radio-button";
     static final String GAMEBOARD_GRID_CSS_CLASSNAME = "gridpane-game-board";
+    static final String TOP_PANE_CSS_CLASSNAME = "top-pane-hbox";
 
     // LABEL VALUES
     static final String GAME_NAME = "Gomoku";

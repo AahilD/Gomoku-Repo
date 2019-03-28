@@ -1,17 +1,14 @@
 package gui;
 
-import java.io.File;
 import java.util.Optional;
 
-import broker.WinAndLosses;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 
 /**
  * @author Emmanuel

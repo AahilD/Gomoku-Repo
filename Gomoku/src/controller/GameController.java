@@ -1,13 +1,11 @@
 package controller;
 
 import java.util.ArrayList;
+
 import broker.Game;
 import broker.IllegalMove;
 import broker.WinAndLosses;
-import gui.AlertsAndDialogs;
 import gui.MainGUI;
-import gui.PlayerRegistration;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 

@@ -1,21 +1,14 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
-import com.sun.media.jfxmediaimpl.platform.Platform;
-import com.sun.webkit.ThemeClient;
-
-import broker.Board;
 import broker.Game;
 import broker.IllegalMove;
 import broker.Square;
+import broker.WinAndLosses;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import broker.WinAndLosses;
 
 /**
  * @author GROUP 22
