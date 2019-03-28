@@ -96,6 +96,8 @@ public class PlayerRegistration extends Application implements GUICommons
 
     private static ToggleGroup levelSelector;
     private static ArrayList<RadioButton> levelOptions_rbList;
+    
+    private PlayerRegistrationToggleListeners toggleListener = new PlayerRegistrationToggleListeners();
 
     /**
      * This is the official main method that will be called to launch the
@@ -248,7 +250,7 @@ public class PlayerRegistration extends Application implements GUICommons
 
 	// Style grid pane
 
-	opponentMode.selectedToggleProperty().addListener(getToggleListener());
+	opponentMode.selectedToggleProperty().addListener(toggleListener.getPlayerMode_ToggleListener());
     }
 
     private void init_opponentMode()
@@ -268,49 +270,17 @@ public class PlayerRegistration extends Application implements GUICommons
 	playerVplayerRB.setSelected(true);
     }
 
-    private ChangeListener<? super Toggle> getToggleListener()
-    {
-	return new ChangeListener<Toggle>()
-	{
-
-	    @Override
-	    public void changed(ObservableValue<? extends Toggle> observable,
-		    Toggle oldValue, Toggle newValue)
-	    {
-		RadioButton modeRb = (RadioButton) opponentMode
-			.getSelectedToggle();
-
-		// if the user selected single player mode than hide
-		// the option to enter the player 2 user name
-		if (modeRb.getText().equals(PVENVIRONMENT_LABEL_TEXT_VALUE))
-		{
-		    // single player mode (toggle dissable properties)
-		    ENTER_UNAME_LABEL2.setDisable(true);
-		    PLAYER_TWO_USERNAME.setDisable(true);
-		    PLAYER_TWO_USERNAME.setText("Big Blue");
-		    ENTER_UNAME_LABEL2.setText("Computer: ");
-
-		    LEVEL_SELECTION_LABEL.setDisable(false);
-		    for (RadioButton lvlRb : levelOptions_rbList)
-			lvlRb.setDisable(false);
-
-		} else if (modeRb.getText()
-			.contentEquals(PVPLAYER_LABEL_TEXT_VALUE))
-		{
-		    // 2 payer mode toggle disable properties
-		    ENTER_UNAME_LABEL2.setDisable(false);
-		    PLAYER_TWO_USERNAME.setDisable(false);
-		    PLAYER_TWO_USERNAME.setText("Player 2");
-		    ENTER_UNAME_LABEL2
-			    .setText(USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
-
-		    for (RadioButton lvlRb : levelOptions_rbList)
-			lvlRb.setDisable(true);
-		}
-	    }
-	};
-    }
-
+    /**
+     * Call this method to initialize the level selector. level selector is a
+     * toggle group of toggle radio buttons that allow the user to only select a
+     * single option.
+     * 
+     * Warning: As levels are added one should make sure to add it in LEVEL
+     * variable and the number of the level should be in the order of its
+     * intensity relative to others. Also, make sure the PVE controller has the
+     * ability to perform the respective level number.
+     * 
+     */
     private void init_levelSelector()
     {
 	levelOptions_rbList = new ArrayList<RadioButton>();
@@ -348,6 +318,59 @@ public class PlayerRegistration extends Application implements GUICommons
 		rb -> rb.getStyleClass().add(RADIO_BUTTON_CSS_CLASSNAME));
 	regForm_gridPane.getStyleClass()
 		.add(PLAYER_REGISTRATION_FORM_GRIDPANE_CSS_CLASSNAME);
+    }
+
+    public class PlayerRegistrationToggleListeners
+    {
+	/**
+	 * Call this method to get the toggle listener for the versus mode (pve
+	 * || pvp radio butons).
+	 * 
+	 * @return ChangeListener<? super Toggle>
+	 */
+	private ChangeListener<? super Toggle> getPlayerMode_ToggleListener()
+	{
+	    return new ChangeListener<Toggle>()
+	    {
+
+		@Override
+		public void changed(
+			ObservableValue<? extends Toggle> observable,
+			Toggle oldValue, Toggle newValue)
+		{
+		    RadioButton modeRb = (RadioButton) opponentMode
+			    .getSelectedToggle();
+
+		    // if the user selected single player mode than hide
+		    // the option to enter the player 2 user name
+		    if (modeRb.getText().equals(PVENVIRONMENT_LABEL_TEXT_VALUE))
+		    {
+			// single player mode (toggle dissable properties)
+			ENTER_UNAME_LABEL2.setDisable(true);
+			PLAYER_TWO_USERNAME.setDisable(true);
+			PLAYER_TWO_USERNAME.setText("Big Blue");
+			ENTER_UNAME_LABEL2.setText("Computer: ");
+
+			LEVEL_SELECTION_LABEL.setDisable(false);
+			for (RadioButton lvlRb : levelOptions_rbList)
+			    lvlRb.setDisable(false);
+
+		    } else if (modeRb.getText()
+			    .contentEquals(PVPLAYER_LABEL_TEXT_VALUE))
+		    {
+			// 2 payer mode toggle disable properties
+			ENTER_UNAME_LABEL2.setDisable(false);
+			PLAYER_TWO_USERNAME.setDisable(false);
+			PLAYER_TWO_USERNAME.setText("Player 2");
+			ENTER_UNAME_LABEL2
+				.setText(USERNAME_TEXTINPUT_PLACEHOLDER_VALUE);
+
+			for (RadioButton lvlRb : levelOptions_rbList)
+			    lvlRb.setDisable(true);
+		    }
+		}
+	    };
+	}
     }
 
 }

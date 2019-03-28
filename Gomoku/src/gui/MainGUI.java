@@ -80,13 +80,12 @@ public class MainGUI implements GUICommons
      */
     private static Node addBoardToGridPane()
     {
+	// make sure its a new GridPane
 	for (int x = 0; x < board.size(); x++)
 	{
 	    for (int y = 0; y < board.get(x).size(); y++)
 	    {
 		Button sqrButton = board.get(x).get(y);
-
-		// STYLE - PLAYABLE SQUARE
 
 		// apply action event handler
 		sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
@@ -102,6 +101,11 @@ public class MainGUI implements GUICommons
 	return boardgrid;
     }
 
+    /**
+     * This method will add all the class names to all the global variables.
+     * Call this method to add all the CSS class names to all global variables.
+     * Only need to call this method once at run time.
+     */
     private static void addCSSClassNames()
     {
 	endGame.getStyleClass().add(END_GAME_BUTTON_CLASSNAME);
@@ -109,17 +113,29 @@ public class MainGUI implements GUICommons
 	headerContainer.setHgap(WIDTH / 2.5);
 	boardgrid.getStyleClass().add(GAMEBOARD_GRID_CSS_CLASSNAME);
 	header.getStyleClass().add(PLAYER_STATS_HEADER_LABEL_CLASSNAME);
+	roundLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
+	turnLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
 	for (ArrayList<Button> row : board)
 	    for (Button sqrButton : row)
 		sqrButton.getStyleClass().add(ACTIVE_BOARD_SQUARE_CLASSNAME);
     }
 
+    /**
+     * Call this method to close the window and exit the system should be called
+     * when the users have selected an action to quit the game.
+     */
     public static void closeApplication()
     {
 	Platform.exit();
 	System.exit(0);
     }
 
+    /**
+     * Call this method to display a alert that will name the winner and the
+     * loser, AND prompt the user if they wish to play an other round.
+     * 
+     * @param wnlException_toString
+     */
     public static void displayWinnerAndLoser(String wnlException_toString)
     {
 
@@ -140,55 +156,13 @@ public class MainGUI implements GUICommons
     }
 
     /**
-     * Call this method to setup the event handler for the button at the
-     * specified position of the board variable. When a user clicks an enabled
-     * button (square on the board) the controller will be notified to play the
-     * move. The value returned by the controller should be a char that
-     * represent the 'w' for white, or 'b' for black. this value is appeneded to
-     * the css style class name for the button that will determine if a white
-     * piece or black piece is played.
+     * Call this method to retrieve the child nodes that comprise the top pane
+     * of the main borderpane layout.
      * 
-     * In the event that the GameOver exception is thrown, this will be caught
-     * and signal the alert to notify the user who won and ask if they wish to
-     * play again; by calling the method getNewRoundConfirmationAlert();
-     * 
-     * @param x of type int represents the row position of board variable
-     * @param y of type int represents the column position of the board variable
-     * @return a new event handler for the button at the specified position on
-     *         the board
+     * @return
      */
-    public static EventHandler<ActionEvent> getBoardButtonEventHandler(int x,
-	    int y)
-    {
-	return new EventHandler<ActionEvent>()
-	{
-	    @Override
-	    public void handle(ActionEvent event)
-	    {
-		if (isPVE)
-		{
-		    PVEnvironment.playMoveAt(x, y);
-		} else
-		    PVPlayer.playMoveAt(x, y);
-
-	    }
-	};
-    }
-
     private static Node getTopBorderPane()
     {
-	endGame.setOnAction(new EventHandler<ActionEvent>()
-	{
-
-	    @Override
-	    public void handle(ActionEvent event)
-	    {
-		Platform.exit();
-		System.exit(0);
-	    }
-
-	});
-
 	Label header = GUICommons.windowHeader(GAME_NAME);
 
 	GridPane.setConstraints(header, 0, 0);
@@ -223,10 +197,6 @@ public class MainGUI implements GUICommons
 	// labels
 	roundLabel = new Label(ROUND_COUNT_LABEL + roundCount);
 	turnLabel = new Label(TURN_COUNT_LABEL + turnCount);
-
-	// styles
-	roundLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
-	turnLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
 
 	GridPane grid = new GridPane();
 
@@ -353,8 +323,10 @@ public class MainGUI implements GUICommons
      */
     public static void resetBoard(ArrayList<ArrayList<Button>> toBoard)
     {
+	boardgrid = new GridPane();
 	setBoard(toBoard);
 	mainWindow.setCenter(addBoardToGridPane());
+	addCSSClassNames();
     }
 
     /**
@@ -462,12 +434,6 @@ public class MainGUI implements GUICommons
 	// TOP: account information
 	mainWindow.setTop(getTopBorderPane());
 
-	// LEFT: empty for now
-	// perhaps we could display the moves played through out the game
-	// [username] played on: [x]:[y]
-	// [username] played on: [x]:[y]
-	// etc..
-
 	// CENTER: Transaction form
 	mainWindow.setCenter(addBoardToGridPane());
 
@@ -479,8 +445,22 @@ public class MainGUI implements GUICommons
 
 	// call the method to add all the css class names
 	addCSSClassNames();
+
+	MainGUIActionEvents.setQuitApplicationActionEvent();
     }
 
+    /**
+     * Call this method to update the button that represents a square on the
+     * board game. This method is to be called once a move has been succesfully
+     * played. It will update the square at the given x and y coordinates and
+     * set the appropriate piece colour on the button.
+     * 
+     * @param x           is the row position of the square to be updated.
+     * @param y           is the column position of the square to be updated.
+     * @param pieceColour is the colour of the piece to have displayed on the
+     *                    square that is represented by 'w' for white or 'b' for
+     *                    black anything else will cause errors.
+     */
     public static void updateBoardSquareButton(int x, int y, char pieceColour)
     {
 	Button sqr2update = board.get(x).get(y);
@@ -577,5 +557,68 @@ public class MainGUI implements GUICommons
     private static void updateTurnCountLabel()
     {
 	turnLabel.setText(TURN_COUNT_LABEL + turnCount);
+    }
+    
+    /**
+	 * Call this method to setup the event handler for the button at the
+	 * specified position of the board variable. When a user clicks an
+	 * enabled button (square on the board) the controller will be notified
+	 * to play the move. The value returned by the controller should be a
+	 * char that represent the 'w' for white, or 'b' for black. this value
+	 * is appeneded to the css style class name for the button that will
+	 * determine if a white piece or black piece is played.
+	 * 
+	 * In the event that the GameOver exception is thrown, this will be
+	 * caught and signal the alert to notify the user who won and ask if
+	 * they wish to play again; by calling the method
+	 * getNewRoundConfirmationAlert();
+	 * 
+	 * @param x of type int represents the row position of board variable
+	 * @param y of type int represents the column position of the board
+	 *          variable
+	 * @return a new event handler for the button at the specified position
+	 *         on the board
+	 */
+	public static EventHandler<ActionEvent> getBoardButtonEventHandler(
+		int x, int y)
+	{
+	    return new EventHandler<ActionEvent>()
+	    {
+		@Override
+		public void handle(ActionEvent event)
+		{
+		    if (isPVE)
+		    {
+			PVEnvironment.playMoveAt(x, y);
+		    } else
+			PVPlayer.playMoveAt(x, y);
+
+		}
+	    };
+	}
+
+    /**
+     * This class will handle all the action events.
+     *
+     */
+    public static class MainGUIActionEvents
+    {
+	/**
+	 * Call this method to call the closeApplication method once the quit
+	 * button has been clicked.
+	 */
+	public static void setQuitApplicationActionEvent()
+	{
+	    endGame.setOnAction(new EventHandler<ActionEvent>()
+	    {
+		@Override
+		public void handle(ActionEvent event)
+		{
+		    closeApplication();
+		}
+
+	    });
+	}
+
     }
 }
