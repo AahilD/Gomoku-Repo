@@ -155,9 +155,10 @@ public class PlayerRegistration extends Application implements GUICommons
 	mainBorderPane.setBottom(actionButtonContainer);
 
 	HBox emptyspace = new HBox();
-	emptyspace.setMinWidth(
+	/*emptyspace.setMinWidth(
 		GUICommons.getResourceImage("illegal-move-icon.png").getWidth()
-			/ 2);
+			/ 2);*/
+	emptyspace.setMinWidth(400);
 	mainBorderPane.setLeft(emptyspace);
 
 	return mainBorderPane;

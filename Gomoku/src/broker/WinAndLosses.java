@@ -70,6 +70,7 @@ public class WinAndLosses extends Exception
 	loser = new Player(aPlayer);
     }
 
+    @Override
     public String toString()
     {
 	return winner.getUserName() + " wins! Better luck next time "

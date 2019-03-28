@@ -1,20 +1,10 @@
 package gui;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
-import javafx.stage.Screen;
 
 public interface GUICommons
 {
@@ -65,7 +55,9 @@ public interface GUICommons
 
 	} catch (Exception e)
 	{
-	    System.out.println("Could not load css file.");
+	    Alert alert = new Alert(AlertType.ERROR);
+	    alert.setHeaderText("Could not load: css/" +filename);
+	    alert.showAndWait();
 	}
     }
 
@@ -77,7 +69,6 @@ public interface GUICommons
     public static String getResourceFileURI(String parentFolderName,
 	    String fileName)
     {
-	File f = new File("res/" + parentFolderName + "/" + fileName);
-	return "file:///" + f.getAbsolutePath().replace("\\", "/");
+	return GUICommons.class.getClassLoader().getResource(parentFolderName + "/" + fileName).toExternalForm();
     }
 }

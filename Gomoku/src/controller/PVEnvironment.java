@@ -61,7 +61,8 @@ public class PVEnvironment extends GameController
     public static void playMoveAt(int x, int y)
     {
 	// get the current turn player piece colour
-	char currentcolour = game.getTurnPlayer().getPieceColour();
+	// not used
+	//char currentcolour = game.getTurnPlayer().getPieceColour();
 
 	try
 	{

@@ -18,6 +18,7 @@ public class IllegalMove extends Exception
      * 
      * @see java.lang.Throwable#toString()
      */
+    @Override
     public String toString()
     {
 	return "This square is not playable (already occupied by a player)!!!";

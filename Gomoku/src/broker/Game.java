@@ -135,6 +135,7 @@ public class Game
      * 
      * @param TurnCount the desired integer turn count to set
      */
+    @SuppressWarnings("unused")
     private void setTurnCount(int turnCount)
     {
 	this.turnCount = turnCount;
