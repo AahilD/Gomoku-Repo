@@ -33,7 +33,7 @@ This game will prompt the user if they wish to play against another player (PVP)
 # Repository URL
 https://github.com/manucote/UC-G22.git
 
-# Run Instructions
+# Install and Run Instructions
 
 Once you have imported this application into Eclipse, (for now) run the application from PlayerRegistrationForm.Java (this will launch the GUI based application. The default package will only contain a single class that will run the text based application.
 
@@ -57,13 +57,19 @@ The code is devided into 3 tiers:
 3. gui
 - this package contains all the front end code, using JavaFX library to diplay the graphical user interface (GUI) and the various gui-components that allow the user to interact with the application in a user friendly way.
 
-3.1 gui.css
+4. jUnitTests
+- this package contains all the tests for the most cruicial parts of the application.
+
+5.0
+- this folder contains all resources that are not source code, such as fonts and images etc...
+
+5.1 res.css
 - This folder contains the CSS files that JavaFX will use to style the GUI.
 
-3.2 gui.fonts
+5.2 res.fonts
 - This folder contains the fonts (.otf, .ttf, etc...) files that the CSS file uses
 
-3.3 gui.images.
+5.3 res.images.
 - this folder contains the image files (.jpg, .png, etc...) the CSS file will use to decorate certain aspects of the GUI.
 Note: the controller does not communicate with the Broker, neither does the broker communicate with the GUI. The controller has the responsibility in mediating the information that goes back and forth.
 
