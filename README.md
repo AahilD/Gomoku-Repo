@@ -37,6 +37,13 @@ https://github.com/manucote/UC-G22.git
 
 Once you have imported this application into Eclipse, (for now) run the application from PlayerRegistrationForm.Java (this will launch the GUI based application. The default package will only contain a single class that will run the text based application.
 
+A tar.gz file will soon be made available.
+1. download the tar.gz file to download folder
+2. extract in the same folder
+3. run the install script (Double check install.sh script)
+- the Gomoku folder will be placed in the ~/ directory. Inside there is an uninstall.sh script you may run to remove the application.
+- Once installed a .desktop file will be available on your desktop to run the application.
+
 # Project Architecture
 
 The code is devided into 3 tiers:
@@ -79,7 +86,8 @@ Instructional resources (Logic & Coding):
 - freecodecamp
 
 # Bibliography
-Visual Content Resources (images used for GUI):
+# - Visual Content Resources (images used for GUI):
+
 [1]"Simple Gomoku", Play.simplegomoku.com, 2019. [Online]. Available: https://play.simplegomoku.com/. [Accessed: 26- Feb- 2019].
 
 [2]Upload.wikimedia.org, 2019. [Online]. Available: https://upload.wikimedia.org/wikipedia/commons/a/a5/Tsunami_by_hokusai_19th_century.jpg. [Accessed: 26- Feb- 2019].
@@ -92,7 +100,7 @@ Visual Content Resources (images used for GUI):
 
 [6]“c00d55738e8694d6d5cfc4c837b45bd6_icon.png (256×256).” [Online]. Available: https://cdn6.aptoide.com/imgs/c/0/0/c00d55738e8694d6d5cfc4c837b45bd6_icon.png?w=256. [Accessed: 28-Mar-2019].
 
-Instructional resources (Logic & Coding):
+# - Instructional resources (Logic & Coding):
 
 [1][Online]. Available: http://faculty.washington.edu/jtenenbg/courses/360/f01/code/gomoku.html. [Accessed: 28-Mar-2019].
 
