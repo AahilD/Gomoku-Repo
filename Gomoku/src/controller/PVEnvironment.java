@@ -3,13 +3,10 @@ package controller;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.sun.media.jfxmediaimpl.platform.Platform;
-import com.sun.webkit.ThemeClient;
-
-import broker.Board;
 import broker.Game;
 import broker.IllegalMove;
 import broker.Square;
+import broker.WinAndLosses;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
 
@@ -24,8 +21,9 @@ public class PVEnvironment extends GameController
 {
 
     private static ArrayList<int[]> playerMoveHistory;
-    private static int level;
+    private static int environmentLevel;
     private static String ENVIRONMENT_USERNAME = "Big Blue";
+    private static int count = 0;
 
     /**
      * If you are initializing a Player Versus Environment session, call this
@@ -36,18 +34,12 @@ public class PVEnvironment extends GameController
      * @param player1name is a string value that represents the username for
      *                    player 1
      */
-    public static void initializeGame(String player1name)
+    public static void initializeGame(String player1name, int toLevel)
     {
 
 	initializeGame(player1name, ENVIRONMENT_USERNAME, true);
-	// TODO @Anyone:
-	/*
-	 * once the level selector feature has been added in the player
-	 * registration form, make sure to update this method to also pass in an
-	 * argument int environmentLevel and initialize the value here.
-	 */
 	playerMoveHistory = new ArrayList<int[]>();
-	level = 0;
+	environmentLevel = toLevel;
     }
 
     /*
@@ -68,28 +60,21 @@ public class PVEnvironment extends GameController
      */
     public static void playMoveAt(int x, int y)
     {
-	char currentcolour = game.getTurnPlayer().getPieceColour();
+	// get the current turn player piece colour
+	// not used
+	//char currentcolour = game.getTurnPlayer().getPieceColour();
+
 	try
 	{
-	    if (!playMove(x, y))
-	    {
-		MainGUI.updateBoardSquareButton(x, y, currentcolour);
-		MainGUI.updateTurnCount(game.incrementPlayerTurn());
-		addPlayerMoves(x, y);
-		environmentPlayTurn();
-	    } else
-	    {
-		AlertsAndDialogs aad = new AlertsAndDialogs();
-		if (aad.display_newRoundConfirmationAlert(
-			"You Win, You must have cheated. :("))
-		{
-		    playAnOtherRound();
-		} else
-		{
-		    // TODO go back to player registration screen.
-		}
-	    }
+	    tryToPlayMove(x, y);
 
+	    // append the player's move to the list
+	    addPlayerMoves(x, y);
+	    // have the environment play it's turn.
+	    environmentPlayTurn();
+	} catch (WinAndLosses wnl)
+	{
+	    MainGUI.displayWinnerAndLoser(wnl.toString());
 	} catch (IllegalMove e)
 	{
 
@@ -102,21 +87,21 @@ public class PVEnvironment extends GameController
      */
     public static void environmentPlayTurn()
     {
-	if (level == 0)
+	if (environmentLevel == 0)
 	{
 	    environment_lvl_zero();
 	}
-	if (level == 1)
+	if (environmentLevel == 1)
 	{
-		environment_lvl_one();
+	    environment_lvl_one();
 	}
-	// if (level == 2)
-	// {
-	// environment_lvl_two();
-	// }
+	if (environmentLevel == 2)
+	{
+	    environment_lvl_two();
+	}
     }
 
-    private static void playAnOtherRound()
+    public static void playAnOtherRound()
     {
 
 	game = new Game(game);
@@ -137,83 +122,466 @@ public class PVEnvironment extends GameController
      */
     private static void environment_lvl_zero()
     {
-	Random rand = new Random();
-	int x = -1;
-	int y = -1;
-	boolean environmentMoveSuccesful = false;
-	do
-	{
-	    x = rand.nextInt(19);
-	    y = rand.nextInt(19);
-	    environmentMoveSuccesful = environmentPlayMoveAt(x, y);
+	ArrayList<Square> availableSquareCoordinates = new ArrayList<Square>();
+	Random r = new Random();
 
-	} while (!environmentMoveSuccesful);
-
-	try
+	for (Square[] row : game.getCurrentBoard().getBoard())
 	{
-	    Thread.sleep(1000);
-	} catch (InterruptedException e)
-	{
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
+	    for (Square sq : row)
+	    {
+		if (sq.isEmpty())
+		{
+		    availableSquareCoordinates.add(sq);
+		}
+	    }
 	}
+
+	if (!availableSquareCoordinates.isEmpty())
+	{
+	    Square sqr = availableSquareCoordinates
+		    .get(r.nextInt(availableSquareCoordinates.size()));
+	    if (!environmentPlayMoveAt(sqr.getX(), sqr.getY()))
+	    {
+		environment_lvl_zero(); // just a fail safe
+	    }
+	}
+
+    }
+
+    /**
+     * @Pending Review 1. identify player's last move (x,y) 2. loop through each
+     *          square next to the coordinate (above, top right, to the right,
+     *          right bottom, below, left bottom, to the left, top left) until
+     *          player == null 3. place token on the available square 4. if not
+     *          available, try second last move 5. keep going through the entire
+     *          list of player's move
+     */
+
+    private static void environment_lvl_one()
+    {
+	boolean environmentMoveSuccesful = false;
+
+	ArrayList<int[]> moves = getPlayerMoves();
+
+	// in case the last move played has no empty square keep moving down the
+	// list
+	for (int i = moves.size() - 1; i >= 0 && !environmentMoveSuccesful; i--)
+	{
+	    int[] move = moves.get(i);
+
+	    environmentMoveSuccesful = environmentPlayMoveAt(move[0] + 1,
+		    move[1] + 1);
+
+	    if (!environmentMoveSuccesful)
+	    {
+		environmentMoveSuccesful = environmentPlayMoveAt(move[0] - 1,
+			move[1] + 1);
+		if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(
+			    move[0] + 1, move[1] - 1);
+		    if (!environmentMoveSuccesful)
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				move[0], move[1] + 1);
+			if (!environmentMoveSuccesful)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    move[0] + 1, move[1]);
+			    if (!environmentMoveSuccesful)
+			    {
+				environmentMoveSuccesful = environmentPlayMoveAt(
+					move[0] - 1, move[1]);
+				if (!environmentMoveSuccesful)
+				{
+				    environmentMoveSuccesful = environmentPlayMoveAt(
+					    move[0], move[1] - 1);
+				    if (!environmentMoveSuccesful)
+				    {
+					environmentMoveSuccesful = environmentPlayMoveAt(
+						move[0] - 1, move[1] - 1);
+				    }
+				}
+
+			    }
+			}
+		    }
+		}
+	    }
+	}
+	// if all else fails have environment lvl zero find an empty square!
+	if (!environmentMoveSuccesful)
+	{
+	    environment_lvl_zero();
+	}
+    }
+
+    private static void environment_lvl_two()
+    {
+	boolean environmentMoveSuccesful = false;
+
+	int aiPlayMoveAtx = 0;
+	int aiPlayMoveAty = 0;
+
+	ArrayList<int[]> moves = getPlayerMoves();
+
+	int i = moves.size();
+
+	// TODO @Aahil for the first move just call on environment level 1
+	// don't duplicate code
+
+	if (!environmentMoveSuccesful)
+	{
+	    if (count == 0)
+	    {
+		int[] x = moves.get(count);
+		if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
+			    x[1] + 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
+			    x[1] + 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
+			    x[1] - 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0],
+			    x[1] + 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
+			    x[1]);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
+			    x[1]);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0],
+			    x[1] - 1);
+		} else if (!environmentMoveSuccesful)
+		{
+		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
+			    x[1] - 1);
+		}
+		count++;
+
+	    }
+
+	    else if (count < i)
+	    {
+		int[] secondLastMove = moves.get(count - 1);
+		int[] lastMove = moves.get(count);
+
+		// TODO @Aahil so the problem is...
+		/*
+		 * So this is my fault, I gave poor instructions to Emily you
+		 * followed her same logic.
+		 * 
+		 * see level 1, its weird, but it works. you need nest if
+		 * statement after nested if statement
+		 * 
+		 * i know. its weird... but actually if you can find a way to
+		 * create a private method that will can do it recursively you
+		 * may do so. up to you.
+		 */
+
+		// Horizontal Block
+		if (secondLastMove[0] == lastMove[0])
+		{
+		    if (!environmentMoveSuccesful
+			    && (secondLastMove[1] - lastMove[1] == 1))
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], lastMove[1] + 1);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && (secondLastMove[1] - lastMove[1] == -1))
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], lastMove[1] + 1);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((secondLastMove[1] - lastMove[1]) % 2 == 0)
+			    && secondLastMove[1] > lastMove[1])
+		    {
+			aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], aiPlayMoveAty);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((lastMove[1] - secondLastMove[1]) % 2 == 0))
+		    {
+			aiPlayMoveAty = (lastMove[1] + secondLastMove[1]) / 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], aiPlayMoveAty);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((secondLastMove[1] - lastMove[1]) % 2 != 0))
+		    {
+			aiPlayMoveAty = (secondLastMove[1] + lastMove[1] - 1)
+				/ 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0], aiPlayMoveAty);
+		    }
+		}
+
+		// Vertical Block
+		else if (secondLastMove[1] == lastMove[1])
+		{
+		    if (!environmentMoveSuccesful
+			    && (secondLastMove[0] - lastMove[0] == 1))
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0] + 1, lastMove[1]);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && (secondLastMove[0] - lastMove[0] == -1))
+		    {
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				lastMove[0] + 1, lastMove[1]);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((secondLastMove[0] - lastMove[0]) % 2 == 0)
+			    && secondLastMove[0] > lastMove[0])
+		    {
+			aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				aiPlayMoveAtx, lastMove[1]);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((lastMove[0] - secondLastMove[0]) % 2 == 0))
+		    {
+			aiPlayMoveAtx = (lastMove[0] + secondLastMove[0]) / 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				aiPlayMoveAtx, lastMove[1]);
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && ((secondLastMove[0] - lastMove[0]) % 2 != 0))
+		    {
+			aiPlayMoveAtx = (secondLastMove[0] + lastMove[0] - 1)
+				/ 2;
+			environmentMoveSuccesful = environmentPlayMoveAt(
+				aiPlayMoveAtx, lastMove[1]);
+		    }
+		}
+
+		// Diagnal top left - bottom right
+		else if (secondLastMove[0] - lastMove[0] == secondLastMove[1]
+			- lastMove[1])
+		{
+		    if (!environmentMoveSuccesful
+			    && secondLastMove[0] > lastMove[0])
+		    {
+			if (!environmentMoveSuccesful
+				&& secondLastMove[0] - lastMove[0] == 1)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    lastMove[0] - 1, lastMove[1] - 1);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (secondLastMove[0] - lastMove[0]) % 2 == 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0])
+				    / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1])
+				    / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (secondLastMove[0] - lastMove[0]) % 2 != 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]
+				    + 1) / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1]
+				    + 1) / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && secondLastMove[0] < lastMove[0])
+		    {
+			if (!environmentMoveSuccesful
+				&& secondLastMove[0] - lastMove[0] == -1)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    lastMove[0] + 1, lastMove[1] + 1);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 == 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0])
+				    / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1])
+				    / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 != 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]
+				    + 1) / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1]
+				    + 1) / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+		    }
+		}
+
+		// Diagnal top right - bottom left
+		else if (secondLastMove[0] - lastMove[0] != secondLastMove[1]
+			- lastMove[1])
+		{
+		    if (!environmentMoveSuccesful
+			    && secondLastMove[0] > lastMove[0])
+		    {
+			if (!environmentMoveSuccesful
+				&& secondLastMove[0] - lastMove[0] == 1)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    lastMove[0] - 1, lastMove[1] + 1);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (secondLastMove[0] - lastMove[0]) % 2 == 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0])
+				    / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1])
+				    / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 != 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]
+				    + 1) / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1]
+				    - 1) / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+		    }
+
+		    else if (!environmentMoveSuccesful
+			    && secondLastMove[0] < lastMove[0])
+		    {
+
+			if (!environmentMoveSuccesful
+				&& secondLastMove[0] - lastMove[0] == 1)
+			{
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    lastMove[0] + 1, lastMove[1] - 1);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 == 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0])
+				    / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1])
+				    / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+			else if (!environmentMoveSuccesful
+				&& (lastMove[0] - secondLastMove[0]) % 2 != 0)
+			{
+			    aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]
+				    + 1) / 2;
+			    aiPlayMoveAty = (secondLastMove[1] + lastMove[1]
+				    - 1) / 2;
+			    environmentMoveSuccesful = environmentPlayMoveAt(
+				    aiPlayMoveAtx, aiPlayMoveAty);
+			}
+
+		    }
+		}
+
+		// TODO @Aahil you need a catch-all statement
+		/*
+		 * somewhere at teh verry end of your method here you need to
+		 * see if environment still failed to play a move. if so call
+		 * env_lvl_1() let it do it's magic.
+		 * 
+		 * everywhere in your code that could run into a dead-end so to
+		 * speak, add an else{} statement or whatever and call on the
+		 * level bellow it to attempt to make a move.
+		 * 
+		 * you will see env_level_1() calls env_lvl_0() when lvl 1 logic
+		 * fails to play a move.
+		 * 
+		 * that way you keep going down the latter.
+		 */
+		count++;
+	    }
+	}
+    }
+
+    private static void tryToPlayMove(int x, int y)
+	    throws IllegalMove, WinAndLosses
+    {
+	playMove(x, y);
 	MainGUI.updateBoardSquareButton(x, y,
 		game.getTurnPlayer().getPieceColour());
 	MainGUI.updateTurnCount(game.incrementPlayerTurn());
-
-    }
-    
-    //@Pending review
-    //Made method lvl1 so that it takes the last move from the arraylist and places
-    //the token around where the player place their token 
-    private static void environment_lvl_one()
-    {
-    	boolean environmentMoveSuccesful=false;
-    	int hmmm = 0;
-    	do {
-    	int[] lastmove = getPlayersLastMove();
-    	Random rand = new Random();
-    	boolean xneg = rand.nextBoolean();
-    	boolean yneg = rand.nextBoolean();
-    	if (xneg) {
-    		lastmove[0]=lastmove[0]-1;
-    	}
-    	else {
-    		lastmove[0] = lastmove[0]+1;
-    	}
-    	if (yneg) {
-    		lastmove[1] = lastmove[1]-1;
-    	}
-    	else {
-    		lastmove[0]=lastmove[0]+1;
-    	}
-    	environmentMoveSuccesful = environmentPlayMoveAt(lastmove[0], lastmove[1]);
-    	hmmm +=1;
-    	}while (!environmentMoveSuccesful && hmmm < 15);
-    	if (hmmm == 15) {
-    		environment_lvl_zero();
-    	}
     }
 
     private static boolean environmentPlayMoveAt(int x, int y)
     {
 	boolean moveSuccessful = false;
+
 	try
 	{
-	    if (!game.makeMove(x, y))
+	    tryToPlayMove(x, y);
+	    moveSuccessful = true;
+
+	} catch (WinAndLosses wnl)
+	{
+	    AlertsAndDialogs aad = new AlertsAndDialogs();
+
+	    if (aad.display_newRoundConfirmationAlert(wnl.toString()))
 	    {
-
-		moveSuccessful = true;
-
+		playAnOtherRound();
 	    } else
 	    {
-		AlertsAndDialogs aad = new AlertsAndDialogs();
-		aad.display_newRoundConfirmationAlert("You LOOSE!!! :P");
+		// if they do not wish to play an other round just close the
+		// application.
+		MainGUI.closeApplication();
 	    }
 
 	} catch (IllegalMove e)
 	{
-	    moveSuccessful = false;
+	    // do nothing here the environment will keep trying till
+	    // moveSuccessful == true
+	    // this is essentially
 	}
 
 	return moveSuccessful;
@@ -224,7 +592,7 @@ public class PVEnvironment extends GameController
      * 
      * @return the playerMoves
      */
-    public ArrayList<int[]> getPlayerMoves()
+    public static ArrayList<int[]> getPlayerMoves()
     {
 	return playerMoveHistory;
     }

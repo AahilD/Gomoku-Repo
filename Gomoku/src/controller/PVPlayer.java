@@ -2,7 +2,7 @@ package controller;
 
 import broker.Game;
 import broker.IllegalMove;
-import gui.AlertsAndDialogs;
+import broker.WinAndLosses;
 import gui.MainGUI;
 
 /**
@@ -29,33 +29,20 @@ public class PVPlayer extends GameController
     {
 	try
 	{
-	    if (!playMove(x, y))
-	    {
-		MainGUI.updateBoardSquareButton(x, y,
-			game.getTurnPlayer().getPieceColour());
-		MainGUI.updateTurnCount(game.incrementPlayerTurn());
-	    } else
-	    {
-		AlertsAndDialogs aad = new AlertsAndDialogs();
-		if (aad.display_newRoundConfirmationAlert(
-			game.getTurnPlayer().getUserName() + " wins!"))
-		{
-		    playAnotherRound();
-		} else
-		{
-		    // TODO @Aahil close the main window and go back to player
-		    // registration.
-		}
-	    }
+	    playMove(x, y);
+	    MainGUI.updateBoardSquareButton(x, y,
+		    game.getTurnPlayer().getPieceColour());
+	    MainGUI.updateTurnCount(game.incrementPlayerTurn());
+
+	} catch (WinAndLosses wnl)
+	{
+	    MainGUI.displayWinnerAndLoser(wnl.toString());
+
 	} catch (IllegalMove e)
 	{
 	    e.printStackTrace();
 	}
-	// TODO @Ahil
-	/*
-	 * see the PVE controller as a reference point. won't be exactly the
-	 * same since it is not playing against the environment
-	 */
+
     }
 
     /**
@@ -68,7 +55,7 @@ public class PVPlayer extends GameController
      * able to do it in 5 lines or so. perhaps implement a method to increment
      * round count
      */
-    private static void playAnotherRound()
+    public static void playAnotherRound()
     {
 	game = new Game(game);
 	incrementRoundCount();

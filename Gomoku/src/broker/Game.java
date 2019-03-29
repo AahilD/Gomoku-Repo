@@ -26,8 +26,8 @@ public class Game
      * This constructor sets each player, sets turn count to 0, and creates a
      * new board
      * 
-     * @param gotPlayerOne Name of player one
-     * @param gotPlayerTwo Name of player two
+     * @param String gotPlayerOne Name of player one
+     * @param String gotPlayerTwo Name of player two
      */
     public Game(String gotPlayerOne, String gotPlayerTwo)
     {
@@ -135,6 +135,7 @@ public class Game
      * 
      * @param TurnCount the desired integer turn count to set
      */
+    @SuppressWarnings("unused")
     private void setTurnCount(int turnCount)
     {
 	this.turnCount = turnCount;
@@ -174,40 +175,57 @@ public class Game
      * @param yCoordinate Vertical placement
      * @return False if move does not result in a win, True if move does result
      *         in a win
-     * @throws IllegalMove
+     * @throws IllegalMove and WinAndLosses
+     * 
      */
-    public boolean makeMove(int x, int y) throws IllegalMove
+    public void makeMove(int x, int y) throws IllegalMove, WinAndLosses
     {
-	boolean isWinningMove = false;
-
-	/*
-	 * Tries to assign player to desired square, but if another player
-	 * already occupies that square, throws IllegalMove
-	 */
 	try
 	{
+	    // try to play the move the player requested
 	    currentBoard.getBoard()[x][y].setPlayer(getTurnPlayer());
+
+	    // Uncomment following line for debugging purposes ONLY
+	    // System.out.println(getTurnPlayer().getUserName() + " payed on ["
+	    // + x + "][" + y + "]");
+
+	    // verify if this move was the wining move by invoking gameOver
+	    // method.
 	    if (currentBoard.gameOver(getTurnPlayer().getPieceColour()))
 	    {
-		isWinningMove = true;
+		// variable to store the winning player
+		Player winner = null;
+		// variable to store the losing player
+		Player loser = null;
+
+		// if winner is player one
 		if (getTurnPlayer().getPieceColour() == playerOne
 			.getPieceColour())
 		{
+		    // Adjust wincount lose count etc
 		    playerOne.incrementWinCount();
 		    playerTwo.incrementLoseCount();
+		    // store the players into their respective variables
+		    winner = playerOne;
+		    loser = playerTwo;
 		} else
 		{
+		    // adjust wincount etc
 		    playerTwo.incrementWinCount();
 		    playerOne.incrementLoseCount();
+		    // store the players into their respective variables
+		    winner = playerTwo;
+		    loser = playerOne;
 		}
+		// throw the win/loss exception with the respective winner and
+		// loser
+		throw new WinAndLosses(winner, loser);
 	    }
-
 	} catch (IllegalMove e)
 	{
+	    // if move was invalid throw the illegal move exception
 	    throw e;
 	}
-
-	return isWinningMove;
     }
 
     /**
@@ -234,7 +252,7 @@ public class Game
      */
     public int incrementPlayerTurn()
     {
-	turnCount += 1;
+	turnCount++;
 	return turnCount;
     }
 }

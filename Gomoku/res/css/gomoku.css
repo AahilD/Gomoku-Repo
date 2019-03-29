@@ -1,0 +1,113 @@
+/*
+* CSS style sheet for the GOMOKU game
+* Group 22
+* by Emmanuel Julio Gallebuillos-Cote
+*/
+
+/* get local font faces*/
+@font-face{
+	font-family: Knife Fight Ballet;
+	src: url(../fonts/KnifeFightBallet-Regular.otf);
+}
+
+/* main window and global settings*/
+.root {
+	-fx-background-image: url("../images/background.jpg");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: 100% auto;
+	-fx-font-size: 14px;
+}
+
+.top-pane-hbox{
+	-fx-alignment: center-right;
+	-fx-padding: -10px;
+}
+
+/* bottom panel of the main window*/
+.bottom-pane {
+	-fx-background-color: rgba(255, 255, 255, 0.7);
+	-fx-padding: 10px;
+	-fx-alignment: center-left;
+	-fx-hgap: 300px;
+}
+
+/* For each label inside the bottom panel of the main window */
+.bottom-pane-labels{
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+}
+
+/* The header at the top of the window displaying the name of the game */
+.title-head {
+	-fx-font-size: 82px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-alignment: center-right;
+}
+
+.gridpane-game-board {
+	-fx-alignment: center;
+}
+
+/* default style for each square on the board */
+.active-board-square {
+	-fx-background-color: rgba(255, 255, 255, 0.8);
+	-fx-border-color: rgba(0,0,0,0.8);
+	-fx-min-width: 30px;
+	-fx-min-height: 30px;
+}
+
+/* the style of the square that has a white piece placed on it */
+.ocupied-board-square-w{
+	-fx-background-image: url("../images/white-piece.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: 90% auto;
+	-fx-opacity: 1.0;
+}
+
+/* the style of the square that has a black piece placed on it */
+.ocupied-board-square-b{
+	-fx-background-image: url("../images/black-piece.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size: 90% auto;
+	-fx-opacity: 1.0;
+}
+
+/* the style for the header of the player stats panel (left pane) */
+.player-stats-header {
+	-fx-font-size: 32px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+}
+
+/* the style for each label containing the players stats */
+.player-stats-label {
+	-fx-font-size: 14px;
+	-fx-font-weight: bold;
+	-fx-height: 16px;
+	-fx-padding: 10px;
+	-fx-min-width: 30%;
+}
+
+/* the style for vbox containing the labels of player stats */
+.player-stats-vbox {
+	-fx-background-color: rgba(255, 255, 255, 0.75);
+	-fx-height: auto;
+}
+
+/* the styel for the "end game" button */
+.end-game-button {
+	-fx-background-color: rgba(0, 0, 0, 0);
+	-fx-font-size: 72px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-text-fill: rgba(0, 0, 0, 0.5);
+}
+
+/* the style for the "end game" button upon hover */
+.end-game-button:hover {
+	-fx-text-fill: rgba(255, 0 , 0, 0.75);
+}

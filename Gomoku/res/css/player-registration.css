@@ -1,0 +1,62 @@
+.root{
+	-fx-background-image: url("../images/illegal-move-icon.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: bottom left;
+	-fx-background-size: auto 100%;
+}
+
+.registration-form{
+	-fx-padding: 10px;
+}
+
+.lvl-selection-container{
+	-fx-max-width:75px;
+	-fx-alignment: center-left;
+	-fx-float: left;
+}
+
+.title-head {
+	-fx-font-size: 32px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-padding: 10px;
+	-fx-alignment: center;
+}
+
+.form-label{
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+	-fx-padding: 10px;
+}
+
+.registration-form-gridpane{
+	-fx-alignment: center;
+	-fx-hgap: 10;
+	-fx-vgap: 10;
+}
+
+.action-button-hbox{
+	-fx-alignment: center-right;
+	-fx-padding: 10px;
+}
+
+.start-game-button {
+	-fx-background-color: rgba(52, 152, 219, 0.75);
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Knife Fight Ballet";
+	-fx-text-fill: rgba(255, 255, 255, 0.75);
+	-fx-padding: 10px;
+	-fx-alignment: center;
+}
+
+.radio-button {
+	-fx-font-size: 24px;
+	-fx-font-weight: bold;
+	-fx-padding: 5px;
+}
+
+.radio-button .radio {
+	-fx-padding: 5px;
+}

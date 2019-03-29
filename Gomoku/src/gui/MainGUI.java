@@ -1,26 +1,19 @@
 package gui;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import com.sun.glass.ui.Screen;
 
-import controller.GameController;
-import controller.GameOverException;
 import controller.PVEnvironment;
 import controller.PVPlayer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -36,25 +29,245 @@ import javafx.stage.StageStyle;
  */
 public class MainGUI implements GUICommons
 {
-    // WINDOW DIMENTIONS
+    // Screen Dimentions
     private final static double WIDTH = Screen.getMainScreen().getWidth();
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") // just in case
     private final static double HEIGHT = Screen.getMainScreen().getHeight();
 
     // CSS FILEPATH
-    private final static String CUSTOM_CSS_FILENAME = "css/gomoku.css";
+    private final static String CUSTOM_CSS_FILENAME = "gomoku.css";
 
     // Physical GUI properties
+
+    // mainwindow layout
     private static BorderPane mainWindow = new BorderPane();
+
+    // top panel child nodes
+    private static Button endGame = new Button("x");
+    private static GridPane headerContainer = new GridPane();
+    private static Label header = new Label(PLAYER_STATS_HEADER_VALUE);
+
+    // center panel child nodes
     private static ArrayList<ArrayList<Button>> board;
+    private static GridPane boardgrid = new GridPane();
+
+    // right panel child nodes
     private static ArrayList<String> playerStats;
-    private static int turnCount;
-    private static int roundCount;
+
+    // bottom panel child nodes
     private static Label turnLabel = new Label(TURN_COUNT_LABEL);
     private static Label roundLabel = new Label(ROUND_COUNT_LABEL);
-    private static GameController gControl;
-    // Until I find a better way
+    private static int turnCount;
+    private static int roundCount;
+
+    // has user selected PVE mode or PVP mode?
     private static boolean isPVE;
+
+    /**
+     * Call this method to place each button in the 2D Array List of buttons
+     * into the GridPane boardgrid in their respective order (left-to-right and
+     * top-to-bottom).
+     * 
+     * <p>
+     * <a href=
+     * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html">
+     * Click here for more information on GridPane... </a>
+     * </p>
+     * 
+     * @param board is a 2 dimentional matrix ArrayList of type Button that
+     *              represents the board composition
+     * @return
+     */
+    private static Node addBoardToGridPane()
+    {
+	// make sure its a new GridPane
+	for (int x = 0; x < board.size(); x++)
+	{
+	    for (int y = 0; y < board.get(x).size(); y++)
+	    {
+		Button sqrButton = board.get(x).get(y);
+
+		// apply action event handler
+		sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
+
+		// add button to gridpane
+		GridPane.setConstraints(sqrButton, // Node
+			y, x);
+
+		boardgrid.getChildren().add(sqrButton);
+	    }
+	}
+
+	return boardgrid;
+    }
+
+    /**
+     * This method will add all the class names to all the global variables.
+     * Call this method to add all the CSS class names to all global variables.
+     * Only need to call this method once at run time.
+     */
+    private static void addCSSClassNames()
+    {
+	endGame.getStyleClass().add(END_GAME_BUTTON_CLASSNAME);
+	headerContainer.getStyleClass().add(TOP_PANE_CSS_CLASSNAME);
+	headerContainer.setHgap(WIDTH / 2.5);
+	boardgrid.getStyleClass().add(GAMEBOARD_GRID_CSS_CLASSNAME);
+	header.getStyleClass().add(PLAYER_STATS_HEADER_LABEL_CLASSNAME);
+	roundLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
+	turnLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
+	for (ArrayList<Button> row : board)
+	    for (Button sqrButton : row)
+		sqrButton.getStyleClass().add(ACTIVE_BOARD_SQUARE_CLASSNAME);
+    }
+
+    /**
+     * Call this method to close the window and exit the system should be called
+     * when the users have selected an action to quit the game.
+     */
+    public static void closeApplication()
+    {
+	Platform.exit();
+	System.exit(0);
+    }
+
+    /**
+     * Call this method to display a alert that will name the winner and the
+     * loser, AND prompt the user if they wish to play an other round.
+     * 
+     * @param wnlException_toString
+     */
+    public static void displayWinnerAndLoser(String wnlException_toString)
+    {
+
+	AlertsAndDialogs aad = new AlertsAndDialogs();
+	if (aad.display_newRoundConfirmationAlert(wnlException_toString))
+	{
+	    if (isPVE)
+	    {
+		PVEnvironment.playAnOtherRound();
+	    } else
+	    {
+		PVPlayer.playAnotherRound();
+	    }
+	} else
+	{
+	    closeApplication();
+	}
+    }
+
+    /**
+     * Call this method to retrieve the child nodes that comprise the top pane
+     * of the main borderpane layout.
+     * 
+     * @return
+     */
+    private static Node getTopBorderPane()
+    {
+	Label header = GUICommons.windowHeader(GAME_NAME);
+
+	GridPane.setConstraints(header, 0, 0);
+	GridPane.setConstraints(endGame, 1, 0);
+
+	headerContainer.getChildren().addAll(header, endGame);
+
+	return headerContainer;
+    }
+
+    /**
+     * Call this method to setup the content of the bottom pane. Currently, the
+     * bottom pane will be composed of the number of rounds, the number of
+     * turns, and an additional button to quit the game. Each item is placed in
+     * an HBox that will display each item from left to right in the respective
+     * order.
+     * <p>
+     * <a href=
+     * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/HBox.html">
+     * Click here for more information on HBox </a>
+     * </p>
+     * 
+     * @param roundCount is an integer that represents the number of rounds
+     *                   played
+     * @param turnCount  is an integer that represents the total number of turns
+     *                   played
+     * @return Node of type HBox containing the respective labels and the quit
+     *         button
+     */
+    private static Node initBottomPane()
+    {
+	// labels
+	roundLabel = new Label(ROUND_COUNT_LABEL + roundCount);
+	turnLabel = new Label(TURN_COUNT_LABEL + turnCount);
+
+	GridPane grid = new GridPane();
+
+	GridPane.setConstraints(roundLabel, 0, 0);
+	GridPane.setConstraints(turnLabel, 1, 0);
+
+	// style
+	grid.getChildren().addAll(roundLabel, turnLabel);
+	grid.getStyleClass().add(BOTTOM_PANE_CLASSNAME);
+	return grid;
+    }
+
+    /**
+     * Use this method to set up the player stats/information panel. It will
+     * display each string from the ArrayList on an individual line in the same
+     * order as they are stored in the ArrayList. each string is currently
+     * allocated to their own respective Label and each Label will be added to a
+     * sing VBox container.
+     * 
+     * <p>
+     * <a href=
+     * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/VBox.html">
+     * Click here for more information on VBox </a>
+     * </p>
+     * 
+     * @param playerStats is an array list of strings that represent each line
+     *                    to display
+     * @return Node of type VBox composed of individual labels from each string
+     *         in the ArrayList
+     */
+    private static Node initGameStatsPanel()
+    {
+	// all the required containers to properly position the player stats
+	Group group = new Group();
+	VBox mainVbox = new VBox();
+	VBox vb = new VBox();
+	HBox hb = new HBox();
+
+	// PLAYER STATS BOARD TITLE
+
+	hb.getChildren().add(header);
+
+	// add the hb containing the header label into the vb
+	vb.getChildren().add(hb);
+
+	GridPane gp = new GridPane();
+
+	// cycle through each string in the ArrayList<String> playerStats
+	for (int i = 0; i < playerStats.size(); i++)
+	{
+	    String[] splitStr = playerStats.get(i).split(":");
+
+	    Label placeholder = new Label(splitStr[0]);
+	    placeholder.getStyleClass().add(PLAYER_STATS_LABELS_CLASSNAME);
+
+	    Label valueholder = new Label(splitStr[1]);
+
+	    GridPane.setConstraints(placeholder, 0, i);
+	    GridPane.setConstraints(valueholder, 1, i);
+
+	    gp.getChildren().addAll(placeholder, valueholder);
+	}
+
+	vb.getStyleClass().add(PLAYER_STATS_VBOX_CLASSNAME);
+	vb.getChildren().add(gp);
+
+	group.getChildren().add(vb);
+	mainVbox.getChildren().add(group);
+
+	return mainVbox;
+    }
 
     /**
      * Once the controller has initialized the game it should call this method
@@ -74,6 +287,7 @@ public class MainGUI implements GUICommons
 	    ArrayList<String> toPlayerStats, int roundCount, int turnCount,
 	    boolean toIsPVE)
     {
+	// new primaryStage
 	Stage primaryStage = new Stage();
 
 	// set the values
@@ -95,10 +309,8 @@ public class MainGUI implements GUICommons
 	primaryStage.setScene(scene);
 	primaryStage.show();
 
-	// LOAD CUSTOM CSS STYLE SHEET
-	scene.getStylesheets().add(MainGUI.class
-		.getResource(CUSTOM_CSS_FILENAME).toExternalForm());
-
+	// ApplyCSS
+	GUICommons.applyCSS(scene, CUSTOM_CSS_FILENAME);
     }
 
     /**
@@ -111,76 +323,70 @@ public class MainGUI implements GUICommons
      */
     public static void resetBoard(ArrayList<ArrayList<Button>> toBoard)
     {
+	boardgrid = new GridPane();
 	setBoard(toBoard);
 	mainWindow.setCenter(addBoardToGridPane());
-    }
-
-    public static void updateBoardSquareButton(int x, int y, char pieceColour)
-    {
-	Button sqr2update = board.get(x).get(y);
-	Button sqrButton = board.get(x).get(y);
-	sqrButton.setDisable(true);
-	sqr2update.getStyleClass()
-		.add(OCUPIED_BOARD_SQUARE_CLASSNAME + pieceColour);
-	sqr2update.applyCss();
+	addCSSClassNames();
     }
 
     /**
-     * The controller may call this method to updatePlayerStatsPanel, by passing
-     * in a new set of playerstats in an ArrayList of type <String>. Each item
-     * represents a new line on the player stats panel. Each string should
-     * contain a colon to seperate the label and the value.
+     * Call this method privately to set the board with new values, the
+     * Controller should use the resetBoard method, or the
+     * updateBoardSquareButton method isntead.
      * 
-     * @param toPlayerStats an ArrayList of type <String>, Each item represents
-     *                      a new line, and each string should contain a colon
-     *                      to seperate the label from the value.
+     * @param toBoard a 2d ArrayList of type <Button> representing each square
+     *                on the board.
      */
-    public static void updatePlayerStatsPanel(ArrayList<String> toPlayerStats)
+    private static void setBoard(ArrayList<ArrayList<Button>> toBoard)
     {
-	setPlayerStatsList(toPlayerStats);
-	mainWindow.setRight(initGameStatsPanel());
+	board = new ArrayList<ArrayList<Button>>();
+
+	for (int x = 0; x < toBoard.size(); x++)
+	{
+	    ArrayList<Button> row = new ArrayList<Button>();
+
+	    for (int y = 0; y < toBoard.get(x).size(); y++)
+		row.add(toBoard.get(x).get(y));
+
+	    board.add(row);
+	}
+
     }
 
     /**
-     * The controller may call this method to update the roundCount value
-     * displayed on the GUI. Changes to the value will automatically display on
-     * the GUI in this method. To updateRoundCount and reset turncount, call the
-     * method updateRoundCount_ResetTurnCount().
+     * Call this method privately to set the player stats. The controller should
+     * call updatePlayerStatsPanel instead.
      * 
-     * @param toRoundCount is an variable of type int that represents the number
-     *                     of rounds played by the same two players.
+     * @param toPlayerStats an ArrayList of type String containing player stats
      */
-    public static void updateRoundCount(int toRoundCount)
+    private static void setPlayerStatsList(ArrayList<String> toPlayerStats)
     {
-	setRoundCount(toRoundCount);
+	playerStats = toPlayerStats;
+    }
+
+    /**
+     * Call this method privately to set the global variable roundCount. The
+     * controller should use the public method updateRoundCount, or
+     * updateRoundCount_ResetTurnCount.
+     * 
+     * @param toRoundCount is a variable of type int that represents the number
+     *                     of rounds played.
+     */
+    private static void setRoundCount(int toRoundCount)
+    {
+	roundCount = toRoundCount;
+    }
+
+    /**
+     * Call this method privately to set the turn count. The controller should
+     * use the method updateTurnCount instead.
+     * 
+     * @param toTurnCount
+     */
+    private static void setTurnCount(int toTurnCount)
+    {
+	turnCount = toTurnCount;
 	updateTurnCountLabel();
-    }
-
-    /**
-     * The controller may call this method to update the turnCount value
-     * displayed on the GUI. Changes to the value will automatically display on
-     * the GUI by calling this method.
-     * 
-     * @param toTurnCount is a variable of type int that represents the number
-     *                    of turns played in a single round.
-     */
-    public static void updateTurnCount(int toTurnCount)
-    {
-	setTurnCount(toTurnCount);
-	updateRoundCountLabel();
-    }
-
-    /**
-     * The controller may call this method to update round count and reset turn
-     * count in one method call. After updating the round count to the value
-     * passed in to the argument, turn count will default to 0.
-     * 
-     * @param toRoundCount
-     */
-    public static void updateRoundCount_ResetTurnCount(int toRoundCount)
-    {
-	updateRoundCount(toRoundCount);
-	updateTurnCount(0);
     }
 
     /**
@@ -226,13 +432,7 @@ public class MainGUI implements GUICommons
 	// use borderpanes for the main layout
 
 	// TOP: account information
-	mainWindow.setTop(GUICommons.windowHeader(GAME_NAME));
-
-	// LEFT: empty for now
-	// perhaps we could display the moves played through out the game
-	// [username] played on: [x]:[y]
-	// [username] played on: [x]:[y]
-	// etc..
+	mainWindow.setTop(getTopBorderPane());
 
 	// CENTER: Transaction form
 	mainWindow.setCenter(addBoardToGridPane());
@@ -242,114 +442,33 @@ public class MainGUI implements GUICommons
 
 	// BOTTOM: start game button
 	mainWindow.setBottom(initBottomPane());
+
+	// call the method to add all the css class names
+	addCSSClassNames();
+
+	MainGUIActionEvents.setQuitApplicationActionEvent();
     }
 
     /**
-     * Call this method privately to set the global variable roundCount. The
-     * controller should use the public method updateRoundCount, or
-     * updateRoundCount_ResetTurnCount.
+     * Call this method to update the button that represents a square on the
+     * board game. This method is to be called once a move has been succesfully
+     * played. It will update the square at the given x and y coordinates and
+     * set the appropriate piece colour on the button.
      * 
-     * @param toRoundCount is a variable of type int that represents the number
-     *                     of rounds played.
+     * @param x           is the row position of the square to be updated.
+     * @param y           is the column position of the square to be updated.
+     * @param pieceColour is the colour of the piece to have displayed on the
+     *                    square that is represented by 'w' for white or 'b' for
+     *                    black anything else will cause errors.
      */
-    private static void setRoundCount(int toRoundCount)
+    public static void updateBoardSquareButton(int x, int y, char pieceColour)
     {
-	roundCount = toRoundCount;
-    }
-
-    /**
-     * Call this method privately to set the turn count. The controller should
-     * use the method updateTurnCount instead.
-     * 
-     * @param toTurnCount
-     */
-    private static void setTurnCount(int toTurnCount)
-    {
-	turnCount = toTurnCount;
-	updateTurnCountLabel();
-    }
-
-    /**
-     * Call this method privately to set the player stats. The controller should
-     * call updatePlayerStatsPanel instead.
-     * 
-     * @param toPlayerStats an ArrayList of type String containing player stats
-     */
-    private static void setPlayerStatsList(ArrayList<String> toPlayerStats)
-    {
-	playerStats = toPlayerStats;
-    }
-
-    /**
-     * Call this method privately to set the board with new values, the
-     * Controller should use the resetBoard method, or the
-     * updateBoardSquareButton method isntead.
-     * 
-     * @param toBoard a 2d ArrayList of type <Button> representing each square
-     *                on the board.
-     */
-    private static void setBoard(ArrayList<ArrayList<Button>> toBoard)
-    {
-	board = new ArrayList<ArrayList<Button>>();
-
-	for (int x = 0; x < toBoard.size(); x++)
-	{
-
-	    ArrayList<Button> row = new ArrayList<Button>();
-
-	    for (int y = 0; y < toBoard.get(x).size(); y++)
-		row.add(toBoard.get(x).get(y));
-
-	    board.add(row);
-	}
-
-    }
-
-    /**
-     * Call this method to display the buttons on the board. Each button
-     * represents a square of the Gomoku board. Each button on the insitiall
-     * start up, each button is set to default values. Only on a mouse event
-     * will the button change state. On a click event the controller will
-     * determine the new state of the button. Each button will be placed in a
-     * GridPane.
-     * <p>
-     * <a href=
-     * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html">
-     * Click here for more information on GridPane... </a>
-     * </p>
-     * 
-     * @param board is a 2 dimentional matrix ArrayList of type Button that
-     *              represents the board composition
-     * @return
-     */
-    private static Node addBoardToGridPane()
-    {
-	GridPane boardgrid = new GridPane();
-
-	for (int x = 0; x < board.size(); x++)
-	{
-	    for (int y = 0; y < board.get(x).size(); y++)
-	    {
-		Button sqrButton = board.get(x).get(y);
-
-		// STYLE - PLAYABLE SQUARE
-		sqrButton.getStyleClass().add(ACTIVE_BOARD_SQUARE_CLASSNAME);
-
-		// apply action event handler
-		sqrButton.setOnAction(getBoardButtonEventHandler(x, y));
-
-		// add button to gridpane
-		GridPane.setConstraints(sqrButton, // Node
-			y, x);
-
-		boardgrid.getChildren().add(sqrButton);
-	    }
-	}
-
-	// STYLIZE - GridPane
-	boardgrid.getStyleClass().add(GAMEBOARD_GRID_CSS_CLASSNAME);
-
-	return boardgrid;
+	Button sqr2update = board.get(x).get(y);
+	Button sqrButton = board.get(x).get(y);
+	sqrButton.setDisable(true);
+	sqr2update.getStyleClass()
+		.add(OCUPIED_BOARD_SQUARE_CLASSNAME + pieceColour);
+	sqr2update.applyCss();
     }
 
     /**
@@ -365,137 +484,47 @@ public class MainGUI implements GUICommons
      */
 
     /**
-     * Use this method to set up the player stats/information panel. It will
-     * display each string from the ArrayList on an individual line in the same
-     * order as they are stored in the ArrayList. each string is currently
-     * allocated to their own respective Label and each Label will be added to a
-     * sing VBox container.
+     * The controller may call this method to updatePlayerStatsPanel, by passing
+     * in a new set of playerstats in an ArrayList of type <String>. Each item
+     * represents a new line on the player stats panel. Each string should
+     * contain a colon to seperate the label and the value.
      * 
-     * <p>
-     * <a href=
-     * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/VBox.html">
-     * Click here for more information on VBox </a>
-     * </p>
-     * 
-     * @param playerStats is an array list of strings that represent each line
-     *                    to display
-     * @return Node of type VBox composed of individual labels from each string
-     *         in the ArrayList
+     * @param toPlayerStats an ArrayList of type <String>, Each item represents
+     *                      a new line, and each string should contain a colon
+     *                      to seperate the label from the value.
      */
-    private static Node initGameStatsPanel()
+    public static void updatePlayerStatsPanel(ArrayList<String> toPlayerStats)
     {
-	Group group = new Group();
-	VBox mainVbox = new VBox();
-	VBox vb = new VBox();
-	HBox hb = new HBox();
-
-	// PLAYER STATS BOARD TITLE
-	Label header = new Label(PLAYER_STATS_HEADER_VALUE);
-	// add css style
-	header.getStyleClass().add(PLAYER_STATS_HEADER_LABEL_CLASSNAME);
-	// hb.minWidth(Double.MAX_VALUE);
-	// hb.setAlignment(Pos.CENTER);
-	hb.getChildren().add(header);
-
-	// add the hb containing the header label into the vb
-	vb.getChildren().add(hb);
-
-	GridPane gp = new GridPane();
-
-	// cycle through each string in the ArrayList<String> playerStats
-	for (int i = 0; i < playerStats.size(); i++)
-	{
-	    String[] splitStr = playerStats.get(i).split(":");
-
-	    Label placeholder = new Label(splitStr[0]);
-	    placeholder.getStyleClass().add(PLAYER_STATS_LABELS_CLASSNAME);
-
-	    Label valueholder = new Label(splitStr[1]);
-
-	    GridPane.setConstraints(placeholder, 0, i);
-	    GridPane.setConstraints(valueholder, 1, i);
-	    gp.getChildren().addAll(placeholder, valueholder);
-	}
-	vb.getStyleClass().add(PLAYER_STATS_VBOX_CLASSNAME);
-	vb.getChildren().add(gp);
-
-	group.getChildren().add(vb);
-	mainVbox.getChildren().add(group);
-	// center it
-	mainVbox.setAlignment(Pos.CENTER);
-
-	return mainVbox;
+	setPlayerStatsList(toPlayerStats);
+	mainWindow.setRight(initGameStatsPanel());
     }
 
     /**
-     * Call this method to setup the content of the bottom pane. Currently, the
-     * bottom pane will be composed of the number of rounds, the number of
-     * turns, and an additional button to quit the game. Each item is placed in
-     * an HBox that will display each item from left to right in the respective
-     * order.
-     * <p>
-     * <a href=
-     * "https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/HBox.html">
-     * Click here for more information on HBox </a>
-     * </p>
+     * The controller may call this method to update the roundCount value
+     * displayed on the GUI. Changes to the value will automatically display on
+     * the GUI in this method. To updateRoundCount and reset turncount, call the
+     * method updateRoundCount_ResetTurnCount().
      * 
-     * @param roundCount is an integer that represents the number of rounds
-     *                   played
-     * @param turnCount  is an integer that represents the total number of turns
-     *                   played
-     * @return Node of type HBox containing the respective labels and the quit
-     *         button
+     * @param toRoundCount is an variable of type int that represents the number
+     *                     of rounds played by the same two players.
      */
-    private static Node initBottomPane()
+    public static void updateRoundCount(int toRoundCount)
     {
-	// labels
-	roundLabel = new Label(ROUND_COUNT_LABEL + roundCount);
-	turnLabel = new Label(TURN_COUNT_LABEL + turnCount);
-
-	// button
-	Button endGame = new Button("End Game");
-
-	// styles
-	roundLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
-	turnLabel.getStyleClass().add(BOTTOM_PANE_LABEL_CLASSNAME);
-
-	endGame.getStyleClass().add(END_GAME_BUTTON_CLASSNAME);
-
-	endGame.setOnAction(new EventHandler<ActionEvent>()
-	{
-
-	    @Override
-	    public void handle(ActionEvent event)
-	    {
-		Platform.exit();
-		System.exit(0);
-	    }
-
-	});
-
-	GridPane grid = new GridPane();
-
-	GridPane.setConstraints(roundLabel, 0, 0);
-	GridPane.setConstraints(turnLabel, 1, 0);
-	GridPane.setConstraints(endGame, 2, 0);
-
-	// style
-	// grid.setPadding(GUICommons.DEFAULT_PADDING);
-	grid.setMaxWidth(Double.MAX_VALUE);
-	// grid.setAlignment(Pos.CENTER);
-	grid.setHgap(WIDTH / 2.75);
-	grid.getChildren().addAll(roundLabel, turnLabel, endGame);
-	grid.getStyleClass().add(BOTTOM_PANE_CLASSNAME);
-	return grid;
+	setRoundCount(toRoundCount);
+	updateTurnCountLabel();
     }
 
     /**
-     * Call this method privately to update the text in the label that contains
-     * the turn count. The controller should use the update method instead.
+     * The controller may call this method to update round count and reset turn
+     * count in one method call. After updating the round count to the value
+     * passed in to the argument, turn count will default to 0.
+     * 
+     * @param toRoundCount
      */
-    private static void updateTurnCountLabel()
+    public static void updateRoundCount_ResetTurnCount(int toRoundCount)
     {
-	turnLabel.setText(TURN_COUNT_LABEL + turnCount);
+	updateRoundCount(toRoundCount);
+	updateTurnCount(0);
     }
 
     /**
@@ -508,38 +537,88 @@ public class MainGUI implements GUICommons
     }
 
     /**
-     * Call this method to setup the event handler for the button at the
-     * specified position of the board variable. When a user clicks an enabled
-     * button (square on the board) the controller will be notified to play the
-     * move. The value returned by the controller should be a char that
-     * represent the 'w' for white, or 'b' for black. this value is appeneded to
-     * the css style class name for the button that will determine if a white
-     * piece or black piece is played.
+     * The controller may call this method to update the turnCount value
+     * displayed on the GUI. Changes to the value will automatically display on
+     * the GUI by calling this method.
      * 
-     * In the event that the GameOver exception is thrown, this will be caught
-     * and signal the alert to notify the user who won and ask if they wish to
-     * play again; by calling the method getNewRoundConfirmationAlert();
-     * 
-     * @param x of type int represents the row position of board variable
-     * @param y of type int represents the column position of the board variable
-     * @return a new event handler for the button at the specified position on
-     *         the board
+     * @param toTurnCount is a variable of type int that represents the number
+     *                    of turns played in a single round.
      */
-    public static EventHandler<ActionEvent> getBoardButtonEventHandler(int x,
-	    int y)
+    public static void updateTurnCount(int toTurnCount)
     {
-	return new EventHandler<ActionEvent>()
-	{
-	    @Override
-	    public void handle(ActionEvent event)
-	    {
-		if (isPVE)
-		{
-		    PVEnvironment.playMoveAt(x, y);
-		} else
-		    PVPlayer.playMoveAt(x, y);
+	setTurnCount(toTurnCount);
+	updateRoundCountLabel();
+    }
 
-	    }
-	};
+    /**
+     * Call this method privately to update the text in the label that contains
+     * the turn count. The controller should use the update method instead.
+     */
+    private static void updateTurnCountLabel()
+    {
+	turnLabel.setText(TURN_COUNT_LABEL + turnCount);
+    }
+    
+    /**
+	 * Call this method to setup the event handler for the button at the
+	 * specified position of the board variable. When a user clicks an
+	 * enabled button (square on the board) the controller will be notified
+	 * to play the move. The value returned by the controller should be a
+	 * char that represent the 'w' for white, or 'b' for black. this value
+	 * is appeneded to the css style class name for the button that will
+	 * determine if a white piece or black piece is played.
+	 * 
+	 * In the event that the GameOver exception is thrown, this will be
+	 * caught and signal the alert to notify the user who won and ask if
+	 * they wish to play again; by calling the method
+	 * getNewRoundConfirmationAlert();
+	 * 
+	 * @param x of type int represents the row position of board variable
+	 * @param y of type int represents the column position of the board
+	 *          variable
+	 * @return a new event handler for the button at the specified position
+	 *         on the board
+	 */
+	public static EventHandler<ActionEvent> getBoardButtonEventHandler(
+		int x, int y)
+	{
+	    return new EventHandler<ActionEvent>()
+	    {
+		@Override
+		public void handle(ActionEvent event)
+		{
+		    if (isPVE)
+		    {
+			PVEnvironment.playMoveAt(x, y);
+		    } else
+			PVPlayer.playMoveAt(x, y);
+
+		}
+	    };
+	}
+
+    /**
+     * This class will handle all the action events.
+     *
+     */
+    public static class MainGUIActionEvents
+    {
+	/**
+	 * Call this method to call the closeApplication method once the quit
+	 * button has been clicked.
+	 */
+	public static void setQuitApplicationActionEvent()
+	{
+	    endGame.setOnAction(new EventHandler<ActionEvent>()
+	    {
+		@Override
+		public void handle(ActionEvent event)
+		{
+		    closeApplication();
+		}
+
+	    });
+	}
+
     }
 }

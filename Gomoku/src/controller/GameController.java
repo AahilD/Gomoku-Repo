@@ -1,10 +1,12 @@
 package controller;
 
 import java.util.ArrayList;
+
 import broker.Game;
 import broker.IllegalMove;
-import gui.AlertsAndDialogs;
+import broker.WinAndLosses;
 import gui.MainGUI;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 
 public abstract class GameController
@@ -29,8 +31,8 @@ public abstract class GameController
     {
 	setRoundCount(0);
 	game = new Game(player1name, player2name);
-	MainGUI.initMainWindow(setupGameBoard(), setupPlayerStats(),
-		roundCount, game.getTurnCount(), isPVE);
+	MainGUI.initMainWindow(setupGameBoard(), setupPlayerStats(), roundCount,
+		game.getTurnCount(), isPVE);
     }
 
     /**
@@ -81,8 +83,8 @@ public abstract class GameController
     }
 
     /**
-     * Call this method to increment the value for round count by +1, instead of using
-     * the setter method every time.
+     * Call this method to increment the value for round count by +1, instead of
+     * using the setter method every time.
      */
     public static void incrementRoundCount()
     {
@@ -97,12 +99,21 @@ public abstract class GameController
      *          of the square on the board.
      * @param y is a variable of type int that represents the column (y
      *          coordinate) of the square on the board.
-     * @return 
-     * @throws IllegalMove 
+     * @return
+     * @throws IllegalMove
      */
-    public static boolean playMove(int x, int y) throws IllegalMove
+    public static void playMove(int x, int y) throws IllegalMove, WinAndLosses
     {
-	return game.makeMove(x, y);
+	try
+	{
+	    game.makeMove(x, y);
+	} catch (WinAndLosses wnl)
+	{
+	    throw wnl;
+	} catch (IllegalMove e)
+	{
+	    throw e;
+	}
     }
 
     /**
@@ -146,6 +157,15 @@ public abstract class GameController
 	    board.add(column);
 	}
 	return board;
+    }
+
+    /**
+     * Call this method to reset the board once the user(s) have confirmed to
+     * play an other round
+     */
+    public static void resetGame()
+    {
+	Platform.exit();
     }
 
 }
