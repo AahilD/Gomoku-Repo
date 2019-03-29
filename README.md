@@ -31,10 +31,14 @@ This game will prompt the user if they wish to play against another player (PVP)
 - The player board panel on the right side of the board will keep track of each player's wins, loses, draws, and the bottom panel will show how many rounds have been played (not including the current round) and will show how many turns (cumulative of both players) have been played (not including current turn); Each new round will reset the turn count.
 
 # Repository URL
-for eclipse (egit): https://github.com/manucote/UC-G22.git
-Linux only install: https://github.com/manucote/UC-G22/raw/dev-branch/Gomoku.tar.gz
-windows install N/A:
-Mac install N/A:
+
+1. for eclipse (egit): https://github.com/manucote/UC-G22.git
+
+2. Linux only install: https://github.com/manucote/UC-G22/raw/dev-branch/Gomoku.tar.gz
+
+3. windows install N/A:
+
+4. Mac install N/A:
 
 # Install and Run Instructions
 
