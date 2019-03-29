@@ -44,6 +44,9 @@ A tar.gz file will soon be made available.
 - the Gomoku folder will be placed in the ~/ directory. Inside there is an uninstall.sh script you may run to remove the application.
 - Once installed a .desktop file will be available on your desktop to run the application.
 
+- Download tar.gz from:
+https://github.com/manucote/UC-G22/raw/dev-branch/Gomoku.tar.gz
+
 # Project Architecture
 
 The code is devided into 3 tiers:
