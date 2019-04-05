@@ -1,4 +1,10 @@
+import java.util.Scanner;
 
+import broker.Game;
+import broker.IllegalMove;
+import broker.Player;
+import broker.Square;
+import broker.WinAndLosses;
 
 /**
  * @author manu
@@ -7,58 +13,96 @@
  */
 public class Gomoku
 {
-    /**
-     * This main method is only to provide you with a text based application for
-     * testing purposes.
-     * 
-     * @param args
-     *
-     *             public static void main(String[] args) { Scanner in = new
-     *             Scanner(System.in); int x = 0; int y = 0; boolean gameover =
-     *             false;
-     * 
-     *             System.out.print("Player 1, please enter your username: ");
-     *             String p1Uname = in.next();
-     * 
-     *             System.out.print("Player2, please enter your username: ");
-     *             String p2Uname = in.next();
-     * 
-     *             Game game = new Game(p1Uname, p2Uname);
-     * 
-     *             do { System.out.println("Turn: " + game.getTurnCount());
-     *             System.out.println("___________________"); for (int row = 0;
-     *             row < game.getCurrentBoard() .getBoard().length; row++) { for
-     *             (int col = 0; col < game.getCurrentBoard()
-     *             .getBoard().length; col++) { if
-     *             (game.getCurrentBoard().getBoard()[row][col].isEmpty())
-     *             System.out.print("|_|"); else System.out.print("|" +
-     *             game.getCurrentBoard().getBoard()[row][col]
-     *             .playedBy().getPieceColour() + "|"); }
-     *             System.out.println(""); }
-     * 
-     *             System.out.println( "Your turn, " +
-     *             game.getTurnPlayer().getUserName());
-     * 
-     *             do {
-     * 
-     *             System.out.print("Please enter the x coordinate (1 - 19): ");
-     *             x = in.nextInt();
-     * 
-     *             System.out.print("Please enter the y coordinate (1 - 19): ");
-     *             y = in.nextInt();
-     * 
-     *             } while (x > 0 && x < 20 && y > 0 && y < 20);
-     * 
-     *             try { gameover = game.makeMove(x + 1, y + 1);
-     * 
-     *             if (!gameover) game.incrementPlayerTurn();
-     * 
-     *             } catch (IllegalMove e) { System.out .println("That was an
-     *             Illegal Move, please try again."); }
-     * 
-     *             } while (!gameover);
-     * 
-     *             System.out.println(game.getTurnPlayer().getUserName() + ",
-     *             you win!"); }
-     */
+    public static void main(String[] arg)
+    {
+	Game game;
+
+	boolean isPVE = false;
+	int pveLVL = 0;
+
+	Scanner scan = new Scanner(System.in);
+
+	System.out.print("Player 1, please enter deisred user name: ");
+	String p1usrname = scan.next();
+
+	System.out.print("Player 2, please enter desired user name: ");
+	String p2username = scan.next();
+
+	game = new Game(p1usrname, p2username);
+
+	boolean gameover = false;
+	boolean anotherRound = false;
+
+	while (!gameover || anotherRound)
+	{
+	    printBoard(game);
+
+	    String currentPlayer = game.getTurnPlayer().getUserName();
+
+	    boolean turnDone = false;
+
+	    do
+	    {
+		System.out.println(
+			currentPlayer + " enter x coordinates to play move");
+		int x = scan.nextInt();
+		System.out.println(
+			currentPlayer + " enter y coordinates to play move");
+		int y = scan.nextInt();
+
+		try
+		{
+		    game.makeMove(x, y);
+		    turnDone = true;
+		    game.incrementPlayerTurn();
+		    
+		} catch (IllegalMove e)
+		{
+		    System.out.println(e.toString());
+		} catch (WinAndLosses e)
+		{
+		    printBoard(game);
+		    System.out.println(e.getWinner().getUserName() + " wins!!!");
+		    gameover = true;
+		    turnDone = true;
+		    System.out.println("do you wish to pay an other round [y/n]?");
+		    char ans = scan.next().charAt(0);
+		    
+		    if(ans == 'y')
+		    {
+			game = new Game(game);
+			anotherRound = true;
+		    }else
+		    {
+			anotherRound = false;
+		    }
+		}
+		
+	    } while (!turnDone);
+	    
+	    System.out.println("Thank you for playing, " + p1usrname + " and " + p2username);
+
+	}
+    }
+    
+    private static void printBoard(Game game)
+    {
+	for (int x = 0; x < game.getCurrentBoard().getBoard().length; x++)
+	    {
+		for (int y = 0; y < game.getCurrentBoard()
+			.getBoard()[x].length; y++)
+		{
+		    char sqrVal = '-';
+		    if (!game.getCurrentBoard().getBoard()[x][y].isEmpty())
+		    {
+			sqrVal = game.getCurrentBoard().getBoard()[x][y]
+				.playedBy().getPieceColour();
+		    }
+
+		    System.out.print(sqrVal);
+		}
+		System.out.print("\n");
+	    }
+    }
+
 }
