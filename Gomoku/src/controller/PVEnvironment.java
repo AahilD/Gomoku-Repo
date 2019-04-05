@@ -131,12 +131,10 @@ public class PVEnvironment extends GameController {
 	}
 
 	/**
-	 * @Pending Review 1. identify player's last move (x,y) 2. loop through each
-	 *          square next to the coordinate (above, top right, to the right, right
-	 *          bottom, below, left bottom, to the left, top left) until player ==
-	 *          null 3. place token on the available square 4. if not available, try
-	 *          second last move 5. keep going through the entire list of player's
-	 *          move
+	 * @Pending This method contains the logic for environment level 1. Level 1 will utilize an arraylist
+	 * of player 1's move history, starting from the most recent move to find a place to place their token ,
+	 * which should be in one of the surrounding boxes. If no spaces are found based on player 1's tokens, then
+	 * environment level 0 is implemented. 
 	 */
 
 	private static void environment_lvl_one() {
