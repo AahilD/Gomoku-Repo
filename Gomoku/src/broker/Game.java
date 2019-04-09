@@ -43,23 +43,14 @@ public class Game
      * switch around playerone > to player two and player two > to player one.
      * migrate all relevant info.
      * 
-     * TODO @Steve I fixed your code, but I don't like how this method is
-     * implemented. I'd much rather call a player constructor that allows us to
-     * copy everything over except piece colour and instead uses the second
-     * param which will be the new colour. perhaps a copy constructor in
-     * Player.java
-     * 
-     * Player(Player toPlayer, char newPieceColour) { //copy data //
-     * this.piececolour = newPiececolour; }
-     * 
      * @param p1 Player one to copy
      * @param p2 Player two to copy
      */
     public Game(Game toGame)
     {
-	playerOne = new Player(toGame.getPlayerTwo().getUserName(),
+	playerOne = new Player(toGame.getPlayerTwo(),
 		PLAYER_ONE_COLOUR_VALUE);
-	playerTwo = new Player(toGame.getPlayerOne().getUserName(),
+	playerTwo = new Player(toGame.getPlayerOne(),
 		PLAYER_TWO_COLOUR_VALUE);
 	playerOne.setWinCount(toGame.getPlayerTwo().getWinCount());
 	playerTwo.setWinCount(toGame.getPlayerOne().getWinCount());
@@ -171,11 +162,12 @@ public class Game
      * square on the board to a player if there is not already another player
      * assigned to it, and determines if the move resulted in a win.
      * 
-     * @param xCoordinate Horizontal placement
-     * @param yCoordinate Vertical placement
-     * @return False if move does not result in a win, True if move does result
-     *         in a win
-     * @throws IllegalMove and WinAndLosses
+     * @param xCoordinate 	Horizontal placement
+     * @param yCoordinate 	Vertical placement
+     * @return 				False if move does not result in a win, True if move does result
+     *         				in a win
+     * @throws 				IllegalMove
+     * 						WinAndLosses if a win happens
      * 
      */
     public void makeMove(int x, int y) throws IllegalMove, WinAndLosses
@@ -202,7 +194,7 @@ public class Game
 		if (getTurnPlayer().getPieceColour() == playerOne
 			.getPieceColour())
 		{
-		    // Adjust wincount lose count etc
+		    // Adjust wincount, lose count, etc...
 		    playerOne.incrementWinCount();
 		    playerTwo.incrementLoseCount();
 		    // store the players into their respective variables
@@ -210,7 +202,7 @@ public class Game
 		    loser = playerTwo;
 		} else
 		{
-		    // adjust wincount etc
+		    // adjust wincount, etc...
 		    playerTwo.incrementWinCount();
 		    playerOne.incrementLoseCount();
 		    // store the players into their respective variables
@@ -237,6 +229,7 @@ public class Game
     public Player getTurnPlayer()
     {
 	Player playerTurn = null;
+	//Even turns is player one, odd is player 2
 	if (turnCount == 0 || turnCount % 2 == 0)
 	{
 	    playerTurn = new Player(playerOne);
@@ -248,7 +241,10 @@ public class Game
     }
 
     /**
-     * This method increments the turn count by one each time it is called.
+     * This method increments the turn count by one each time it is called, and returns
+     * what the new turn number is.
+     * 
+     * @return turnCount	The current turn number.
      */
     public int incrementPlayerTurn()
     {

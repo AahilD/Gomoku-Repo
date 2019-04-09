@@ -59,6 +59,22 @@ public class Player
 	setLoseCount(toPlayer.getWinCount());
 	setDrawCount(toPlayer.getDrawCount());
     }
+    
+    /**
+     * This constructor creates a copy of Player but swaps their piece colour
+     * to aid in swapping player turn
+     *  
+     * @param toPlayer			The player to copy
+     * @param newPieceColour	The new piece colour
+     */
+    public Player(Player toPlayer, char newPieceColour)
+    {
+	setUserName(toPlayer.getUserName());
+	setPieceColour(newPieceColour);
+	setWinCount(toPlayer.getWinCount());
+	setLoseCount(toPlayer.getWinCount());
+	setDrawCount(toPlayer.getDrawCount());
+    }
 
     /**
      * This getter returns the player string stored in the userName.
