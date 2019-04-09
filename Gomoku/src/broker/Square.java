@@ -1,10 +1,11 @@
 package broker;
 
 /**
+ *  This class represents an Object of type square which will contain and
+ *  maintain all the necessary information for each square on the board.
+ *         
  * @author GROUP22 Code implemented by Emily Pang
  *
- *         This class represents an Object of type square which will contain and
- *         maintain all the necessary information for each square on the board.
  */
 public class Square
 {

@@ -3,11 +3,10 @@ package broker;
 import java.util.ArrayList;
 
 /**
+ *  This class represents an Object of Type Board and contains and maintains the state
+ *  of the current game being played.
+ *  
  * @author GROUP 22 Code implemented by Emily Pang
- * 
- *         This class represents an Object of Type Board. An instance of this
- *         class will contain and maintain the state of the current game being
- *         played.
  * 
  */
 

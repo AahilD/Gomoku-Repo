@@ -2,7 +2,7 @@ package broker;
 
 /**
  * 
- * This class acts as an exception that stores who the winning and losing player
+ * This exception stores who the winning and losing player
  * are in a single round
  *
  */

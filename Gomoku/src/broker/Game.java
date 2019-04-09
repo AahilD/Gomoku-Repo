@@ -1,10 +1,11 @@
 package broker;
 
 /**
+ * This class is an object of type Game, which represents the current
+ * state of the game being played
+ *         
  * @author Group 22 Code implemented by Steven Hamilton.
  * 
- *         This class is an object of type Game, which represents the current
- *         state of the game being played
  */
 public class Game
 {

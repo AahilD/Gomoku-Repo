@@ -1,5 +1,10 @@
 package controller;
-
+/**
+ * I don't know what this is used for :)
+ * 
+ * @author
+ *
+ */
 public class GameOverException extends Exception
 {
     // serial version id

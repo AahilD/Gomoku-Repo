@@ -11,10 +11,11 @@ import gui.AlertsAndDialogs;
 import gui.MainGUI;
 
 /**
+ *  This controller will be used for managing the Player versus
+ *  environment mode.
+ *  
  * @author GROUP 22
  *
- *         This controller will be used for managing the Player versus
- *         environment mode.
  * 
  */
 public class PVEnvironment extends GameController {

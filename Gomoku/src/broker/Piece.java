@@ -1,9 +1,10 @@
 package broker;
 
 /**
+ * Represent an object of type Piece which will contain the necessary
+ * data for each piece that will be played by either player.
+ *         
  * @author GROUP 22 Code implementation by Leslie Nguyen This class will
- *         represent an object of type Piece which will contain the necessary
- *         data for each piece that will be played by either player.
  * 
  *         NOTE THAT WE WILL LEAVING THIS METHOD HERE, BUT WE WILL NOT BE USING
  *         IT UNTILL WE ACTUALLY SEE A NEED FOR IT.

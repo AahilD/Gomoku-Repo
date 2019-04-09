@@ -3,10 +3,10 @@ package broker;
 import java.util.ArrayList;
 
 /**
- * @author GROUP 22 Code implementation by Leslie Nguyen
+ * This class represents an object of type Player which will contain and
+ * maintain all the relevant player profile.
  * 
- *         This class represents an object of type Player which will contain and
- *         maintain all the relevant player profile.
+ * @author GROUP 22 Code implementation by Leslie Nguyen
  * 
  */
 
