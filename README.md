@@ -60,6 +60,7 @@ The code is devided into 3 tiers:
 
 1. broker
 - This package contains all the Java Objects.
+- Holds the fundamental logic behide the game.
 
 2. controller
 - This package contains all the functionality (or, game mechanics) which manages all the information between the gui and the broker, and delegates specific tasks according to user input and limitations implemented in the broker.
