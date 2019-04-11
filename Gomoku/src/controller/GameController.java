@@ -43,7 +43,7 @@ public abstract class GameController
      * @return roundCount of type int representing the number of rounds that
      *         have been played prior to the current round being played.
      */
-    public int getRoundCount()
+    public static int getRoundCount()
     {
 	return roundCount;
     }
@@ -53,7 +53,7 @@ public abstract class GameController
      * 
      * @return game object instance of type Game.
      */
-    public Game getGame()
+    public static Game getGame()
     {
 	return game;
     }
