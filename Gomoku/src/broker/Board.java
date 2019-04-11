@@ -52,11 +52,11 @@ public class Board
 
     /**
      * Checks the board in a horizontal direction for 5 pieces of the same colour in a
-     * row; signifying a win
+     * row; signifying a win.
      * 
-     * @param char pieceColour	The colour of the piece
-     * @return 					True if there are five pieces of the 
-     * 							same colour in a row
+     * @param pieceColour	Character representing the Colour of the player's piece to be checked.
+     * @return 				True if there are exactly 5 pieces of the checked colour
+     * 						in a horizontal row; otherwise, returns false.
      */
     public boolean verifyHorizontal(char pieceColour)
     {
@@ -113,9 +113,9 @@ public class Board
      * Check the board in a vertical direction to determine if there are 5 pieces in a
      * row; signifying a win
      * 
-     * @param char pieceColour  The Colour of the player's piece to be checked
-     * @return 					True if there are exactly 5 pieces of the checked colour
-     * 							in a column as a row; otherwise, returns false.
+     * @param pieceColour  	Character representing the Colour of the player's piece to be checked
+     * @return 				True if there are exactly 5 pieces of the checked colour
+     * 						in a column as a row; otherwise, returns false.
      */
     public boolean verifyVertical(char pieceColour)
     {
@@ -165,9 +165,9 @@ public class Board
      * Checks the diagonals on a leftwards slant on the board for 5 pieces in a
      * row; signifying a win.
      * 
-     * @param char pieceColour	The colour of the player's piece to be checked
-     * @return 					True if there are exactly 5 pieces of the checked colour
-     * 							in a diagonal as a row; otherwise, returns false.
+     * @param pieceColour	Character representing the colour of the player's piece to be checked.
+     * @return 				True if there are exactly 5 pieces of the checked colour
+     * 						in a diagonal as a row; otherwise, returns false.
      */
     public boolean verifyDiagonalLeft(char pieceColour)
     {
@@ -223,9 +223,9 @@ public class Board
      * Checks the diagonals on a rightwards slant on the board for 5 pieces in a
      * row; signifying a win.
      * 
-     * @param char pieceColour	The colour of the players piece to be checked
-     * @return					True if exactly 5 pieces of the checked colour
-     * 							in a diagonal as a row; otherwise, returns false
+     * @param pieceColour	Character representing the colour of the players piece to be checked
+     * @return				True if exactly 5 pieces of the checked colour
+     * 						in a diagonal as a row; otherwise, returns false
      */
     public boolean verifyDiagonalRight(char pieceColour)
     {
@@ -299,14 +299,13 @@ public class Board
     }
 
     /**
-     * Call this method to run each one of the verify methods in a single method
-     * call. This method will true if any one of the verify conditions return
-     * true. Takes in the piece colour to scan the board for.
+     * This method runs through each verify method for each direction for a piece colour, 
+     * returning true if any of the verifies return true.
      * 
      * Methods include: - verifyVertical - verifyHorizontal - verifyDiagonalLeft
      * - verifyDiagonalRight
      * 
-     * @param pieceColour takes in the piece colour to check if it has won
+     * @param pieceColour The piece colour used to check for wins
      * @return 			  True if game is over (win || draw); otherwise, returns false
      */
     public boolean gameOver(char pieceColour)

@@ -21,8 +21,8 @@ public class WinAndLosses extends Exception
      * This is the default constructor, which stores which player won and which
      * one lost.
      * 
-     * @param aWinner The winning player
-     * @param aLoser  The loosing player
+     * @param aWinner The winning player Player object.
+     * @param aLoser  The loosing player Player object.
      */
     public WinAndLosses(Player aWinner, Player aLoser)
     {
@@ -31,9 +31,9 @@ public class WinAndLosses extends Exception
     }
 
     /**
-     * This method return the winner
+     * Return a copied reference to the winner.
      * 
-     * @return Copy of Player object of the winner
+     * @return Copy of Player object of the winner.
      */
     public Player getWinner()
     {
@@ -41,9 +41,9 @@ public class WinAndLosses extends Exception
     }
 
     /**
-     * This methods sets who the winner is
+     * Set who the winner is.
      * 
-     * @param aPlayer Player object of winner
+     * @param aPlayer Player object of winner.
      */
     public void setWinner(Player aPlayer)
     {
@@ -51,9 +51,9 @@ public class WinAndLosses extends Exception
     }
 
     /**
-     * THis method returns the loser
+     * Returns a copied reference to the loser.
      * 
-     * @return Copy of Player object for the loser
+     * @return Copy of Player object for the loser.
      */
     public Player getLoser()
     {
@@ -61,7 +61,7 @@ public class WinAndLosses extends Exception
     }
 
     /**
-     * This method sets who the loser is
+     * Set who the loser is
      * 
      * @param aPlayer Player object of loser
      */
@@ -71,6 +71,11 @@ public class WinAndLosses extends Exception
     }
 
     @Override
+    /**
+     * Creates a string of who won, and who lost.
+     * 
+     * @return String message.
+     */
     public String toString()
     {
 	return winner.getUserName() + " wins! Better luck next time "
