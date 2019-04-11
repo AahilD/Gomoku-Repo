@@ -1,19 +1,17 @@
 package broker;
 
 /**
+ * This class represent an object of type Piece which will contain the necessary
+ * data for each piece that will be played by either player. 
+ * 	NOTE: THIS CLASS IS NOT USED BUT IS LEFT IN JUST IN CASE IT BECOME REQUIRED
+ *         
  * @author GROUP 22 Code implementation by Leslie Nguyen This class will
- *         represent an object of type Piece which will contain the necessary
- *         data for each piece that will be played by either player.
- * 
- *         NOTE THAT WE WILL LEAVING THIS METHOD HERE, BUT WE WILL NOT BE USING
- *         IT UNTILL WE ACTUALLY SE A NEED FOR IT.
  * 
  */
 public class Piece
 {
     private char blackOrWhite;
 
-    // Constructors
     /**
      * This constructs a piece with default values.
      */
@@ -42,7 +40,6 @@ public class Piece
 	setBlackOrWhite(letter);
     }
 
-    // Getter
     /**
      * This returns the char stored in the instance variable of backOrWhite.
      * 
@@ -53,7 +50,6 @@ public class Piece
 	return blackOrWhite;
     }
 
-    // Setter
     /**
      * This sets the value of the char in the instance variable blackOrWhite.
      * 

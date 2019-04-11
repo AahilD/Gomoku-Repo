@@ -8,7 +8,12 @@ import broker.WinAndLosses;
 import gui.MainGUI;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
-
+/**
+ * This class controls the overall instance of the Gomoku game instance.
+ * 
+ * @author 
+ *
+ */
 public abstract class GameController
 {
     protected static Game game;
@@ -22,7 +27,7 @@ public abstract class GameController
      *                    player 1
      * @param player2name is a string value that represents the username for
      *                    player 2
-     * @param isPVE       is a bolean that indicates if the controller should
+     * @param isPVE       is a boolean that indicates if the controller should
      *                    enter PVE mode, if so boolean value should be true.
      *                    Otherwise false for PvP mode.
      */

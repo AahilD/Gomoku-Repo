@@ -28,14 +28,15 @@ import javafx.stage.Stage;
 // if level 2 has you allready too busy, please let me know I will take this on over the weekend.
 
 /**
+ * This class is the main application launcher. This GUI will prompt
+ * user to select either player versus player mode (PVP), or, player
+ * versus environment mode (PVE). The user(s) will be prompted to enter
+ * a user name. Start Game button will open the MainGUI to start
+ * playing.
+ *         
  * @author GROUP 22
  * @author Emmanuel
  * 
- *         This class is the main application launcher. This GUI will prompt
- *         user to select either player versus player mode (PVP), or, player
- *         versus environment mode (PVE). The user(s) will be prompted to enter
- *         a user name. Start Game button will open the MainGUI to start
- *         playing.
  * 
  */
 public class PlayerRegistration extends Application implements GUICommons

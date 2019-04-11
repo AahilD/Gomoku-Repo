@@ -11,10 +11,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
+ * This class will contain all the dialogs/alerts for the controller to
+ * display to the user as required.
+ *         
  * @author Emmanuel
- * 
- *         This class will contain all the dialogs/alerts for the controller to
- *         display to the user as required.
  * 
  */
 public class AlertsAndDialogs implements GUICommons

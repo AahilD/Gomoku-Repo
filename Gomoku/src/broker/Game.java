@@ -1,10 +1,10 @@
 package broker;
 
 /**
- * @author Group 22 Code implemented by Steven Hamilton.
+ * This class represents a single round instance for the game.
+ *         
+ * @author GROUP 22 Code implemented by Steven Hamilton.
  * 
- *         This class is an object of type Game, which represents the current
- *         state of the game being played
  */
 public class Game
 {
@@ -24,10 +24,10 @@ public class Game
 
     /**
      * This constructor sets each player, sets turn count to 0, and creates a
-     * new board
+     * new board.
      * 
-     * @param String gotPlayerOne Name of player one
-     * @param String gotPlayerTwo Name of player two
+     * @param gotPlayerOne  String name of player one.
+     * @param gotPlayerTwo 	String name of player two.
      */
     public Game(String gotPlayerOne, String gotPlayerTwo)
     {
@@ -38,28 +38,18 @@ public class Game
 
     /**
      * This Constructor copies player data, reset the turn count to 0, and
-     * create a new board. Use this copy constructor when the user(s) have
+     * creates a new board. Use this copy constructor when the user(s) have
      * decided to play a new game. copy the old game into the new game, but
-     * switch around playerone > to player two and player two > to player one.
+     * switch around player one to player two and player two to player one.
      * migrate all relevant info.
      * 
-     * TODO @Steve I fixed your code, but I don't like how this method is
-     * implemented. I'd much rather call a player constructor that allows us to
-     * copy everything over except piece colour and instead uses the second
-     * param which will be the new colour. perhaps a copy constructor in
-     * Player.java
-     * 
-     * Player(Player toPlayer, char newPieceColour) { //copy data //
-     * this.piececolour = newPiececolour; }
-     * 
-     * @param p1 Player one to copy
-     * @param p2 Player two to copy
+     * @param toGame The Game instance to copy.
      */
     public Game(Game toGame)
     {
-	playerOne = new Player(toGame.getPlayerTwo().getUserName(),
+	playerOne = new Player(toGame.getPlayerTwo(),
 		PLAYER_ONE_COLOUR_VALUE);
-	playerTwo = new Player(toGame.getPlayerOne().getUserName(),
+	playerTwo = new Player(toGame.getPlayerOne(),
 		PLAYER_TWO_COLOUR_VALUE);
 	playerOne.setWinCount(toGame.getPlayerTwo().getWinCount());
 	playerTwo.setWinCount(toGame.getPlayerOne().getWinCount());
@@ -71,9 +61,9 @@ public class Game
     }
 
     /**
-     * This getter returns a copy reference to player one
-     * 
-     * @return A copy reference of playerOne
+     * Returns a copied reference to player one.
+     *
+     * @return A copy reference of playerOne.
      */
     public Player getPlayerOne()
     {
@@ -81,9 +71,9 @@ public class Game
     }
 
     /**
-     * This getter returns a copy reference to player two
+     * Returns a copied reference to player two.
      * 
-     * @return A copy reference of playerTwo
+     * @return A copy reference of playerTwo.
      */
     public Player getPlayerTwo()
     {
@@ -91,9 +81,9 @@ public class Game
     }
 
     /**
-     * This getter returns the turn count for the current round
+     * Returns the turn count for the current round.
      * 
-     * @return The current turn count
+     * @return The current turn count.
      */
     public int getTurnCount()
     {
@@ -101,9 +91,9 @@ public class Game
     }
 
     /**
-     * This getter returns the current board in play
+     * Returns the current board in play.
      * 
-     * @return reference to the current Board object in play
+     * @return reference to the current Board object in play.
      */
     public Board getCurrentBoard()
     {
@@ -111,9 +101,9 @@ public class Game
     }
 
     /**
-     * This setter sets the Player object of player one
+     * Sets the player one to a Player object.
      * 
-     * @param playerOne The desired player object to set as player one
+     * @param playerOne The desired player object to set as player one.
      */
     public void setPlayerOne(Player playerOne)
     {
@@ -121,9 +111,9 @@ public class Game
     }
 
     /**
-     * This setter sets the Player object of player two
+     * Sets the player two to a Player object.
      * 
-     * @param playerTwo The desired player object to set as player two
+     * @param playerTwo The desired player object to set as player two.
      */
     public void setPlayerTwo(Player playerTwo)
     {
@@ -131,25 +121,28 @@ public class Game
     }
 
     /**
-     * This setter sets the current turn count
+     * Sets the current turn count.
      * 
-     * @param TurnCount the desired integer turn count to set
+     * @param TurnCount The desired integer turn count to set.
      */
     @SuppressWarnings("unused")
     private void setTurnCount(int turnCount)
     {
 	this.turnCount = turnCount;
     }
-
+    
+    /**
+     * Sets the turn count to 0.
+     */
     public void resetTurnCount()
     {
 	this.turnCount = 0;
     }
 
     /**
-     * This setter set the current Board
+     * Set the current Board.
      * 
-     * @param CurrentBoard the desired board object to set
+     * @param currentBoard the desired board object to set.
      */
     public void setCurrentBoard(Board currentBoard)
     {
@@ -157,7 +150,7 @@ public class Game
     }
 
     /**
-     * This method creates a new empty board, and resets the turn count to 0
+     * Creates a new empty board, and resets the turn count to 0.
      */
     public void resetRound()
     {
@@ -171,12 +164,11 @@ public class Game
      * square on the board to a player if there is not already another player
      * assigned to it, and determines if the move resulted in a win.
      * 
-     * @param xCoordinate Horizontal placement
-     * @param yCoordinate Vertical placement
-     * @return False if move does not result in a win, True if move does result
-     *         in a win
-     * @throws IllegalMove and WinAndLosses
+     * @param x 				Horizontal placement.
+     * @param y 				Vertical placement.
      * 
+     * @throws	IllegalMove		Thrown if Board.gameOver throws IllegalMove.
+     * @throws	WinAndLosses	Thrown if move results in a win.
      */
     public void makeMove(int x, int y) throws IllegalMove, WinAndLosses
     {
@@ -202,7 +194,7 @@ public class Game
 		if (getTurnPlayer().getPieceColour() == playerOne
 			.getPieceColour())
 		{
-		    // Adjust wincount lose count etc
+		    // Adjust wincount, lose count, etc...
 		    playerOne.incrementWinCount();
 		    playerTwo.incrementLoseCount();
 		    // store the players into their respective variables
@@ -210,7 +202,7 @@ public class Game
 		    loser = playerTwo;
 		} else
 		{
-		    // adjust wincount etc
+		    // adjust wincount, etc...
 		    playerTwo.incrementWinCount();
 		    playerOne.incrementLoseCount();
 		    // store the players into their respective variables
@@ -237,6 +229,7 @@ public class Game
     public Player getTurnPlayer()
     {
 	Player playerTurn = null;
+	//Even turns is player one, odd is player 2
 	if (turnCount == 0 || turnCount % 2 == 0)
 	{
 	    playerTurn = new Player(playerOne);
@@ -248,7 +241,10 @@ public class Game
     }
 
     /**
-     * This method increments the turn count by one each time it is called.
+     * This method increments the turn count by one each time it is called, and returns
+     * what the new turn number is.
+     * 
+     * @return turnCount	The current turn number.
      */
     public int incrementPlayerTurn()
     {

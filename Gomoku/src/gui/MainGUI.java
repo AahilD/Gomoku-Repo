@@ -22,10 +22,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
+ * This class will setup and organize all the sub GUI's into a main,
+ * full-sized, window.
+ *         
  * @author manu
  * 
- *         This class will setup and organize all the sub GUI's into a main,
- *         full-sized, window.
  */
 public class MainGUI implements GUICommons
 {
