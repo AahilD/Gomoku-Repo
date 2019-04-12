@@ -11,6 +11,7 @@ import broker.Square;
 import broker.WinAndLosses;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
+import sun.applet.Main;
 
 /**
  *  This controller will be used for managing the Player versus
@@ -145,11 +146,14 @@ public class PVEnvironment extends GameController
 	try {
 	MainGUI.resetBoard(setupGameBoard());
 	MainGUI.updatePlayerStatsPanel(setupPlayerStats());
-	MainGUI.updateTurnCount(game.getTurnCount());
-	}catch(Exception e)
+	MainGUI.updateRoundCount_ResetTurnCount(getRoundCount());
+	}catch(ExceptionInInitializerError e)
 	{
 	    System.out.println("Begin Round #" + getRoundCount());
 	    
+	}catch(NoClassDefFoundError e)
+	{
+	    System.out.println("Begin Round #" + getRoundCount());
 	}
 
 	if (game.getTurnPlayer().getUserName() == ENVIRONMENT_USERNAME)

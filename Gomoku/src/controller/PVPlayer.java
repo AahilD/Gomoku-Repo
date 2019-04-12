@@ -55,7 +55,7 @@ public class PVPlayer extends GameController
 	incrementRoundCount();
 	MainGUI.resetBoard(setupGameBoard());
 	MainGUI.updatePlayerStatsPanel(setupPlayerStats());
-	MainGUI.updateTurnCount(game.getTurnCount());
+	MainGUI.updateRoundCount_ResetTurnCount(getRoundCount());
     }
 
 }
