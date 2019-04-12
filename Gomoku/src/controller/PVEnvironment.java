@@ -34,8 +34,8 @@ public class PVEnvironment extends GameController
      * Player session, call the same method in the PvPController instead; do not
      * use the one in GameController).
      * 
-     * @param player1name is a string value that represents the username for
-     *                    player 1
+     * @param player1name Is a string value that represents the username for
+     *                    player 1.
      */
     public static void initializeGame(String player1name, int toLevel)
     {
@@ -56,9 +56,9 @@ public class PVEnvironment extends GameController
      * then it will prompt the environment to make a move immediately afterwards
      * based on the level setting the user selected for this PVE session.
      * 
-     * @param x is the (n)th row (starting at 0) of the selected square the user
+     * @param x Is the (n)th row (starting at 0) of the selected square the user
      *          requested to place the piece on.
-     * @param y is the (n)th column (starting at 0) of the selected square the
+     * @param y Is the (n)th column (starting at 0) of the selected square the
      *          user requested to place the piece on.
      */
     public static void playMoveAt(int x, int y)
@@ -89,11 +89,11 @@ public class PVEnvironment extends GameController
      * then it will prompt the environment to make a move immediately afterwards
      * based on the level setting the user selected for this PVE session.
      * 
-     * @param x is the (n)th row (starting at 0) of the selected square the user
-     *          requested to place the piece on.
-     * @param y is the (n)th column (starting at 0) of the selected square the
-     *          user requested to place the piece on.
-     * @throws WinAndLosses 
+     * @param x					Is the (n)th row (starting at 0) of the selected square the user
+     *          				requested to place the piece on.
+     * @param y					Is the (n)th column (starting at 0) of the selected square the
+     *          				user requested to place the piece on.
+     * @throws WinAndLosses 	
      * @throws IllegalMove 
      */
     public static void playMoveAtForTextBaseApplication(int x, int y) throws IllegalMove, WinAndLosses
@@ -132,7 +132,10 @@ public class PVEnvironment extends GameController
 	    environment_lvl_two();
 	}
     }
-
+    
+    /**
+     * Call this method to start a new round which creates a new game instance.
+     */
     public static void playAnOtherRound()
     {
 
@@ -152,6 +155,9 @@ public class PVEnvironment extends GameController
 	    environmentPlayTurn();
     }
     
+    /**
+     * implementation of playAnOtherRound for text based applications.
+     */
     public static void playAnOtherRoundFortextBasedApplication()
     {
 
@@ -625,6 +631,14 @@ public class PVEnvironment extends GameController
 	}
     }
 
+    /**
+     * Attempts to play move at a specified x and y coordinate.
+     * 
+     * @param x					An int x coordinate to play on.
+     * @param y					An int y coordinate to play on.
+     * @throws IllegalMove		Thrown if another player is already on that square.
+     * @throws WinAndLosses		Thrown if move results in a win.
+     */
     private static void tryToPlayMove(int x, int y)
 	    throws IllegalMove, WinAndLosses
     {
@@ -645,6 +659,9 @@ public class PVEnvironment extends GameController
 	}
     }
 
+    /**
+     * Implementation of tryToPlayMove for text based applications.
+     */
     private static void tryToPlayMoveForTextBaseApplication(int x, int y)
 	    throws IllegalMove, WinAndLosses
     {
@@ -652,6 +669,16 @@ public class PVEnvironment extends GameController
 	game.incrementPlayerTurn();
     }
     
+    /**
+     * Plays the environment's move, catching a WinAndLosses exception if a win happens to prompt a new
+     * round, else returning  true if move was played if no other exception is thrown, otherwise returning
+     * false if an exception is caught.
+     * if it was not
+     * @param x		An int x coordinate to play at
+     * @param y		An int y coordinate to play at
+     * @return		False if any other exception besides WinAndLosses is caught, True if
+     * 				no exception is caught.
+     */
     private static boolean environmentPlayMoveAt(int x, int y)
     {
 	boolean moveSuccessful = false;
@@ -693,7 +720,7 @@ public class PVEnvironment extends GameController
     /**
      * Get the history of each move the user has made.
      * 
-     * @return the playerMoves
+     * @return the playerMoves as an ArrayList.
      */
     public static ArrayList<int[]> getPlayerMoves()
     {
@@ -704,7 +731,7 @@ public class PVEnvironment extends GameController
      * Once the player's move is successful, add the x and y coordinates to the
      * list.
      * 
-     * @param playerMoves the playerMoves to set
+     * @param playerMoves the playerMoves to set as integers.
      */
     public static void addPlayerMoves(int x, int y)
     {
@@ -712,6 +739,11 @@ public class PVEnvironment extends GameController
 	playerMoveHistory.add(xy);
     }
 
+    /**
+     * Gets the player's latest move.
+     * 
+     * @return Latest player move as an integer,
+     */
     public static int[] getPlayersLastMove()
     {
 	return playerMoveHistory.get(playerMoveHistory.size() - 1);

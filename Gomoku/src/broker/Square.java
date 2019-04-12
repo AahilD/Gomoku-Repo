@@ -119,13 +119,13 @@ public class Square
     }
 
     /**
-     * Returns a copied reference to the Player object stored in this square.
+     * Returns a reference to the Player object stored in this square.
      * 
      * @return copied Player object stored in the instance variable player.
      */
     protected Player getPlayer()
     {
-	return new Player(player);
+	return player;
     }
 
     /**
