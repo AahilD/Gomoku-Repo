@@ -38,7 +38,7 @@ public interface GUICommons
 
     /**
      * @param header
-     * @returns an object of type Label containing the title name of the
+     * @return an object of type Label containing the title name of the
      *          application
      */
     public static Label windowHeader(String header)

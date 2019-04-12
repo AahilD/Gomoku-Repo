@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 /**
  * This class controls the overall instance of A Gomoku game instance.
  * 
- * @author 
+ * @author Aahil
  *
  */
 public abstract class GameController
@@ -79,7 +79,7 @@ public abstract class GameController
      * how many consecutive games the same two players have played against each
      * other.
      * 
-     * @param roundCount Holds the value of type int of how many rounds the same
+     * @param toRoundCount Holds the value of type int of how many rounds the same
      *                   two players have played against each other.
      */
     public static void setRoundCount(int toRoundCount)

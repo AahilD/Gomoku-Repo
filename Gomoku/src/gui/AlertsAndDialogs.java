@@ -64,9 +64,9 @@ public class AlertsAndDialogs implements GUICommons
      * If the User selects: Yes it will return true, if the user does not select
      * yes it will return false.
      * 
-     * @param wnl is a string that contains any addition information to display
-     *            to the user in the alert. The request to play an other round
-     *            is automatically appended on a new line to the message String.
+     * @param wnlMsg Is a string that contains any addition information to display
+     *           	 to the user in the alert. The request to play an other round
+     *           	 is automatically appended on a new line to the message String.
      */
     public boolean display_newRoundConfirmationAlert(String wnlMsg)
     {

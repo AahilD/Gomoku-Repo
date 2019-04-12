@@ -319,7 +319,7 @@ public class MainGUI implements GUICommons
      * ArrayList of Buttons. The changes will automatically be updated in the
      * GUI.
      * 
-     * @param toBoard is a 2D ArrayList of type <Button>, each button
+     * @param toBoard is a 2D ArrayList of type Button, each button
      *                representing a square on the board.
      */
     public static void resetBoard(ArrayList<ArrayList<Button>> toBoard)
@@ -486,11 +486,11 @@ public class MainGUI implements GUICommons
 
     /**
      * The controller may call this method to updatePlayerStatsPanel, by passing
-     * in a new set of playerstats in an ArrayList of type <String>. Each item
+     * in a new set of playerstats in an ArrayList of type String. Each item
      * represents a new line on the player stats panel. Each string should
      * contain a colon to seperate the label and the value.
      * 
-     * @param toPlayerStats an ArrayList of type <String>, Each item represents
+     * @param toPlayerStats an ArrayList of type String, Each item represents
      *                      a new line, and each string should contain a colon
      *                      to seperate the label from the value.
      */

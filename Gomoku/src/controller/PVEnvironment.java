@@ -34,8 +34,9 @@ public class PVEnvironment extends GameController
      * Player session, call the same method in the PvPController instead; do not
      * use the one in GameController).
      * 
-     * @param player1name Is a string value that represents the username for
-     *                    player 1.
+     * @param player1name 	Is a string value that represents the username for
+     *                   	player 1.
+     * @param toLevel		The integer level difficulty for the environment.
      */
     public static void initializeGame(String player1name, int toLevel)
     {
@@ -93,8 +94,8 @@ public class PVEnvironment extends GameController
      *          				requested to place the piece on.
      * @param y					Is the (n)th column (starting at 0) of the selected square the
      *          				user requested to place the piece on.
-     * @throws WinAndLosses 	
-     * @throws IllegalMove 
+     * @throws WinAndLosses 	If move results in a win.
+     * @throws IllegalMove 		If there is already a player in this square,
      */
     public static void playMoveAtForTextBaseApplication(int x, int y) throws IllegalMove, WinAndLosses
     {
@@ -156,7 +157,7 @@ public class PVEnvironment extends GameController
     }
     
     /**
-     * implementation of playAnOtherRound for text based applications.
+     * Implementation of playAnOtherRound for text based applications.
      */
     public static void playAnOtherRoundFortextBasedApplication()
     {
@@ -731,7 +732,8 @@ public class PVEnvironment extends GameController
      * Once the player's move is successful, add the x and y coordinates to the
      * list.
      * 
-     * @param playerMoves the playerMoves to set as integers.
+     * @param x  Integer x-coordinate of the player's move.
+     * @param y  Integer y-coordinate of the player's move.
      */
     public static void addPlayerMoves(int x, int y)
     {
