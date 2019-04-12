@@ -54,6 +54,9 @@ A tar.gz file will soon be made available.
 - Download tar.gz from:
 https://github.com/manucote/UC-G22/raw/dev-branch/Gomoku.tar.gz
 
+# JUnit tests
+To run the junits test to check the veritfy methods and fundametal logic of the game, run the class TestWinConditions.java in the jUnitTests package as a junit test. To run the junit test that tests the player test, run the class TestPlayerClass.java in the jUnitTests package.
+
 # Project Architecture
 
 The code is devided into 3 tiers:
