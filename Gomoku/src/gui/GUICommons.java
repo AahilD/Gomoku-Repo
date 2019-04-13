@@ -5,7 +5,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
-
+/**
+ * Contains GUI elements that are commonly used in all the GUI package classes
+ * 
+ */
 public interface GUICommons
 {
     static final String TITLE_BAR_NAME = "GROUP22";
@@ -35,7 +38,7 @@ public interface GUICommons
 
     /**
      * @param header
-     * @returns an object of type Label containing the title name of the
+     * @return an object of type Label containing the title name of the
      *          application
      */
     public static Label windowHeader(String header)

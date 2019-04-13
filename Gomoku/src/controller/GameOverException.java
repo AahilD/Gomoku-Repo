@@ -1,5 +1,11 @@
 package controller;
-
+/**
+ * Stores the user name of the winner and the loser as a string.
+ * NOTE: CURRENTLY NOT USED BUT KEPT INCASE IT IS RQUIRED.
+ * 
+ * @author GROUP 22
+ *
+ */
 public class GameOverException extends Exception
 {
     // serial version id
@@ -14,8 +20,8 @@ public class GameOverException extends Exception
      * This is the default constructor, with the required parameters to identify
      * the winner and looser.
      * 
-     * @param winnerUname
-     * @param looserUname
+     * @param winnerUname The winners user name.
+     * @param looserUname The losers user name.
      */
     public GameOverException(String winnerUname, String looserUname)
     {

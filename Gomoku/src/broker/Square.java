@@ -1,17 +1,18 @@
 package broker;
 
 /**
+ *  This class represents an Object of type square which will contain and
+ *  maintain all the necessary information for each square on the board.
+ *         
  * @author GROUP22 Code implemented by Emily Pang
  *
- *         This class represents an Object of type square which will contain and
- *         maintain all the necessary information for each square on the board.
  */
 public class Square
 {
-    // * The player Stored in this square
+    // The player Stored in this square
     private Player player;
 
-    // * The x and y coordinates of this Square
+    // The x and y coordinates of this Square
     private int x;
     private int y;
 
@@ -60,10 +61,10 @@ public class Square
     /**
      * This method sets the player and checks if there is already a player
      * stored in this square by checking if the instance variable player is
-     * null, and throws "illegal move" error if player is not null
+     * null, and throws "illegal move" error if player is not null.
      * 
-     * @param toPlayer Player object to set to this square
-     * @throws IllegalMove
+     * @param toPlayer Player object to set to this square.
+     * @throws IllegalMove if the square is not empty.
      */
     public void setPlayer(Player toPlayer) throws IllegalMove
     {
@@ -78,9 +79,9 @@ public class Square
     }
 
     /**
-     * This setter sets the x coordinate of this square
+     * Sets the x coordinate of this square.
      * 
-     * @param xCoordinate The x coordinate to set
+     * @param xCoordinate The integer x coordinate to set.
      */
     private void setX(int xCoordinate)
     {
@@ -88,9 +89,9 @@ public class Square
     }
 
     /**
-     * This setter sets the y coordinate of this square
+     * Sets the y coordinate of this square.
      * 
-     * @param yCoordinate The y coordinate to set
+     * @param yCoordinate The integer y coordinate to set.
      */
     private void setY(int yCoordinate)
     {
@@ -98,9 +99,9 @@ public class Square
     }
 
     /**
-     * Returns the x coordinate of this square
+     * Returns the x coordinate of this square.
      * 
-     * @return This square's x coordinate
+     * @return This square's x coordinate as an integer.
      */
     public int getX()
     {
@@ -108,9 +109,9 @@ public class Square
     }
 
     /**
-     * Returns the y coordinate of this square
+     * Returns the y coordinate of this square.
      * 
-     * @return This square's y coordinate
+     * @return This square's y coordinate as an integer.
      */
     public int getY()
     {
@@ -118,9 +119,9 @@ public class Square
     }
 
     /**
-     * Returns reference to the Player object stored in this square
+     * Returns a reference to the Player object stored in this square.
      * 
-     * @return The Player object stored in the instance variable player
+     * @return copied Player object stored in the instance variable player.
      */
     protected Player getPlayer()
     {
@@ -128,10 +129,10 @@ public class Square
     }
 
     /**
-     * This methods checks to see if this square does not have a player set in
-     * it
+     * Checks to see if this square does not have a player set in
+     * it.
      * 
-     * @return True is there is no player stored in this square, returns false
+     * @return True is there is no player stored in this square (Player = null), returns false
      *         if there is a player stored in this square
      */
     public boolean isEmpty()
@@ -147,7 +148,7 @@ public class Square
     /**
      * Returns a reference of the Player object stored in this square.
      * 
-     * @return copy of the player object stored in this square.
+     * @return Copy of the player object stored in this square.
      */
     public Player playedBy()
     {

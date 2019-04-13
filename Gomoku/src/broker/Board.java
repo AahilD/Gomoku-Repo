@@ -3,11 +3,10 @@ package broker;
 import java.util.ArrayList;
 
 /**
+ *  This class represents an Object of Type Board and contains and maintains the state
+ *  of the current game being played.
+ *  
  * @author GROUP 22 Code implemented by Emily Pang
- * 
- *         This class represents and Object of Type Board. An instance of this
- *         class will contain and maintain the state of the current game being
- *         played.
  * 
  */
 
@@ -41,10 +40,10 @@ public class Board
     }
 
     /**
-     * This method returns a two dimentional array of type square that
+     * This method returns a 2-D array of type square that
      * represents the board.
      * 
-     * @return The array list forming the board.
+     * @return An array list forming the board.
      */
     public Square[][] getBoard()
     {
@@ -52,11 +51,12 @@ public class Board
     }
 
     /**
-     * Checks the horizontals of the board for 5 pieces of the same colour in a
-     * row, signifying a win
+     * Checks the board in a horizontal direction for 5 pieces of the same colour in a
+     * row; signifying a win.
      * 
-     * @param char pieceColour The colour of the piece
-     * @return True if there are five pieces of the same colour in a row
+     * @param pieceColour	Character representing the Colour of the player's piece to be checked.
+     * @return 				True if there are exactly 5 pieces of the checked colour
+     * 						in a horizontal row; otherwise, returns false.
      */
     public boolean verifyHorizontal(char pieceColour)
     {
@@ -100,7 +100,7 @@ public class Board
 
 	    if (maxContiguousCount == 5)
 	    {
-		// if maxContiguouCount registered the value of 5 all systems
+		// if maxContiguousCount registered the value of 5 all systems
 		// are go.
 		win = true;
 	    }
@@ -110,19 +110,20 @@ public class Board
     }
 
     /**
-     * Check the verticals in the board to determine if there are 5 pieces in a
-     * row, signifying a win
+     * Check the board in a vertical direction to determine if there are 5 pieces in a
+     * row; signifying a win
      * 
-     * @param char pieceColour The Colour of the piece
-     * @return True if there are 5 pieces in a column as a row. Otherwise
-     *         returns false
+     * @param pieceColour  	Character representing the Colour of the player's piece to be checked
+     * @return 				True if there are exactly 5 pieces of the checked colour
+     * 						in a column as a row; otherwise, returns false.
      */
     public boolean verifyVertical(char pieceColour)
     {
-	/*
+	
+    /*
 	 * This method follows the same logic as verifyHorizontal, with the
-	 * exception that it scanns the board column by column first and row by
-	 * row in the nested forloop
+	 * exception that it scans the board column by column first and row by
+	 * row in the nested for-loop
 	 */
 
 	int counter = 0;
@@ -164,15 +165,15 @@ public class Board
      * Checks the diagonals on a leftwards slant on the board for 5 pieces in a
      * row; signifying a win.
      * 
-     * @param char pieceColour The colour of the piece
-     * @return True if there are 5 pieces in a diagonal as a row. Otherwise
-     *         returns false.
+     * @param pieceColour	Character representing the colour of the player's piece to be checked.
+     * @return 				True if there are exactly 5 pieces of the checked colour
+     * 						in a diagonal as a row; otherwise, returns false.
      */
     public boolean verifyDiagonalLeft(char pieceColour)
     {
 	/*
 	 * in order to verify the diagonals it requires splitting up the board
-	 * along the longest diagonal. Each outer forloop will go through each
+	 * along the longest diagonal. Each outer for-loop will go through each
 	 * half (triangle) of the board.
 	 * 
 	 */
@@ -222,14 +223,15 @@ public class Board
      * Checks the diagonals on a rightwards slant on the board for 5 pieces in a
      * row; signifying a win.
      * 
-     * @param pieceColour
-     * @return
+     * @param pieceColour	Character representing the colour of the players piece to be checked
+     * @return				True if exactly 5 pieces of the checked colour
+     * 						in a diagonal as a row; otherwise, returns false
      */
     public boolean verifyDiagonalRight(char pieceColour)
     {
 	/*
 	 * This method follows the same logic as verifyDiagonalLeft except here
-	 * it checks diagonals on the flipped direction.
+	 * it checks diagonals in the mirrored direction.
 	 */
 	boolean win = false;
 	ArrayList<Character> listRightDiagonal = new ArrayList<Character>();
@@ -297,15 +299,14 @@ public class Board
     }
 
     /**
-     * Call this method to run each one of the verify methods in a single method
-     * call. This method will true if any one of the verify conditions return
-     * true. Takes in the piece colour to scan the board for.
+     * This method runs through each verify method for each direction for a piece colour, 
+     * returning true if any of the verifies return true.
      * 
      * Methods include: - verifyVertical - verifyHorizontal - verifyDiagonalLeft
      * - verifyDiagonalRight
      * 
-     * @param pieceColour takes in the piece colour to check if it has won
-     * @return true if game is over (win || draw); false if no winner yet
+     * @param pieceColour The piece colour used to check for wins
+     * @return 			  True if game is over (win || draw); otherwise, returns false
      */
     public boolean gameOver(char pieceColour)
     {

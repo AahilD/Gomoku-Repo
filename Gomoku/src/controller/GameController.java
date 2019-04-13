@@ -8,21 +8,26 @@ import broker.WinAndLosses;
 import gui.MainGUI;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
-
+/**
+ * This class controls the overall instance of A Gomoku game instance.
+ * 
+ * @author Aahil
+ *
+ */
 public abstract class GameController
 {
     protected static Game game;
     private static int roundCount;
 
     /**
-     * call this method to initialize the game controller. This method should
+     * Call this method to initialize the game controller. This method should
      * only be called on the initial game setup.
      * 
-     * @param player1name is a string value that represents the username for
+     * @param player1name Is a string value that represents the username for
      *                    player 1
-     * @param player2name is a string value that represents the username for
+     * @param player2name Is a string value that represents the username for
      *                    player 2
-     * @param isPVE       is a bolean that indicates if the controller should
+     * @param isPVE       Is a boolean that indicates if the controller should
      *                    enter PVE mode, if so boolean value should be true.
      *                    Otherwise false for PvP mode.
      */
@@ -40,10 +45,10 @@ public abstract class GameController
      * have been played. The round currently in session is not included in this
      * value.
      * 
-     * @return roundCount of type int representing the number of rounds that
-     *         have been played prior to the current round being played.
+     * @return roundCount	Type int representing the number of rounds that
+     *        				have been played prior to the current round being played.
      */
-    public int getRoundCount()
+    public static int getRoundCount()
     {
 	return roundCount;
     }
@@ -53,16 +58,16 @@ public abstract class GameController
      * 
      * @return game object instance of type Game.
      */
-    public Game getGame()
+    public static Game getGame()
     {
 	return game;
     }
 
     /**
-     * call this method to set an instance of Game object to this variable
+     * Call this method to set an instance of Game object to this variable
      * called game.
      * 
-     * @param toGame a reference to an instance of an object of type Game.
+     * @param toGame A reference to an instance of an object of type Game.
      */
     public void setGame(Game toGame)
     {
@@ -72,9 +77,9 @@ public abstract class GameController
     /**
      * Call this method to set the value for roundCount, which keeps tracks of
      * how many consecutive games the same two players have played against each
-     * other .
+     * other.
      * 
-     * @param roundCount holds the value of type int of how many rounds the same
+     * @param toRoundCount Holds the value of type int of how many rounds the same
      *                   two players have played against each other.
      */
     public static void setRoundCount(int toRoundCount)
@@ -92,15 +97,15 @@ public abstract class GameController
     }
 
     /**
-     * This method will handle any request by the GUI to place a piece on the
-     * board at the given coordinates.
+     * This method places a player's piece on a specified x,y-coordinate square.
      * 
-     * @param x is a variable of type int that represents the row (x coordinate)
-     *          of the square on the board.
-     * @param y is a variable of type int that represents the column (y
-     *          coordinate) of the square on the board.
-     * @return
-     * @throws IllegalMove
+     * @param x 			Is a variable of type int that represents the row (x coordinate)
+     *         				of the square on the board.
+     * @param y 			Is a variable of type int that represents the column (y
+     *         				coordinate) of the square on the board.
+     * 
+     * @throws IllegalMove	If the square already has a player on it.
+     * @throws WinAndLosses If move played results in a win.
      */
     public static void playMove(int x, int y) throws IllegalMove, WinAndLosses
     {
@@ -117,13 +122,13 @@ public abstract class GameController
     }
 
     /**
-     * call this method to get an ArrayList of type <String> containing all the
+     * Call this method to get an ArrayList of type String containing all the
      * player stats for player one and player two, aggregating them together in
      * a single array. Player should have a method that does this for each
      * player.
      * 
-     * @return ArrayList of type <String> containing the player stats for both
-     *         players
+     * @return ArrayList of type String containing the player stats for both
+     *         players.
      */
     public static ArrayList<String> setupPlayerStats()
     {
@@ -138,10 +143,10 @@ public abstract class GameController
     }
 
     /**
-     * Call this method to setup a new empty 2D ArrayList of type <Button>. Uses
-     * the dimentions of the board to setup the dimentions for this 2D array.
+     * Call this method to setup a new empty 2D ArrayList of type Button. Uses
+     * the dimensions of the board to setup the dimensions for this 2D array.
      * 
-     * @return
+     * @return	An ArrayList of Buttons matching the dimensions of the board.
      */
     public static ArrayList<ArrayList<Button>> setupGameBoard()
     {

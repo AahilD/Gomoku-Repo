@@ -3,18 +3,22 @@ package controller;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import broker.Game;
 import broker.IllegalMove;
 import broker.Square;
 import broker.WinAndLosses;
 import gui.AlertsAndDialogs;
 import gui.MainGUI;
+import sun.applet.Main;
 
 /**
+ *  This controller will be used for managing the Player versus
+ *  environment mode.
+ *  
  * @author GROUP 22
  *
- *         This controller will be used for managing the Player versus
- *         environment mode.
  * 
  */
 public class PVEnvironment extends GameController
@@ -31,8 +35,9 @@ public class PVEnvironment extends GameController
      * Player session, call the same method in the PvPController instead; do not
      * use the one in GameController).
      * 
-     * @param player1name is a string value that represents the username for
-     *                    player 1
+     * @param player1name 	Is a string value that represents the username for
+     *                   	player 1.
+     * @param toLevel		The integer level difficulty for the environment.
      */
     public static void initializeGame(String player1name, int toLevel)
     {
@@ -53,16 +58,16 @@ public class PVEnvironment extends GameController
      * then it will prompt the environment to make a move immediately afterwards
      * based on the level setting the user selected for this PVE session.
      * 
-     * @param x is the (n)th row (starting at 0) of the selected square the user
+     * @param x Is the (n)th row (starting at 0) of the selected square the user
      *          requested to place the piece on.
-     * @param y is the (n)th column (starting at 0) of the selected square the
+     * @param y Is the (n)th column (starting at 0) of the selected square the
      *          user requested to place the piece on.
      */
     public static void playMoveAt(int x, int y)
     {
 	// get the current turn player piece colour
 	// not used
-	//char currentcolour = game.getTurnPlayer().getPieceColour();
+	// char currentcolour = game.getTurnPlayer().getPieceColour();
 
 	try
 	{
@@ -79,6 +84,35 @@ public class PVEnvironment extends GameController
 	{
 
 	}
+    }
+
+    /**
+     * The GUI should call this method to play the move requested by the user.
+     * then it will prompt the environment to make a move immediately afterwards
+     * based on the level setting the user selected for this PVE session.
+     * 
+     * @param x					Is the (n)th row (starting at 0) of the selected square the user
+     *          				requested to place the piece on.
+     * @param y					Is the (n)th column (starting at 0) of the selected square the
+     *          				user requested to place the piece on.
+     * @throws WinAndLosses 	If move results in a win.
+     * @throws IllegalMove 		If there is already a player in this square,
+     */
+    public static void playMoveAtForTextBaseApplication(int x, int y) throws IllegalMove, WinAndLosses
+    {
+	// get the current turn player piece colour
+	// not used
+	// char currentcolour = game.getTurnPlayer().getPieceColour();
+	tryToPlayMoveForTextBaseApplication(x, y);
+
+	// append the player's move to the list
+	System.out.println(x);
+	System.out.println(y);
+	addPlayerMoves(x, y);
+	
+	System.out.println(game.getTurnPlayer() + "'s turn");
+	// have the environment play it's turn.
+	environmentPlayTurn();
     }
 
     /**
@@ -100,15 +134,40 @@ public class PVEnvironment extends GameController
 	    environment_lvl_two();
 	}
     }
-
+    
+    /**
+     * Call this method to start a new round which creates a new game instance.
+     */
     public static void playAnOtherRound()
     {
 
 	game = new Game(game);
 	incrementRoundCount();
+	try {
 	MainGUI.resetBoard(setupGameBoard());
 	MainGUI.updatePlayerStatsPanel(setupPlayerStats());
-	MainGUI.updateTurnCount(game.getTurnCount());
+	MainGUI.updateRoundCount_ResetTurnCount(getRoundCount());
+	}catch(ExceptionInInitializerError e)
+	{
+	    System.out.println("Begin Round #" + getRoundCount());
+	    
+	}catch(NoClassDefFoundError e)
+	{
+	    System.out.println("Begin Round #" + getRoundCount());
+	}
+
+	if (game.getTurnPlayer().getUserName() == ENVIRONMENT_USERNAME)
+	    environmentPlayTurn();
+    }
+    
+    /**
+     * Implementation of playAnOtherRound for text based applications.
+     */
+    public static void playAnOtherRoundFortextBasedApplication()
+    {
+
+	game = new Game(game);
+	incrementRoundCount();
 	if (game.getTurnPlayer().getUserName() == ENVIRONMENT_USERNAME)
 	    environmentPlayTurn();
     }
@@ -149,12 +208,12 @@ public class PVEnvironment extends GameController
     }
 
     /**
-     * @Pending Review 1. identify player's last move (x,y) 2. loop through each
-     *          square next to the coordinate (above, top right, to the right,
-     *          right bottom, below, left bottom, to the left, top left) until
-     *          player == null 3. place token on the available square 4. if not
-     *          available, try second last move 5. keep going through the entire
-     *          list of player's move
+     * @Pending This method contains the logic for environment level 1. Level 1
+     *          will utilize an arraylist of player 1's move history, starting
+     *          from the most recent move to find a place to place their token ,
+     *          which should be in one of the surrounding boxes. If no spaces
+     *          are found based on player 1's tokens, then environment level 0
+     *          is implemented.
      */
 
     private static void environment_lvl_one()
@@ -234,61 +293,14 @@ public class PVEnvironment extends GameController
 	{
 	    if (count == 0)
 	    {
-		int[] x = moves.get(count);
-		if (!environmentMoveSuccesful)
-		{
-		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
-			    x[1] + 1);
-		} else if (!environmentMoveSuccesful)
-		{
-		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
-			    x[1] + 1);
-		} else if (!environmentMoveSuccesful)
-		{
-		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
-			    x[1] - 1);
-		} else if (!environmentMoveSuccesful)
-		{
-		    environmentMoveSuccesful = environmentPlayMoveAt(x[0],
-			    x[1] + 1);
-		} else if (!environmentMoveSuccesful)
-		{
-		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] + 1,
-			    x[1]);
-		} else if (!environmentMoveSuccesful)
-		{
-		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
-			    x[1]);
-		} else if (!environmentMoveSuccesful)
-		{
-		    environmentMoveSuccesful = environmentPlayMoveAt(x[0],
-			    x[1] - 1);
-		} else if (!environmentMoveSuccesful)
-		{
-		    environmentMoveSuccesful = environmentPlayMoveAt(x[0] - 1,
-			    x[1] - 1);
-		}
+		environment_lvl_one();
 		count++;
-
 	    }
 
 	    else if (count < i)
 	    {
 		int[] secondLastMove = moves.get(count - 1);
 		int[] lastMove = moves.get(count);
-
-		// TODO @Aahil so the problem is...
-		/*
-		 * So this is my fault, I gave poor instructions to Emily you
-		 * followed her same logic.
-		 * 
-		 * see level 1, its weird, but it works. you need nest if
-		 * statement after nested if statement
-		 * 
-		 * i know. its weird... but actually if you can find a way to
-		 * create a private method that will can do it recursively you
-		 * may do so. up to you.
-		 */
 
 		// Horizontal Block
 		if (secondLastMove[0] == lastMove[0])
@@ -298,6 +310,10 @@ public class PVEnvironment extends GameController
 		    {
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				lastMove[0], lastMove[1] + 1);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 
 		    else if (!environmentMoveSuccesful
@@ -305,6 +321,10 @@ public class PVEnvironment extends GameController
 		    {
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				lastMove[0], lastMove[1] + 1);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 
 		    else if (!environmentMoveSuccesful
@@ -314,6 +334,10 @@ public class PVEnvironment extends GameController
 			aiPlayMoveAty = (secondLastMove[1] + lastMove[1]) / 2;
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				lastMove[0], aiPlayMoveAty);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 
 		    else if (!environmentMoveSuccesful
@@ -322,6 +346,10 @@ public class PVEnvironment extends GameController
 			aiPlayMoveAty = (lastMove[1] + secondLastMove[1]) / 2;
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				lastMove[0], aiPlayMoveAty);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 
 		    else if (!environmentMoveSuccesful
@@ -331,6 +359,10 @@ public class PVEnvironment extends GameController
 				/ 2;
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				lastMove[0], aiPlayMoveAty);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 		}
 
@@ -342,6 +374,10 @@ public class PVEnvironment extends GameController
 		    {
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				lastMove[0] + 1, lastMove[1]);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 
 		    else if (!environmentMoveSuccesful
@@ -349,6 +385,10 @@ public class PVEnvironment extends GameController
 		    {
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				lastMove[0] + 1, lastMove[1]);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 
 		    else if (!environmentMoveSuccesful
@@ -358,6 +398,10 @@ public class PVEnvironment extends GameController
 			aiPlayMoveAtx = (secondLastMove[0] + lastMove[0]) / 2;
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				aiPlayMoveAtx, lastMove[1]);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 
 		    else if (!environmentMoveSuccesful
@@ -366,6 +410,10 @@ public class PVEnvironment extends GameController
 			aiPlayMoveAtx = (lastMove[0] + secondLastMove[0]) / 2;
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				aiPlayMoveAtx, lastMove[1]);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 
 		    else if (!environmentMoveSuccesful
@@ -375,6 +423,10 @@ public class PVEnvironment extends GameController
 				/ 2;
 			environmentMoveSuccesful = environmentPlayMoveAt(
 				aiPlayMoveAtx, lastMove[1]);
+			if (!environmentMoveSuccesful)
+			{
+			    environment_lvl_one();
+			}
 		    }
 		}
 
@@ -390,6 +442,10 @@ public class PVEnvironment extends GameController
 			{
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    lastMove[0] - 1, lastMove[1] - 1);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 			else if (!environmentMoveSuccesful
@@ -401,6 +457,10 @@ public class PVEnvironment extends GameController
 				    / 2;
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    aiPlayMoveAtx, aiPlayMoveAty);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 			else if (!environmentMoveSuccesful
@@ -412,6 +472,10 @@ public class PVEnvironment extends GameController
 				    + 1) / 2;
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    aiPlayMoveAtx, aiPlayMoveAty);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 		    }
@@ -424,6 +488,10 @@ public class PVEnvironment extends GameController
 			{
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    lastMove[0] + 1, lastMove[1] + 1);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 			else if (!environmentMoveSuccesful
@@ -435,6 +503,10 @@ public class PVEnvironment extends GameController
 				    / 2;
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    aiPlayMoveAtx, aiPlayMoveAty);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 			else if (!environmentMoveSuccesful
@@ -446,6 +518,10 @@ public class PVEnvironment extends GameController
 				    + 1) / 2;
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    aiPlayMoveAtx, aiPlayMoveAty);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 		    }
@@ -463,6 +539,10 @@ public class PVEnvironment extends GameController
 			{
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    lastMove[0] - 1, lastMove[1] + 1);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 			else if (!environmentMoveSuccesful
@@ -474,6 +554,10 @@ public class PVEnvironment extends GameController
 				    / 2;
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    aiPlayMoveAtx, aiPlayMoveAty);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 			else if (!environmentMoveSuccesful
@@ -485,6 +569,10 @@ public class PVEnvironment extends GameController
 				    - 1) / 2;
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    aiPlayMoveAtx, aiPlayMoveAty);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 		    }
@@ -498,6 +586,10 @@ public class PVEnvironment extends GameController
 			{
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    lastMove[0] + 1, lastMove[1] - 1);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 			else if (!environmentMoveSuccesful
@@ -509,6 +601,10 @@ public class PVEnvironment extends GameController
 				    / 2;
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    aiPlayMoveAtx, aiPlayMoveAty);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 			else if (!environmentMoveSuccesful
@@ -520,40 +616,74 @@ public class PVEnvironment extends GameController
 				    - 1) / 2;
 			    environmentMoveSuccesful = environmentPlayMoveAt(
 				    aiPlayMoveAtx, aiPlayMoveAty);
+			    if (!environmentMoveSuccesful)
+			    {
+				environment_lvl_one();
+			    }
 			}
 
 		    }
+
 		}
 
-		// TODO @Aahil you need a catch-all statement
-		/*
-		 * somewhere at teh verry end of your method here you need to
-		 * see if environment still failed to play a move. if so call
-		 * env_lvl_1() let it do it's magic.
-		 * 
-		 * everywhere in your code that could run into a dead-end so to
-		 * speak, add an else{} statement or whatever and call on the
-		 * level bellow it to attempt to make a move.
-		 * 
-		 * you will see env_level_1() calls env_lvl_0() when lvl 1 logic
-		 * fails to play a move.
-		 * 
-		 * that way you keep going down the latter.
-		 */
+		else if (!environmentMoveSuccesful)
+		{
+		    environment_lvl_one();
+		}
+
 		count++;
 	    }
 	}
     }
 
+    /**
+     * Attempts to play move at a specified x and y coordinate.
+     * 
+     * @param x					An int x coordinate to play on.
+     * @param y					An int y coordinate to play on.
+     * @throws IllegalMove		Thrown if another player is already on that square.
+     * @throws WinAndLosses		Thrown if move results in a win.
+     */
     private static void tryToPlayMove(int x, int y)
 	    throws IllegalMove, WinAndLosses
     {
 	playMove(x, y);
+	try {
 	MainGUI.updateBoardSquareButton(x, y,
 		game.getTurnPlayer().getPieceColour());
 	MainGUI.updateTurnCount(game.incrementPlayerTurn());
+	}catch(ExceptionInInitializerError e)
+	{
+	    game.incrementPlayerTurn();
+	    System.out.println("turn " + game.getTurnCount());
+	    System.out.println(game.getTurnPlayer().getUserName() + "'s turn!");
+	}catch (NoClassDefFoundError e) {
+	    game.incrementPlayerTurn();
+	    System.out.println("turn " + game.getTurnCount());
+	    System.out.println(game.getTurnPlayer().getUserName() + "'s turn!");
+	}
     }
 
+    /**
+     * Implementation of tryToPlayMove for text based applications.
+     */
+    private static void tryToPlayMoveForTextBaseApplication(int x, int y)
+	    throws IllegalMove, WinAndLosses
+    {
+	playMove(x, y);
+	game.incrementPlayerTurn();
+    }
+    
+    /**
+     * Plays the environment's move, catching a WinAndLosses exception if a win happens to prompt a new
+     * round, else returning  true if move was played if no other exception is thrown, otherwise returning
+     * false if an exception is caught.
+     * if it was not
+     * @param x		An int x coordinate to play at
+     * @param y		An int y coordinate to play at
+     * @return		False if any other exception besides WinAndLosses is caught, True if
+     * 				no exception is caught.
+     */
     private static boolean environmentPlayMoveAt(int x, int y)
     {
 	boolean moveSuccessful = false;
@@ -574,7 +704,12 @@ public class PVEnvironment extends GameController
 	    {
 		// if they do not wish to play an other round just close the
 		// application.
+		try {
 		MainGUI.closeApplication();
+		}catch(Exception e)
+		{
+		    System.out.println("Goodbye!");
+		}
 	    }
 
 	} catch (IllegalMove e)
@@ -590,7 +725,7 @@ public class PVEnvironment extends GameController
     /**
      * Get the history of each move the user has made.
      * 
-     * @return the playerMoves
+     * @return the playerMoves as an ArrayList.
      */
     public static ArrayList<int[]> getPlayerMoves()
     {
@@ -601,7 +736,8 @@ public class PVEnvironment extends GameController
      * Once the player's move is successful, add the x and y coordinates to the
      * list.
      * 
-     * @param playerMoves the playerMoves to set
+     * @param x  Integer x-coordinate of the player's move.
+     * @param y  Integer y-coordinate of the player's move.
      */
     public static void addPlayerMoves(int x, int y)
     {
@@ -609,9 +745,21 @@ public class PVEnvironment extends GameController
 	playerMoveHistory.add(xy);
     }
 
+    /**
+     * Gets the player's latest move.
+     * 
+     * @return Latest player move as an integer,
+     */
     public static int[] getPlayersLastMove()
     {
 	return playerMoveHistory.get(playerMoveHistory.size() - 1);
     }
 
+    public static void initializeGameForTextBaseApplication(String username, int level)
+    {
+	game = new Game(username, "Big Blue");
+	playerMoveHistory = new ArrayList<int[]>();
+	environmentLevel = level;
+	setRoundCount(0);
+    }
 }

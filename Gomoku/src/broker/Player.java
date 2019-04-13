@@ -3,10 +3,11 @@ package broker;
 import java.util.ArrayList;
 
 /**
- * @author GROUP 22 Code implementation by Leslie Nguyen
+ * This class represents an object of type Player which will contain and
+ * maintain all the relevant player profile info, such as name, piece colour,
+ *  and the number of wins, losses, and draws the player has.
  * 
- *         This class represents an object of type Player which will contain and
- *         maintain all the relevant player profile.
+ * @author GROUP 22 Code implementation by Leslie Nguyen
  * 
  */
 
@@ -29,7 +30,8 @@ public class Player
 
     // constructors
     /**
-     * This constructs a player with a user name and piece colour.
+     * Construct a player with a user name and piece colour, and set wins, losses,
+     * and draws to 0.
      * 
      * @param toName   The String name is given to the instance variable of
      *                 userName
@@ -46,10 +48,9 @@ public class Player
     }
 
     /**
-     * This constructs a copy of a player with the original player
+     * Construct a copy of a player with the original player.
      * 
-     * @param toPlayer The toPlayer is the original Player object that is used
-     *                 to create a copy
+     * @param toPlayer The Player object to create a copy of.
      */
     public Player(Player toPlayer)
     {
@@ -59,11 +60,27 @@ public class Player
 	setLoseCount(toPlayer.getWinCount());
 	setDrawCount(toPlayer.getDrawCount());
     }
+    
+    /**
+     * Construct a copy of Player but swaps the piece colour
+     * to aid in swapping which player is player one.
+     *  
+     * @param toPlayer			The player to copy.
+     * @param newPieceColour	The new piece colour.
+     */
+    public Player(Player toPlayer, char newPieceColour)
+    {
+	setUserName(toPlayer.getUserName());
+	setPieceColour(newPieceColour);
+	setWinCount(toPlayer.getWinCount());
+	setLoseCount(toPlayer.getWinCount());
+	setDrawCount(toPlayer.getDrawCount());
+    }
 
     /**
-     * This getter returns the player string stored in the userName.
+     *Returns the player string stored in the userName.
      * 
-     * @return this player's user name
+     * @return This player's user name.
      */
     public String getUserName()
     {
@@ -71,9 +88,9 @@ public class Player
     }
 
     /**
-     * This getter returns the number stored in the winCount.
+     * Returns the number stored in the winCount.
      * 
-     * @return this player's count of winning games
+     * @return This player's count of winning games.
      */
     public int getWinCount()
     {
@@ -81,9 +98,9 @@ public class Player
     }
 
     /**
-     * This getter returns the number stored in the lostCount.
+     * Returns the number stored in the lostCount.
      * 
-     * @return this player's counts of loses in games
+     * @return This player's counts of loses in games.
      */
     public int getLoseCount()
     {
@@ -91,9 +108,9 @@ public class Player
     }
 
     /**
-     * This getter returns the number stored in the DrawCount.
+     * Returns the number stored in the DrawCount.
      * 
-     * @return this player's count of draws in games
+     * @return This player's count of draws in games.
      */
     public int getDrawCount()
     {
@@ -101,9 +118,9 @@ public class Player
     }
 
     /**
-     * This getter returns a copy of the piece stored in pieceColour.
+     * Returns a copy of the piece stored in pieceColour.
      * 
-     * @return this player's piece colour
+     * @return This player's piece colour.
      */
     public char getPieceColour()
     {
@@ -111,9 +128,9 @@ public class Player
     }
 
     /**
-     * This method returns the pieceColour's full name as a string
+     * Returns the pieceColour's full name as a string. 'w' is White, and 'b' is Black.
      * 
-     * @return full name of piece colour from character as String
+     * @return full name of piece colour from character as String.
      */
     public String pieceColourToString()
     {
@@ -128,9 +145,9 @@ public class Player
     }
 
     /**
-     * This Setter sets the userName instance variable with a string.
+     * Sets the userName instance variable with a string.
      * 
-     * @param userName The string is given to the instance variable of userName
+     * @param userName A String that is the players user name.
      */
     public void setUserName(String userName)
     {
@@ -138,10 +155,9 @@ public class Player
     }
 
     /**
-     * This Setter sets the winCount instance variable with an integer.
+     * Sets the winCount instance variable with an integer.
      * 
-     * @param winCount The integer amount of wins is given to the instance
-     *                 variable of winCount
+     * @param winCount An integer number of wins.
      */
     public void setWinCount(int winCount)
     {
@@ -149,10 +165,9 @@ public class Player
     }
 
     /**
-     * This setter sets the loseCount instance variable with an integer.
+     * Sets the loseCount instance variable with an integer.
      * 
-     * @param loseCount The integer amount of loses is given to the instance
-     *                  variable of loseCount
+     * @param loseCount An integer number of losses.
      */
     public void setLoseCount(int loseCount)
     {
@@ -160,10 +175,9 @@ public class Player
     }
 
     /**
-     * This setter sets the drawCount instance variable with an integer.
+     * Sets the drawCount instance variable with an integer.
      * 
-     * @param drawCount The integer amount of draws is given to the instance
-     *                  variable of drawCount
+     * @param drawCount An integer number of draws.
      */
     public void setDrawCount(int drawCount)
     {
@@ -171,11 +185,10 @@ public class Player
     }
 
     /**
-     * This setter sets the piece colour from a character representing that
-     * colour
+     * Sets the piece colour from a character representing that colour. 'w' is a White piece,
+     * and 'b' is a Black piece.
      * 
-     * @param toColour The character representing the colour of a piece is given
-     *                 to the instance variable pieceColour
+     * @param toColour A char representing the colour of a piece.
      * 
      */
     private void setPieceColour(char toColour)
@@ -184,8 +197,7 @@ public class Player
     }
 
     /**
-     * This method creates an ArrayList storing player statistics and
-     * information.
+     * Create an ArrayList storing player Username, wins, losses, draws, and piece colour.
      * 
      * @return This payer's Username, number of wins, number of loses, number of
      *         games resulting in a draw and piece colour in an ArrayList
@@ -202,7 +214,7 @@ public class Player
     }
 
     /**
-     * This method increments the amount in winCount by one
+     * Increments the amount in winCount by one.
      */
     public void incrementWinCount()
     {
@@ -210,7 +222,7 @@ public class Player
     }
 
     /**
-     * This method increments the amount in loseCount by one
+     * Increments the amount in loseCount by one.
      */
     public void incrementLoseCount()
     {
@@ -218,7 +230,7 @@ public class Player
     }
 
     /**
-     * This method increments the amount in drawCount by one
+     * Increments the amount in drawCount by one.
      */
     public void incrementDrawCount()
     {
