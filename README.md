@@ -44,12 +44,18 @@ This game will prompt the user if they wish to play against another player (PVP)
 
 Once you have imported this application into Eclipse, (for now) run the application from PlayerRegistrationForm.Java (this will launch the GUI based application. The default package will only contain a single class that will run the text based application.
 
-A tar.gz file will soon be made available.
-1. download the tar.gz file to download folder
-2. extract in the same folder
-3. run the install script (Double check install.sh script)
+1. download the zip file to /Downloads folder (or anywhere else)
+2. extract contents and go into the extracted Directory /Gomoku
+3. run the install script (run the install.sh script NEVER TRUST SCRIPTS, ALWAYS DOUBLE CHECK BEFORE RUNNNING)
 - the Gomoku folder will be placed in the ~/ directory. Inside there is an uninstall.sh script you may run to remove the application.
-- Once installed a .desktop file will be available on your desktop to run the application.
+- The installation script will move the application to ~/ and create a desktop launcher in your ~/Desktop directory
+- Once installation is complete the launcher should appear on your desktop, run the program by clicking on the laucnher
+- to uninstall, run the uninstall script located on your ~/Gomoku directory.
+- for the text base version you will have to run the command "java -jar ~/Gomoku/TextBaseVersionGomoku.jar"
+
+- if you do not wish to install the application, the files are set to be hidden by having a preceding "." before the name.
+- you can view the hiden files by allowing your directory explorer to view hidden files
+- you can run the commands "java -jar .Gomoku.jar"
 
 - Download tar.gz from:
 https://github.com/manucote/UC-G22/raw/dev-branch/Gomoku.tar.gz
